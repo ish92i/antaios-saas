@@ -26,7 +26,7 @@ export function SubscriptionSuccessEmail({ email }: SubscriptionEmailOptions) {
   return (
     <Html>
       <Head />
-      <Preview>Successfully Subscribed to PRO</Preview>
+      <Preview>Successfully Subscribed to Direct</Preview>
       <Body
         style={{
           backgroundColor: "#ffffff",
@@ -45,7 +45,7 @@ export function SubscriptionSuccessEmail({ email }: SubscriptionEmailOptions) {
             Hello {email}!
           </Text>
           <Text style={{ fontSize: "16px", lineHeight: "26px" }}>
-            Your subscription to PRO has been successfully processed.
+            Your subscription to Direct has been successfully processed.
             <br />
             We hope you enjoy the new features!
           </Text>
@@ -85,7 +85,7 @@ export function SubscriptionErrorEmail({ email }: SubscriptionEmailOptions) {
             Hello {email}.
           </Text>
           <Text style={{ fontSize: "16px", lineHeight: "26px" }}>
-            We were unable to process your subscription to PRO tier.
+            We were unable to process your subscription to Direct.
             <br />
             But don't worry, we'll not charge you anything.
           </Text>
@@ -124,7 +124,7 @@ export async function sendSubscriptionSuccessEmail({
 
   await sendEmail({
     to: email,
-    subject: "Successfully Subscribed to PRO",
+    subject: "Successfully Subscribed to Direct",
     html,
   });
 }
@@ -137,7 +137,7 @@ export async function sendSubscriptionErrorEmail({
 
   await sendEmail({
     to: email,
-    subject: "Subscription Issue - Customer Support",
+    subject: "Subscription Issue",
     html,
   });
 }
