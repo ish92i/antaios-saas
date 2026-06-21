@@ -46,7 +46,11 @@ export const getCurrentUser = query({
 export const createUserIfNeeded = mutation({
   args: {},
   handler: async (ctx) => {
-    return (await ensureUser(ctx))?._id;
+    const user = await ensureUser(ctx);
+    if (!user) {
+      throw new Error("Unable to create a user before auth is ready.");
+    }
+    return user._id;
   },
 });
 

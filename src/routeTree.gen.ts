@@ -20,7 +20,6 @@ import { Route as AppAuthDashboardLayoutIndexRouteImport } from './routes/_app/_
 import { Route as AppAuthOnboardingLayoutUsernameRouteImport } from './routes/_app/_auth/onboarding/_layout.username'
 import { Route as AppAuthDashboardLayoutSettingsRouteImport } from './routes/_app/_auth/dashboard/_layout.settings'
 import { Route as AppAuthDashboardLayoutCheckoutRouteImport } from './routes/_app/_auth/dashboard/_layout.checkout'
-import { Route as AppAuthDashboardLayoutSettingsIndexRouteImport } from './routes/_app/_auth/dashboard/_layout.settings.index'
 import { Route as AppAuthDashboardLayoutSettingsBillingRouteImport } from './routes/_app/_auth/dashboard/_layout.settings.billing'
 
 const AppRoute = AppRouteImport.update({
@@ -80,12 +79,6 @@ const AppAuthDashboardLayoutCheckoutRoute =
     path: '/checkout',
     getParentRoute: () => AppAuthDashboardLayoutRoute,
   } as any)
-const AppAuthDashboardLayoutSettingsIndexRoute =
-  AppAuthDashboardLayoutSettingsIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AppAuthDashboardLayoutSettingsRoute,
-  } as any)
 const AppAuthDashboardLayoutSettingsBillingRoute =
   AppAuthDashboardLayoutSettingsBillingRouteImport.update({
     id: '/billing',
@@ -104,17 +97,16 @@ export interface FileRoutesByFullPath {
   '/onboarding/username': typeof AppAuthOnboardingLayoutUsernameRoute
   '/dashboard/': typeof AppAuthDashboardLayoutIndexRoute
   '/dashboard/settings/billing': typeof AppAuthDashboardLayoutSettingsBillingRoute
-  '/dashboard/settings/': typeof AppAuthDashboardLayoutSettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/onboarding': typeof AppAuthOnboardingLayoutRouteWithChildren
   '/login': typeof AppLoginLayoutIndexRoute
   '/dashboard/checkout': typeof AppAuthDashboardLayoutCheckoutRoute
+  '/dashboard/settings': typeof AppAuthDashboardLayoutSettingsRouteWithChildren
   '/onboarding/username': typeof AppAuthOnboardingLayoutUsernameRoute
   '/dashboard': typeof AppAuthDashboardLayoutIndexRoute
   '/dashboard/settings/billing': typeof AppAuthDashboardLayoutSettingsBillingRoute
-  '/dashboard/settings': typeof AppAuthDashboardLayoutSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -130,7 +122,6 @@ export interface FileRoutesById {
   '/_app/_auth/onboarding/_layout/username': typeof AppAuthOnboardingLayoutUsernameRoute
   '/_app/_auth/dashboard/_layout/': typeof AppAuthDashboardLayoutIndexRoute
   '/_app/_auth/dashboard/_layout/settings/billing': typeof AppAuthDashboardLayoutSettingsBillingRoute
-  '/_app/_auth/dashboard/_layout/settings/': typeof AppAuthDashboardLayoutSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -145,17 +136,16 @@ export interface FileRouteTypes {
     | '/onboarding/username'
     | '/dashboard/'
     | '/dashboard/settings/billing'
-    | '/dashboard/settings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/onboarding'
     | '/login'
     | '/dashboard/checkout'
+    | '/dashboard/settings'
     | '/onboarding/username'
     | '/dashboard'
     | '/dashboard/settings/billing'
-    | '/dashboard/settings'
   id:
     | '__root__'
     | '/'
@@ -170,7 +160,6 @@ export interface FileRouteTypes {
     | '/_app/_auth/onboarding/_layout/username'
     | '/_app/_auth/dashboard/_layout/'
     | '/_app/_auth/dashboard/_layout/settings/billing'
-    | '/_app/_auth/dashboard/_layout/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -257,13 +246,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAuthDashboardLayoutCheckoutRouteImport
       parentRoute: typeof AppAuthDashboardLayoutRoute
     }
-    '/_app/_auth/dashboard/_layout/settings/': {
-      id: '/_app/_auth/dashboard/_layout/settings/'
-      path: '/'
-      fullPath: '/dashboard/settings/'
-      preLoaderRoute: typeof AppAuthDashboardLayoutSettingsIndexRouteImport
-      parentRoute: typeof AppAuthDashboardLayoutSettingsRoute
-    }
     '/_app/_auth/dashboard/_layout/settings/billing': {
       id: '/_app/_auth/dashboard/_layout/settings/billing'
       path: '/billing'
@@ -276,15 +258,12 @@ declare module '@tanstack/react-router' {
 
 interface AppAuthDashboardLayoutSettingsRouteChildren {
   AppAuthDashboardLayoutSettingsBillingRoute: typeof AppAuthDashboardLayoutSettingsBillingRoute
-  AppAuthDashboardLayoutSettingsIndexRoute: typeof AppAuthDashboardLayoutSettingsIndexRoute
 }
 
 const AppAuthDashboardLayoutSettingsRouteChildren: AppAuthDashboardLayoutSettingsRouteChildren =
   {
     AppAuthDashboardLayoutSettingsBillingRoute:
       AppAuthDashboardLayoutSettingsBillingRoute,
-    AppAuthDashboardLayoutSettingsIndexRoute:
-      AppAuthDashboardLayoutSettingsIndexRoute,
   }
 
 const AppAuthDashboardLayoutSettingsRouteWithChildren =

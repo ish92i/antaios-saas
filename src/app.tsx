@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
 import React from "react";
 import { router } from "@/router";
-import "@/i18n";
 
 const VITE_CONVEX_URL = import.meta.env.VITE_CONVEX_URL as string | undefined;
 const CLERK_PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as

@@ -32,7 +32,18 @@ export default function DashboardCheckout() {
   }, []);
 
   if (!user) {
-    return null;
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-secondary px-6 dark:bg-black">
+        <section className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm dark:bg-black">
+          <h1 className="text-xl font-semibold text-primary">
+            Loading checkout
+          </h1>
+          <p className="mt-2 text-sm text-primary/60">
+            Fetching your account data.
+          </p>
+        </section>
+      </div>
+    );
   }
 
   return (

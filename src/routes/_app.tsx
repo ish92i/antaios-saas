@@ -9,8 +9,10 @@ export const Route = createFileRoute("/_app")({
       await context.queryClient.ensureQueryData(
         convexQuery(api.app.getCurrentUser, {}),
       );
-    } catch (err) {
-      console.error("Failed to load user data", err);
+    } catch {
+      context.queryClient.removeQueries({
+        queryKey: convexQuery(api.app.getCurrentUser, {}).queryKey,
+      });
     }
   },
 });
