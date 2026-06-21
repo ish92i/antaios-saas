@@ -1,8 +1,8 @@
 import { v } from "convex/values"
 import type { UserIdentity } from "convex/server"
-import { action, internalMutation, mutation, query } from "./_generated/server"
-import type { MutationCtx } from "./_generated/server"
-import { api } from "./_generated/api"
+import { action, internalMutation, mutation, query } from "@cvx/_generated/server"
+import type { MutationCtx } from "@cvx/_generated/server"
+import { api, internal } from "@cvx/_generated/api"
 import { APP_URL, DIRECT_PLAN_ID } from "@cvx/env"
 import { checkout, customerPortal } from "./dodo"
 
@@ -72,7 +72,7 @@ export const createCheckoutSession = action({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity()
     if (!identity) throw new Error("Unauthorized")
-    const orgId = args.orgId ?? orgIdFromClaims(identity)
+    const orgId = orgIdFromClaims(identity)
 
     const productId = DIRECT_PLAN_ID
     if (!productId) throw new Error("DIRECT_PLAN_ID env var not set")
@@ -154,7 +154,9 @@ export const storeSubscription = mutation({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity()
-    if (!identity) throw new Error("UNAUTHORIZED")
+    if (!identity) throw new Error("Unauthorized")
+
+    const orgId = orgIdFromClaims(identity)
 
     const existing = await ctx.db
       .query("subscriptions")
@@ -238,7 +240,7 @@ export const updateSubscriptionStatus = mutation({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity()
-    if (!identity) throw new Error("UNAUTHORIZED")
+    if (!identity) throw new Error("Unauthorized")
 
     const existing = await ctx.db
       .query("subscriptions")
@@ -247,14 +249,12 @@ export const updateSubscriptionStatus = mutation({
       )
       .first()
 
-    if (!existing) return
+    if (!existing) throw new Error("Not found")
 
     const ownsSubscription = existing.userId === identity.subject
-    if (!ownsSubscription) throw new Error("NOT_FOUND")
+    if (!ownsSubscription) throw new Error("Not found")
 
-    if (existing) {
-      await ctx.db.patch(existing._id, { status: args.status })
-    }
+    await ctx.db.patch(existing._id, { status: args.status })
   },
 })
 
@@ -268,8 +268,8 @@ export const getUserSubscription = query({
 
     if (args.orgId) {
       const orgId = orgIdFromClaims(identity)
-      if (!orgId) throw new Error("ORG_REQUIRED")
-      if (orgId !== args.orgId) throw new Error("ORG_MISMATCH")
+      if (!orgId) throw new Error("Org required")
+      if (orgId !== args.orgId) throw new Error("Org mismatch")
       const subscription = await ctx.db
         .query("subscriptions")
         .withIndex("userId", (q) => q.eq("userId", orgId))
