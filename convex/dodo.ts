@@ -8,8 +8,8 @@ export const dodo = new DodoPayments(components.dodopayments, {
     if (!identity) return null;
     return { dodoCustomerId: identity.subject };
   },
-  apiKey: DODO_PAYMENTS_API_KEY!,
-  environment: DODO_PAYMENTS_ENVIRONMENT as "test_mode" | "live_mode",
+  apiKey: DODO_PAYMENTS_API_KEY ?? "",
+  environment: (DODO_PAYMENTS_ENVIRONMENT ?? "test_mode") as "test_mode" | "live_mode",
 });
 
 export const { checkout, customerPortal } = dodo.api();

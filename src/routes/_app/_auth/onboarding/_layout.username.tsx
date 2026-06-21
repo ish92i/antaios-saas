@@ -10,7 +10,6 @@ import { api } from "~/convex/_generated/api";
 import { Route as DashboardRoute } from "@/routes/_app/_auth/dashboard/_layout.index";
 import * as validators from "@/utils/validators";
 import { useEffect, useState } from "react";
-import { getLocaleCurrency } from "@/utils/misc";
 
 export const Route = createFileRoute("/_app/_auth/onboarding/_layout/username")(
   {
@@ -38,7 +37,6 @@ export default function OnboardingUsername() {
       setIsSubmitting(true);
       await completeOnboarding({
         username: value.username,
-        currency: getLocaleCurrency(),
       });
       setIsSubmitting(false);
     },

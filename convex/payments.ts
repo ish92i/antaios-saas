@@ -2,7 +2,7 @@ import { v } from "convex/values"
 import type { UserIdentity } from "convex/server"
 import { action, internalMutation, mutation, query } from "@cvx/_generated/server"
 import type { MutationCtx } from "@cvx/_generated/server"
-import { api, internal } from "@cvx/_generated/api"
+import { api } from "@cvx/_generated/api"
 import { APP_URL, DIRECT_PLAN_ID } from "@cvx/env"
 import { checkout, customerPortal } from "./dodo"
 
@@ -73,6 +73,8 @@ export const createCheckoutSession = action({
     const identity = await ctx.auth.getUserIdentity()
     if (!identity) throw new Error("Unauthorized")
     const orgId = orgIdFromClaims(identity)
+    if (args.orgId && !orgId) throw new Error("Org required")
+    if (args.orgId && orgId !== args.orgId) throw new Error("Org mismatch")
 
     const productId = DIRECT_PLAN_ID
     if (!productId) throw new Error("DIRECT_PLAN_ID env var not set")
@@ -155,8 +157,6 @@ export const storeSubscription = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity()
     if (!identity) throw new Error("Unauthorized")
-
-    const orgId = orgIdFromClaims(identity)
 
     const existing = await ctx.db
       .query("subscriptions")
