@@ -66,7 +66,7 @@ export function SubscriptionErrorEmail({ email }: SubscriptionEmailOptions) {
   return (
     <Html>
       <Head />
-      <Preview>Subscription Issue - Customer Support</Preview>
+      <Preview>Subscription Issue</Preview>
       <Body
         style={{
           backgroundColor: "#ffffff",

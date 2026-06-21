@@ -1,9 +1,9 @@
 import { v } from "convex/values"
 import type { UserIdentity } from "convex/server"
-import { action, internalMutation, mutation, query } from "@cvx/_generated/server"
+import { action, internalAction, internalMutation, mutation, query } from "@cvx/_generated/server"
 import type { MutationCtx } from "@cvx/_generated/server"
 import { api } from "@cvx/_generated/api"
-import { APP_URL, DIRECT_PLAN_ID } from "@cvx/env"
+import { APP_URL, DODO_PAYMENTS_API_KEY, DODO_PAYMENTS_ENVIRONMENT, DIRECT_PLAN_ID } from "@cvx/env"
 import { checkout, customerPortal } from "./dodo"
 
 const claimString = (identity: UserIdentity, claim: string) => {
@@ -284,5 +284,46 @@ export const getUserSubscription = query({
       .first()
 
     return subscription
+  },
+})
+
+const getDodoBaseUrl = () => {
+  return DODO_PAYMENTS_ENVIRONMENT === "live_mode"
+    ? "https://live.dodopayments.com"
+    : "https://test.dodopayments.com"
+}
+
+const dodoApiFetch = async (path: string, options: { method: string; body?: unknown }) => {
+  const apiKey = DODO_PAYMENTS_API_KEY
+  if (!apiKey) throw new Error("DODO_PAYMENTS_API_KEY not set")
+
+  const response = await fetch(`${getDodoBaseUrl()}${path}`, {
+    method: options.method,
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: options.body ? JSON.stringify(options.body) : undefined,
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text()
+    throw new Error(`Dodo API error (${response.status}): ${errorText}`)
+  }
+
+  return await response.json()
+}
+
+export const cancelDodoSubscription = internalAction({
+  args: {
+    dodoSubscriptionId: v.string(),
+  },
+  handler: async (_ctx, args) => {
+    await dodoApiFetch(`/subscriptions/${args.dodoSubscriptionId}`, {
+      method: "PATCH",
+      body: {
+        cancel_at_next_billing_date: true,
+      },
+    })
   },
 })

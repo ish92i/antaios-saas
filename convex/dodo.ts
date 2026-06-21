@@ -16,5 +16,5 @@ export const { checkout, customerPortal } = dodo.api();
 
 export const planNameFromProductId = (productId: string): string => {
   if (productId === DIRECT_PLAN_ID) return "Direct";
-  return "Inconnu";
+  return "Unknown";
 };

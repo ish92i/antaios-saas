@@ -2,6 +2,7 @@ import { mutation, query } from "@cvx/_generated/server";
 import { v } from "convex/values";
 import { User } from "~/types";
 import { getUserId, ensureUser } from "@cvx/auth";
+import { internal } from "@cvx/_generated/api";
 
 export const getCurrentUser = query({
   args: {},
@@ -109,6 +110,11 @@ export const deleteCurrentUserAccount = mutation({
       .query("subscriptions")
       .withIndex("userId", (q) => q.eq("userId", identity.subject))
       .first();
+    if (subscription?.dodoSubscriptionId) {
+      await ctx.scheduler.runAfter(0, internal.payments.cancelDodoSubscription, {
+        dodoSubscriptionId: subscription.dodoSubscriptionId,
+      });
+    }
     if (subscription) {
       await ctx.db.delete(subscription._id);
     }
