@@ -61,7 +61,7 @@ const schema = defineSchema({
       type: v.string(),
       label: v.string(),
       options: v.optional(v.array(v.any())),
-      geoType: v.optional(v.union(v.literal("file"), v.null())),
+      geoType: v.optional(v.union(v.literal("file"), v.literal("coordinates"), v.null())),
       pendingSupplier: v.optional(v.boolean()),
     }))),
     supplierEmail: v.optional(v.string()),
@@ -88,7 +88,6 @@ const schema = defineSchema({
     storageId: v.id("_storage"),
     fileName: v.string(),
     mimeType: v.string(),
-    pageCount: v.optional(v.number()),
     extractionStatus: v.union(
       v.literal("pending"),
       v.literal("processing"),

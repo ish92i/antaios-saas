@@ -8,6 +8,7 @@ const steps = [
   { key: "supplier", label: "Fournisseur", icon: UserCheck },
   { key: "scan", label: "Scan déforestation", icon: Globe },
   { key: "ready", label: "Prêt", icon: ShieldCheck },
+  { key: "submitted", label: "Soumis", icon: CheckCircle2 },
 ]
 
 export function ShipmentTimeline({
@@ -74,6 +75,7 @@ export function getTimelineStep(shipment: {
   supplierToken?: string | null
   completeness?: string
 }): string {
+  if (shipment.status === "submitted") return "submitted"
   if (shipment.completeness === "green" && shipment.scanResult) return "ready"
   if (shipment.scanResult) return "scan"
   if (shipment.supplierToken) return "supplier"

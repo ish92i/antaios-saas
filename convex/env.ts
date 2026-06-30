@@ -1,5 +1,5 @@
-export const AUTH_RESEND_KEY = process.env.AUTH_RESEND_KEY;
-export const AUTH_EMAIL = process.env.AUTH_EMAIL;
+export const RESEND_API_KEY = process.env.RESEND_API_KEY;
+export const RESEND_EMAIL = process.env.RESEND_EMAIL;
 export const SITE_URL = process.env.SITE_URL;
 export const APP_URL = process.env.APP_URL;
 export const DODO_PAYMENTS_API_KEY = process.env.DODO_PAYMENTS_API_KEY;
@@ -9,5 +9,4 @@ export const DIRECT_PLAN_ID = process.env.DIRECT_PLAN_ID;
 export const LITELLM_BASE_URL = process.env.LITELLM_BASE_URL;
 export const LITELLM_API_KEY = process.env.LITELLM_API_KEY;
 export const GFW_API_KEY = process.env.GFW_API_KEY;
-export const RESEND_API_KEY = process.env.RESEND_API_KEY;
-export const GT_API_KEY = process.env.GT_API_KEY;
+export const DEEPL_API_KEY = process.env.DEEPL_API_KEY;

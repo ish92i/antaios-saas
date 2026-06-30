@@ -1,5 +1,3 @@
-"use node"
-
 import { action } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
@@ -24,21 +22,13 @@ export const runDeforestationScan = action({
       shipmentId: args.shipmentId,
     })
 
-    try {
-      const result = await queryGfwAlerts(geoJson)
-      const scanResult = result.alert_count === 0 ? "clean" : "alerts_found"
+    const result = await queryGfwAlerts(geoJson)
+    const scanResult = result.alert_count === 0 ? "clean" : "alerts_found"
 
-      await ctx.runMutation(internal.shipments.storeScanResult, {
-        shipmentId: args.shipmentId,
-        scanResult,
-        scanAlertCount: result.alert_count,
-      })
-    } catch {
-      await ctx.runMutation(internal.shipments.storeScanResult, {
-        shipmentId: args.shipmentId,
-        scanResult: "no_polygon",
-        scanAlertCount: 0,
-      })
-    }
+    await ctx.runMutation(internal.shipments.storeScanResult, {
+      shipmentId: args.shipmentId,
+      scanResult,
+      scanAlertCount: result.alert_count,
+    })
   },
 })

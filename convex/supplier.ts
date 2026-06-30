@@ -16,6 +16,7 @@ export const getSupplierForm = query({
 
     if (!shipment) throw new Error("Invalid token")
     if (shipment.supplierFormCompleted) throw new Error("Form already completed")
+    if (shipment.lockedAt) throw new Error("Shipment is locked")
 
     return {
       shipmentRef: (shipment.extractedData as Record<string, unknown> | undefined)?.shipmentRef ?? null,
@@ -43,6 +44,7 @@ export const submitSupplierAnswers = mutation({
 
     if (!shipment) throw new Error("Invalid token")
     if (shipment.supplierFormCompleted) throw new Error("Form already completed")
+    if (shipment.lockedAt) throw new Error("Shipment is locked")
 
     const currentData = { ...(shipment.extractedData as Record<string, unknown> ?? {}) }
 

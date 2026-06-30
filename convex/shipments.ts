@@ -153,7 +153,7 @@ export const finalizeModal = mutation({
     if (shipment.supplierEmail && !shipment.supplierFormCompleted && hasSupplierQuestions) {
       const token = (patch.supplierToken as string) ?? shipment.supplierToken
       if (token) {
-        await ctx.scheduler.runAfter(0, (internal as any).supplier_email.sendSupplierEmail, {
+        await ctx.scheduler.runAfter(0, internal.supplier_email.sendSupplierEmail, {
           shipmentId: args.shipmentId,
           supplierLanguage: shipment.supplierLanguage,
         })
@@ -184,7 +184,7 @@ export const initiateDdsGeneration = mutation({
 
     await ctx.db.patch(args.shipmentId, { status: "submitting" })
 
-    await ctx.scheduler.runAfter(0, (internal as any).dds.generateDds, {
+    await ctx.scheduler.runAfter(0, internal.dds.generateDds, {
       shipmentId: args.shipmentId,
     })
   },
@@ -265,7 +265,7 @@ export const checkAllExtracted = internalMutation({
     if (!allDone) return
 
     await ctx.db.patch(args.shipmentId, { status: "resolving" })
-    await ctx.scheduler.runAfter(0, (internal as any).merge.mergeAndResolve, {
+    await ctx.scheduler.runAfter(0, internal.merge.mergeAndResolve, {
       shipmentId: args.shipmentId,
     })
   },

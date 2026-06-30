@@ -1,10 +1,10 @@
 "use node"
 
-import { action } from "@cvx/_generated/server"
+import { internalAction } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
 
-export const generateDds = action({
+export const generateDds = internalAction({
   args: {
     shipmentId: v.id("shipments"),
   },
@@ -45,9 +45,11 @@ export const generateDds = action({
       let tracesRef = ""
       let tracesRawResponse = ""
 
+      // @ts-expect-error - eudr-api-client has no types
+      const mod = await import("eudr-api-client")
+      const EudrApiClient = mod.default ?? mod
+
       try {
-        // @ts-expect-error - eudr-api-client has no types
-        const EudrApiClient = (await import("eudr-api-client")).default ?? await import("eudr-api-client")
         const client = new (EudrApiClient as any)()
         const response = await client.submitDds({
           ...payload,
@@ -55,7 +57,8 @@ export const generateDds = action({
         })
         tracesRef = response.referenceNumber ?? response.id ?? String(Date.now())
         tracesRawResponse = JSON.stringify(response)
-      } catch {
+      } catch (apiError) {
+        console.error("DDS API call failed, using simulation:", apiError)
         tracesRef = `SIM-${Date.now()}`
         tracesRawResponse = JSON.stringify({ simulated: true })
       }

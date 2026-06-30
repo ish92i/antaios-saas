@@ -2,7 +2,7 @@ import { createDodoWebhookHandler } from "@dodopayments/convex";
 import { httpRouter } from "convex/server";
 import { internal } from "./_generated/api";
 import { planNameFromProductId } from "./dodo";
-import { sendSubscriptionSuccessEmail } from "@cvx/email/templates/subscriptionEmail";
+import { sendSubscriptionSuccessEmail } from "@cvx/email/templates/subscription";
 
 const http = httpRouter();
 

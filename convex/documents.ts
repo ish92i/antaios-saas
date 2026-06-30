@@ -24,7 +24,7 @@ export const addDocument = mutation({
       lastAttemptAt: Date.now(),
     })
 
-    await ctx.scheduler.runAfter(0, (internal as any).extract.extractDocument, {
+    await ctx.scheduler.runAfter(0, internal.extract.extractDocument, {
       documentId: docId,
     })
 
@@ -71,7 +71,7 @@ export const retryDocument = mutation({
       lastAttemptAt: Date.now(),
     })
 
-    await ctx.scheduler.runAfter(0, (internal as any).extract.extractDocument, {
+    await ctx.scheduler.runAfter(0, internal.extract.extractDocument, {
       documentId: args.documentId,
     })
   },

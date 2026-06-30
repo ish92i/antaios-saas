@@ -1,12 +1,10 @@
-import { GT_API_KEY } from "@cvx/env"
+import { DEEPL_API_KEY } from "@cvx/env"
 
-interface TranslateResponse {
-  data: {
-    translations: Array<{
-      translatedText: string
-      detectedSourceLanguage: string
-    }>
-  }
+interface DeepLResponse {
+  translations: Array<{
+    detected_source_language: string
+    text: string
+  }>
 }
 
 export async function translateText(
@@ -15,22 +13,31 @@ export async function translateText(
   sourceLanguage: string = "fr",
   format: "text" | "html" = "text",
 ): Promise<string> {
-  if (!GT_API_KEY) return text
+  if (!DEEPL_API_KEY) return text
   if (targetLanguage === sourceLanguage) return text
 
-  const url = `https://translation.googleapis.com/language/translate/v2?key=${GT_API_KEY}`
-  const response = await fetch(url, {
+  const params = new URLSearchParams({
+    text,
+    target_lang: targetLanguage.toUpperCase(),
+    source_lang: sourceLanguage.toUpperCase(),
+  })
+  if (format === "html") params.set("tag_handling", "html")
+
+  const response = await fetch("https://api-free.deepl.com/v2/translate", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ q: text, target: targetLanguage, source: sourceLanguage, format }),
+    headers: {
+      Authorization: `DeepL-Auth-Key ${DEEPL_API_KEY}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: params,
   })
 
   if (!response.ok) {
     const body = await response.text()
-    console.error(`Google Translate error ${response.status}: ${body}`)
+    console.error(`DeepL error ${response.status}: ${body}`)
     return text
   }
 
-  const result: TranslateResponse = await response.json()
-  return result.data.translations[0]?.translatedText ?? text
+  const result: DeepLResponse = await response.json()
+  return result.translations[0]?.text ?? text
 }

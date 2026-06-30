@@ -1,6 +1,4 @@
-"use node"
-
-import { action } from "@cvx/_generated/server"
+import { internalAction } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
 import { callLiteLLM, parseLlmJson } from "@cvx/lib/litellm"
@@ -32,8 +30,6 @@ function normalizeDate(val: unknown): string | null {
   if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) return trimmed
   const dm = trimmed.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
   if (dm) return `${dm[3]}-${dm[2]}-${dm[1]}`
-  const md = trimmed.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
-  if (md) return `${md[3]}-${md[1]}-${md[2]}`
   const dd = trimmed.match(/^(\d{2})\.(\d{2})\.(\d{4})$/)
   if (dd) return `${dd[3]}-${dd[2]}-${dd[1]}`
   if (/^\d{4}\/\d{4}$/.test(trimmed)) return trimmed
@@ -52,6 +48,7 @@ const ALL_FIELDS = [
   "countryOfExport", "countryOfProduction", "productionDate",
   "portOfLoading", "portOfEntry",
   "farmName", "villageName", "certifications",
+  "geoJson",
 ]
 
 const COUNTRY_FIELDS = ["countryOfExport", "countryOfProduction"]
@@ -63,7 +60,7 @@ function normalizeField(field: string, val: unknown): string | null {
   return normalizeString(val)
 }
 
-export const mergeAndResolve = action({
+export const mergeAndResolve = internalAction({
   args: {
     shipmentId: v.id("shipments"),
   },
@@ -109,14 +106,25 @@ export const mergeAndResolve = action({
 
       if (nonNull.length === 0) {
         merged[field] = null
-        questions.push({
-          id: `missing-${field}`,
-          field,
-          type: "missing",
-          label: `Veuillez fournir ${field}`,
-          options: null,
-          geoType: field === "geoJson" ? "file" : null,
-        })
+        if (field === "geoJson") {
+          questions.push({
+            id: `missing-${field}`,
+            field,
+            type: "geo_missing",
+            label: "Veuillez fournir les coordonnées géographiques ou télécharger un fichier",
+            options: null,
+            geoType: null,
+          })
+        } else {
+          questions.push({
+            id: `missing-${field}`,
+            field,
+            type: "missing",
+            label: `Veuillez fournir ${field}`,
+            options: null,
+            geoType: null,
+          })
+        }
         continue
       }
 

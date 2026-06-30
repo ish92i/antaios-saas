@@ -1,0 +1,253 @@
+
+<style>
+  .section { margin: 0 0 2rem; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: var(--color-text-tertiary); text-transform: uppercase; margin: 0 0 12px; }
+  .token-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 13px; }
+  .token-row:last-child { border-bottom: none; }
+  .swatch { width: 32px; height: 32px; border-radius: 6px; flex-shrink: 0; border: 0.5px solid var(--color-border-tertiary); }
+  .token-name { font-family: var(--font-mono); color: var(--color-text-secondary); min-width: 200px; font-size: 12px; }
+  .token-value { color: var(--color-text-tertiary); font-family: var(--font-mono); font-size: 12px; }
+  .token-desc { color: var(--color-text-secondary); margin-left: auto; font-size: 12px; }
+  .type-row { display: flex; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .type-row:last-child { border-bottom: none; }
+  .type-label { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); min-width: 140px; }
+  .radius-row { display: flex; align-items: center; gap: 16px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 13px; }
+  .radius-row:last-child { border-bottom: none; }
+  .radius-box { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-secondary); width: 48px; height: 32px; flex-shrink: 0; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-size: 12px; font-weight: 500; border-radius: 100px; }
+  .status-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .status-card { padding: 12px; border-radius: 8px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; margin-bottom: 6px; }
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .comp-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 8px; padding: 12px 14px; }
+  .comp-label { font-size: 11px; color: var(--color-text-tertiary); margin: 0 0 8px; }
+  .btn-primary { background: #1570EF; color: #fff; border: none; border-radius: 6px; padding: 7px 14px; font-size: 13px; font-weight: 500; cursor: pointer; }
+  .btn-secondary { background: transparent; color: var(--color-text-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
+  .input-demo { width: 100%; background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 6px; padding: 7px 10px; font-size: 13px; color: var(--color-text-primary); box-sizing: border-box; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; }
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 2rem 0; }
+</style>
+
+<h2 class="sr-only">Antaios design token specification</h2>
+
+<div class="section">
+  <p class="section-label">Color — Brand</p>
+  <div class="token-row">
+    <div class="swatch" style="background:#1570EF;"></div>
+    <span class="token-name">--color-brand-primary</span>
+    <span class="token-value">#1570EF</span>
+    <span class="token-desc">Primary actions, links, active states</span>
+  </div>
+  <div class="token-row">
+    <div class="swatch" style="background:#0E4FC2;"></div>
+    <span class="token-name">--color-brand-primary-hover</span>
+    <span class="token-value">#0E4FC2</span>
+    <span class="token-desc">Button hover, pressed states</span>
+  </div>
+  <div class="token-row">
+    <div class="swatch" style="background:#EBF3FF;"></div>
+    <span class="token-name">--color-brand-subtle</span>
+    <span class="token-value">#EBF3FF</span>
+    <span class="token-desc">Tinted backgrounds, selected rows</span>
+  </div>
+  <div class="token-row">
+    <div class="swatch" style="background:#1570EF22; border-style:dashed;"></div>
+    <span class="token-name">--color-brand-border</span>
+    <span class="token-value">#1570EF33</span>
+    <span class="token-desc">Focus rings, active outlines</span>
+  </div>
+</div>
+
+<div class="section">
+  <p class="section-label">Color — Neutrals</p>
+  <div class="token-row">
+    <div class="swatch" style="background:#FFFFFF;"></div>
+    <span class="token-name">--color-surface-primary</span>
+    <span class="token-value">#FFFFFF</span>
+    <span class="token-desc">Cards, modals, inputs</span>
+  </div>
+  <div class="token-row">
+    <div class="swatch" style="background:#F7F8FA;"></div>
+    <span class="token-name">--color-surface-secondary</span>
+    <span class="token-value">#F7F8FA</span>
+    <span class="token-desc">Page background</span>
+  </div>
+  <div class="token-row">
+    <div class="swatch" style="background:#F0F1F3;"></div>
+    <span class="token-name">--color-surface-tertiary</span>
+    <span class="token-value">#F0F1F3</span>
+    <span class="token-desc">Hover rows, subtle dividers</span>
+  </div>
+  <div class="token-row">
+    <div class="swatch" style="background:#D0D5DD;"></div>
+    <span class="token-name">--color-border-default</span>
+    <span class="token-value">#D0D5DD</span>
+    <span class="token-desc">Card borders, input borders</span>
+  </div>
+  <div class="token-row">
+    <div class="swatch" style="background:#667085;"></div>
+    <span class="token-name">--color-text-secondary</span>
+    <span class="token-value">#667085</span>
+    <span class="token-desc">Labels, meta, captions</span>
+  </div>
+  <div class="token-row">
+    <div class="swatch" style="background:#101828;"></div>
+    <span class="token-name">--color-text-primary</span>
+    <span class="token-value">#101828</span>
+    <span class="token-desc">Headings, body, data</span>
+  </div>
+</div>
+
+<div class="section">
+  <p class="section-label">Color — Status (traffic light)</p>
+  <div class="status-grid">
+    <div class="status-card" style="background:#F0FDF4; border: 0.5px solid #BBF7D0;">
+      <div class="status-dot" style="background:#16A34A;"></div>
+      <div style="font-size:12px; font-weight:500; color:#14532D;">Conforme</div>
+      <div style="font-family:var(--font-mono); font-size:11px; color:#15803D; margin-top:4px;">#16A34A / #F0FDF4</div>
+    </div>
+    <div class="status-card" style="background:#FFFBEB; border: 0.5px solid #FDE68A;">
+      <div class="status-dot" style="background:#D97706;"></div>
+      <div style="font-size:12px; font-weight:500; color:#78350F;">À compléter</div>
+      <div style="font-family:var(--font-mono); font-size:11px; color:#B45309; margin-top:4px;">#D97706 / #FFFBEB</div>
+    </div>
+    <div class="status-card" style="background:#FEF2F2; border: 0.5px solid #FECACA;">
+      <div class="status-dot" style="background:#DC2626;"></div>
+      <div style="font-size:12px; font-weight:500; color:#7F1D1D;">Non conforme</div>
+      <div style="font-family:var(--font-mono); font-size:11px; color:#B91C1C; margin-top:4px;">#DC2626 / #FEF2F2</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">Typography</p>
+  <div class="type-row">
+    <span class="type-label">display / h1</span>
+    <span style="font-size:24px; font-weight:500; color:var(--color-text-primary); letter-spacing:-0.02em;">Tableau de bord</span>
+  </div>
+  <div class="type-row">
+    <span class="type-label">heading / h2</span>
+    <span style="font-size:18px; font-weight:500; color:var(--color-text-primary);">Vos importations</span>
+  </div>
+  <div class="type-row">
+    <span class="type-label">subheading / h3</span>
+    <span style="font-size:15px; font-weight:500; color:var(--color-text-primary);">Café — Éthiopie</span>
+  </div>
+  <div class="type-row">
+    <span class="type-label">body</span>
+    <span style="font-size:14px; color:var(--color-text-primary); line-height:1.6;">Votre conformité EUDR est vérifiée. Aucune action requise.</span>
+  </div>
+  <div class="type-row">
+    <span class="type-label">caption / meta</span>
+    <span style="font-size:12px; color:var(--color-text-secondary);">Dernière vérification — 24 juin 2026</span>
+  </div>
+  <div class="type-row">
+    <span class="type-label">mono / data</span>
+    <span style="font-size:13px; font-family:var(--font-mono); color:var(--color-text-secondary);">LOT-2024-ETH-00412</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">Spacing scale</p>
+  <div style="display:flex; gap:0; align-items:flex-end;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px; margin-right:8px;">
+      <div style="width:4px; height:4px; background:#1570EF; border-radius:1px;"></div>
+      <span style="font-size:10px; color:var(--color-text-tertiary); font-family:var(--font-mono);">4</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px; margin-right:8px;">
+      <div style="width:8px; height:8px; background:#1570EF; border-radius:1px;"></div>
+      <span style="font-size:10px; color:var(--color-text-tertiary); font-family:var(--font-mono);">8</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px; margin-right:8px;">
+      <div style="width:12px; height:12px; background:#1570EF; border-radius:1px;"></div>
+      <span style="font-size:10px; color:var(--color-text-tertiary); font-family:var(--font-mono);">12</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px; margin-right:8px;">
+      <div style="width:16px; height:16px; background:#1570EF; border-radius:1px;"></div>
+      <span style="font-size:10px; color:var(--color-text-tertiary); font-family:var(--font-mono);">16</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px; margin-right:8px;">
+      <div style="width:24px; height:24px; background:#1570EF; border-radius:1px;"></div>
+      <span style="font-size:10px; color:var(--color-text-tertiary); font-family:var(--font-mono);">24</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px; margin-right:8px;">
+      <div style="width:32px; height:32px; background:#1570EF; border-radius:1px;"></div>
+      <span style="font-size:10px; color:var(--color-text-tertiary); font-family:var(--font-mono);">32</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px; margin-right:8px;">
+      <div style="width:48px; height:48px; background:#1570EF; border-radius:1px;"></div>
+      <span style="font-size:10px; color:var(--color-text-tertiary); font-family:var(--font-mono);">48</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <div style="width:64px; height:64px; background:#1570EF; border-radius:1px;"></div>
+      <span style="font-size:10px; color:var(--color-text-tertiary); font-family:var(--font-mono);">64</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <p class="section-label">Border radius</p>
+  <div class="radius-row">
+    <div class="radius-box" style="border-radius:4px;"></div>
+    <span class="token-name">--radius-sm</span>
+    <span class="token-value">4px</span>
+    <span class="token-desc">Badges, tags, inline chips</span>
+  </div>
+  <div class="radius-row">
+    <div class="radius-box" style="border-radius:8px;"></div>
+    <span class="token-name">--radius-md</span>
+    <span class="token-value">8px</span>
+    <span class="token-desc">Buttons, inputs, small cards</span>
+  </div>
+  <div class="radius-row">
+    <div class="radius-box" style="border-radius:12px;"></div>
+    <span class="token-name">--radius-lg</span>
+    <span class="token-value">12px</span>
+    <span class="token-desc">Cards, panels, modals</span>
+  </div>
+  <div class="radius-row">
+    <div class="radius-box" style="border-radius:100px;"></div>
+    <span class="token-name">--radius-full</span>
+    <span class="token-value">100px</span>
+    <span class="token-desc">Status pills, avatar rings</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">Components — preview</p>
+  <div class="comp-grid">
+    <div class="comp-card">
+      <p class="comp-label">Buttons</p>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn-primary">Analyser</button>
+        <button class="btn-secondary">Exporter</button>
+      </div>
+    </div>
+    <div class="comp-card">
+      <p class="comp-label">Input</p>
+      <input class="input-demo" placeholder="Nom du fournisseur" />
+    </div>
+    <div class="comp-card">
+      <p class="comp-label">Status badges</p>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <span class="badge" style="background:#F0FDF4; color:#14532D;">Conforme</span>
+        <span class="badge" style="background:#FFFBEB; color:#78350F;">À compléter</span>
+        <span class="badge" style="background:#FEF2F2; color:#7F1D1D;">Non conforme</span>
+      </div>
+    </div>
+    <div class="comp-card">
+      <p class="comp-label">Elevation</p>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <div style="width:40px; height:40px; background:var(--color-surface-secondary); border-radius:8px; border:0.5px solid #D0D5DD;"></div>
+        <div style="width:40px; height:40px; background:#fff; border-radius:8px; border:0.5px solid #D0D5DD;"></div>
+        <span style="font-size:11px; color:var(--color-text-tertiary);">page bg → card</span>
+      </div>
+    </div>
+  </div>
+</div>
