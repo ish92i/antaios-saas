@@ -1,8 +1,20 @@
 import { mutation, query } from "@cvx/_generated/server";
 import { v } from "convex/values";
+import type { UserIdentity } from "convex/server";
 import { User } from "~/types";
 import { getUserId, ensureUser } from "@cvx/auth";
 import { internal } from "@cvx/_generated/api";
+
+const claimString = (identity: UserIdentity, claim: string) => {
+  const value = identity[claim];
+  return typeof value === "string" && value.length > 0 ? value : null;
+};
+
+const subscriberId = (identity: UserIdentity) =>
+  claimString(identity, "org_id") ??
+  claimString(identity, "organization_id") ??
+  claimString(identity, "organizationId") ??
+  identity.subject;
 
 export const getCurrentUser = query({
   args: {},
@@ -18,7 +30,7 @@ export const getCurrentUser = query({
 
     const subscription = await ctx.db
       .query("subscriptions")
-      .withIndex("userId", (q) => q.eq("userId", identity.subject))
+      .withIndex("orgId", (q) => q.eq("orgId", subscriberId(identity)))
       .first();
 
     const avatarUrl = user.imageId
@@ -108,7 +120,7 @@ export const deleteCurrentUserAccount = mutation({
 
     const subscription = await ctx.db
       .query("subscriptions")
-      .withIndex("userId", (q) => q.eq("userId", identity.subject))
+      .withIndex("orgId", (q) => q.eq("orgId", subscriberId(identity)))
       .first();
     if (subscription?.dodoSubscriptionId) {
       await ctx.scheduler.runAfter(0, internal.payments.cancelDodoSubscription, {

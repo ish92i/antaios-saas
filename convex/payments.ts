@@ -16,6 +16,9 @@ const orgIdFromClaims = (identity: UserIdentity) =>
   claimString(identity, "organization_id") ??
   claimString(identity, "organizationId")
 
+const subscriberId = (identity: UserIdentity) =>
+  orgIdFromClaims(identity) ?? identity.subject
+
 const clean = <T extends Record<string, unknown>>(value: T) =>
   Object.fromEntries(
     Object.entries(value).filter(([, field]) => field !== undefined)
@@ -33,9 +36,10 @@ const upsertSubscription = async (
     status: string
   }
 ) => {
+  const id = args.orgId ?? args.convexUserId
   const existing = await ctx.db
     .query("subscriptions")
-    .withIndex("userId", (q) => q.eq("userId", args.convexUserId))
+    .withIndex("orgId", (q) => q.eq("orgId", id))
     .first()
 
   if (existing) {
@@ -55,7 +59,7 @@ const upsertSubscription = async (
   return await ctx.db.insert(
     "subscriptions",
     clean({
-      userId: args.convexUserId,
+      orgId: id,
       dodoSubscriptionId: args.dodoSubscriptionId,
       dodoProductId: args.dodoProductId,
       planName: args.planName,
@@ -158,9 +162,11 @@ export const storeSubscription = mutation({
     const identity = await ctx.auth.getUserIdentity()
     if (!identity) throw new Error("Unauthorized")
 
+    const id = args.orgId ?? identity.subject
+
     const existing = await ctx.db
       .query("subscriptions")
-      .withIndex("userId", (q) => q.eq("userId", identity.subject))
+      .withIndex("orgId", (q) => q.eq("orgId", id))
       .first()
 
     if (existing) {
@@ -180,7 +186,7 @@ export const storeSubscription = mutation({
     return await ctx.db.insert(
       "subscriptions",
       clean({
-        userId: identity.subject,
+        orgId: id,
         dodoSubscriptionId: args.dodoSubscriptionId,
         dodoProductId: args.dodoProductId ?? "",
         planName: args.planName ?? "Direct",
@@ -251,7 +257,7 @@ export const updateSubscriptionStatus = mutation({
 
     if (!existing) throw new Error("Not found")
 
-    const ownsSubscription = existing.userId === identity.subject
+    const ownsSubscription = existing.orgId === subscriberId(identity)
     if (!ownsSubscription) throw new Error("Not found")
 
     await ctx.db.patch(existing._id, { status: args.status })
@@ -266,21 +272,17 @@ export const getUserSubscription = query({
     const identity = await ctx.auth.getUserIdentity()
     if (!identity) return null
 
+    const id = args.orgId ?? identity.subject
+
     if (args.orgId) {
       const orgId = orgIdFromClaims(identity)
       if (!orgId) throw new Error("Org required")
       if (orgId !== args.orgId) throw new Error("Org mismatch")
-      const subscription = await ctx.db
-        .query("subscriptions")
-        .withIndex("userId", (q) => q.eq("userId", orgId))
-        .first()
-      return subscription
     }
 
-    const userId = identity.subject
     const subscription = await ctx.db
       .query("subscriptions")
-      .withIndex("userId", (q) => q.eq("userId", userId))
+      .withIndex("orgId", (q) => q.eq("orgId", id))
       .first()
 
     return subscription

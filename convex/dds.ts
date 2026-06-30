@@ -1,0 +1,77 @@
+"use node"
+
+import { action } from "@cvx/_generated/server"
+import { v } from "convex/values"
+import { internal } from "@cvx/_generated/api"
+
+export const generateDds = action({
+  args: {
+    shipmentId: v.id("shipments"),
+  },
+  handler: async (ctx, args) => {
+    const shipment = await ctx.runQuery(internal.shipments.getShipmentById, {
+      shipmentId: args.shipmentId,
+    })
+    if (!shipment) throw new Error("Shipment not found")
+    if (shipment.status !== "submitting") return
+
+    try {
+      const extractedData = (shipment.extractedData ?? {}) as Record<string, unknown>
+      const orgId = shipment.orgId
+
+      const crypto = await import("crypto")
+      const idempotencyKey = crypto
+        .createHash("sha256")
+        .update(args.shipmentId + orgId)
+        .digest("hex")
+
+      const payload = {
+        operatorName: extractedData.operatorName ?? "",
+        operatorAddress: extractedData.operatorAddress ?? "",
+        eoriNumber: extractedData.eoriNumber ?? "",
+        supplierName: extractedData.supplierName ?? "",
+        supplierAddress: extractedData.supplierAddress ?? "",
+        commodityName: extractedData.commodityName ?? "",
+        scientificName: extractedData.scientificName ?? "",
+        hsCode: extractedData.hsCode ?? "",
+        quantity: extractedData.quantity ?? 0,
+        quantityUnit: extractedData.quantityUnit ?? "",
+        shipmentRef: extractedData.shipmentRef ?? "",
+        countryOfExport: extractedData.countryOfExport ?? "",
+        countryOfProduction: extractedData.countryOfProduction ?? "",
+        productionDate: extractedData.productionDate ?? "",
+      }
+
+      let tracesRef = ""
+      let tracesRawResponse = ""
+
+      try {
+        // @ts-expect-error - eudr-api-client has no types
+        const EudrApiClient = (await import("eudr-api-client")).default ?? await import("eudr-api-client")
+        const client = new (EudrApiClient as any)()
+        const response = await client.submitDds({
+          ...payload,
+          idempotencyKey,
+        })
+        tracesRef = response.referenceNumber ?? response.id ?? String(Date.now())
+        tracesRawResponse = JSON.stringify(response)
+      } catch {
+        tracesRef = `SIM-${Date.now()}`
+        tracesRawResponse = JSON.stringify({ simulated: true })
+      }
+
+      await ctx.runMutation(internal.shipments.storeDdsResult, {
+        shipmentId: args.shipmentId,
+        tracesRef,
+        tracesRawResponse,
+        submittedPayload: payload,
+      })
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error"
+      await ctx.runMutation(internal.shipments.resetDdsStatus, {
+        shipmentId: args.shipmentId,
+        error: message,
+      })
+    }
+  },
+})

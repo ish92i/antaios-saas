@@ -4,3 +4,5 @@ export type User = Doc<"users"> & {
   avatarUrl?: string;
   subscription?: Doc<"subscriptions">;
 };
+
+export type Org = Doc<"organizations">;
