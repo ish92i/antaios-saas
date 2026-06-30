@@ -8,12 +8,14 @@ import { Link, useMatchRoute } from "@tanstack/react-router";
 import { Route as DashboardRoute } from "@/routes/_app/_auth/dashboard/_layout.index";
 import { Route as DashboardLayoutRoute } from "@/routes/_app/_auth/dashboard/_layout";
 import { Route as BillingSettingsRoute } from "@/routes/_app/_auth/dashboard/_layout.settings.billing";
+import { Route as ShipmentsRoute } from "@/routes/_app/_auth/dashboard/_layout.shipments";
 import { User } from "~/types";
 
 export function Navigation({ user }: { user: User }) {
   const matchRoute = useMatchRoute();
   const isBillingPath = matchRoute({ to: BillingSettingsRoute.fullPath });
-  const isDashboardPath = matchRoute({ to: DashboardLayoutRoute.fullPath }) && !isBillingPath;
+  const isShipmentsPath = matchRoute({ to: ShipmentsRoute.fullPath });
+  const isDashboardPath = matchRoute({ to: DashboardLayoutRoute.fullPath }) && !isBillingPath && !isShipmentsPath;
 
   if (!user) {
     return null;
@@ -76,6 +78,21 @@ export function Navigation({ user }: { user: User }) {
             )}
           >
             Dashboard
+          </Link>
+        </div>
+        <div
+          className={cn(
+            `flex h-12 items-center border-b-2`,
+            isShipmentsPath ? "border-primary" : "border-transparent",
+          )}
+        >
+          <Link
+            to={ShipmentsRoute.fullPath}
+            className={cn(
+              `${buttonVariants({ variant: "ghost", size: "sm" })} text-primary/80`,
+            )}
+          >
+            Expéditions
           </Link>
         </div>
         <div

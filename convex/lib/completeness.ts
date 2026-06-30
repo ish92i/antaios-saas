@@ -17,7 +17,7 @@ export type Completeness = "red" | "yellow" | "green"
 export function recomputeCompleteness(
   extractedData: ExtractedData | undefined | null,
   scanResult: string | undefined | null,
-  pendingQuestions?: unknown[] | undefined | null,
+  _pendingQuestions?: unknown[] | undefined | null,
 ): Completeness {
   if (!extractedData) return "red"
 

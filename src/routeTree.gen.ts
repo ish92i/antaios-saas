@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SupplierTokenRouteImport } from './routes/supplier/$token'
 import { Route as AppAuthRouteImport } from './routes/_app/_auth'
 import { Route as AppLoginLayoutRouteImport } from './routes/_app/login/_layout'
 import { Route as AppLoginLayoutIndexRouteImport } from './routes/_app/login/_layout.index'
@@ -18,6 +19,7 @@ import { Route as AppAuthOnboardingLayoutRouteImport } from './routes/_app/_auth
 import { Route as AppAuthDashboardLayoutRouteImport } from './routes/_app/_auth/dashboard/_layout'
 import { Route as AppAuthDashboardLayoutIndexRouteImport } from './routes/_app/_auth/dashboard/_layout.index'
 import { Route as AppAuthOnboardingLayoutUsernameRouteImport } from './routes/_app/_auth/onboarding/_layout.username'
+import { Route as AppAuthDashboardLayoutShipmentsRouteImport } from './routes/_app/_auth/dashboard/_layout.shipments'
 import { Route as AppAuthDashboardLayoutSettingsRouteImport } from './routes/_app/_auth/dashboard/_layout.settings'
 import { Route as AppAuthDashboardLayoutCheckoutRouteImport } from './routes/_app/_auth/dashboard/_layout.checkout'
 import { Route as AppAuthDashboardLayoutSettingsBillingRouteImport } from './routes/_app/_auth/dashboard/_layout.settings.billing'
@@ -29,6 +31,11 @@ const AppRoute = AppRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupplierTokenRoute = SupplierTokenRouteImport.update({
+  id: '/supplier/$token',
+  path: '/supplier/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppAuthRoute = AppAuthRouteImport.update({
@@ -67,6 +74,12 @@ const AppAuthOnboardingLayoutUsernameRoute =
     path: '/username',
     getParentRoute: () => AppAuthOnboardingLayoutRoute,
   } as any)
+const AppAuthDashboardLayoutShipmentsRoute =
+  AppAuthDashboardLayoutShipmentsRouteImport.update({
+    id: '/shipments',
+    path: '/shipments',
+    getParentRoute: () => AppAuthDashboardLayoutRoute,
+  } as any)
 const AppAuthDashboardLayoutSettingsRoute =
   AppAuthDashboardLayoutSettingsRouteImport.update({
     id: '/settings',
@@ -88,22 +101,26 @@ const AppAuthDashboardLayoutSettingsBillingRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/supplier/$token': typeof SupplierTokenRoute
   '/login': typeof AppLoginLayoutRouteWithChildren
   '/dashboard': typeof AppAuthDashboardLayoutRouteWithChildren
   '/onboarding': typeof AppAuthOnboardingLayoutRouteWithChildren
   '/login/': typeof AppLoginLayoutIndexRoute
   '/dashboard/checkout': typeof AppAuthDashboardLayoutCheckoutRoute
   '/dashboard/settings': typeof AppAuthDashboardLayoutSettingsRouteWithChildren
+  '/dashboard/shipments': typeof AppAuthDashboardLayoutShipmentsRoute
   '/onboarding/username': typeof AppAuthOnboardingLayoutUsernameRoute
   '/dashboard/': typeof AppAuthDashboardLayoutIndexRoute
   '/dashboard/settings/billing': typeof AppAuthDashboardLayoutSettingsBillingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/supplier/$token': typeof SupplierTokenRoute
   '/onboarding': typeof AppAuthOnboardingLayoutRouteWithChildren
   '/login': typeof AppLoginLayoutIndexRoute
   '/dashboard/checkout': typeof AppAuthDashboardLayoutCheckoutRoute
   '/dashboard/settings': typeof AppAuthDashboardLayoutSettingsRouteWithChildren
+  '/dashboard/shipments': typeof AppAuthDashboardLayoutShipmentsRoute
   '/onboarding/username': typeof AppAuthOnboardingLayoutUsernameRoute
   '/dashboard': typeof AppAuthDashboardLayoutIndexRoute
   '/dashboard/settings/billing': typeof AppAuthDashboardLayoutSettingsBillingRoute
@@ -113,12 +130,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
   '/_app/_auth': typeof AppAuthRouteWithChildren
+  '/supplier/$token': typeof SupplierTokenRoute
   '/_app/login/_layout': typeof AppLoginLayoutRouteWithChildren
   '/_app/_auth/dashboard/_layout': typeof AppAuthDashboardLayoutRouteWithChildren
   '/_app/_auth/onboarding/_layout': typeof AppAuthOnboardingLayoutRouteWithChildren
   '/_app/login/_layout/': typeof AppLoginLayoutIndexRoute
   '/_app/_auth/dashboard/_layout/checkout': typeof AppAuthDashboardLayoutCheckoutRoute
   '/_app/_auth/dashboard/_layout/settings': typeof AppAuthDashboardLayoutSettingsRouteWithChildren
+  '/_app/_auth/dashboard/_layout/shipments': typeof AppAuthDashboardLayoutShipmentsRoute
   '/_app/_auth/onboarding/_layout/username': typeof AppAuthOnboardingLayoutUsernameRoute
   '/_app/_auth/dashboard/_layout/': typeof AppAuthDashboardLayoutIndexRoute
   '/_app/_auth/dashboard/_layout/settings/billing': typeof AppAuthDashboardLayoutSettingsBillingRoute
@@ -127,22 +146,26 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/supplier/$token'
     | '/login'
     | '/dashboard'
     | '/onboarding'
     | '/login/'
     | '/dashboard/checkout'
     | '/dashboard/settings'
+    | '/dashboard/shipments'
     | '/onboarding/username'
     | '/dashboard/'
     | '/dashboard/settings/billing'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/supplier/$token'
     | '/onboarding'
     | '/login'
     | '/dashboard/checkout'
     | '/dashboard/settings'
+    | '/dashboard/shipments'
     | '/onboarding/username'
     | '/dashboard'
     | '/dashboard/settings/billing'
@@ -151,12 +174,14 @@ export interface FileRouteTypes {
     | '/'
     | '/_app'
     | '/_app/_auth'
+    | '/supplier/$token'
     | '/_app/login/_layout'
     | '/_app/_auth/dashboard/_layout'
     | '/_app/_auth/onboarding/_layout'
     | '/_app/login/_layout/'
     | '/_app/_auth/dashboard/_layout/checkout'
     | '/_app/_auth/dashboard/_layout/settings'
+    | '/_app/_auth/dashboard/_layout/shipments'
     | '/_app/_auth/onboarding/_layout/username'
     | '/_app/_auth/dashboard/_layout/'
     | '/_app/_auth/dashboard/_layout/settings/billing'
@@ -165,6 +190,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  SupplierTokenRoute: typeof SupplierTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -181,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/supplier/$token': {
+      id: '/supplier/$token'
+      path: '/supplier/$token'
+      fullPath: '/supplier/$token'
+      preLoaderRoute: typeof SupplierTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app/_auth': {
@@ -232,6 +265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAuthOnboardingLayoutUsernameRouteImport
       parentRoute: typeof AppAuthOnboardingLayoutRoute
     }
+    '/_app/_auth/dashboard/_layout/shipments': {
+      id: '/_app/_auth/dashboard/_layout/shipments'
+      path: '/shipments'
+      fullPath: '/dashboard/shipments'
+      preLoaderRoute: typeof AppAuthDashboardLayoutShipmentsRouteImport
+      parentRoute: typeof AppAuthDashboardLayoutRoute
+    }
     '/_app/_auth/dashboard/_layout/settings': {
       id: '/_app/_auth/dashboard/_layout/settings'
       path: '/settings'
@@ -274,6 +314,7 @@ const AppAuthDashboardLayoutSettingsRouteWithChildren =
 interface AppAuthDashboardLayoutRouteChildren {
   AppAuthDashboardLayoutCheckoutRoute: typeof AppAuthDashboardLayoutCheckoutRoute
   AppAuthDashboardLayoutSettingsRoute: typeof AppAuthDashboardLayoutSettingsRouteWithChildren
+  AppAuthDashboardLayoutShipmentsRoute: typeof AppAuthDashboardLayoutShipmentsRoute
   AppAuthDashboardLayoutIndexRoute: typeof AppAuthDashboardLayoutIndexRoute
 }
 
@@ -282,6 +323,7 @@ const AppAuthDashboardLayoutRouteChildren: AppAuthDashboardLayoutRouteChildren =
     AppAuthDashboardLayoutCheckoutRoute: AppAuthDashboardLayoutCheckoutRoute,
     AppAuthDashboardLayoutSettingsRoute:
       AppAuthDashboardLayoutSettingsRouteWithChildren,
+    AppAuthDashboardLayoutShipmentsRoute: AppAuthDashboardLayoutShipmentsRoute,
     AppAuthDashboardLayoutIndexRoute: AppAuthDashboardLayoutIndexRoute,
   }
 
@@ -344,6 +386,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  SupplierTokenRoute: SupplierTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
