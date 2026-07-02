@@ -3,6 +3,9 @@ import { SignIn } from "@clerk/clerk-react";
 
 export const Route = createFileRoute("/_app/login/_layout/")({
   component: Login,
+  beforeLoad: () => ({
+    title: "Antaios - Connexion",
+  }),
 });
 
 function Login() {

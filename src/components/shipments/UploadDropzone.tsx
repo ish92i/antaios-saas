@@ -1,18 +1,11 @@
 import { useCallback } from "react"
 import { useDropzone, type FileRejection } from "react-dropzone"
-import { Upload, File, AlertCircle } from "lucide-react"
+import { Upload, File, AlertCircle, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { formatFileSize } from "@/lib/formatters"
 
 const ACCEPTED_TYPES: Record<string, string[]> = {
-  "application/pdf": [".pdf"],
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"],
-  "text/csv": [".csv"],
-  "text/plain": [".txt"],
-  "application/geo+json": [".geojson"],
-  "application/vnd.google-earth.kml+xml": [".kml"],
-  "application/zip": [".zip"],
+  "application/*": [".pdf", ".docx", ".xlsx", ".csv", ".txt", ".geojson", ".kml", ".zip"],
 }
 
 const MAX_FILES = 10
@@ -65,6 +58,14 @@ export function UploadDropzone({
           message: `Fichier trop volumineux (max ${formatFileSize(MAX_SIZE)})`,
         }
       }
+      const ext = "." + file.name.split(".").pop()?.toLowerCase()
+      const allowed = Object.values(ACCEPTED_TYPES).flat()
+      if (!allowed.includes(ext)) {
+        return {
+          code: "invalid-extension",
+          message: `Type de fichier non supporté (${ext})`,
+        }
+      }
       return null
     },
   })
@@ -115,8 +116,9 @@ export function UploadDropzone({
                 <button
                   type="button"
                   onClick={() => removeFile(i)}
-                  className="text-xs text-muted-foreground hover:text-foreground"
+                  className="flex items-center gap-1 text-xs text-destructive hover:text-destructive/80"
                 >
+                  <Trash2 className="h-3.5 w-3.5" />
                   Retirer
                 </button>
               )}

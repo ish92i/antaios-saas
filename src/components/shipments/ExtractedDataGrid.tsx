@@ -12,8 +12,21 @@ export function ExtractedDataGrid({
   onResolve: () => void
 }) {
   const data = extractedData ?? {}
-  const questions = pendingQuestions ?? []
+  const questions = (pendingQuestions ?? []).filter(
+    (q: unknown) => typeof q === "object" && q !== null && "field" in (q as Record<string, unknown>),
+  ) as Array<Record<string, unknown>>
   const hasQuestions = questions.length > 0
+  const hasAnyData = fieldGroups.some((group) =>
+    group.fields.some((f) => data[f.key] !== null && data[f.key] !== undefined),
+  )
+
+  if (!hasAnyData && !hasQuestions) {
+    return (
+      <div className="rounded-lg border border-dashed border-border bg-muted/30 px-4 py-6 text-sm text-muted-foreground">
+        Aucune donnée extraite pour le moment.
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-4">
@@ -41,7 +54,7 @@ export function ExtractedDataGrid({
                 const value = data[field.key]
                 const isMissing = value === null || value === undefined
                 const hasPendingQuestion = questions.some(
-                  (q: unknown) => (q as Record<string, unknown>).field === field.key,
+                  (q) => q.field === field.key,
                 )
 
                 return (

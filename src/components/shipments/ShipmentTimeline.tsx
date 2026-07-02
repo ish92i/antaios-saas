@@ -76,10 +76,12 @@ export function getTimelineStep(shipment: {
   completeness?: string
 }): string {
   if (shipment.status === "submitted") return "submitted"
-  if (shipment.completeness === "green" && shipment.scanResult) return "ready"
-  if (shipment.scanResult) return "scan"
+  if (shipment.status === "ready" || (shipment.completeness === "green" && shipment.scanResult)) return "ready"
+  if (shipment.status === "submitting") return "ready"
+  if (shipment.status === "scanning") return "scan"
+  if (shipment.status === "pending_scan" || shipment.scanResult) return "scan"
   if (shipment.supplierToken) return "supplier"
   if (shipment.pendingQuestions && shipment.pendingQuestions.length > 0) return "verification"
-  if (shipment.status === "extraction_done" || shipment.status === "resolving") return "extraction"
+  if (shipment.status === "extracting" || shipment.status === "resolving") return "extraction"
   return "documents"
 }

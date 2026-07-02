@@ -2,12 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Plus, ExternalLink } from "lucide-react";
 import { cn } from "@/utils/misc.js";
 import { buttonVariants } from "@/components/button-util";
-import siteConfig from "~/site.config";
-
 export const Route = createFileRoute("/_app/_auth/dashboard/_layout/")({
   component: Dashboard,
   beforeLoad: () => ({
-    title: `${siteConfig.siteTitle} - Dashboard`,
+    title: "Antaios - Dashboard",
     headerTitle: "Dashboard",
     headerDescription: "Manage your Apps and view your usage.",
   }),

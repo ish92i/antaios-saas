@@ -4,10 +4,14 @@ export function statusLabel(status?: string): string {
   const labels: Record<string, string> = {
     draft: "Brouillon",
     extracting: "Extraction en cours",
-    extraction_done: "Extraction terminée",
+    resolving: "Vérification",
+    pending_scan: "En attente scan",
+    scanning: "Scan déforestation",
+    ready: "Prêt",
     pending_supplier: "En attente fournisseur",
-    completed: "Terminé",
+    submitting: "Soumission en cours",
     submitted: "Soumis",
+    error: "Erreur",
   }
   return labels[status ?? ""] ?? status ?? "Inconnu"
 }

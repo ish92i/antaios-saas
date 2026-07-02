@@ -8,6 +8,7 @@ import type { Id } from "@cvx/_generated/dataModel"
 
 const scanStateConfig: Record<string, { icon: typeof Globe; label: string; color: string }> = {
   ready: { icon: Globe, label: "Scan disponible", color: "text-muted-foreground" },
+  pending_scan: { icon: Globe, label: "En attente de géodonnées", color: "text-muted-foreground" },
   no_polygon: { icon: MapPin, label: "Données géospatiales manquantes", color: "text-yellow-600" },
   scanning: { icon: Loader2, label: "Scan en cours...", color: "text-primary" },
   clean: { icon: ShieldCheck, label: "Aucune alerte", color: "text-green-600" },
@@ -18,18 +19,22 @@ export function DeforestationScanSection({
   shipmentId,
   scanResult,
   geoJson,
+  scanRunAt,
 }: {
   shipmentId: string
   scanResult?: string | null
   geoJson?: unknown | null
+  scanRunAt?: number | null
 }) {
   const [isScanning, setIsScanning] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const runScan = useAction(api.scan.runDeforestationScan)
 
-  const status = scanResult ?? (geoJson ? "ready" : "no_polygon")
+  const recentlyRun = !!scanRunAt && Date.now() - scanRunAt < 60_000
+  const status = scanResult ?? (geoJson ? (recentlyRun ? "scanning" : "ready") : "no_polygon")
   const cfg = scanStateConfig[status] ?? scanStateConfig.ready
   const Icon = isScanning ? Loader2 : cfg.icon
+  const canRunScan = !!geoJson && !isScanning && !recentlyRun && !scanResult
 
   const handleScan = async () => {
     setIsScanning(true)
@@ -51,17 +56,22 @@ export function DeforestationScanSection({
           <Icon className={cn("h-4 w-4", isScanning && "animate-spin", cfg.color)} />
           <span className={cn("text-sm", cfg.color)}>{cfg.label}</span>
         </div>
-        {status === "ready" && (
+        {canRunScan && (
           <Button size="xs" onClick={handleScan} disabled={isScanning}>
             Lancer le scan
           </Button>
         )}
-        {(status === "no_polygon" || status === "alerts_found") && !scanResult && (
-          <Button size="xs" variant="outline" onClick={handleScan} disabled={isScanning}>
-            Réessayer
-          </Button>
-        )}
       </div>
+      {!geoJson && (
+        <p className="text-xs text-muted-foreground">
+          Données géospatiales manquantes, le scan sera disponible après la fusion des documents.
+        </p>
+      )}
+      {recentlyRun && !scanResult && geoJson && (
+        <p className="text-xs text-muted-foreground">
+          Le scan a déjà été lancé récemment. Réessayez dans quelques instants.
+        </p>
+      )}
       {error && <p className="text-xs text-destructive">{error}</p>}
     </div>
   )

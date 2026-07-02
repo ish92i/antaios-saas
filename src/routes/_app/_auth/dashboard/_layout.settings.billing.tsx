@@ -8,7 +8,7 @@ export const Route = createFileRoute(
 )({
   component: BillingSettings,
   beforeLoad: () => ({
-    title: "Billing",
+    title: "Antaios - Billing",
     headerTitle: "Billing",
     headerDescription: "Manage billing and your subscription plan.",
   }),

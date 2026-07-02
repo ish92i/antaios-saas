@@ -1,5 +1,10 @@
 import { useAuth } from "@clerk/clerk-react";
-import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import {
   useMutation,
@@ -16,6 +21,7 @@ export const Route = createFileRoute("/_app/_auth")({
 
 function AuthLayout() {
   const { isSignedIn, isLoaded } = useAuth();
+  const location = useLocation();
   const {
     isLoading: isConvexAuthLoading,
     isAuthenticated: isConvexAuthenticated,
@@ -27,6 +33,11 @@ function AuthLayout() {
     isLoading: isCurrentUserLoading,
     isFetched: isCurrentUserFetched,
   } = useQuery(convexQuery(api.app.getCurrentUser, {}));
+  const {
+    data: currentOrg,
+    isLoading: isCurrentOrgLoading,
+    isFetched: isCurrentOrgFetched,
+  } = useQuery(convexQuery(api.orgs.getCurrentOrg, {}));
   const userCreationRequested = useRef(false);
   const {
     mutate: createUser,
@@ -47,6 +58,25 @@ function AuthLayout() {
       navigate({ to: "/login" });
     }
     if (
+      currentOrg?.eoriNumber &&
+      location.pathname.startsWith("/onboarding")
+    ) {
+      navigate({ to: "/dashboard", replace: true });
+    }
+    if (
+      isLoaded &&
+      isSignedIn &&
+      isConvexAuthenticated &&
+      isCurrentUserFetched &&
+      isCurrentOrgFetched &&
+      currentUser &&
+      currentOrg &&
+      !currentOrg.eoriNumber &&
+      !location.pathname.startsWith("/onboarding")
+    ) {
+      navigate({ to: "/onboarding/organization", replace: true });
+    }
+    if (
       isLoaded &&
       isSignedIn &&
       isConvexAuthenticated &&
@@ -63,22 +93,30 @@ function AuthLayout() {
     isSignedIn,
     isConvexAuthenticated,
     isCurrentUserFetched,
+    isCurrentOrgFetched,
+    currentOrg,
     currentUser,
     isCreatingUser,
     createUser,
     navigate,
+    location.pathname,
   ]);
 
-  if (!isLoaded || !isSignedIn || isConvexAuthLoading || isCurrentUserLoading) {
+  if (!isLoaded || !isSignedIn || isConvexAuthLoading || isCurrentUserLoading || isCurrentOrgLoading) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-background px-6 text-foreground">
-        <section className="w-full max-w-md rounded-lg border bg-card p-6 shadow-sm">
-          <h1 className="text-xl font-semibold text-card-foreground">
-            Loading workspace
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Preparing your account and dashboard.
-          </p>
+        <section className="w-full max-w-md rounded-xl border bg-card p-6 shadow-sm">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <div className="h-5 w-40 animate-pulse rounded bg-muted" />
+              <div className="h-4 w-64 animate-pulse rounded bg-muted" />
+            </div>
+            <div className="space-y-3">
+              <div className="h-3 w-full animate-pulse rounded bg-muted" />
+              <div className="h-3 w-5/6 animate-pulse rounded bg-muted" />
+              <div className="h-3 w-2/3 animate-pulse rounded bg-muted" />
+            </div>
+          </div>
         </section>
       </main>
     );
@@ -134,13 +172,18 @@ function AuthLayout() {
   if (!currentUser) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-background px-6 text-foreground">
-        <section className="w-full max-w-md rounded-lg border bg-card p-6 shadow-sm">
-          <h1 className="text-xl font-semibold text-card-foreground">
-            Preparing workspace
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Creating your account record.
-          </p>
+        <section className="w-full max-w-md rounded-xl border bg-card p-6 shadow-sm">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <div className="h-5 w-48 animate-pulse rounded bg-muted" />
+              <div className="h-4 w-60 animate-pulse rounded bg-muted" />
+            </div>
+            <div className="space-y-3">
+              <div className="h-3 w-full animate-pulse rounded bg-muted" />
+              <div className="h-3 w-4/5 animate-pulse rounded bg-muted" />
+              <div className="h-3 w-3/5 animate-pulse rounded bg-muted" />
+            </div>
+          </div>
         </section>
       </main>
     );

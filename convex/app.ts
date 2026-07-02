@@ -2,7 +2,7 @@ import { mutation, query } from "@cvx/_generated/server";
 import { v } from "convex/values";
 import type { UserIdentity } from "convex/server";
 import { User } from "~/types";
-import { getUserId, ensureUser } from "@cvx/auth";
+import { getUserId, ensureUser, ensureOrg } from "@cvx/auth";
 import { internal } from "@cvx/_generated/api";
 
 const claimString = (identity: UserIdentity, claim: string) => {
@@ -33,12 +33,9 @@ export const getCurrentUser = query({
       .withIndex("orgId", (q) => q.eq("orgId", subscriberId(identity)))
       .first();
 
-    const avatarUrl = user.imageId
-      ? await ctx.storage.getUrl(user.imageId)
-      : user.image;
     return {
       ...user,
-      avatarUrl: avatarUrl || undefined,
+      avatarUrl: user.image || undefined,
       subscription: subscription ?? undefined,
     };
   },
@@ -51,29 +48,8 @@ export const createUserIfNeeded = mutation({
     if (!user) {
       throw new Error("Unable to create a user before auth is ready.");
     }
+    await ensureOrg(ctx);
     return user._id;
-  },
-});
-
-export const updateUsername = mutation({
-  args: {
-    username: v.string(),
-  },
-  handler: async (ctx, args) => {
-    const userId = await getUserId(ctx);
-    if (!userId) return;
-    await ctx.db.patch(userId, { username: args.username });
-  },
-});
-
-export const completeOnboarding = mutation({
-  args: {
-    username: v.string(),
-  },
-  handler: async (ctx, args) => {
-    const user = await ensureUser(ctx);
-    if (!user) return;
-    await ctx.db.patch(user._id, { username: args.username });
   },
 });
 
@@ -88,12 +64,12 @@ export const generateUploadUrl = mutation({
 
 export const updateUserImage = mutation({
   args: {
-    imageId: v.id("_storage"),
+    image: v.string(),
   },
   handler: async (ctx, args) => {
     const userId = await getUserId(ctx);
     if (!userId) return;
-    ctx.db.patch(userId, { imageId: args.imageId });
+    ctx.db.patch(userId, { image: args.image });
   },
 });
 
@@ -102,7 +78,7 @@ export const removeUserImage = mutation({
   handler: async (ctx) => {
     const userId = await getUserId(ctx);
     if (!userId) return;
-    ctx.db.patch(userId, { imageId: undefined, image: undefined });
+    ctx.db.patch(userId, { image: undefined });
   },
 });
 

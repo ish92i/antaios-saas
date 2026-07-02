@@ -13,6 +13,9 @@ import { Route as DashboardRoute } from "@/routes/_app/_auth/dashboard/_layout.i
 
 export const Route = createFileRoute("/")({
   component: Index,
+  beforeLoad: () => ({
+    title: "Antaios",
+  }),
 });
 
 function Index() {

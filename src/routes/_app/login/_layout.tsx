@@ -44,6 +44,9 @@ function getConfig(isDark: boolean): import("cobe").COBEOptions {
 
 export const Route = createFileRoute("/_app/login/_layout")({
   component: LoginLayout,
+  beforeLoad: () => ({
+    title: "Antaios - Connexion",
+  }),
 });
 
 function LoginLayout() {

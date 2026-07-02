@@ -54,6 +54,24 @@ const ALL_FIELDS = [
 const COUNTRY_FIELDS = ["countryOfExport", "countryOfProduction"]
 const DATE_FIELDS = ["productionDate"]
 
+function buildQuestion(question: {
+  id: string
+  field: string
+  type: string
+  label: string
+  options?: string[]
+  geoType?: "file" | "coordinates" | null
+}) {
+  return {
+    id: question.id,
+    field: question.field,
+    type: question.type,
+    label: question.label,
+    ...(question.options ? { options: question.options } : {}),
+    geoType: question.geoType ?? null,
+  }
+}
+
 function normalizeField(field: string, val: unknown): string | null {
   if (COUNTRY_FIELDS.includes(field)) return normalizeCountry(val)
   if (DATE_FIELDS.includes(field)) return normalizeDate(val)
@@ -85,7 +103,6 @@ export const mergeAndResolve = internalAction({
         field,
         type: "missing" as const,
         label: `Veuillez fournir ${field}`,
-        options: null,
         geoType: null,
       }))
 
@@ -112,7 +129,6 @@ export const mergeAndResolve = internalAction({
             field,
             type: "geo_missing",
             label: "Veuillez fournir les coordonnées géographiques ou télécharger un fichier",
-            options: null,
             geoType: null,
           })
         } else {
@@ -121,7 +137,6 @@ export const mergeAndResolve = internalAction({
             field,
             type: "missing",
             label: `Veuillez fournir ${field}`,
-            options: null,
             geoType: null,
           })
         }
@@ -198,7 +213,7 @@ export const mergeAndResolve = internalAction({
     await ctx.runMutation(internal.shipments.storeMergeResult, {
       shipmentId: args.shipmentId,
       extractedData: merged,
-      questions,
+      questions: questions.map(buildQuestion),
     })
   },
 })

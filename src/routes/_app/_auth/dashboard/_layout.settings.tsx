@@ -2,6 +2,9 @@ import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/_auth/dashboard/_layout/settings")({
   component: DashboardSettingsLayout,
+  beforeLoad: () => ({
+    title: "Antaios - Paramètres",
+  }),
 });
 
 export default function DashboardSettingsLayout() {

@@ -18,7 +18,7 @@ import { Route as AppLoginLayoutIndexRouteImport } from './routes/_app/login/_la
 import { Route as AppAuthOnboardingLayoutRouteImport } from './routes/_app/_auth/onboarding/_layout'
 import { Route as AppAuthDashboardLayoutRouteImport } from './routes/_app/_auth/dashboard/_layout'
 import { Route as AppAuthDashboardLayoutIndexRouteImport } from './routes/_app/_auth/dashboard/_layout.index'
-import { Route as AppAuthOnboardingLayoutUsernameRouteImport } from './routes/_app/_auth/onboarding/_layout.username'
+import { Route as AppAuthOnboardingLayoutOrganizationRouteImport } from './routes/_app/_auth/onboarding/_layout.organization'
 import { Route as AppAuthDashboardLayoutShipmentsRouteImport } from './routes/_app/_auth/dashboard/_layout.shipments'
 import { Route as AppAuthDashboardLayoutSettingsRouteImport } from './routes/_app/_auth/dashboard/_layout.settings'
 import { Route as AppAuthDashboardLayoutCheckoutRouteImport } from './routes/_app/_auth/dashboard/_layout.checkout'
@@ -68,10 +68,10 @@ const AppAuthDashboardLayoutIndexRoute =
     path: '/',
     getParentRoute: () => AppAuthDashboardLayoutRoute,
   } as any)
-const AppAuthOnboardingLayoutUsernameRoute =
-  AppAuthOnboardingLayoutUsernameRouteImport.update({
-    id: '/username',
-    path: '/username',
+const AppAuthOnboardingLayoutOrganizationRoute =
+  AppAuthOnboardingLayoutOrganizationRouteImport.update({
+    id: '/organization',
+    path: '/organization',
     getParentRoute: () => AppAuthOnboardingLayoutRoute,
   } as any)
 const AppAuthDashboardLayoutShipmentsRoute =
@@ -109,7 +109,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/checkout': typeof AppAuthDashboardLayoutCheckoutRoute
   '/dashboard/settings': typeof AppAuthDashboardLayoutSettingsRouteWithChildren
   '/dashboard/shipments': typeof AppAuthDashboardLayoutShipmentsRoute
-  '/onboarding/username': typeof AppAuthOnboardingLayoutUsernameRoute
+  '/onboarding/organization': typeof AppAuthOnboardingLayoutOrganizationRoute
   '/dashboard/': typeof AppAuthDashboardLayoutIndexRoute
   '/dashboard/settings/billing': typeof AppAuthDashboardLayoutSettingsBillingRoute
 }
@@ -121,7 +121,7 @@ export interface FileRoutesByTo {
   '/dashboard/checkout': typeof AppAuthDashboardLayoutCheckoutRoute
   '/dashboard/settings': typeof AppAuthDashboardLayoutSettingsRouteWithChildren
   '/dashboard/shipments': typeof AppAuthDashboardLayoutShipmentsRoute
-  '/onboarding/username': typeof AppAuthOnboardingLayoutUsernameRoute
+  '/onboarding/organization': typeof AppAuthOnboardingLayoutOrganizationRoute
   '/dashboard': typeof AppAuthDashboardLayoutIndexRoute
   '/dashboard/settings/billing': typeof AppAuthDashboardLayoutSettingsBillingRoute
 }
@@ -138,7 +138,7 @@ export interface FileRoutesById {
   '/_app/_auth/dashboard/_layout/checkout': typeof AppAuthDashboardLayoutCheckoutRoute
   '/_app/_auth/dashboard/_layout/settings': typeof AppAuthDashboardLayoutSettingsRouteWithChildren
   '/_app/_auth/dashboard/_layout/shipments': typeof AppAuthDashboardLayoutShipmentsRoute
-  '/_app/_auth/onboarding/_layout/username': typeof AppAuthOnboardingLayoutUsernameRoute
+  '/_app/_auth/onboarding/_layout/organization': typeof AppAuthOnboardingLayoutOrganizationRoute
   '/_app/_auth/dashboard/_layout/': typeof AppAuthDashboardLayoutIndexRoute
   '/_app/_auth/dashboard/_layout/settings/billing': typeof AppAuthDashboardLayoutSettingsBillingRoute
 }
@@ -154,7 +154,7 @@ export interface FileRouteTypes {
     | '/dashboard/checkout'
     | '/dashboard/settings'
     | '/dashboard/shipments'
-    | '/onboarding/username'
+    | '/onboarding/organization'
     | '/dashboard/'
     | '/dashboard/settings/billing'
   fileRoutesByTo: FileRoutesByTo
@@ -166,7 +166,7 @@ export interface FileRouteTypes {
     | '/dashboard/checkout'
     | '/dashboard/settings'
     | '/dashboard/shipments'
-    | '/onboarding/username'
+    | '/onboarding/organization'
     | '/dashboard'
     | '/dashboard/settings/billing'
   id:
@@ -182,7 +182,7 @@ export interface FileRouteTypes {
     | '/_app/_auth/dashboard/_layout/checkout'
     | '/_app/_auth/dashboard/_layout/settings'
     | '/_app/_auth/dashboard/_layout/shipments'
-    | '/_app/_auth/onboarding/_layout/username'
+    | '/_app/_auth/onboarding/_layout/organization'
     | '/_app/_auth/dashboard/_layout/'
     | '/_app/_auth/dashboard/_layout/settings/billing'
   fileRoutesById: FileRoutesById
@@ -258,11 +258,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAuthDashboardLayoutIndexRouteImport
       parentRoute: typeof AppAuthDashboardLayoutRoute
     }
-    '/_app/_auth/onboarding/_layout/username': {
-      id: '/_app/_auth/onboarding/_layout/username'
-      path: '/username'
-      fullPath: '/onboarding/username'
-      preLoaderRoute: typeof AppAuthOnboardingLayoutUsernameRouteImport
+    '/_app/_auth/onboarding/_layout/organization': {
+      id: '/_app/_auth/onboarding/_layout/organization'
+      path: '/organization'
+      fullPath: '/onboarding/organization'
+      preLoaderRoute: typeof AppAuthOnboardingLayoutOrganizationRouteImport
       parentRoute: typeof AppAuthOnboardingLayoutRoute
     }
     '/_app/_auth/dashboard/_layout/shipments': {
@@ -333,12 +333,13 @@ const AppAuthDashboardLayoutRouteWithChildren =
   )
 
 interface AppAuthOnboardingLayoutRouteChildren {
-  AppAuthOnboardingLayoutUsernameRoute: typeof AppAuthOnboardingLayoutUsernameRoute
+  AppAuthOnboardingLayoutOrganizationRoute: typeof AppAuthOnboardingLayoutOrganizationRoute
 }
 
 const AppAuthOnboardingLayoutRouteChildren: AppAuthOnboardingLayoutRouteChildren =
   {
-    AppAuthOnboardingLayoutUsernameRoute: AppAuthOnboardingLayoutUsernameRoute,
+    AppAuthOnboardingLayoutOrganizationRoute:
+      AppAuthOnboardingLayoutOrganizationRoute,
   }
 
 const AppAuthOnboardingLayoutRouteWithChildren =

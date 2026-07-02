@@ -384,8 +384,10 @@ export const storeScanResult = internalMutation({
     await ctx.db.patch(args.shipmentId, { completeness })
 
     // If green, set ready
-    if (completeness === "green") {
+    if (completeness === "green" && args.scanResult !== "no_polygon") {
       await ctx.db.patch(args.shipmentId, { status: "ready" })
+    } else if (args.scanResult === "no_polygon") {
+      await ctx.db.patch(args.shipmentId, { status: "pending_scan" })
     }
 
     await ctx.scheduler.runAfter(0, internal.audit.insertAuditLog, {
@@ -462,9 +464,19 @@ export const storePdfQuestions = internalMutation({
     questions: v.any(),
   },
   handler: async (ctx, args) => {
+    const normalizedQuestions = Array.isArray(args.questions)
+      ? args.questions.map((question: any) => ({
+          id: String(question.id),
+          field: `risk_pdf:${String(question.section ?? "general")}`,
+          type: "pdf_question",
+          label: String(question.question ?? question.label ?? "Question"),
+          geoType: null,
+        }))
+      : []
+
     // Store questions temporarily on the shipment
     await ctx.db.patch(args.shipmentId, {
-      pendingQuestions: args.questions,
+      pendingQuestions: normalizedQuestions,
     })
   },
 })

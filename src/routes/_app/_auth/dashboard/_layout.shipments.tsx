@@ -14,7 +14,11 @@ import {
 
 export const Route = createFileRoute("/_app/_auth/dashboard/_layout/shipments")({
   component: ShipmentsPage,
-  context: () => ({ headerTitle: "Expéditions", headerDescription: "Gérez vos envois et leur conformité EUDR" }),
+  beforeLoad: () => ({
+    title: "Antaios - Expéditions",
+    headerTitle: "Expéditions",
+    headerDescription: "Gérez vos envois et leur conformité EUDR",
+  }),
 })
 
 function ShipmentsPage() {

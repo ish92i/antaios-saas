@@ -3,6 +3,9 @@ import { Logo } from "@/components/logo";
 
 export const Route = createFileRoute("/_app/_auth/onboarding/_layout")({
   component: OnboardingLayout,
+  beforeLoad: () => ({
+    title: "Antaios - Bienvenue",
+  }),
 });
 
 export default function OnboardingLayout() {

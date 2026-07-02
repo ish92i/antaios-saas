@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router";
 import React, { Suspense } from "react";
 import { Helmet } from "react-helmet-async";
+import siteConfig from "~/site.config";
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
@@ -27,7 +28,7 @@ export const Route = createRootRouteWithContext<{
     const matchWithTitle = [...router.state.matches]
       .reverse()
       .find((d) => (d as { routeContext?: { title?: string } }).routeContext?.title);
-    const title = (matchWithTitle as { routeContext?: { title?: string } } | undefined)?.routeContext?.title || "Convex SaaS";
+    const title = (matchWithTitle as { routeContext?: { title?: string } } | undefined)?.routeContext?.title || siteConfig.siteTitle;
 
     return (
       <>

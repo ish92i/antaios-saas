@@ -8,7 +8,7 @@ import { DocumentList } from "./DocumentList"
 import { ExtractedDataGrid } from "./ExtractedDataGrid"
 import { DeforestationScanSection } from "./DeforestationScanSection"
 import { Button } from "@/components/ui/button"
-import { completenessTone } from "@/lib/shipment-ui"
+import { completenessTone, statusLabel } from "@/lib/shipment-ui"
 import { FileText, CheckCircle2, X, ChevronRight } from "lucide-react"
 import { useState } from "react"
 import type { Id } from "@cvx/_generated/dataModel"
@@ -46,6 +46,19 @@ export function ShipmentDetailPanel({
   const tone = completenessTone(shipment.completeness)
   const timelineStep = getTimelineStep(shipment)
   const isSubmitted = shipment.status === "submitted"
+  const isReadyToSubmit = shipment.status === "ready" && tone === "green" && !shipment.lockedAt
+  const hasExtractionData = Boolean(
+    shipment.extractedData &&
+      Object.values(shipment.extractedData as Record<string, unknown>).some(
+        (value) => value !== null && value !== undefined,
+      ),
+  )
+  const hasExtractionQuestions = Boolean(
+    (shipment.pendingQuestions as unknown[] | null | undefined)?.some(
+      (q) => typeof q === "object" && q !== null && "field" in (q as Record<string, unknown>),
+    ),
+  )
+  const showExtractionPanel = hasExtractionData || hasExtractionQuestions || shipment.status === "extracting" || shipment.status === "resolving"
 
   return (
     <div className="flex h-full flex-col">
@@ -65,6 +78,24 @@ export function ShipmentDetailPanel({
 
       <div className="flex-1 overflow-y-auto p-4">
         <div className="space-y-6">
+          <div className="rounded-lg border border-border bg-muted/20 px-4 py-3">
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">
+              Statut
+            </p>
+            <div className="mt-1 flex items-center gap-2">
+              <span className="text-sm font-medium text-foreground">
+                {statusLabel(shipment.status)}
+              </span>
+              <span className="text-xs text-muted-foreground">
+                {shipment.completeness === "green"
+                  ? "Prêt côté données"
+                  : shipment.completeness === "yellow"
+                    ? "Données partielles"
+                    : "Données incomplètes"}
+              </span>
+            </div>
+          </div>
+
           <ShipmentTimeline currentStep={timelineStep} />
 
           <section>
@@ -72,20 +103,32 @@ export function ShipmentDetailPanel({
             <DocumentList shipmentId={shipmentId} />
           </section>
 
-          <section>
-            <h3 className="mb-2 text-sm font-medium text-foreground">Données extraites</h3>
-            <ExtractedDataGrid
-              extractedData={shipment.extractedData as Record<string, unknown> | undefined | null}
-              pendingQuestions={shipment.pendingQuestions as unknown[] | null | undefined}
-              onResolve={() => setIsConflictOpen(true)}
-            />
-          </section>
+          {showExtractionPanel && (
+            <section>
+              <h3 className="mb-2 text-sm font-medium text-foreground">Données extraites</h3>
+              {(shipment.status === "extracting" || shipment.status === "resolving") && !hasExtractionData ? (
+                <div className="rounded-lg border border-border bg-muted/20 px-4 py-5 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <div className="h-3 w-3 animate-pulse rounded-full bg-primary" />
+                    <span>Extraction en cours, les données vont apparaître dès que les documents auront été traités.</span>
+                  </div>
+                </div>
+              ) : (
+                <ExtractedDataGrid
+                  extractedData={shipment.extractedData as Record<string, unknown> | undefined | null}
+                  pendingQuestions={shipment.pendingQuestions as unknown[] | null | undefined}
+                  onResolve={() => setIsConflictOpen(true)}
+                />
+              )}
+            </section>
+          )}
 
           <section>
             <DeforestationScanSection
               shipmentId={shipmentId}
               scanResult={shipment.scanResult}
               geoJson={(shipment.extractedData as Record<string, unknown> | undefined)?.geoJson}
+              scanRunAt={shipment.scanRunAt}
             />
           </section>
         </div>
@@ -105,7 +148,7 @@ export function ShipmentDetailPanel({
               size="sm"
               variant="outline"
               onClick={() => setIsTracesOpen(true)}
-              disabled={tone === "red" || tone === "yellow"}
+              disabled={!isReadyToSubmit}
             >
               <FileText className="h-4 w-4" />
               DDS
@@ -114,13 +157,13 @@ export function ShipmentDetailPanel({
               size="sm"
               variant="outline"
               onClick={() => setIsRiskPdfOpen(true)}
-              disabled={tone === "red" || tone === "yellow"}
+              disabled={!isReadyToSubmit}
             >
               <FileText className="h-4 w-4" />
               PDF Risque
             </Button>
-            {tone === "green" && (
-              <Button size="sm" className="ml-auto">
+            {isReadyToSubmit && (
+              <Button size="sm" className="ml-auto" onClick={() => setIsTracesOpen(true)}>
                 Soumettre
                 <ChevronRight className="h-4 w-4" />
               </Button>

@@ -16,7 +16,17 @@ export const runDeforestationScan = action({
     if (shipment.scanRunAt && Date.now() - shipment.scanRunAt < 60000) return
 
     const geoJson = (shipment.extractedData as Record<string, unknown> | undefined)?.geoJson
-    if (!geoJson) throw new Error("No geoJson data")
+    if (!geoJson) {
+      await ctx.runMutation(internal.shipments.setScanning, {
+        shipmentId: args.shipmentId,
+      })
+      await ctx.runMutation(internal.shipments.storeScanResult, {
+        shipmentId: args.shipmentId,
+        scanResult: "no_polygon",
+        scanAlertCount: 0,
+      })
+      return
+    }
 
     await ctx.runMutation(internal.shipments.setScanning, {
       shipmentId: args.shipmentId,

@@ -2,12 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Loader2, ExternalLink } from "lucide-react";
 import { buttonVariants } from "@/components/button-util";
 import { Route as DashboardRoute } from "@/routes/_app/_auth/dashboard/_layout.index";
-import siteConfig from "~/site.config";
-
 export const Route = createFileRoute("/_app/_auth/dashboard/_layout/checkout")({
   component: DashboardCheckout,
   beforeLoad: () => ({
-    title: `${siteConfig.siteTitle} - Checkout`,
+    title: "Antaios - Checkout",
   }),
 });
 
