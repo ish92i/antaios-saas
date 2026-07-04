@@ -1,4 +1,4 @@
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useClerk, CreateOrganization } from "@clerk/clerk-react";
 import {
   createFileRoute,
   Outlet,
@@ -21,6 +21,7 @@ export const Route = createFileRoute("/_app/_auth")({
 
 function AuthLayout() {
   const { isSignedIn, isLoaded } = useAuth();
+  const clerk = useClerk();
   const location = useLocation();
   const {
     isLoading: isConvexAuthLoading,
@@ -55,7 +56,10 @@ function AuthLayout() {
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
-      navigate({ to: "/login" });
+      if (!clerk.session) {
+        navigate({ to: "/login" });
+      }
+      return;
     }
     if (
       currentOrg?.eoriNumber &&
@@ -91,6 +95,7 @@ function AuthLayout() {
   }, [
     isLoaded,
     isSignedIn,
+    clerk.session,
     isConvexAuthenticated,
     isCurrentUserFetched,
     isCurrentOrgFetched,
@@ -101,6 +106,58 @@ function AuthLayout() {
     navigate,
     location.pathname,
   ]);
+
+  if (isLoaded && !isSignedIn) {
+    if (clerk.session) {
+      return (
+        <main className="flex min-h-screen items-center justify-center bg-background px-6 text-foreground">
+          <section className="mx-auto flex w-full max-w-96 flex-col items-center justify-center gap-6">
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="text-center text-2xl font-medium text-primary">
+                Create your organization
+              </h3>
+              <p className="text-center text-base font-normal text-primary/60">
+                Set up your organization to get started.
+              </p>
+            </div>
+            <CreateOrganization
+              afterCreateOrganizationUrl="/onboarding/organization"
+              appearance={{
+                elements: {
+                  rootBox: "w-full",
+                  card: "shadow-none bg-transparent w-full p-0",
+                  headerTitle: "text-lg font-medium text-primary",
+                  headerSubtitle: "hidden",
+                  formHeaderTitle: "hidden",
+                  formHeaderSubtitle: "hidden",
+                  socialButtonsBlockButton:
+                    "w-full border border-border bg-transparent text-primary/80 hover:bg-primary/5",
+                  dividerRow: "my-4",
+                  dividerText: "text-xs font-medium uppercase text-primary/60",
+                  formFieldLabel: "text-sm text-primary/60",
+                  formFieldInput:
+                    "bg-transparent border-border text-primary placeholder:text-primary/40",
+                  formButtonPrimary:
+                    "inline-flex items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 h-10 px-4 py-2 w-full",
+                  footerActionText: "hidden",
+                  footerActionLink: "hidden",
+                },
+              }}
+            />
+          </section>
+        </main>
+      );
+    }
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-background px-6 text-foreground">
+        <section className="w-full max-w-md rounded-lg border bg-card p-6 shadow-sm">
+          <h1 className="text-xl font-semibold text-card-foreground">
+            Redirecting to sign in...
+          </h1>
+        </section>
+      </main>
+    );
+  }
 
   if (!isLoaded || !isSignedIn || isConvexAuthLoading || isCurrentUserLoading || isCurrentOrgLoading) {
     return (

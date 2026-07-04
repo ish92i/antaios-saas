@@ -62,6 +62,21 @@ export const generateUploadUrl = mutation({
   },
 });
 
+export const generateSupplierUploadUrl = mutation({
+  args: {
+    token: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const shipment = await ctx.db
+      .query("shipments")
+      .withIndex("supplierToken", (q) => q.eq("supplierToken", args.token))
+      .unique()
+    if (!shipment) throw new Error("Token invalide")
+    if (shipment.supplierFormCompleted) throw new Error("Formulaire déjà complété")
+    return await ctx.storage.generateUploadUrl()
+  },
+})
+
 export const updateUserImage = mutation({
   args: {
     image: v.string(),

@@ -31,7 +31,10 @@ export const EXTRACTION_SCHEMA = `{
   "geoJson": "object | null — only if explicit coordinates present",
   "farmName": "string | null",
   "villageName": "string | null",
-  "certifications": "string[] | null — e.g. Rainforest Alliance, FSC, RSPO"
+  "certifications": "string[] | null — e.g. Rainforest Alliance, FSC, RSPO",
+  "scientificName": "string | null — deduce from commodityName if possible",
+  "region": "string | null",
+  "supplierEmail": "string | null"
 }`
 
 export function rawToBmpDataUri(data: Uint8ClampedArray, width: number, height: number, channels: 1 | 3 | 4): string {

@@ -1,5 +1,6 @@
 import { mutation, query, internalMutation, internalQuery } from "@cvx/_generated/server"
 import { v } from "convex/values"
+import { v4 as uuidv4 } from "uuid"
 import { internal } from "@cvx/_generated/api"
 import { getOrgId } from "@cvx/auth"
 import { validateExtractedData } from "@cvx/lib/validators"
@@ -103,6 +104,50 @@ export const answerQuestion = mutation({
   },
 })
 
+export const internalAnswerQuestion = internalMutation({
+  args: {
+    shipmentId: v.id("shipments"),
+    questionId: v.string(),
+    field: v.string(),
+    answer: v.any(),
+    previousValue: v.any(),
+    orgId: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const shipment = await ctx.db.get(args.shipmentId)
+    if (!shipment) throw new Error("Shipment not found")
+    if (shipment.lockedAt) throw new Error("Shipment is locked")
+
+    const currentData = (shipment.extractedData as Record<string, unknown>) ?? {}
+    currentData[args.field] = args.answer
+    if (!validateExtractedData(currentData)) throw new Error("Invalid data")
+
+    const questions = (shipment.pendingQuestions ?? []).filter(
+      (q: any) => q.id !== args.questionId,
+    )
+
+    const completeness = recomputeCompleteness(
+      currentData as any,
+      shipment.scanResult,
+      questions,
+    )
+
+    await ctx.db.patch(args.shipmentId, {
+      extractedData: currentData,
+      pendingQuestions: questions.length > 0 ? questions : undefined,
+      completeness,
+    })
+
+    await ctx.scheduler.runAfter(0, internal.audit.insertAuditLog, {
+      shipmentId: args.shipmentId,
+      orgId: args.orgId ?? shipment.orgId,
+      actor: "system",
+      eventType: "question_answered",
+      payload: { questionId: args.questionId, field: args.field, answer: args.answer, previousValue: args.previousValue },
+    })
+  },
+})
+
 export const flagForSupplier = mutation({
   args: {
     shipmentId: v.id("shipments"),
@@ -136,7 +181,6 @@ export const finalizeModal = mutation({
 
     const patch: Record<string, unknown> = {}
 
-    const { v4: uuidv4 } = await import("uuid")
     if (!shipment.supplierToken) {
       patch.supplierToken = uuidv4()
     }

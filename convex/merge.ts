@@ -43,13 +43,45 @@ function normalizeString(val: unknown): string | null {
 
 const ALL_FIELDS = [
   "operatorName", "operatorAddress", "operatorEmail", "operatorPhone", "eoriNumber",
-  "supplierName", "supplierAddress",
+  "supplierName", "supplierAddress", "supplierEmail",
   "commodityName", "scientificName", "hsCode", "quantity", "quantityUnit", "shipmentRef",
   "countryOfExport", "countryOfProduction", "productionDate",
+  "region",
   "portOfLoading", "portOfEntry",
   "farmName", "villageName", "certifications",
   "geoJson",
 ]
+
+const FIELD_LABELS: Record<string, string> = {
+  operatorName: "Nom de l'opérateur",
+  operatorAddress: "Adresse de l'opérateur",
+  operatorEmail: "Email de l'opérateur",
+  operatorPhone: "Téléphone de l'opérateur",
+  eoriNumber: "Numéro EORI",
+  supplierName: "Nom du fournisseur",
+  supplierAddress: "Adresse du fournisseur",
+  supplierEmail: "Email du fournisseur",
+  commodityName: "Nom du produit",
+  scientificName: "Nom scientifique",
+  hsCode: "Code SH",
+  quantity: "Quantité",
+  quantityUnit: "Unité",
+  shipmentRef: "Référence d'envoi",
+  countryOfExport: "Pays d'exportation",
+  countryOfProduction: "Pays de production",
+  productionDate: "Date de production",
+  region: "Région",
+  portOfLoading: "Port de chargement",
+  portOfEntry: "Port d'entrée",
+  farmName: "Nom de l'exploitation",
+  villageName: "Nom du village",
+  certifications: "Certifications",
+  geoJson: "Données géospatiales",
+}
+
+function fieldLabel(field: string): string {
+  return FIELD_LABELS[field] ?? field
+}
 
 const COUNTRY_FIELDS = ["countryOfExport", "countryOfProduction"]
 const DATE_FIELDS = ["productionDate"]
@@ -102,7 +134,7 @@ export const mergeAndResolve = internalAction({
         id: `missing-${field}`,
         field,
         type: "missing" as const,
-        label: `Veuillez fournir ${field}`,
+        label: `Veuillez fournir ${fieldLabel(field)}`,
         geoType: null,
       }))
 
@@ -123,6 +155,9 @@ export const mergeAndResolve = internalAction({
 
       if (nonNull.length === 0) {
         merged[field] = null
+        if (field === "scientificName") {
+          continue
+        }
         if (field === "geoJson") {
           questions.push({
             id: `missing-${field}`,
@@ -136,7 +171,7 @@ export const mergeAndResolve = internalAction({
             id: `missing-${field}`,
             field,
             type: "missing",
-            label: `Veuillez fournir ${field}`,
+            label: `Veuillez fournir ${fieldLabel(field)}`,
             geoType: null,
           })
         }
@@ -185,7 +220,7 @@ export const mergeAndResolve = internalAction({
         id: `conflict-${field}`,
         field,
         type: "conflict",
-        label: `${field}: ${uniqueValues.join(" vs ")}`,
+        label: `${fieldLabel(field)}: ${uniqueValues.join(" vs ")}`,
         options: uniqueValues,
         geoType: null,
       })

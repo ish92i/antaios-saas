@@ -1,0 +1,21 @@
+diff --git a/package.json b/package.json
+index db486a1bcee2f5fc347e4a891a34539ca824dd45..3977f94449de23d2937fdcf591fbec1937f6c6bb 100644
+--- a/package.json
++++ b/package.json
+@@ -63,12 +63,12 @@
+       },
+       "convex": {
+         "import": {
+-          "types": "./dist/edge/index.d.mts",
+-          "default": "./dist/edge/index.mjs"
++          "types": "./dist/node/index.d.mts",
++          "default": "./dist/node/index.mjs"
+         },
+         "require": {
+-          "types": "./dist/edge/index.d.cts",
+-          "default": "./dist/edge/index.cjs"
++          "types": "./dist/node/index.d.cts",
++          "default": "./dist/node/index.cjs"
+         }
+       },
+       "browser": {

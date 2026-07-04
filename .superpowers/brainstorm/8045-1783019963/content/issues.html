@@ -1,0 +1,47 @@
+<h2>Issues I've identified in the extracted data display</h2>
+<p class="subtitle">Here's what I found from the code — click each one to confirm or tell me I'm wrong</p>
+
+<div class="options" data-multiselect>
+  <div class="option" data-choice="1" onclick="toggleSelect(this)">
+    <div class="letter">1</div>
+    <div class="content">
+      <h3>GeoJSON displayed as raw JSON text</h3>
+      <p>The <code>displayValue</code> function does <code>JSON.stringify()</code> for objects. Should show a mini map preview instead of raw text blob.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="2" onclick="toggleSelect(this)">
+    <div class="letter">2</div>
+    <div class="content">
+      <h3>Scientific name asked when it's deductible</h3>
+      <p>"Raw Cocoa Beans" → "Theobroma cacao". The extraction schema doesn't include <code>scientificName</code> at all, and there's no lookup table. Should auto-fill from commodity name.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="3" onclick="toggleSelect(this)">
+    <div class="letter">3</div>
+    <div class="content">
+      <h3>Fields shown in UI that don't exist in data</h3>
+      <p><code>region</code>, <code>latitude</code>, <code>longitude</code>, <code>supplierEmail</code> are in the UI field groups but aren't in the extraction schema or merge pipeline. They'll always show "—".</p>
+    </div>
+  </div>
+  <div class="option" data-choice="4" onclick="toggleSelect(this)">
+    <div class="letter">4</div>
+    <div class="content">
+      <h3>Country code "CI" instead of full name</h3>
+      <p>Country stored as "CI" but should display "Côte d'Ivoire". Need a reverse lookup for display.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="5" onclick="toggleSelect(this)">
+    <div class="letter">5</div>
+    <div class="content">
+      <h3>UI is ugly &amp; duplicate heading</h3>
+      <p>"Données extraites" heading appears twice (in ShipmentDetailPanel AND ExtractedDataGrid). Overall styling needs polish — tighter spacing, better visual hierarchy.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="6" onclick="toggleSelect(this)">
+    <div class="letter">6</div>
+    <div class="content">
+      <h3>GeoJSON blob is too big / unstyled</h3>
+      <p>The raw JSON string for GeoJSON has no truncation, no formatting, no map. Just an eye-sore JSON blob in a data row.</p>
+    </div>
+  </div>
+</div>

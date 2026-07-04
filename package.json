@@ -104,6 +104,9 @@
     "onlyBuiltDependencies": [
       "esbuild",
       "@tailwindcss/oxide"
-    ]
+    ],
+    "patchedDependencies": {
+      "@react-email/render@2.0.9": "patches/@react-email__render@2.0.9.patch"
+    }
   }
 }

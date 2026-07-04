@@ -1,32 +1,22 @@
-import { cn } from "@/utils/misc";
-import { Slash } from "lucide-react";
+import { CreditCard, Slash } from "lucide-react";
 
 import { OrganizationSwitcher, UserButton } from "@clerk/clerk-react";
-import { buttonVariants } from "@/components/button-util";
 import { Logo } from "@/components/logo";
-import { Link, useMatchRoute } from "@tanstack/react-router";
-import { Route as DashboardRoute } from "@/routes/_app/_auth/dashboard/_layout.index";
-import { Route as DashboardLayoutRoute } from "@/routes/_app/_auth/dashboard/_layout";
+import { Link } from "@tanstack/react-router";
 import { Route as BillingSettingsRoute } from "@/routes/_app/_auth/dashboard/_layout.settings.billing";
-import { Route as ShipmentsRoute } from "@/routes/_app/_auth/dashboard/_layout.shipments";
 import { User } from "~/types";
 
 export function Navigation({ user }: { user: User }) {
-  const matchRoute = useMatchRoute();
-  const isBillingPath = matchRoute({ to: BillingSettingsRoute.fullPath });
-  const isShipmentsPath = matchRoute({ to: ShipmentsRoute.fullPath });
-  const isDashboardPath = matchRoute({ to: DashboardLayoutRoute.fullPath }) && !isBillingPath && !isShipmentsPath;
-
   if (!user) {
     return null;
   }
 
   return (
     <nav className="sticky top-0 z-50 flex w-full flex-col border-b border-border bg-card px-6">
-      <div className="mx-auto flex w-full max-w-screen-xl items-center justify-between py-3">
+      <div className="mx-auto flex w-full max-w-screen-xl items-center justify-between pt-3 pb-1.5">
         <div className="flex h-10 items-center gap-2">
           <Link
-            to={DashboardRoute.fullPath}
+            to="/dashboard"
             className="flex h-10 items-center gap-1"
           >
             <Logo width={36} height={36} />
@@ -52,6 +42,13 @@ export function Navigation({ user }: { user: User }) {
         </div>
 
         <div className="flex h-10 items-center gap-3">
+          <Link
+            to={BillingSettingsRoute.fullPath}
+            className="flex h-10 w-10 items-center justify-center rounded-md text-primary/60 hover:bg-primary/5 hover:text-primary"
+            title="Billing"
+          >
+            <CreditCard className="h-5 w-5 stroke-[1.5px]" />
+          </Link>
           <UserButton
             afterSignOutUrl="/login"
             appearance={{
@@ -61,54 +58,6 @@ export function Navigation({ user }: { user: User }) {
               },
             }}
           />
-        </div>
-      </div>
-
-      <div className="mx-auto flex w-full max-w-screen-xl items-center gap-3">
-        <div
-          className={cn(
-            `flex h-12 items-center border-b-2`,
-            isDashboardPath ? "border-primary" : "border-transparent",
-          )}
-        >
-          <Link
-            to={DashboardRoute.fullPath}
-            className={cn(
-              `${buttonVariants({ variant: "ghost", size: "sm" })} text-primary/80`,
-            )}
-          >
-            Dashboard
-          </Link>
-        </div>
-        <div
-          className={cn(
-            `flex h-12 items-center border-b-2`,
-            isShipmentsPath ? "border-primary" : "border-transparent",
-          )}
-        >
-          <Link
-            to={ShipmentsRoute.fullPath}
-            className={cn(
-              `${buttonVariants({ variant: "ghost", size: "sm" })} text-primary/80`,
-            )}
-          >
-            Expéditions
-          </Link>
-        </div>
-        <div
-          className={cn(
-            `flex h-12 items-center border-b-2`,
-            isBillingPath ? "border-primary" : "border-transparent",
-          )}
-        >
-          <Link
-            to={BillingSettingsRoute.fullPath}
-            className={cn(
-              `${buttonVariants({ variant: "ghost", size: "sm" })} text-primary/80`,
-            )}
-          >
-            Billing
-          </Link>
         </div>
       </div>
     </nav>

@@ -5,7 +5,6 @@ import { buttonVariants } from "@/components/button-util";
 import { Loader2, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import siteConfig from "~/site.config";
-import { ThemeSwitcherHome } from "@/components/theme-switcher";
 import ShadowPNG from "/images/shadow.png";
 import { useAuth } from "@clerk/clerk-react";
 import { Route as AuthLoginRoute } from "@/routes/_app/login/_layout.index";
@@ -22,7 +21,6 @@ function Index() {
   const { isLoaded, isSignedIn } = useAuth();
   const isLoading = !isLoaded;
   const isAuthenticated = !!isSignedIn;
-  const theme = "dark";
   return (
     <div className="relative flex h-full w-full flex-col bg-card">
       {/* Navigation */}
@@ -60,9 +58,9 @@ function Index() {
               >
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
               </svg>
-              <span className="hidden select-none items-center gap-1 rounded-full bg-green-500/5 px-2 py-1 pr-2.5 text-xs font-medium tracking-tight text-green-600 ring-1 ring-inset ring-green-600/20 backdrop-blur-sm dark:bg-yellow-800/40 dark:text-yellow-100 dark:ring-yellow-200/50 md:flex">
+              <span className="hidden select-none items-center gap-1 rounded-full bg-green-500/5 px-2 py-1 pr-2.5 text-xs font-medium tracking-tight text-green-600 ring-1 ring-inset ring-green-600/20 backdrop-blur-sm md:flex">
                 <Star
-                  className="h-3 w-3 text-green-600 dark:text-yellow-100"
+                  className="h-3 w-3 text-green-600"
                   fill="currentColor"
                 />
                 Star Us on GitHub
@@ -110,7 +108,7 @@ function Index() {
           <Button
             variant="outline"
             className={cn(
-              "hidden h-8 rounded-full bg-white/40 px-3 text-sm font-bold backdrop-blur hover:text-primary dark:bg-secondary md:flex",
+              "hidden h-8 rounded-full bg-white/40 px-3 text-sm font-bold backdrop-blur hover:text-primary md:flex",
             )}
           >
             <span className="flex items-center font-medium text-primary/60">
@@ -156,7 +154,7 @@ function Index() {
               rel="noreferrer"
               className={cn(
                 buttonVariants({ size: "sm", variant: "outline" }),
-                "hidden dark:bg-secondary dark:hover:opacity-80 sm:flex",
+                "hidden sm:flex",
               )}
             >
               Explore Documentation
@@ -511,7 +509,7 @@ function Index() {
               target="_blank"
               rel="noreferrer"
               className={cn(
-                `${buttonVariants({ variant: "outline", size: "sm" })} dark:bg-secondary dark:hover:opacity-80`,
+                buttonVariants({ variant: "outline", size: "sm" }),
               )}
             >
               Explore Documentation
@@ -540,11 +538,11 @@ function Index() {
             href="https://github.com/get-convex/convex-saas"
             target="_blank"
             rel="noreferrer"
-            className="hidden h-10 select-none items-center gap-2 rounded-full bg-green-500/5 px-2 py-1 pr-2.5 text-base font-medium tracking-tight text-green-600 ring-1 ring-inset ring-green-600/20 backdrop-blur-sm dark:bg-yellow-800/40 dark:text-yellow-100 dark:ring-yellow-200/50 md:flex"
+            className="hidden h-10 select-none items-center gap-2 rounded-full bg-green-500/5 px-2 py-1 pr-2.5 text-base font-medium tracking-tight text-green-600 ring-1 ring-inset ring-green-600/20 backdrop-blur-sm md:flex"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-green-600 dark:text-yellow-100"
+              className="h-6 w-6 text-green-600"
               viewBox="0 0 24 24"
               fill="currentColor"
             >
@@ -577,7 +575,6 @@ function Index() {
           </svg>
         </a>
 
-        <ThemeSwitcherHome />
 
         <div className="flex flex-col items-center gap-2 sm:flex-row">
           <p className="flex items-center whitespace-nowrap text-center text-sm font-medium text-primary/60">
@@ -590,11 +587,11 @@ function Index() {
             >
               the Open-Source Remix SaaS by&nbsp;
             </a>
-            <p className="flex items-center whitespace-nowrap text-center text-sm font-medium text-primary/60">
+            <span className="flex items-center whitespace-nowrap text-center text-sm font-medium text-primary/60">
               <a href="https://bento.me/danielkanem?utm_source=remixconvexsaas">
                 DanielKanem.
               </a>
-            </p>
+            </span>
           </p>
           <p className="flex items-center whitespace-nowrap text-center text-sm font-medium text-primary/60">
             Source code available on&nbsp;{" "}
@@ -614,7 +611,7 @@ function Index() {
       <img
         src={ShadowPNG}
         alt="Hero"
-        className={`fixed left-0 top-0 z-0 h-full w-full opacity-60 ${theme === "dark" ? "invert" : ""}`}
+        className="fixed left-0 top-0 z-0 h-full w-full opacity-60"
       />
       <div className="base-grid fixed h-screen w-screen opacity-40" />
       <div className="fixed bottom-0 h-screen w-screen bg-gradient-to-t from-[hsl(var(--card))] to-transparent" />

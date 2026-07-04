@@ -1,3 +1,5 @@
+"use node";
+
 /* eslint-disable react-refresh/only-export-components */
 import { render } from "@react-email/render";
 import { Section, Text, Link, Button } from "@react-email/components";

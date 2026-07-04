@@ -2,7 +2,6 @@ import { createDodoWebhookHandler } from "@dodopayments/convex";
 import { httpRouter } from "convex/server";
 import { internal } from "./_generated/api";
 import { planNameFromProductId } from "./dodo";
-import { sendSubscriptionSuccessEmail } from "@cvx/email/templates/subscription";
 
 const http = httpRouter();
 
@@ -28,7 +27,7 @@ http.route({
         })
         const customerEmail = payload.data.customer?.email
         if (customerEmail) {
-          await sendSubscriptionSuccessEmail({
+          await ctx.runAction(internal.email.subscription_email.sendSubscriptionSuccess, {
             email: customerEmail,
             subscriptionId: payload.data.subscription_id,
           })

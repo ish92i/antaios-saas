@@ -62,16 +62,30 @@ export const submitSupplierAnswers = mutation({
 
     if (!validateExtractedData(currentData)) throw new Error("Invalid data")
 
+    const geoAnswer = currentData.geoJson
+    const geoIsValid = typeof geoAnswer === "object" && geoAnswer !== null && !Array.isArray(geoAnswer)
+
+    const originalQuestions = (shipment.pendingQuestions ?? []) as Array<{ field: string; type: string }>
+    const hasGeoQuestion = originalQuestions.some((q) => q.field === "geoJson" && q.type === "geo_missing")
+
+    let remainingQuestions: any[] = []
+    if (hasGeoQuestion && !geoIsValid) {
+      remainingQuestions = originalQuestions.filter((q) => q.field === "geoJson")
+    }
+
+    const scanResult = geoIsValid ? undefined : shipment.scanResult
+
     const completeness = recomputeCompleteness(
       currentData as any,
-      shipment.scanResult,
-      [],
+      scanResult,
+      remainingQuestions.length > 0 ? remainingQuestions : undefined,
     )
 
     await ctx.db.patch(shipment._id, {
       extractedData: currentData,
-      pendingQuestions: undefined,
-      supplierFormCompleted: true,
+      pendingQuestions: remainingQuestions.length > 0 ? remainingQuestions : undefined,
+      supplierFormCompleted: remainingQuestions.length === 0,
+      scanResult,
       completeness,
     })
   },

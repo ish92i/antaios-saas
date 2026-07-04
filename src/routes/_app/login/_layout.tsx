@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { Logo } from "@/components/logo";
 import { Globe } from "@/components/ui/globe";
@@ -23,7 +22,7 @@ const MARKERS = [
   { location: [14.058324, 108.277199] as [number, number], size: 0.05 },  // Vietnam
 ].map((m) => ({ ...m, color: [0.2, 0.5, 1] as [number, number, number] }));
 
-function getConfig(isDark: boolean): import("cobe").COBEOptions {
+function getConfig(): import("cobe").COBEOptions {
   return {
     width: 800,
     height: 800,
@@ -35,9 +34,9 @@ function getConfig(isDark: boolean): import("cobe").COBEOptions {
     diffuse: 0.4,
     mapSamples: 16000,
     mapBrightness: 1.2,
-    baseColor: isDark ? [0.15, 0.15, 0.15] : [0.92, 0.92, 0.92],
+    baseColor: [0.92, 0.92, 0.92],
     markerColor: [0.2, 0.5, 1],
-    glowColor: isDark ? [0.12, 0.12, 0.12] : [0.9, 0.9, 0.9],
+    glowColor: [0.9, 0.9, 0.9],
     markers: MARKERS,
   };
 }
@@ -50,21 +49,6 @@ export const Route = createFileRoute("/_app/login/_layout")({
 });
 
 function LoginLayout() {
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains("dark"),
-  );
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div className="flex h-screen w-full">
       <div className="absolute left-1/2 top-10 mx-auto flex -translate-x-1/2 transform lg:hidden">
@@ -84,7 +68,7 @@ function LoginLayout() {
         </Link>
 
         <div className="relative aspect-square w-full max-w-[650px]">
-          <Globe config={getConfig(isDark)} />
+          <Globe config={getConfig()} />
         </div>
       </div>
       <div className="flex h-full w-full flex-col border-l border-primary/5 bg-card lg:w-[50%]">

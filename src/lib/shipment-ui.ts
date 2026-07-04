@@ -93,12 +93,33 @@ export const fieldGroups = [
   {
     title: "Géolocalisation",
     fields: [
-      { key: "latitude", label: "Latitude" },
-      { key: "longitude", label: "Longitude" },
       { key: "geoJson", label: "Données géospatiales" },
     ],
   },
 ]
+
+const countryMap: Record<string, string> = {
+  CI: "Côte d'Ivoire",
+  GH: "Ghana",
+  NG: "Nigeria",
+  CM: "Cameroun",
+  FR: "France",
+  DE: "Allemagne",
+  BE: "Belgique",
+  NL: "Pays-Bas",
+  GB: "Royaume-Uni",
+  US: "États-Unis",
+  BR: "Brésil",
+  CO: "Colombie",
+  PE: "Pérou",
+  EC: "Équateur",
+  ID: "Indonésie",
+  MY: "Malaisie",
+}
+
+export function countryName(code: string): string {
+  return countryMap[code.toUpperCase()] ?? code
+}
 
 export function displayValue(value: unknown): string {
   if (value === null || value === undefined) return "-"

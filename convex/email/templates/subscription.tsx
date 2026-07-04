@@ -1,7 +1,6 @@
-/* eslint-disable react-refresh/only-export-components */
-import { render } from "@react-email/render";
+"use node";
+
 import { Section, Text, Button } from "@react-email/components";
-import { sendEmail } from "@cvx/email";
 import { AntaiosLayout } from "./components/AntaiosLayout";
 
 type SubscriptionEmailOptions = {
@@ -78,34 +77,4 @@ export function SubscriptionErrorEmail({ email }: SubscriptionEmailOptions) {
   );
 }
 
-export async function renderSubscriptionSuccessEmail(args: SubscriptionEmailOptions) {
-  return await render(<SubscriptionSuccessEmail {...args} />);
-}
 
-export async function renderSubscriptionErrorEmail(args: SubscriptionEmailOptions) {
-  return await render(<SubscriptionErrorEmail {...args} />);
-}
-
-export async function sendSubscriptionSuccessEmail({
-  email,
-  subscriptionId,
-}: SubscriptionEmailOptions) {
-  const html = await renderSubscriptionSuccessEmail({ email, subscriptionId });
-  await sendEmail({
-    to: email,
-    subject: "Welcome to Antaios — Subscription Confirmed",
-    html,
-  });
-}
-
-export async function sendSubscriptionErrorEmail({
-  email,
-  subscriptionId,
-}: SubscriptionEmailOptions) {
-  const html = await renderSubscriptionErrorEmail({ email, subscriptionId });
-  await sendEmail({
-    to: email,
-    subject: "Subscription Issue — Antaios",
-    html,
-  });
-}

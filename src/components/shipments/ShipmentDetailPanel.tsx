@@ -105,7 +105,6 @@ export function ShipmentDetailPanel({
 
           {showExtractionPanel && (
             <section>
-              <h3 className="mb-2 text-sm font-medium text-foreground">Données extraites</h3>
               {(shipment.status === "extracting" || shipment.status === "resolving") && !hasExtractionData ? (
                 <div className="rounded-lg border border-border bg-muted/20 px-4 py-5 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">

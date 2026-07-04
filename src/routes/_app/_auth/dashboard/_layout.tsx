@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { Navigation } from "./-ui.navigation";
-import { Header } from "@/components/header";
+
 import { useQuery } from "@tanstack/react-query";
 import { convexQuery } from "@convex-dev/react-query";
 import { api } from "@cvx/_generated/api";
@@ -11,7 +11,6 @@ export const Route = createFileRoute("/_app/_auth/dashboard/_layout")({
 });
 
 function DashboardLayout() {
-  const routeContext = Route.useRouteContext();
   const {
     data: user,
     isLoading,
@@ -22,8 +21,8 @@ function DashboardLayout() {
 
   if (isLoading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-secondary px-6 dark:bg-black">
-        <section className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm dark:bg-black">
+      <main className="flex min-h-screen items-center justify-center bg-secondary px-6">
+        <section className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm">
           <h1 className="text-xl font-semibold text-primary">Loading dashboard</h1>
           <p className="mt-2 text-sm text-primary/60">
             Fetching your workspace data.
@@ -35,8 +34,8 @@ function DashboardLayout() {
 
   if (isError || !user) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-secondary px-6 dark:bg-black">
-        <section className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm dark:bg-black">
+      <main className="flex min-h-screen items-center justify-center bg-secondary px-6">
+        <section className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm">
           <h1 className="text-xl font-semibold text-primary">
             Dashboard unavailable
           </h1>
@@ -55,12 +54,8 @@ function DashboardLayout() {
     );
   }
   return (
-    <div className="flex min-h-[100vh] w-full flex-col bg-secondary dark:bg-black">
+    <div className="flex min-h-[100vh] w-full flex-col bg-secondary">
       <Navigation user={user} />
-      <Header
-        title={routeContext.headerTitle}
-        description={routeContext.headerDescription}
-      />
       <Outlet />
     </div>
   );

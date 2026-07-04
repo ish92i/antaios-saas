@@ -54,8 +54,8 @@ export function ShipmentList({
   }
 
   return (
-    <div className="flex flex-col gap-2 p-4">
-      <div className="flex items-center justify-between px-1">
+    <div className="flex flex-col gap-3 px-5 pt-5 pb-16">
+      <div className="flex items-center justify-between px-0.5">
         <h2 className="text-sm font-semibold text-foreground">
           Envois ({shipments.length})
         </h2>

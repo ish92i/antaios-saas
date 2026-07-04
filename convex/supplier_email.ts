@@ -1,3 +1,5 @@
+"use node";
+
 import { internalAction } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"

@@ -31,8 +31,8 @@ export default function BillingSettings() {
 
   if (!user) {
     return (
-      <div className="flex h-full w-full items-center justify-center bg-secondary px-6 dark:bg-black">
-        <section className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm dark:bg-black">
+      <div className="flex h-full w-full items-center justify-center bg-secondary px-6">
+        <section className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm">
           <h1 className="text-xl font-semibold text-primary">Loading billing</h1>
           <p className="mt-2 text-sm text-primary/60">
             Fetching your account data.
@@ -100,7 +100,7 @@ export default function BillingSettings() {
           </div>
         )}
 
-        <div className="flex min-h-14 w-full items-center justify-between rounded-lg rounded-t-none border-t border-border bg-secondary px-6 py-3 dark:bg-card">
+           <div className="flex min-h-14 w-full items-center justify-between rounded-lg rounded-t-none border-t border-border bg-secondary px-6 py-3">
           <p className="text-sm font-normal text-primary/60">
             {isSubscribed
               ? "Manage your subscription via the customer portal."
@@ -126,7 +126,7 @@ export default function BillingSettings() {
             </p>
           </div>
 
-          <div className="flex min-h-14 w-full items-center justify-between rounded-lg rounded-t-none border-t border-border bg-secondary px-6 py-3 dark:bg-card">
+          <div className="flex min-h-14 w-full items-center justify-between rounded-lg rounded-t-none border-t border-border bg-secondary px-6 py-3">
             <p className="text-sm font-normal text-primary/60">
               You will be redirected to the Dodo Payments Customer Portal.
             </p>

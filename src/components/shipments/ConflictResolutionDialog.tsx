@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react"
-import { useMutation } from "convex/react"
+import { useMutation, useAction } from "convex/react"
 import { api } from "@cvx/_generated/api"
 import {
   Dialog,
@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ChevronLeft, CheckCircle2, Copy, Send, Mail } from "lucide-react"
+import { ChevronLeft, CheckCircle2, Copy, Send, Mail, Upload, File, Loader2, Trash2 } from "lucide-react"
 import type { Id } from "@cvx/_generated/dataModel"
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
@@ -22,6 +22,7 @@ interface Question {
   label: string
   type?: string
   options?: string[]
+  geoType?: "file" | "coordinates" | null
 }
 
 export function ConflictResolutionDialog({
@@ -50,12 +51,52 @@ export function ConflictResolutionDialog({
   const [flagMode, setFlagMode] = useState(false)
   const [supplierEmail, setSupplierEmail] = useState(shipment.supplierEmail ?? "")
   const [emailError, setEmailError] = useState<string | null>(null)
+  const [geoFile, setGeoFile] = useState<File | null>(null)
+  const [isUploadingGeo, setIsUploadingGeo] = useState(false)
+  const [geoError, setGeoError] = useState<string | null>(null)
 
   const answerQuestion = useMutation(api.shipments.answerQuestion)
   const flagForSupplier = useMutation(api.shipments.flagForSupplier)
   const finalizeModal = useMutation(api.shipments.finalizeModal)
+  const generateUploadUrl = useMutation(api.app.generateUploadUrl)
+  const processAndAnswerGeo = useAction(api.geoAnswer.processAndAnswerGeo)
 
   const currentQuestion = questions[step]
+
+  const handleGeoFile = useCallback(
+    async (file: File) => {
+      if (!currentQuestion) return
+      setIsUploadingGeo(true)
+      setGeoError(null)
+      try {
+        const uploadUrl = await generateUploadUrl()
+        const uploadResp = await fetch(uploadUrl, {
+          method: "POST",
+          headers: { "Content-Type": file.type },
+          body: file,
+        })
+        if (!uploadResp.ok) throw new Error("Échec du téléchargement")
+        const { storageId } = (await uploadResp.json()) as { storageId: string }
+        const prevVal = (shipment.extractedData as Record<string, unknown> | undefined)?.[currentQuestion.field]
+        await processAndAnswerGeo({
+          shipmentId: shipment._id as Id<"shipments">,
+          questionId: currentQuestion.id,
+          storageId: storageId as Id<"_storage">,
+          fileName: file.name,
+          previousValue: prevVal,
+        })
+        setAnswers((prev) => ({ ...prev, [currentQuestion.field]: file.name }))
+        setGeoFile(null)
+        setStep((s) => s + 1)
+        setFlagMode(false)
+      } catch (err) {
+        setGeoError(err instanceof Error ? err.message : "Erreur lors du traitement du fichier")
+      } finally {
+        setIsUploadingGeo(false)
+      }
+    },
+    [currentQuestion, shipment, generateUploadUrl, processAndAnswerGeo],
+  )
 
   const handleAnswer = useCallback(
     async (value: string) => {
@@ -252,6 +293,62 @@ export function ConflictResolutionDialog({
                       {opt}
                     </Button>
                   ))}
+                </div>
+              ) : currentQuestion.type === "geo_missing" ? (
+                <div className="space-y-3">
+                  {geoFile ? (
+                    <div className="flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm">
+                      <File className="h-4 w-4 shrink-0 text-muted-foreground" />
+                      <span className="min-w-0 flex-1 truncate">{geoFile.name}</span>
+                      <button
+                        type="button"
+                        onClick={() => setGeoFile(null)}
+                        className="flex items-center gap-1 text-xs text-destructive hover:text-destructive/80"
+                        disabled={isUploadingGeo}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                        Retirer
+                      </button>
+                    </div>
+                  ) : (
+                    <div
+                      className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-border p-6 text-center transition-colors hover:border-primary/50"
+                      onClick={() => document.getElementById("geo-file-input")?.click()}
+                    >
+                      <input
+                        id="geo-file-input"
+                        type="file"
+                        accept=".geojson,.kml,.zip"
+                        className="hidden"
+                        onChange={(e) => {
+                          const f = e.target.files?.[0]
+                          if (f) setGeoFile(f)
+                        }}
+                      />
+                      <Upload className="mb-2 h-8 w-8 text-muted-foreground" />
+                      <p className="text-sm font-medium text-foreground">
+                        Cliquez pour sélectionner un fichier
+                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        GeoJSON, KML, ZIP
+                      </p>
+                    </div>
+                  )}
+                  <div className="flex gap-2">
+                    {geoFile && (
+                      <Button
+                        onClick={() => handleGeoFile(geoFile)}
+                        disabled={isUploadingGeo}
+                      >
+                        {isUploadingGeo ? (
+                          <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Traitement...</>
+                        ) : (
+                          "Télécharger"
+                        )}
+                      </Button>
+                    )}
+                  </div>
+                  {geoError && <p className="text-sm text-destructive">{geoError}</p>}
                 </div>
               ) : (
                 <div className="flex gap-2">

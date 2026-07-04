@@ -67,7 +67,7 @@ export function DeforestationScanSection({
           Données géospatiales manquantes, le scan sera disponible après la fusion des documents.
         </p>
       )}
-      {recentlyRun && !scanResult && geoJson && (
+      {recentlyRun && !scanResult && !!geoJson && (
         <p className="text-xs text-muted-foreground">
           Le scan a déjà été lancé récemment. Réessayez dans quelques instants.
         </p>

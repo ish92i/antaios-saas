@@ -96,7 +96,7 @@ export default function OnboardingOrganization() {
                 }`}
               />
               {field.state.meta?.errors.length > 0 && (
-                <span className="text-sm text-destructive dark:text-destructive-foreground">
+                <span className="text-sm text-destructive ">
                   {field.state.meta.errors.join(" ")}
                 </span>
               )}
@@ -112,12 +112,13 @@ export default function OnboardingOrganization() {
                 Phone
               </label>
               <PhoneInput
+                international
                 value={field.state.value || undefined}
                 onChange={(value) => field.handleChange(value || "")}
                 placeholder="+33 1 23 45 67 89"
               />
               {field.state.meta?.errors.length > 0 && (
-                <span className="text-sm text-destructive dark:text-destructive-foreground">
+                <span className="text-sm text-destructive ">
                   {field.state.meta.errors.join(" ")}
                 </span>
               )}
@@ -149,7 +150,7 @@ export default function OnboardingOrganization() {
                   }`}
                 />
                 {field.state.meta?.errors.length > 0 && (
-                  <span className="text-sm text-destructive dark:text-destructive-foreground">
+                  <span className="text-sm text-destructive ">
                     {field.state.meta.errors.join(" ")}
                   </span>
                 )}
@@ -180,7 +181,7 @@ export default function OnboardingOrganization() {
                   }`}
                 />
                 {field.state.meta?.errors.length > 0 && (
-                  <span className="text-sm text-destructive dark:text-destructive-foreground">
+                  <span className="text-sm text-destructive ">
                     {field.state.meta.errors.join(" ")}
                   </span>
                 )}
