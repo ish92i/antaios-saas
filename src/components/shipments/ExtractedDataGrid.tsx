@@ -1,6 +1,24 @@
-import { fieldGroups, displayValue } from "@/lib/shipment-ui"
-import { AlertTriangle } from "lucide-react"
+import { fieldGroups, displayValue, countryName } from "@/lib/shipment-ui"
+import {
+  AlertTriangle,
+  Building2,
+  Truck,
+  Package,
+  MapPin,
+  Award,
+  Map,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { GeoJsonPreview, type GeoJsonInput } from "./GeoJsonPreview"
+
+const groupIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  Opérateur: Building2,
+  Fournisseur: Truck,
+  Marchandise: Package,
+  Géographie: MapPin,
+  Certifications: Award,
+  Géolocalisation: Map,
+}
 
 export function ExtractedDataGrid({
   extractedData,
@@ -44,12 +62,20 @@ export function ExtractedDataGrid({
         const hasData = group.fields.some((f) => data[f.key] !== null && data[f.key] !== undefined)
         if (!hasData && !hasQuestions) return null
 
+        const GroupIcon = groupIcons[group.title]
+
         return (
-          <div key={group.title}>
-            <h5 className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              {group.title}
-            </h5>
-            <div className="divide-y divide-border rounded-md border border-border">
+          <div
+            key={group.title}
+            className="overflow-hidden rounded-lg border bg-card shadow-sm"
+          >
+            <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
+              {GroupIcon && <GroupIcon className="h-3.5 w-3.5 text-muted-foreground" />}
+              <h5 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                {group.title}
+              </h5>
+            </div>
+            <div className="divide-y divide-border">
               {group.fields.map((field) => {
                 const value = data[field.key]
                 const isMissing = value === null || value === undefined
@@ -57,8 +83,13 @@ export function ExtractedDataGrid({
                   (q) => q.field === field.key,
                 )
 
+                const display =
+                  !isMissing && field.key === "countryOfProduction"
+                    ? countryName(String(value))
+                    : displayValue(value)
+
                 return (
-                  <div key={field.key} className="flex items-center justify-between px-3 py-2 text-sm">
+                  <div key={field.key} className="flex items-center justify-between px-3 py-1.5 text-sm">
                     <span className="text-muted-foreground">{field.label}</span>
                     <div className="flex items-center gap-2">
                       {isMissing ? (
@@ -72,9 +103,11 @@ export function ExtractedDataGrid({
                             <span className="text-muted-foreground">—</span>
                           )}
                         </span>
+                      ) : field.key === "geoJson" && typeof value === "object" && value !== null && !Array.isArray(value) ? (
+                        <GeoJsonPreview geoJson={value as unknown as GeoJsonInput} />
                       ) : (
                         <span className="font-medium text-foreground">
-                          {displayValue(value)}
+                          {display}
                         </span>
                       )}
                     </div>

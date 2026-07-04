@@ -45,18 +45,18 @@ export function FilePreview({
 
   let preview: React.ReactNode
 
-  if (isImage) {
+  if (isImage && objectUrl) {
     preview = (
       <img
-        src={objectUrl!}
+        src={objectUrl}
         alt={file.name}
         className="max-h-[60vh] w-full rounded-lg object-contain"
       />
     )
-  } else if (isPdf) {
+  } else if (isPdf && objectUrl) {
     preview = (
       <iframe
-        src={objectUrl!}
+        src={objectUrl}
         className="h-[60vh] w-full rounded-lg"
         title={file.name}
       />

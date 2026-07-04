@@ -43,7 +43,7 @@ export function CreateShipmentPanel({
         })
         const { storageId } = (await uploadResp.json()) as { storageId: string }
         await addDocument({
-          shipmentId: shipmentId as any,
+          shipmentId,
           storageId: storageId as unknown as Id<"_storage">,
           fileName: f.file.name,
           mimeType: f.file.type,
