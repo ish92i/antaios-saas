@@ -5,7 +5,8 @@ import { cn } from "@/lib/utils"
 import { formatFileSize } from "@/lib/formatters"
 
 const ACCEPTED_TYPES: Record<string, string[]> = {
-  "application/*": [".pdf", ".docx", ".xlsx", ".csv", ".txt", ".geojson", ".kml", ".zip"],
+  "application/*": [".pdf", ".docx", ".xlsx", ".geojson", ".kml", ".zip"],
+  "text/*": [".csv", ".txt"],
 }
 
 const MAX_FILES = 10
