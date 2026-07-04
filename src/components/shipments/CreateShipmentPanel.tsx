@@ -61,7 +61,7 @@ export function CreateShipmentPanel({
   const validFiles = files.filter((f) => f.errors.length === 0)
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex h-full flex-col bg-background">
       <div className="sticky top-0 flex items-center justify-between border-b border-border bg-card px-4 py-3">
         <h2 className="text-sm font-semibold text-foreground">Nouvel envoi</h2>
         <Button variant="ghost" size="icon" onClick={onCancel} disabled={isSubmitting}>
