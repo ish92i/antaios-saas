@@ -5,12 +5,15 @@ import { api } from "@cvx/_generated/api"
 import { useState, useCallback } from "react"
 import { ShipmentList } from "@/components/shipments/ShipmentList"
 import { ShipmentDetailPanel } from "@/components/shipments/ShipmentDetailPanel"
-import { NewShipmentDialog } from "@/components/shipments/NewShipmentDialog"
+import { CreateShipmentPanel } from "@/components/shipments/CreateShipmentPanel"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
-import {
-  useMediaQuery,
-} from "@/hooks/use-media-query"
+import { useMediaQuery } from "@/hooks/use-media-query"
+
+type ViewState =
+  | { mode: "idle" }
+  | { mode: "create" }
+  | { mode: "detail"; id: string }
 
 export const Route = createFileRoute("/_app/_auth/dashboard/_layout/shipments")({
   component: ShipmentsPage,
@@ -25,22 +28,24 @@ function ShipmentsPage() {
   const { data: shipments, isLoading } = useQuery(
     convexQuery(api.shipments.listShipments, {}),
   )
-  const [selectedId, setSelectedId] = useState<string | undefined>()
-  const [isNewOpen, setIsNewOpen] = useState(false)
+  const [view, setView] = useState<ViewState>({ mode: "idle" })
   const isMobile = useMediaQuery("(max-width: 767px)")
-  const showDetail = !!selectedId
+  const showDetail = view.mode !== "idle"
 
   const handleSelect = useCallback((id: string) => {
-    setSelectedId((prev) => (prev === id ? undefined : id))
+    setView((prev) =>
+      prev.mode === "detail" && prev.id === id
+        ? { mode: "idle" }
+        : { mode: "detail", id },
+    )
   }, [])
 
   const handleBack = useCallback(() => {
-    setSelectedId(undefined)
+    setView({ mode: "idle" })
   }, [])
 
   const handleCreated = useCallback((id: string) => {
-    setSelectedId(id)
-    setIsNewOpen(false)
+    setView({ mode: "detail", id })
   }, [])
 
   return (
@@ -50,13 +55,13 @@ function ShipmentsPage() {
           <ShipmentList
             shipments={shipments}
             isLoading={isLoading}
-            selectedId={selectedId}
+            selectedId={view.mode === "detail" ? view.id : undefined}
             onSelect={handleSelect}
-            onCreate={() => setIsNewOpen(true)}
+            onCreate={() => setView({ mode: "create" })}
           />
         </div>
       )}
-      {showDetail && (
+      {view.mode === "detail" && (
         <div className="flex flex-1 flex-col overflow-hidden">
           {isMobile && (
             <div className="flex items-center border-b border-border px-4 py-2">
@@ -67,21 +72,32 @@ function ShipmentsPage() {
             </div>
           )}
           <ShipmentDetailPanel
-            shipmentId={selectedId}
+            shipmentId={view.id}
             onClose={handleBack}
           />
         </div>
       )}
-      {!showDetail && !isMobile && (
+      {view.mode === "create" && (
+        <div className="flex flex-1 flex-col overflow-hidden">
+          {isMobile && (
+            <div className="flex items-center border-b border-border px-4 py-2">
+              <Button variant="ghost" size="sm" onClick={() => setView({ mode: "idle" })}>
+                <ArrowLeft className="h-4 w-4" />
+                Retour
+              </Button>
+            </div>
+          )}
+          <CreateShipmentPanel
+            onCreated={handleCreated}
+            onCancel={() => setView({ mode: "idle" })}
+          />
+        </div>
+      )}
+      {view.mode === "idle" && !isMobile && (
         <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
           Sélectionnez un envoi pour voir les détails
         </div>
       )}
-      <NewShipmentDialog
-        open={isNewOpen}
-        onOpenChange={setIsNewOpen}
-        onCreated={handleCreated}
-      />
     </div>
   )
 }
