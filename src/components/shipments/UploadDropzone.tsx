@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { useDropzone, type FileRejection } from "react-dropzone"
-import { Upload, File, AlertCircle, Trash2 } from "lucide-react"
+import { Upload, FileText, AlertCircle, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { formatFileSize } from "@/lib/formatters"
 
@@ -19,9 +19,11 @@ interface UploadFile {
 export function UploadDropzone({
   files,
   onFilesChange,
+  onFileClick,
 }: {
   files: UploadFile[]
   onFilesChange: (files: UploadFile[]) => void
+  onFileClick?: (index: number) => void
 }) {
   const onDrop = useCallback(
     (accepted: File[], rejections: FileRejection[]) => {
@@ -96,35 +98,48 @@ export function UploadDropzone({
       </div>
 
       {files.length > 0 && (
-        <ul className="space-y-1">
+        <div className="grid grid-cols-2 gap-2">
           {files.map((f, i) => (
-            <li
+            <button
               key={i}
-              className="flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm"
+              type="button"
+              onClick={() => onFileClick?.(i)}
+              className={cn(
+                "group relative flex flex-col items-center gap-1.5 rounded-lg border border-border p-3 text-left transition-colors hover:bg-muted/50",
+                f.errors.length > 0 && "border-destructive/50 bg-destructive/5",
+              )}
             >
-              <File className="h-4 w-4 shrink-0 text-muted-foreground" />
-              <span className="min-w-0 flex-1 truncate">{f.file.name}</span>
-              <span className="shrink-0 text-xs text-muted-foreground">
-                {formatFileSize(f.file.size)}
-              </span>
-              {f.errors.length > 0 ? (
-                <span className="flex items-center gap-1 text-xs text-destructive" title={f.errors.join(", ")}>
-                  <AlertCircle className="h-3.5 w-3.5" />
-                  Erreur
-                </span>
-              ) : (
+              <div className="flex w-full items-center justify-between">
+                <FileText className={cn(
+                  "h-5 w-5 shrink-0 text-muted-foreground",
+                  f.errors.length > 0 && "text-destructive",
+                )} />
                 <button
                   type="button"
-                  onClick={() => removeFile(i)}
-                  className="flex items-center gap-1 text-xs text-destructive hover:text-destructive/80"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    removeFile(i)
+                  }}
+                  className="opacity-0 transition-opacity group-hover:opacity-100"
                 >
-                  <Trash2 className="h-3.5 w-3.5" />
-                  Retirer
+                  <X className="h-3.5 w-3.5 text-muted-foreground hover:text-destructive" />
                 </button>
+              </div>
+              <span className="w-full truncate text-xs font-medium text-foreground">
+                {f.file.name}
+              </span>
+              <span className="text-[10px] text-muted-foreground">
+                {formatFileSize(f.file.size)}
+              </span>
+              {f.errors.length > 0 && (
+                <div className="flex items-center gap-1 text-[10px] text-destructive">
+                  <AlertCircle className="h-3 w-3" />
+                  <span>{f.errors[0]}</span>
+                </div>
               )}
-            </li>
+            </button>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   )
