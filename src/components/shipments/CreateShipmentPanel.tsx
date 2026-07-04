@@ -61,8 +61,8 @@ export function CreateShipmentPanel({
   const validFiles = files.filter((f) => f.errors.length === 0)
 
   return (
-    <div className="flex h-full flex-col bg-background">
-      <div className="sticky top-0 flex items-center justify-between border-b border-border bg-card px-4 py-3">
+    <div className="flex flex-1 flex-col bg-background">
+      <div className="flex items-center justify-between border-b border-border bg-card px-4 py-3">
         <h2 className="text-sm font-semibold text-foreground">Nouvel envoi</h2>
         <Button variant="ghost" size="icon" onClick={onCancel} disabled={isSubmitting}>
           <X className="h-4 w-4" />
@@ -100,7 +100,7 @@ export function CreateShipmentPanel({
         </div>
       </div>
 
-      <div className="sticky bottom-0 border-t border-border bg-card p-4">
+      <div className="border-t border-border bg-card px-4 py-3">
         <Button
           size="lg"
           onClick={handleSubmit}

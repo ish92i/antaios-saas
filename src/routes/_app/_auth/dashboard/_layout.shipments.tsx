@@ -78,7 +78,7 @@ function ShipmentsPage() {
         </div>
       )}
       {view.mode === "create" && (
-        <div className="flex flex-1 flex-col overflow-hidden">
+        <div className="flex flex-1 flex-col overflow-hidden h-full">
           {isMobile && (
             <div className="flex items-center border-b border-border px-4 py-2">
               <Button variant="ghost" size="sm" onClick={() => setView({ mode: "idle" })}>
