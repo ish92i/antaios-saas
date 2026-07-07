@@ -547,3 +547,15 @@ export const storePdfResult = internalMutation({
     })
   },
 })
+
+export const patchPdfExtractedData = internalMutation({
+  args: {
+    shipmentId: v.id("shipments"),
+    extractedData: v.any(),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.shipmentId, {
+      extractedData: args.extractedData,
+    })
+  },
+})
