@@ -22,6 +22,8 @@ export const extractedDataValidator = v.object({
   geoJson: v.optional(v.any()),
   farmName: v.optional(v.string()),
   villageName: v.optional(v.string()),
+  mitigationMeasures: v.optional(v.string()),
+  declarationText: v.optional(v.string()),
   certifications: v.optional(v.array(v.string())),
   missingFields: v.optional(v.array(v.string())),
 })
@@ -48,6 +50,8 @@ export type ExtractedData = {
   geoJson?: unknown
   farmName?: string
   villageName?: string
+  mitigationMeasures?: string
+  declarationText?: string
   certifications?: string[]
   missingFields?: string[]
 }
@@ -56,7 +60,7 @@ export function validateExtractedData(raw: unknown): raw is ExtractedData {
   if (raw === null || typeof raw !== "object") return false
   const obj = raw as Record<string, unknown>
 
-  const stringFields = ["operatorName","operatorAddress","operatorEmail","operatorPhone","eoriNumber","supplierName","supplierAddress","commodityName","scientificName","hsCode","quantityUnit","shipmentRef","countryOfExport","countryOfProduction","productionDate","portOfLoading","portOfEntry","farmName","villageName"]
+  const stringFields = ["operatorName","operatorAddress","operatorEmail","operatorPhone","eoriNumber","supplierName","supplierAddress","commodityName","scientificName","hsCode","quantityUnit","shipmentRef","countryOfExport","countryOfProduction","productionDate","portOfLoading","portOfEntry","farmName","villageName","mitigationMeasures","declarationText"]
   for (const field of stringFields) {
     if (obj[field] !== undefined && obj[field] !== null && typeof obj[field] !== "string") return false
   }
