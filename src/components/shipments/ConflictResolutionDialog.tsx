@@ -44,6 +44,7 @@ export function ConflictResolutionDialog({
   }
 }) {
   const questions = shipment.pendingQuestions ?? []
+  const isLoading = shipment.pendingQuestions === undefined
   const [step, setStep] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<Record<string, string>>({})
   const [error, setError] = useState<string | null>(null)
@@ -68,6 +69,7 @@ export function ConflictResolutionDialog({
 
   const currentQuestion = questions[step]
   const isLastQuestion = step >= questions.length
+  const showStepper = questions.length > 0
 
   const resetState = useCallback(() => {
     setStep(0)
@@ -93,12 +95,20 @@ export function ConflictResolutionDialog({
 
   const handleContinue = useCallback(async () => {
     if (!currentQuestion) return
-    const answer = selectedAnswer[currentQuestion.field]
-    if (!answer?.trim()) return
 
     setIsSubmitting(true)
     setError(null)
     try {
+      let answer: string
+
+      if (currentQuestion.type === "geo_missing" && !geoFile && latValue.trim() && lngValue.trim()) {
+        answer = `${parseFloat(latValue)},${parseFloat(lngValue)}`
+      } else {
+        const ans = selectedAnswer[currentQuestion.field]
+        if (!ans?.trim()) { setIsSubmitting(false); return }
+        answer = ans
+      }
+
       const prevVal = (shipment.extractedData as Record<string, unknown> | undefined)?.[currentQuestion.field]
       await answerQuestion({
         shipmentId: shipment._id as Id<"shipments">,
@@ -114,7 +124,7 @@ export function ConflictResolutionDialog({
     } finally {
       setIsSubmitting(false)
     }
-  }, [currentQuestion, selectedAnswer, shipment, answerQuestion])
+  }, [currentQuestion, selectedAnswer, geoFile, latValue, lngValue, shipment, answerQuestion])
 
   const handleGeoFile = useCallback(
     async (file: File) => {
@@ -212,6 +222,18 @@ export function ConflictResolutionDialog({
     }
   }
 
+  if (isLoading) {
+    return (
+      <Dialog open={open} onOpenChange={handleClose}>
+        <DialogContent className={cn("sm:max-w-lg")}>
+          <div className={cn("flex items-center justify-center py-10")}>
+            <Loader2 className={cn("h-6 w-6 animate-spin text-muted-foreground")} />
+          </div>
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
   if (isFinished) {
     return (
       <Dialog open={open} onOpenChange={handleClose}>
@@ -249,9 +271,11 @@ export function ConflictResolutionDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className={cn("px-1")}>
-          <ProgressStepper current={step} total={questions.length} />
-        </div>
+        {showStepper && (
+          <div className={cn("px-1")}>
+            <ProgressStepper current={step} total={questions.length} />
+          </div>
+        )}
 
         <div className={cn("min-h-[200px]")}>
           {isLastQuestion ? (
@@ -284,7 +308,7 @@ export function ConflictResolutionDialog({
                 onChange={(e) => { setSupplierEmail(e.target.value); setEmailError(null) }}
                 className={cn("block w-full rounded-lg border border-border px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600/20")}
               />
-              {emailError && <p className={cn("text-xs text-red-500")}>{emailError}</p>}
+              {emailError && <p className={cn("text-xs text-destructive")}>{emailError}</p>}
             </div>
           ) : currentQuestion ? (
             <>
@@ -294,7 +318,7 @@ export function ConflictResolutionDialog({
                   description="Deux valeurs ont été trouvées dans vos documents. Laquelle est correcte?"
                   options={currentQuestion.options}
                   selectedValue={selectedAnswer[currentQuestion.field]}
-                  onSelect={(v) => setSelectedAnswer((prev) => ({ ...prev, [currentQuestion.field!]: v }))}
+                  onSelect={(v) => setSelectedAnswer((prev) => ({ ...prev, [currentQuestion.field]: v }))}
                 />
               ) : currentQuestion.type === "geo_missing" ? (
                 <GeoQuestion
@@ -318,14 +342,14 @@ export function ConflictResolutionDialog({
                   label={currentQuestion.label}
                   description="Ce champ est absent de tous vos documents."
                   value={selectedAnswer[currentQuestion.field] ?? ""}
-                  onChange={(v) => setSelectedAnswer((prev) => ({ ...prev, [currentQuestion.field!]: v }))}
+                  onChange={(v) => setSelectedAnswer((prev) => ({ ...prev, [currentQuestion.field]: v }))}
                   onSupplierClick={() => setFlagMode(true)}
                   placeholder={currentQuestion.field === "eori" ? "FR" : undefined}
                 />
               )}
 
-              {error && <p className={cn("mt-2 text-xs text-red-500")}>{error}</p>}
-              {geoError && <p className={cn("mt-2 text-xs text-red-500")}>{geoError}</p>}
+              {error && <p className={cn("mt-2 text-xs text-destructive")}>{error}</p>}
+              {geoError && <p className={cn("mt-2 text-xs text-destructive")}>{geoError}</p>}
             </>
           ) : null}
         </div>

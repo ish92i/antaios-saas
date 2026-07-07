@@ -57,7 +57,7 @@ export function GeoQuestion({
                 onClick={(e) => { e.stopPropagation(); onFileClear() }}
                 disabled={isUploading}
               >
-                <Trash2 className={cn("h-3.5 w-3.5 text-red-500")} />
+                <Trash2 className={cn("h-3.5 w-3.5 text-destructive")} />
               </button>
             </div>
           ) : isUploading ? (
