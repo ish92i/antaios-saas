@@ -51,7 +51,7 @@ export const generateRiskPdf = action({
 
     if (!args.operatorAnswers || args.operatorAnswers.length === 0) {
       const org = shipment.orgId
-        ? await ctx.runQuery(internal.orgs.getOrgById, { orgId: shipment.orgId as any })
+        ? await ctx.runQuery(internal.orgs.getOrgById, { orgId: shipment.orgId })
         : null
 
       const missingFieldsBySection: Record<number, string[]> = {}
@@ -70,7 +70,7 @@ export const generateRiskPdf = action({
             }
           }
 
-          if (!value || (typeof value === "string" && value.trim() === "")) {
+          if (value === undefined || value === null || (typeof value === "string" && value.trim() === "")) {
             missing.push(field)
           }
         }
