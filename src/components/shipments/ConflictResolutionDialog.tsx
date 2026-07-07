@@ -9,10 +9,13 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ChevronLeft, CheckCircle2, Copy, Send, Mail, Upload, File, Loader2, Trash2 } from "lucide-react"
+import { ChevronLeft, CheckCircle2, Copy, Loader2 } from "lucide-react"
 import type { Id } from "@cvx/_generated/dataModel"
+import { cn } from "@/lib/utils"
+import { ProgressStepper } from "./ProgressStepper"
+import { ConflictQuestion } from "./ConflictQuestion"
+import { TextQuestion } from "./TextQuestion"
+import { GeoQuestion } from "./GeoQuestion"
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
 
@@ -42,9 +45,9 @@ export function ConflictResolutionDialog({
 }) {
   const questions = shipment.pendingQuestions ?? []
   const [step, setStep] = useState(0)
-  const [answers, setAnswers] = useState<Record<string, string>>({})
+  const [selectedAnswer, setSelectedAnswer] = useState<Record<string, string>>({})
   const [error, setError] = useState<string | null>(null)
-  const [isAdvancing, setIsAdvancing] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
   const [supplierLinkCopied, setSupplierLinkCopied] = useState(false)
 
@@ -54,6 +57,8 @@ export function ConflictResolutionDialog({
   const [geoFile, setGeoFile] = useState<File | null>(null)
   const [isUploadingGeo, setIsUploadingGeo] = useState(false)
   const [geoError, setGeoError] = useState<string | null>(null)
+  const [latValue, setLatValue] = useState("")
+  const [lngValue, setLngValue] = useState("")
 
   const answerQuestion = useMutation(api.shipments.answerQuestion)
   const flagForSupplier = useMutation(api.shipments.flagForSupplier)
@@ -62,6 +67,54 @@ export function ConflictResolutionDialog({
   const processAndAnswerGeo = useAction(api.geoAnswer.processAndAnswerGeo)
 
   const currentQuestion = questions[step]
+  const isLastQuestion = step >= questions.length
+
+  const resetState = useCallback(() => {
+    setStep(0)
+    setSelectedAnswer({})
+    setError(null)
+    setIsSubmitting(false)
+    setIsFinished(false)
+    setSupplierLinkCopied(false)
+    setFlagMode(false)
+    setSupplierEmail(shipment.supplierEmail ?? "")
+    setEmailError(null)
+    setGeoFile(null)
+    setIsUploadingGeo(false)
+    setGeoError(null)
+    setLatValue("")
+    setLngValue("")
+  }, [shipment.supplierEmail])
+
+  const handleClose = () => {
+    onOpenChange(false)
+    resetState()
+  }
+
+  const handleContinue = useCallback(async () => {
+    if (!currentQuestion) return
+    const answer = selectedAnswer[currentQuestion.field]
+    if (!answer?.trim()) return
+
+    setIsSubmitting(true)
+    setError(null)
+    try {
+      const prevVal = (shipment.extractedData as Record<string, unknown> | undefined)?.[currentQuestion.field]
+      await answerQuestion({
+        shipmentId: shipment._id as Id<"shipments">,
+        questionId: currentQuestion.id,
+        field: currentQuestion.field,
+        answer,
+        previousValue: prevVal,
+      })
+      setStep((s) => s + 1)
+      setFlagMode(false)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur lors de l'enregistrement")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }, [currentQuestion, selectedAnswer, shipment, answerQuestion])
 
   const handleGeoFile = useCallback(
     async (file: File) => {
@@ -85,7 +138,7 @@ export function ConflictResolutionDialog({
           fileName: file.name,
           previousValue: prevVal,
         })
-        setAnswers((prev) => ({ ...prev, [currentQuestion.field]: file.name }))
+        setSelectedAnswer((prev) => ({ ...prev, [currentQuestion.field]: file.name }))
         setGeoFile(null)
         setStep((s) => s + 1)
         setFlagMode(false)
@@ -98,39 +151,13 @@ export function ConflictResolutionDialog({
     [currentQuestion, shipment, generateUploadUrl, processAndAnswerGeo],
   )
 
-  const handleAnswer = useCallback(
-    async (value: string) => {
-      if (!currentQuestion) return
-      setIsAdvancing(true)
-      setError(null)
-      try {
-        const prevVal = (shipment.extractedData as Record<string, unknown> | undefined)?.[currentQuestion.field]
-        await answerQuestion({
-          shipmentId: shipment._id as Id<"shipments">,
-          questionId: currentQuestion.id,
-          field: currentQuestion.field,
-          answer: value,
-          previousValue: prevVal,
-        })
-        setAnswers((prev) => ({ ...prev, [currentQuestion.field]: value }))
-        setStep((s) => s + 1)
-        setFlagMode(false)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Erreur lors de l'enregistrement")
-      } finally {
-        setIsAdvancing(false)
-      }
-    },
-    [currentQuestion, step, shipment, answerQuestion],
-  )
-
   const handleFlagForSupplier = useCallback(async () => {
     if (!currentQuestion) return
     if (!EMAIL_RE.test(supplierEmail)) {
       setEmailError("Veuillez saisir une adresse email valide")
       return
     }
-    setIsAdvancing(true)
+    setIsSubmitting(true)
     setError(null)
     try {
       await flagForSupplier({
@@ -143,19 +170,19 @@ export function ConflictResolutionDialog({
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur lors de l'envoi au fournisseur")
     } finally {
-      setIsAdvancing(false)
+      setIsSubmitting(false)
     }
   }, [currentQuestion, supplierEmail, shipment, flagForSupplier])
 
   const handleFinish = async () => {
-    setIsAdvancing(true)
+    setIsSubmitting(true)
     try {
       await finalizeModal({ shipmentId: shipment._id as Id<"shipments"> })
       setIsFinished(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur lors de la finalisation")
     } finally {
-      setIsAdvancing(false)
+      setIsSubmitting(false)
     }
   }
 
@@ -166,18 +193,24 @@ export function ConflictResolutionDialog({
     }
   }
 
-  const handleClose = () => {
-    onOpenChange(false)
-    setStep(0)
-    setAnswers({})
-    setError(null)
-    setIsFinished(false)
-    setSupplierLinkCopied(false)
-    setFlagMode(false)
-    setEmailError(null)
-  }
+  const canContinue = (() => {
+    if (flagMode) {
+      return EMAIL_RE.test(supplierEmail)
+    }
+    if (!currentQuestion) return false
+    if (currentQuestion.type === "geo_missing") {
+      return geoFile !== null || (latValue.trim() !== "" && lngValue.trim() !== "")
+    }
+    return !!selectedAnswer[currentQuestion.field]?.trim()
+  })()
 
-  const isLastQuestion = step >= questions.length
+  const handleContinueAction = () => {
+    if (flagMode) {
+      handleFlagForSupplier()
+    } else {
+      handleContinue()
+    }
+  }
 
   if (isFinished) {
     return (
@@ -186,14 +219,20 @@ export function ConflictResolutionDialog({
           <DialogHeader>
             <DialogTitle>Traitement terminé</DialogTitle>
           </DialogHeader>
-          <div className="flex flex-col items-center gap-3 py-6 text-center">
-            <CheckCircle2 className="h-10 w-10 text-green-600" />
-            <p className="text-sm text-muted-foreground">
+          <div className={cn("flex flex-col items-center gap-3 py-6 text-center")}>
+            <CheckCircle2 className={cn("h-10 w-10 text-green-600")} />
+            <p className={cn("text-sm text-muted-foreground")}>
               Les questions ont été traitées.
             </p>
           </div>
           <DialogFooter>
-            <Button onClick={handleClose}>Fermer</Button>
+            <button
+              type="button"
+              onClick={handleClose}
+              className={cn("inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700")}
+            >
+              Fermer
+            </button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -202,203 +241,127 @@ export function ConflictResolutionDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className={cn("sm:max-w-lg")}>
         <DialogHeader>
-          <DialogTitle>Résolution des conflits</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className={cn("sr-only")}>Résolution des conflits</DialogTitle>
+          <DialogDescription className={cn("sr-only")}>
             Répondez aux questions ou transmettez-les à votre fournisseur.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex items-center gap-2 py-2">
-          {questions.map((q, i) => (
-            <div
-              key={q.id}
-              className={`h-1.5 flex-1 rounded-full ${
-                i < step ? "bg-primary" : "bg-border"
-              }`}
-            />
-          ))}
+        <div className={cn("px-1")}>
+          <ProgressStepper current={step} total={questions.length} />
         </div>
 
-        <div className="min-h-[200px]">
+        <div className={cn("min-h-[200px]")}>
           {isLastQuestion ? (
-            <div className="flex flex-col items-center gap-4 py-6 text-center">
-              <CheckCircle2 className="h-8 w-8 text-green-600" />
-              <p className="text-sm font-medium text-foreground">
+            <div className={cn("flex flex-col items-center gap-4 py-6 text-center")}>
+              <CheckCircle2 className={cn("h-8 w-8 text-green-600")} />
+              <p className={cn("text-sm font-medium text-foreground")}>
                 Toutes les questions ont été traitées
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className={cn("flex flex-wrap gap-2")}>
                 {shipment.supplierToken && (
-                  <Button variant="outline" size="sm" onClick={handleCopyLink}>
-                    <Copy className="h-4 w-4" />
+                  <button
+                    type="button"
+                    onClick={handleCopyLink}
+                    className={cn("inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-muted")}
+                  >
+                    <Copy className={cn("h-4 w-4")} />
                     {supplierLinkCopied ? "Copié" : "Copier le lien fournisseur"}
-                  </Button>
+                  </button>
                 )}
               </div>
             </div>
           ) : flagMode ? (
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <Mail className="mt-1 h-5 w-5 text-muted-foreground" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">
-                    Transmettre au fournisseur
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Un lien sera envoyé au fournisseur pour répondre à cette question.
-                  </p>
-                </div>
-              </div>
-              <div>
-                <Input
-                  type="email"
-                  placeholder="fournisseur@example.com"
-                  value={supplierEmail}
-                  onChange={(e) => { setSupplierEmail(e.target.value); setEmailError(null) }}
-                />
-                {emailError && <p className="mt-1 text-xs text-destructive">{emailError}</p>}
-              </div>
-              <div className="flex gap-2">
-                <Button variant="ghost" size="sm" onClick={() => setFlagMode(false)}>
-                  Annuler
-                </Button>
-                <Button onClick={handleFlagForSupplier} disabled={isAdvancing}>
-                  <Send className="h-4 w-4" />
-                  Envoyer au fournisseur
-                </Button>
-              </div>
+            <div className={cn("space-y-4")}>
+              <p className={cn("text-sm font-medium text-foreground")}>Transmettre au fournisseur</p>
+              <p className={cn("text-xs text-muted-foreground")}>Un lien sera envoyé au fournisseur pour répondre à cette question.</p>
+              <input
+                type="email"
+                placeholder="fournisseur@example.com"
+                value={supplierEmail}
+                onChange={(e) => { setSupplierEmail(e.target.value); setEmailError(null) }}
+                className={cn("block w-full rounded-lg border border-border px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600/20")}
+              />
+              {emailError && <p className={cn("text-xs text-red-500")}>{emailError}</p>}
             </div>
           ) : currentQuestion ? (
-            <div className="space-y-4">
-              <div>
-                <p className="text-xs text-muted-foreground">
-                  {currentQuestion.field}
-                </p>
-                <p className="mt-1 text-sm font-medium text-foreground">
-                  {currentQuestion.label}
-                </p>
-              </div>
-
+            <>
               {currentQuestion.type === "conflict" && currentQuestion.options ? (
-                <div className="flex flex-wrap gap-2">
-                  {currentQuestion.options.map((opt) => (
-                    <Button
-                      key={opt}
-                      variant={answers[currentQuestion.field] === opt ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => handleAnswer(opt)}
-                      disabled={isAdvancing}
-                    >
-                      {opt}
-                    </Button>
-                  ))}
-                </div>
+                <ConflictQuestion
+                  label={currentQuestion.label}
+                  description="Deux valeurs ont été trouvées dans vos documents. Laquelle est correcte?"
+                  options={currentQuestion.options}
+                  selectedValue={selectedAnswer[currentQuestion.field]}
+                  onSelect={(v) => setSelectedAnswer((prev) => ({ ...prev, [currentQuestion.field!]: v }))}
+                />
               ) : currentQuestion.type === "geo_missing" ? (
-                <div className="space-y-3">
-                  {geoFile ? (
-                    <div className="flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm">
-                      <File className="h-4 w-4 shrink-0 text-muted-foreground" />
-                      <span className="min-w-0 flex-1 truncate">{geoFile.name}</span>
-                      <button
-                        type="button"
-                        onClick={() => setGeoFile(null)}
-                        className="flex items-center gap-1 text-xs text-destructive hover:text-destructive/80"
-                        disabled={isUploadingGeo}
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                        Retirer
-                      </button>
-                    </div>
-                  ) : (
-                    <div
-                      className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-border p-6 text-center transition-colors hover:border-primary/50"
-                      onClick={() => document.getElementById("geo-file-input")?.click()}
-                    >
-                      <input
-                        id="geo-file-input"
-                        type="file"
-                        accept=".geojson,.kml,.zip"
-                        className="hidden"
-                        onChange={(e) => {
-                          const f = e.target.files?.[0]
-                          if (f) setGeoFile(f)
-                        }}
-                      />
-                      <Upload className="mb-2 h-8 w-8 text-muted-foreground" />
-                      <p className="text-sm font-medium text-foreground">
-                        Cliquez pour sélectionner un fichier
-                      </p>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        GeoJSON, KML, ZIP
-                      </p>
-                    </div>
-                  )}
-                  <div className="flex gap-2">
-                    {geoFile && (
-                      <Button
-                        onClick={() => handleGeoFile(geoFile)}
-                        disabled={isUploadingGeo}
-                      >
-                        {isUploadingGeo ? (
-                          <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Traitement...</>
-                        ) : (
-                          "Télécharger"
-                        )}
-                      </Button>
-                    )}
-                  </div>
-                  {geoError && <p className="text-sm text-destructive">{geoError}</p>}
-                </div>
+                <GeoQuestion
+                  label={currentQuestion.label}
+                  description="Aucune coordonnée GPS n'a été trouvée."
+                  geoFile={geoFile}
+                  isUploading={isUploadingGeo}
+                  onFileSelect={(f) => {
+                    setGeoFile(f)
+                    handleGeoFile(f)
+                  }}
+                  onFileClear={() => setGeoFile(null)}
+                  latValue={latValue}
+                  lngValue={lngValue}
+                  onLatChange={setLatValue}
+                  onLngChange={setLngValue}
+                  onSupplierClick={() => setFlagMode(true)}
+                />
               ) : (
-                <div className="flex gap-2">
-                  <Input
-                    value={answers[currentQuestion.field] ?? ""}
-                    onChange={(e) =>
-                      setAnswers((prev) => ({ ...prev, [currentQuestion.field]: e.target.value }))
-                    }
-                    placeholder="Votre réponse"
-                  />
-                  <Button
-                    onClick={() => handleAnswer(answers[currentQuestion.field] ?? "")}
-                    disabled={!answers[currentQuestion.field]?.trim() || isAdvancing}
-                  >
-                    {isAdvancing ? "..." : "Valider"}
-                  </Button>
-                </div>
+                <TextQuestion
+                  label={currentQuestion.label}
+                  description="Ce champ est absent de tous vos documents."
+                  value={selectedAnswer[currentQuestion.field] ?? ""}
+                  onChange={(v) => setSelectedAnswer((prev) => ({ ...prev, [currentQuestion.field!]: v }))}
+                  onSupplierClick={() => setFlagMode(true)}
+                  placeholder={currentQuestion.field === "eori" ? "FR" : undefined}
+                />
               )}
 
-              <div className="border-t border-border pt-3">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setFlagMode(true)}
-                  disabled={isAdvancing}
-                >
-                  <Send className="h-3.5 w-3.5" />
-                  Déléguer au fournisseur
-                </Button>
-              </div>
-
-              {error && <p className="text-sm text-destructive">{error}</p>}
-            </div>
+              {error && <p className={cn("mt-2 text-xs text-red-500")}>{error}</p>}
+              {geoError && <p className={cn("mt-2 text-xs text-red-500")}>{geoError}</p>}
+            </>
           ) : null}
         </div>
 
-        <DialogFooter className="flex items-center justify-between">
-          <Button
-            variant="ghost"
-            size="sm"
+        <DialogFooter className={cn("flex items-center justify-between sm:justify-between")}>
+          <button
+            type="button"
             onClick={() => setStep((s) => Math.max(0, s - 1))}
             disabled={step === 0 || flagMode}
+            className={cn("inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed")}
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className={cn("h-3.5 w-3.5")} />
             Précédent
-          </Button>
-          {isLastQuestion && (
-            <Button onClick={handleFinish} disabled={isAdvancing}>
-              {isAdvancing ? "..." : "Terminer"}
-            </Button>
+          </button>
+          {isLastQuestion ? (
+            <button
+              type="button"
+              onClick={handleFinish}
+              disabled={isSubmitting}
+              className={cn("inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed")}
+            >
+              {isSubmitting ? <Loader2 className={cn("h-4 w-4 animate-spin")} /> : "Terminer"}
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleContinueAction}
+              disabled={!canContinue || isSubmitting || isUploadingGeo}
+              className={cn("inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed")}
+            >
+              {isSubmitting ? (
+                <Loader2 className={cn("h-4 w-4 animate-spin")} />
+              ) : (
+                <>Continuer &rarr;</>
+              )}
+            </button>
           )}
         </DialogFooter>
       </DialogContent>
