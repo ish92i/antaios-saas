@@ -511,7 +511,7 @@ export const storePdfQuestions = internalMutation({
     const normalizedQuestions = Array.isArray(args.questions)
       ? args.questions.map((question: any) => ({
           id: String(question.id),
-          field: `risk_pdf:${String(question.section ?? "general")}`,
+          field: String(question.field ?? `risk_pdf:${String(question.section ?? "general")}`),
           type: "pdf_question",
           label: String(question.question ?? question.label ?? "Question"),
           geoType: null,
