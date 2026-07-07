@@ -1,4 +1,4 @@
-import { mutation, query } from "@cvx/_generated/server";
+import { internalQuery, mutation, query } from "@cvx/_generated/server";
 import { v } from "convex/values";
 import { Org } from "~/types";
 import { getOrgId, ensureOrg } from "@cvx/auth";
@@ -22,6 +22,13 @@ export const getCurrentOrg = query({
     if (!org) return;
 
     return org;
+  },
+});
+
+export const getOrgById = internalQuery({
+  args: { orgId: v.id("organizations") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.orgId);
   },
 });
 
