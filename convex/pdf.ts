@@ -49,11 +49,20 @@ export const generateRiskPdf = action({
     const extractedData = (shipment.extractedData ?? {}) as Record<string, unknown>
     const scanResult = shipment.scanResult ?? "no_polygon"
 
-    if (!args.operatorAnswers || args.operatorAnswers.length === 0) {
-      const org = shipment.orgId
-        ? await ctx.runQuery(internal.orgs.getOrgById, { orgId: shipment.orgId })
-        : null
+    const org = shipment.orgId
+      ? await ctx.runQuery(internal.orgs.getOrgById, { orgId: shipment.orgId })
+      : null
 
+    const dataWithOrg = { ...extractedData } as Record<string, unknown>
+    if (org) {
+      for (const [dataField, orgField] of Object.entries(ORG_FIELD_MAP)) {
+        if (!dataWithOrg[dataField] && (org as Record<string, unknown>)[orgField]) {
+          dataWithOrg[dataField] = (org as Record<string, unknown>)[orgField]
+        }
+      }
+    }
+
+    if (!args.operatorAnswers || args.operatorAnswers.length === 0) {
       const missingFieldsBySection: Record<number, string[]> = {}
 
       for (const [sectionStr, fields] of Object.entries(RISK_SECTION_FIELDS)) {
@@ -85,7 +94,7 @@ export const generateRiskPdf = action({
         .join("\n")
 
       if (!sectionsWithMissing) {
-        return await generatePdfFromData(ctx, shipment, extractedData, scanResult)
+        return await generatePdfFromData(ctx, shipment, dataWithOrg, scanResult)
       }
 
       const questionsPrompt = `Generate questions for a EUDR Risk Assessment. Only ask about fields that need data.
@@ -116,7 +125,7 @@ Return ONLY a JSON array: [{ "id": "q1", "question": "French question text", "se
     }
 
     const pending = (shipment.pendingQuestions ?? []) as Array<{ id: string; field: string }>
-    const merged = { ...extractedData } as Record<string, unknown>
+    const merged = { ...dataWithOrg } as Record<string, unknown>
 
     for (const a of args.operatorAnswers) {
       const pq = pending.find(p => p.id === a.questionId)
