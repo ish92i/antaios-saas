@@ -11,13 +11,14 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Loader2, FileText, CheckCircle2 } from "lucide-react"
+import { Loader2, FileText, CheckCircle2, ChevronLeft } from "lucide-react"
 import type { Id } from "@cvx/_generated/dataModel"
 
 interface PdfQuestion {
   id: string
   question: string
   section: number
+  field: string
 }
 
 export function RiskPdfDialog({
@@ -30,6 +31,7 @@ export function RiskPdfDialog({
   shipmentId?: string
 }) {
   const [questions, setQuestions] = useState<PdfQuestion[] | null>(null)
+  const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [error, setError] = useState<string | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
@@ -46,6 +48,7 @@ export function RiskPdfDialog({
       }) as { questions?: PdfQuestion[] } | undefined
       if (result?.questions && result.questions.length > 0) {
         setQuestions(result.questions)
+        setCurrentStep(0)
       } else {
         setIsComplete(true)
       }
@@ -56,8 +59,16 @@ export function RiskPdfDialog({
     }
   }
 
-  const handleSubmitAnswers = async () => {
+  const handleAnswer = async () => {
     if (!shipmentId || !questions) return
+    const q = questions[currentStep]
+    if (!answers[q.id]?.trim()) return
+
+    if (currentStep < questions.length - 1) {
+      setCurrentStep(s => s + 1)
+      return
+    }
+
     setIsGenerating(true)
     setError(null)
     try {
@@ -79,11 +90,14 @@ export function RiskPdfDialog({
   const handleClose = () => {
     onOpenChange(false)
     setQuestions(null)
+    setCurrentStep(0)
     setAnswers({})
     setError(null)
     setIsComplete(false)
     setIsGenerating(false)
   }
+
+  const currentQuestion = questions?.[currentStep]
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -104,26 +118,66 @@ export function RiskPdfDialog({
                 Le document d'évaluation des risques est disponible dans les documents de l'envoi.
               </p>
             </div>
-          ) : questions ? (
+          ) : questions && currentQuestion ? (
             <div className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Veuillez répondre aux questions suivantes pour compléter l'évaluation des risques.
-              </p>
-              {questions.map((q) => (
-                <div key={q.id}>
-                  <label className="mb-1 block text-sm font-medium text-foreground">
-                    {q.question}
-                  </label>
-                  <Input
-                    value={answers[q.id] ?? ""}
-                    onChange={(e) =>
-                      setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
-                    }
-                    placeholder="Votre réponse"
+              <div className="flex items-center gap-2 py-1">
+                {questions.map((_, i) => (
+                  <div
+                    key={i}
+                    className={`h-1.5 flex-1 rounded-full ${
+                      i <= currentStep ? "bg-primary" : "bg-border"
+                    }`}
                   />
-                </div>
-              ))}
+                ))}
+              </div>
+
+              <div>
+                <p className="text-xs text-muted-foreground">
+                  Section {currentQuestion.section}
+                </p>
+                <p className="mt-1 text-sm font-medium text-foreground">
+                  {currentQuestion.question}
+                </p>
+              </div>
+
+              <Input
+                value={answers[currentQuestion.id] ?? ""}
+                onChange={(e) =>
+                  setAnswers((prev) => ({ ...prev, [currentQuestion.id]: e.target.value }))
+                }
+                placeholder="Votre réponse"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && answers[currentQuestion.id]?.trim()) {
+                    handleAnswer()
+                  }
+                }}
+              />
+
               {error && <p className="text-sm text-destructive">{error}</p>}
+
+              <div className="flex gap-2 pt-2">
+                {currentStep > 0 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setCurrentStep(s => s - 1)}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    Précédent
+                  </Button>
+                )}
+                <Button
+                  onClick={handleAnswer}
+                  disabled={!answers[currentQuestion.id]?.trim() || isGenerating}
+                  className="ml-auto"
+                >
+                  {currentStep < questions.length - 1
+                    ? "Suivant"
+                    : isGenerating
+                      ? "Génération..."
+                      : "Générer le PDF"}
+                </Button>
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-3 py-6 text-center">
@@ -144,12 +198,6 @@ export function RiskPdfDialog({
             <Button onClick={handleStart} disabled={isGenerating}>
               {isGenerating && <Loader2 className="h-4 w-4 animate-spin" />}
               {isGenerating ? "Génération..." : "Générer le PDF"}
-            </Button>
-          )}
-          {!isComplete && questions && (
-            <Button onClick={handleSubmitAnswers} disabled={isGenerating}>
-              {isGenerating && <Loader2 className="h-4 w-4 animate-spin" />}
-              {isGenerating ? "Génération..." : "Valider et générer"}
             </Button>
           )}
         </DialogFooter>
