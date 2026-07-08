@@ -40,6 +40,8 @@ import type * as scan from "../scan.js";
 import type * as shipments from "../shipments.js";
 import type * as supplier from "../supplier.js";
 import type * as supplier_email from "../supplier_email.js";
+import type * as traces_credentials from "../traces_credentials.js";
+import type * as traces_crypto from "../traces_crypto.js";
 
 import type {
   ApiFromModules,
@@ -80,6 +82,8 @@ declare const fullApi: ApiFromModules<{
   shipments: typeof shipments;
   supplier: typeof supplier;
   supplier_email: typeof supplier_email;
+  traces_credentials: typeof traces_credentials;
+  traces_crypto: typeof traces_crypto;
 }>;
 
 /**
