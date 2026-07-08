@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { useDropzone, type FileRejection } from "react-dropzone"
-import { Upload, FileText, X } from "lucide-react"
+import { Upload, FileText, X, FileWarning } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { formatFileSize } from "@/lib/formatters"
 
@@ -80,7 +80,7 @@ export function UploadDropzone({
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <div
         {...getRootProps()}
         className={cn(
@@ -130,15 +130,15 @@ export function UploadDropzone({
       </div>
 
       {files.length > 0 && (
-        <div className="space-y-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {files.map((f, i) => (
             <div
               key={i}
               className={cn(
-                "group flex items-center gap-3 rounded-lg border bg-card px-3 py-2.5 transition-colors hover:bg-muted/30",
+                "group relative flex flex-col gap-2.5 rounded-lg border p-3 transition-colors",
                 f.errors.length > 0
                   ? "border-destructive/30 bg-destructive/[0.02]"
-                  : "border-border",
+                  : "border-border bg-card hover:bg-muted/30",
                 onFileClick && "cursor-pointer",
               )}
               onClick={() => onFileClick?.(i)}
@@ -151,34 +151,45 @@ export function UploadDropzone({
                 }
               }}
             >
-              <FileText
-                className={cn(
-                  "h-5 w-5 shrink-0 text-muted-foreground",
-                  f.errors.length > 0 && "text-destructive",
-                )}
-              />
-              <div className="min-w-0 flex-1">
+              <div className="flex items-start justify-between">
+                <div
+                  className={cn(
+                    "flex h-8 w-8 items-center justify-center rounded-lg",
+                    f.errors.length > 0 ? "bg-destructive/10" : "bg-muted",
+                  )}
+                >
+                  {f.errors.length > 0 ? (
+                    <FileWarning className="h-4 w-4 text-destructive" />
+                  ) : (
+                    <FileText className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    removeFile(i)
+                  }}
+                  className="flex h-6 w-6 items-center justify-center rounded-md text-muted-foreground opacity-0 transition-opacity hover:bg-destructive/10 hover:text-destructive group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none"
+                  aria-label="Supprimer"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
+              <div className="min-w-0">
                 <p className="truncate text-xs font-medium text-foreground">
                   {f.file.name}
                 </p>
-                <p className="mt-0.5 text-[10px] text-muted-foreground">
-                  {formatFileSize(f.file.size)}
+                <p className="mt-0.5 flex items-center gap-1.5 text-[10px] text-muted-foreground">
+                  <span>{formatFileSize(f.file.size)}</span>
                   {f.errors.length > 0 && (
-                    <span className="ml-2 text-destructive">{f.errors[0]}</span>
+                    <span className="inline-flex items-center gap-1 text-destructive">
+                      <span aria-hidden="true">&middot;</span>
+                      {f.errors[0]}
+                    </span>
                   )}
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  removeFile(i)
-                }}
-                className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-muted-foreground opacity-0 transition-opacity hover:bg-destructive/10 hover:text-destructive group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none"
-                aria-label="Supprimer"
-              >
-                <X className="h-3.5 w-3.5" />
-              </button>
             </div>
           ))}
         </div>

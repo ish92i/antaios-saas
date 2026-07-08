@@ -54,7 +54,7 @@ function DashboardLayout() {
     );
   }
   return (
-    <div className="flex min-h-[100vh] w-full flex-col bg-secondary">
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-secondary">
       <Navigation user={user} />
       <Outlet />
     </div>

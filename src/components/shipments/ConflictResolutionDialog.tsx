@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 import { useMutation, useAction } from "convex/react"
 import { api } from "@cvx/_generated/api"
 import {
@@ -43,8 +43,23 @@ export function ConflictResolutionDialog({
     extractedData?: Record<string, unknown> | null
   }
 }) {
-  const questions = shipment.pendingQuestions ?? []
   const isLoading = shipment.pendingQuestions === undefined
+  const [questions, setQuestions] = useState<Question[]>(() => shipment.pendingQuestions ?? [])
+  const hasCaptured = useRef(false)
+
+  useEffect(() => {
+    if (!open) {
+      hasCaptured.current = false
+    }
+  }, [open])
+
+  useEffect(() => {
+    if (open && shipment.pendingQuestions !== undefined && !hasCaptured.current) {
+      setQuestions(shipment.pendingQuestions)
+      hasCaptured.current = true
+    }
+  }, [open, shipment.pendingQuestions])
+
   const [step, setStep] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<Record<string, string>>({})
   const [error, setError] = useState<string | null>(null)

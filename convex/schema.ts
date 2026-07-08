@@ -80,6 +80,12 @@ const schema = defineSchema({
   })
     .index("orgId", ["orgId"])
     .index("supplierToken", ["supplierToken"]),
+  tracesCredentials: defineTable({
+    orgId: v.string(),
+    tracesUsername: v.string(),
+    encryptedAuthKey: v.string(),
+  })
+    .index("orgId", ["orgId"]),
   shipmentDocuments: defineTable({
     shipmentId: v.id("shipments"),
     orgId: v.string(),

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { UploadDropzone, type UploadFile } from "./UploadDropzone"
 import { FilePreview } from "./FilePreview"
-import { X, Loader2, PackagePlus, FileUp } from "lucide-react"
+import { X, Loader2, FileUp } from "lucide-react"
 import type { Id } from "@cvx/_generated/dataModel"
 import { motion } from "motion/react"
 
@@ -18,6 +18,7 @@ export function CreateShipmentPanel({
 }) {
   const [files, setFiles] = useState<UploadFile[]>([])
   const [name, setName] = useState("")
+  const [nameError, setNameError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [previewIndex, setPreviewIndex] = useState<number | null>(null)
@@ -25,14 +26,21 @@ export function CreateShipmentPanel({
   const createShipment = useMutation(api.shipments.createShipment)
   const addDocument = useMutation(api.documents.addDocument)
 
+  const validFiles = files.filter((f) => f.errors.length === 0)
+
   const handleSubmit = async () => {
+    if (!name.trim()) {
+      setNameError("Le nom de l'envoi est requis")
+      return
+    }
+    setNameError(null)
     if (validFiles.length === 0) return
     setIsSubmitting(true)
     setError(null)
 
     try {
       const shipmentId = await createShipment({
-        internalRef: name.trim() || undefined,
+        internalRef: name.trim(),
       })
 
       for (const f of validFiles) {
@@ -59,8 +67,6 @@ export function CreateShipmentPanel({
     }
   }
 
-  const validFiles = files.filter((f) => f.errors.length === 0)
-
   return (
     <motion.div
       initial={{ opacity: 0, x: 24 }}
@@ -68,50 +74,48 @@ export function CreateShipmentPanel({
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
       className="flex h-full flex-col bg-background"
     >
-      <div className="flex items-center justify-between border-b border-border bg-card px-5 py-4 shadow-xs">
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
-            <PackagePlus className="h-5 w-5 text-primary" />
-          </div>
-          <div>
-            <h2 className="text-sm font-semibold text-foreground">Nouvel envoi</h2>
-            <p className="text-xs text-muted-foreground">Créez un envoi et importez ses documents</p>
-          </div>
+      <div className="flex items-center justify-between border-b border-border px-6 py-4">
+        <div>
+          <h2 className="text-sm font-semibold text-foreground">Nouvel envoi</h2>
+          <p className="text-xs text-muted-foreground">Créez un envoi et importez ses documents</p>
         </div>
         <Button variant="ghost" size="icon" onClick={onCancel} disabled={isSubmitting}>
           <X className="h-4 w-4" />
         </Button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-5">
-        <div className="mx-auto flex min-h-full max-w-xl flex-col gap-5">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-xl border border-border bg-card p-5 shadow-xs"
-          >
-            <label className="mb-2 block text-sm font-medium text-foreground">
-              Nom de l'envoi
-              <span className="ml-1.5 text-xs font-normal text-muted-foreground">optionnel</span>
-            </label>
+      <div className="flex-1 overflow-y-auto px-6 py-6">
+        <div className="flex flex-col gap-8">
+          <section>
+            <div className="mb-1.5 flex items-center gap-1.5">
+              <label className="text-sm font-medium text-foreground" htmlFor="shipment-name">
+                Nom de l'envoi
+              </label>
+              <span className="text-xs text-red-500">*</span>
+            </div>
             <Input
+              id="shipment-name"
               placeholder="Ex: Commande #2024-056"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value)
+                if (nameError) setNameError(null)
+              }}
               className="h-10 text-base"
+              aria-invalid={!!nameError}
             />
-            <p className="mt-1.5 text-xs text-muted-foreground">
-              Un nom interne pour identifier facilement cet envoi dans la liste
-            </p>
-          </motion.div>
+            {nameError ? (
+              <p className="mt-1.5 text-xs text-red-500" role="alert">{nameError}</p>
+            ) : (
+              <p className="mt-1.5 text-xs text-muted-foreground">
+                Un nom interne pour identifier facilement cet envoi dans la liste
+              </p>
+            )}
+          </section>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-xl border border-border bg-card p-5 shadow-xs"
-          >
+          <div className="border-t border-border" />
+
+          <section>
             <div className="mb-1 flex items-center gap-2">
               <FileUp className="h-4 w-4 text-primary" />
               <label className="text-sm font-medium text-foreground">Fichiers</label>
@@ -124,14 +128,14 @@ export function CreateShipmentPanel({
               onFilesChange={setFiles}
               onFileClick={(i) => setPreviewIndex(i)}
             />
-          </motion.div>
+          </section>
 
           {error && (
             <motion.p
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2 }}
-              className="rounded-lg border border-destructive/20 bg-destructive/5 px-4 py-3 text-sm text-destructive"
+              className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600"
             >
               {error}
             </motion.p>
@@ -139,8 +143,8 @@ export function CreateShipmentPanel({
         </div>
       </div>
 
-      <div className="border-t border-border bg-card px-5 py-4 shadow-xs">
-        <div className="mx-auto flex max-w-xl items-center justify-between gap-3">
+      <div className="border-t border-border bg-background px-6 py-4">
+        <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-muted text-[10px] font-semibold text-muted-foreground">
               {validFiles.length}
@@ -151,21 +155,26 @@ export function CreateShipmentPanel({
                 : `${validFiles.length} fichier${validFiles.length > 1 ? "s" : ""}`}
             </span>
           </div>
-          <Button
-            size="lg"
-            onClick={handleSubmit}
-            disabled={validFiles.length === 0 || isSubmitting}
-            className="min-w-[150px]"
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Création...
-              </>
-            ) : (
-              "Créer l'envoi"
-            )}
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button variant="outline" size="sm" onClick={onCancel} disabled={isSubmitting}>
+              Annuler
+            </Button>
+            <Button
+              size="lg"
+              onClick={handleSubmit}
+              disabled={validFiles.length === 0 || isSubmitting}
+              className="min-w-[150px]"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Création...
+                </>
+              ) : (
+                "Créer l'envoi"
+              )}
+            </Button>
+          </div>
         </div>
       </div>
 

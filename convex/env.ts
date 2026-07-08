@@ -10,3 +10,4 @@ export const LITELLM_BASE_URL = process.env.LITELLM_BASE_URL;
 export const LITELLM_API_KEY = process.env.LITELLM_API_KEY;
 export const GFW_API_KEY = process.env.GFW_API_KEY;
 export const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
+export const TRACES_ENCRYPTION_KEY = process.env.TRACES_ENCRYPTION_KEY;

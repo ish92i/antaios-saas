@@ -3,10 +3,14 @@
 import { internalAction } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
+import crypto from "crypto"
+import { decrypt } from "@cvx/traces_credentials"
 
 export const generateDds = internalAction({
   args: {
     shipmentId: v.id("shipments"),
+    tracesUsername: v.optional(v.string()),
+    authKey: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const shipment = await ctx.runQuery(internal.shipments.getShipmentById, {
@@ -19,7 +23,17 @@ export const generateDds = internalAction({
       const extractedData = (shipment.extractedData ?? {}) as Record<string, unknown>
       const orgId = shipment.orgId
 
-      const crypto = await import("crypto")
+      let tracesUsername = args.tracesUsername
+      let authKey = args.authKey
+
+      if (!tracesUsername || !authKey) {
+        const creds = await ctx.runQuery(internal.tracesCredentials._getFullCredentials, { orgId })
+        if (creds) {
+          tracesUsername = creds.tracesUsername
+          authKey = decrypt(creds.encryptedAuthKey)
+        }
+      }
+
       const idempotencyKey = crypto
         .createHash("sha256")
         .update(args.shipmentId + orgId)
@@ -50,7 +64,10 @@ export const generateDds = internalAction({
       const EudrApiClient = mod.default ?? mod
 
       try {
-        const client = new (EudrApiClient as any)()
+        const client = new (EudrApiClient as any)({
+          username: tracesUsername,
+          apiKey: authKey,
+        })
         const response = await client.submitDds({
           ...payload,
           idempotencyKey,

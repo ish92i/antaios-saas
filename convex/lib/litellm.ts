@@ -34,6 +34,17 @@ export interface LiteLLMResponse {
   }
 }
 
+const MAX_RETRIES = 4
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+function getBackoffMs(attempt: number, retryAfter?: number): number {
+  if (retryAfter) return retryAfter * 1000
+  return Math.pow(2, attempt) * 1000 + Math.random() * 1000
+}
+
 export async function callLiteLLM(
   model: ModelGroup,
   messages: LiteLLMMessage[],
@@ -42,27 +53,54 @@ export async function callLiteLLM(
   if (!LITELLM_BASE_URL) throw new Error("LITELLM_BASE_URL not set")
   if (!LITELLM_API_KEY) throw new Error("LITELLM_API_KEY not set")
 
-  const response = await fetch(`${LITELLM_BASE_URL}/chat/completions`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${LITELLM_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model,
-      messages,
-      max_tokens: options?.maxTokens ?? 4096,
-      temperature: options?.temperature ?? 0.1,
-      ...(options?.responseFormat ? { response_format: options.responseFormat } : {}),
-    }),
-  })
+  let lastError: Error | null = null
 
-  if (!response.ok) {
-    const text = await response.text()
-    throw new Error(`LiteLLM error ${response.status}: ${text}`)
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const response = await fetch(`${LITELLM_BASE_URL}/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${LITELLM_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model,
+          messages,
+          max_tokens: options?.maxTokens ?? 4096,
+          temperature: options?.temperature ?? 0.1,
+          ...(options?.responseFormat ? { response_format: options.responseFormat } : {}),
+        }),
+      })
+
+      if (response.ok) {
+        return response.json() as Promise<LiteLLMResponse>
+      }
+
+      const retryAfter = response.headers.get("Retry-After")
+      const retryAfterMs = retryAfter ? parseInt(retryAfter, 10) : undefined
+
+      if (response.status === 429 || response.status >= 500) {
+        if (attempt < MAX_RETRIES) {
+          const backoff = getBackoffMs(attempt, retryAfterMs)
+          await sleep(backoff)
+          continue
+        }
+      }
+
+      const text = await response.text()
+      throw new Error(`LiteLLM error ${response.status}: ${text}`)
+    } catch (err) {
+      if (err instanceof TypeError && attempt < MAX_RETRIES) {
+        lastError = err
+        const backoff = getBackoffMs(attempt)
+        await sleep(backoff)
+        continue
+      }
+      throw err
+    }
   }
 
-  return response.json() as Promise<LiteLLMResponse>
+  throw lastError ?? new Error("LiteLLM max retries exceeded")
 }
 
 export function parseLlmJson<T>(content: string): T {

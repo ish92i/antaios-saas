@@ -215,9 +215,25 @@ export const finalizeModal = mutation({
   },
 })
 
+export const hasTracesCredentials = query({
+  args: {},
+  handler: async (ctx) => {
+    const orgId = await getOrgId(ctx)
+    if (!orgId) return false
+    const creds = await ctx.db
+      .query("tracesCredentials")
+      .withIndex("orgId", (q) => q.eq("orgId", orgId as string))
+      .first()
+    return creds !== null
+  },
+})
+
 export const initiateDdsGeneration = mutation({
   args: {
     shipmentId: v.id("shipments"),
+    tracesUsername: v.optional(v.string()),
+    authKey: v.optional(v.string()),
+    rememberMe: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
     const shipment = await ctx.db.get(args.shipmentId)
@@ -226,10 +242,22 @@ export const initiateDdsGeneration = mutation({
     if (shipment.completeness !== "green") throw new Error("Shipment not complete")
     if (shipment.status !== "ready") throw new Error("Shipment not ready")
 
+    const orgId = shipment.orgId
+
+    if (args.rememberMe && args.tracesUsername && args.authKey) {
+      await ctx.scheduler.runAfter(0, internal.tracesCredentials.storeCredentials, {
+        orgId,
+        tracesUsername: args.tracesUsername,
+        authKey: args.authKey,
+      })
+    }
+
     await ctx.db.patch(args.shipmentId, { status: "submitting" })
 
     await ctx.scheduler.runAfter(0, internal.dds.generateDds, {
       shipmentId: args.shipmentId,
+      tracesUsername: args.tracesUsername,
+      authKey: args.authKey,
     })
   },
 })

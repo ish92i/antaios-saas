@@ -6,6 +6,9 @@ import path from "path";
 
 export default defineConfig({
   plugins: [TanStackRouterVite(), tailwindcss(), viteReact()],
+  server: {
+    port: 3000,
+  },
   resolve: {
     alias: {
       "~": __dirname,

@@ -1,6 +1,5 @@
 import { ConflictResolutionDialog } from "./ConflictResolutionDialog"
 import { TracesCredentialsModal } from "./TracesCredentialsModal"
-import { RiskPdfDialog } from "./RiskPdfDialog"
 import { useQuery } from "convex/react"
 import { api } from "@cvx/_generated/api"
 import { ShipmentTimeline, getTimelineStep } from "./ShipmentTimeline"
@@ -9,7 +8,7 @@ import { ExtractedDataGrid } from "./ExtractedDataGrid"
 import { DeforestationScanSection } from "./DeforestationScanSection"
 import { Button } from "@/components/ui/button"
 import { completenessTone, statusLabel } from "@/lib/shipment-ui"
-import { FileText, CheckCircle2, X, ChevronRight } from "lucide-react"
+import { CheckCircle2, X, ChevronRight } from "lucide-react"
 import { useState } from "react"
 import type { Id } from "@cvx/_generated/dataModel"
 
@@ -22,7 +21,6 @@ export function ShipmentDetailPanel({
 }) {
   const [isConflictOpen, setIsConflictOpen] = useState(false)
   const [isTracesOpen, setIsTracesOpen] = useState(false)
-  const [isRiskPdfOpen, setIsRiskPdfOpen] = useState(false)
 
   const shipment = useQuery(
     api.shipments.getShipment,
@@ -143,24 +141,6 @@ export function ShipmentDetailPanel({
           </div>
         ) : (
           <div className="flex flex-wrap gap-2">
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setIsTracesOpen(true)}
-              disabled={!isReadyToSubmit}
-            >
-              <FileText className="h-4 w-4" />
-              DDS
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setIsRiskPdfOpen(true)}
-              disabled={!isReadyToSubmit}
-            >
-              <FileText className="h-4 w-4" />
-              PDF Risque
-            </Button>
             {isReadyToSubmit && (
               <Button size="sm" className="ml-auto" onClick={() => setIsTracesOpen(true)}>
                 Soumettre
@@ -181,12 +161,6 @@ export function ShipmentDetailPanel({
       <TracesCredentialsModal
         open={isTracesOpen}
         onOpenChange={setIsTracesOpen}
-        shipmentId={shipmentId}
-      />
-
-      <RiskPdfDialog
-        open={isRiskPdfOpen}
-        onOpenChange={setIsRiskPdfOpen}
         shipmentId={shipmentId}
       />
     </div>

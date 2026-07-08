@@ -3,6 +3,7 @@
 import { action } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
+import type { Id } from "@cvx/_generated/dataModel"
 import { callLiteLLM, parseLlmJson } from "@cvx/lib/litellm"
 
 const RISK_TEMPLATE = `# Risk Assessment – EUDR Compliance
@@ -39,7 +40,7 @@ export const generateRiskPdf = action({
       answer: v.string(),
     }))),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx, args): Promise<{ storageId: string } | { questions: Array<{ id: string; question: string; section: number; field: string }> } | undefined> => {
     const shipment = await ctx.runQuery(internal.shipments.getShipmentById, {
       shipmentId: args.shipmentId,
     })
@@ -50,7 +51,7 @@ export const generateRiskPdf = action({
     const scanResult = shipment.scanResult ?? "no_polygon"
 
     const org = shipment.orgId
-      ? await ctx.runQuery(internal.orgs.getOrgById, { orgId: shipment.orgId })
+      ? await ctx.runQuery(internal.orgs.getOrgById, { orgId: shipment.orgId as Id<"organizations"> })
       : null
 
     const dataWithOrg = { ...extractedData } as Record<string, unknown>

@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { useMutation } from "convex/react"
+import { useState, useEffect, useCallback } from "react"
+import { useMutation, useQuery } from "convex/react"
 import { api } from "@cvx/_generated/api"
 import {
   Dialog,
@@ -25,9 +25,43 @@ export function TracesCredentialsModal({
 }) {
   const [username, setUsername] = useState("")
   const [authKey, setAuthKey] = useState("")
+  const [rememberMe, setRememberMe] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isAutoLoading, setIsAutoLoading] = useState(false)
+
   const initiateDds = useMutation(api.shipments.initiateDdsGeneration)
+  const hasCredentials = useQuery(
+    api.shipments.hasTracesCredentials,
+    open ? {} : "skip",
+  )
+
+  const resetStates = useCallback(() => {
+    setUsername("")
+    setAuthKey("")
+    setRememberMe(true)
+    setError(null)
+    setIsSubmitting(false)
+    setIsAutoLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (!open) {
+      resetStates()
+      return
+    }
+    if (hasCredentials === true) {
+      setIsAutoLoading(true)
+      initiateDds({ shipmentId: shipmentId as Id<"shipments"> })
+        .then(() => {
+          onOpenChange(false)
+        })
+        .catch((err: Error) => {
+          setError(err instanceof Error ? err.message : "Erreur d'authentification automatique")
+          setIsAutoLoading(false)
+        })
+    }
+  }, [open, hasCredentials])
 
   const handleSubmit = async () => {
     if (!shipmentId) return
@@ -42,7 +76,12 @@ export function TracesCredentialsModal({
     setIsSubmitting(true)
     setError(null)
     try {
-      await initiateDds({ shipmentId: shipmentId as Id<"shipments"> })
+      await initiateDds({
+        shipmentId: shipmentId as Id<"shipments">,
+        tracesUsername: username.trim(),
+        authKey: authKey.trim(),
+        rememberMe,
+      })
       onOpenChange(false)
       setUsername("")
       setAuthKey("")
@@ -51,6 +90,21 @@ export function TracesCredentialsModal({
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  if (isAutoLoading) {
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="sm:max-w-md">
+          <div className="flex flex-col items-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <p className="mt-4 text-sm text-muted-foreground">
+              Connexion automatique à TRACES...
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
+    )
   }
 
   return (
@@ -93,6 +147,17 @@ export function TracesCredentialsModal({
               />
             </div>
           </div>
+
+          <label className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
+            />
+            Se souvenir de mes identifiants
+          </label>
+
           {error && <p className="text-sm text-destructive">{error}</p>}
         </div>
 
