@@ -27,7 +27,7 @@ export const generateDds = internalAction({
       let authKey = args.authKey
 
       if (!tracesUsername || !authKey) {
-        const creds = await ctx.runQuery(internal.tracesCredentials._getFullCredentials, { orgId })
+        const creds = await ctx.runQuery(internal.traces_credentials._getFullCredentials, { orgId })
         if (creds) {
           tracesUsername = creds.tracesUsername
           authKey = decrypt(creds.encryptedAuthKey)

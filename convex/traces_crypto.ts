@@ -48,7 +48,7 @@ export const storeCredentials = internalAction({
   },
   handler: async (ctx, args) => {
     const encryptedAuthKey = encrypt(args.authKey)
-    await ctx.runMutation(internal.tracesCredentials._writeCredentials, {
+    await ctx.runMutation(internal.traces_credentials._writeCredentials, {
       orgId: args.orgId,
       tracesUsername: args.tracesUsername,
       encryptedAuthKey,
@@ -59,7 +59,7 @@ export const storeCredentials = internalAction({
 export const getDecryptedByOrg = internalAction({
   args: { orgId: v.string() },
   handler: async (ctx, args): Promise<{ tracesUsername: string; authKey: string } | null> => {
-    const creds: Doc<"tracesCredentials"> | null = await ctx.runQuery(internal.tracesCredentials._getFullCredentials, {
+    const creds: Doc<"tracesCredentials"> | null = await ctx.runQuery(internal.traces_credentials._getFullCredentials, {
       orgId: args.orgId,
     })
     if (!creds) return null
