@@ -245,7 +245,7 @@ export const initiateDdsGeneration = mutation({
     const orgId = shipment.orgId
 
     if (args.rememberMe && args.tracesUsername && args.authKey) {
-      await ctx.scheduler.runAfter(0, internal.tracesCredentials.storeCredentials, {
+      await ctx.scheduler.runAfter(0, internal.tracesCrypto.storeCredentials, {
         orgId,
         tracesUsername: args.tracesUsername,
         authKey: args.authKey,

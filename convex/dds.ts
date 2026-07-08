@@ -4,7 +4,7 @@ import { internalAction } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
 import crypto from "crypto"
-import { decrypt } from "@cvx/traces_credentials"
+import { decrypt } from "@cvx/traces_crypto"
 
 export const generateDds = internalAction({
   args: {
