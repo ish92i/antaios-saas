@@ -3,6 +3,7 @@
 import { internalAction } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
+import type { Doc } from "@cvx/_generated/dataModel"
 import crypto from "crypto"
 import { TRACES_ENCRYPTION_KEY } from "@cvx/env"
 
@@ -57,8 +58,8 @@ export const storeCredentials = internalAction({
 
 export const getDecryptedByOrg = internalAction({
   args: { orgId: v.string() },
-  handler: async (ctx, args) => {
-    const creds = await ctx.runQuery(internal.tracesCredentials._getFullCredentials, {
+  handler: async (ctx, args): Promise<{ tracesUsername: string; authKey: string } | null> => {
+    const creds: Doc<"tracesCredentials"> | null = await ctx.runQuery(internal.tracesCredentials._getFullCredentials, {
       orgId: args.orgId,
     })
     if (!creds) return null
