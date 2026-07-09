@@ -43,9 +43,9 @@ export function ConflictResolutionDialog({
     extractedData?: Record<string, unknown> | null
   }
 }) {
-  const isLoading = shipment.pendingQuestions === undefined
-  const [questions, setQuestions] = useState<Question[]>(() => shipment.pendingQuestions ?? [])
   const hasCaptured = useRef(false)
+  const isLoading = shipment.pendingQuestions === undefined && !hasCaptured.current
+  const [questions, setQuestions] = useState<Question[]>(() => shipment.pendingQuestions ?? [])
 
   useEffect(() => {
     if (!open) {
@@ -132,14 +132,21 @@ export function ConflictResolutionDialog({
         answer,
         previousValue: prevVal,
       })
-      setStep((s) => s + 1)
+
+      const nextStep = step + 1
+      if (nextStep >= questions.length) {
+        await finalizeModal({ shipmentId: shipment._id as Id<"shipments"> })
+        setIsFinished(true)
+      } else {
+        setStep(nextStep)
+      }
       setFlagMode(false)
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur lors de l'enregistrement")
     } finally {
       setIsSubmitting(false)
     }
-  }, [currentQuestion, selectedAnswer, geoFile, latValue, lngValue, shipment, answerQuestion])
+  }, [currentQuestion, selectedAnswer, geoFile, latValue, lngValue, shipment, answerQuestion, finalizeModal, step, questions.length])
 
   const handleGeoFile = useCallback(
     async (file: File) => {
@@ -165,7 +172,14 @@ export function ConflictResolutionDialog({
         })
         setSelectedAnswer((prev) => ({ ...prev, [currentQuestion.field]: file.name }))
         setGeoFile(null)
-        setStep((s) => s + 1)
+
+        const nextStep = step + 1
+        if (nextStep >= questions.length) {
+          await finalizeModal({ shipmentId: shipment._id as Id<"shipments"> })
+          setIsFinished(true)
+        } else {
+          setStep(nextStep)
+        }
         setFlagMode(false)
       } catch (err) {
         setGeoError(err instanceof Error ? err.message : "Erreur lors du traitement du fichier")
@@ -173,7 +187,7 @@ export function ConflictResolutionDialog({
         setIsUploadingGeo(false)
       }
     },
-    [currentQuestion, shipment, generateUploadUrl, processAndAnswerGeo],
+    [currentQuestion, shipment, generateUploadUrl, processAndAnswerGeo, finalizeModal, step, questions.length],
   )
 
   const handleFlagForSupplier = useCallback(async () => {
@@ -293,26 +307,7 @@ export function ConflictResolutionDialog({
         )}
 
         <div className={cn("min-h-[200px]")}>
-          {isLastQuestion ? (
-            <div className={cn("flex flex-col items-center gap-4 py-6 text-center")}>
-              <CheckCircle2 className={cn("h-8 w-8 text-green-600")} />
-              <p className={cn("text-sm font-medium text-foreground")}>
-                Toutes les questions ont été traitées
-              </p>
-              <div className={cn("flex flex-wrap gap-2")}>
-                {shipment.supplierToken && (
-                  <button
-                    type="button"
-                    onClick={handleCopyLink}
-                    className={cn("inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-muted")}
-                  >
-                    <Copy className={cn("h-4 w-4")} />
-                    {supplierLinkCopied ? "Copié" : "Copier le lien fournisseur"}
-                  </button>
-                )}
-              </div>
-            </div>
-          ) : flagMode ? (
+          {flagMode ? (
             <div className={cn("space-y-4")}>
               <p className={cn("text-sm font-medium text-foreground")}>Transmettre au fournisseur</p>
               <p className={cn("text-xs text-muted-foreground")}>Un lien sera envoyé au fournisseur pour répondre à cette question.</p>
@@ -366,7 +361,9 @@ export function ConflictResolutionDialog({
               {error && <p className={cn("mt-2 text-xs text-destructive")}>{error}</p>}
               {geoError && <p className={cn("mt-2 text-xs text-destructive")}>{geoError}</p>}
             </>
-          ) : null}
+          ) : (
+            <p className={cn("py-6 text-center text-sm text-muted-foreground")}>Aucune question à traiter.</p>
+          )}
         </div>
 
         <DialogFooter className={cn("flex items-center justify-between sm:justify-between")}>

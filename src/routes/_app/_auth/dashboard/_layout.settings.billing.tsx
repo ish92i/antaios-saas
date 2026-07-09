@@ -1,4 +1,6 @@
 import { useAction, useQuery } from "convex/react";
+import { Sparkles, Shield } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { api } from "@cvx/_generated/api";
@@ -13,6 +15,19 @@ export const Route = createFileRoute(
     headerDescription: "Manage billing and your subscription plan.",
   }),
 });
+
+const subscriptionBadge = (status: string | undefined) => {
+  switch (status) {
+    case "active":
+      return <Badge variant="success">Active</Badge>;
+    case "canceled":
+      return <Badge variant="warning">Canceled</Badge>;
+    case "expired":
+      return <Badge variant="destructive">Expired</Badge>;
+    default:
+      return null;
+  }
+};
 
 export default function BillingSettings() {
   const user = useQuery(api.app.getCurrentUser);
@@ -31,110 +46,97 @@ export default function BillingSettings() {
 
   if (!user) {
     return (
-      <div className="flex h-full w-full items-center justify-center bg-secondary px-6">
-        <section className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm">
-          <h1 className="text-xl font-semibold text-primary">Loading billing</h1>
-          <p className="mt-2 text-sm text-primary/60">
-            Fetching your account data.
-          </p>
+      <div className="flex h-full w-full items-center justify-center px-6">
+        <section className="w-full max-w-md rounded-xl border border-border/50 bg-card p-6 shadow-xs">
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 animate-pulse rounded-full bg-primary/40" />
+            <h1 className="text-sm font-medium text-muted-foreground">
+              Loading billing
+            </h1>
+          </div>
         </section>
       </div>
     );
   }
 
   const isSubscribed = user.subscription?.status === "active";
+  const planName = user.subscription?.planName ?? "Direct";
+  const status = user.subscription?.status;
 
   return (
     <div className="flex h-full w-full flex-col gap-6">
       {/* Plan */}
-      <div className="flex w-full flex-col items-start rounded-lg border border-border bg-card">
-        <div className="flex flex-col gap-2 p-6">
-          <h2 className="text-xl font-medium text-primary">Plan</h2>
-          <p className="flex items-start gap-1 text-sm font-normal text-primary/60">
-            You are currently on the{" "}
-            <span className="flex h-[18px] items-center rounded-md bg-primary/10 px-1.5 text-sm font-medium text-primary/80">
-              {user.subscription ? user.subscription.planName ?? "Direct" : "No plan"}
+      <section className="w-full rounded-xl border border-border/50 bg-card shadow-xs">
+        <div className="flex flex-col gap-6 p-5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+                <Sparkles className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-sm font-medium text-foreground">Plan</h2>
+                <p className="text-xs text-muted-foreground">
+                  Your current subscription
+                </p>
+              </div>
+            </div>
+            {status && subscriptionBadge(status)}
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <span className="text-lg font-semibold tracking-tight text-foreground">
+              {planName}
             </span>
-            {user.subscription && (user.subscription.status === "canceled" || user.subscription.status === "expired") && (
-              <span className="flex h-[18px] items-center text-sm font-medium text-red-500">
-                {" "}({user.subscription.status})
-              </span>
-            )}
-          </p>
+            <p className="text-sm text-muted-foreground">
+              {isSubscribed
+                ? "Access to all features."
+                : "Purchase the Direct plan to unlock all features."}
+            </p>
+          </div>
         </div>
 
-        {!isSubscribed && (
-          <div className="flex w-full flex-col items-center justify-evenly gap-2 border-border p-6 pt-0">
-            <div
-              tabIndex={0}
-              className="flex w-full select-none items-center rounded-md border border-border hover:border-primary/60"
-            >
-              <div className="flex w-full flex-col items-start p-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-base font-medium text-primary">
-                    Direct
-                  </span>
-                </div>
-                <p className="text-start text-sm font-normal text-primary/60">
-                  Access to all features.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {isSubscribed && (
-          <div className="flex w-full flex-col items-center justify-evenly gap-2 border-border p-6 pt-0">
-            <div className="flex w-full items-center overflow-hidden rounded-md border border-primary/60">
-              <div className="flex w-full flex-col items-start p-4">
-                <div className="flex items-end gap-2">
-                  <span className="text-base font-medium text-primary">
-                    Direct
-                  </span>
-                </div>
-                <p className="text-start text-sm font-normal text-primary/60">
-                  Access to all features.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-           <div className="flex min-h-14 w-full items-center justify-between rounded-lg rounded-t-none border-t border-border bg-secondary px-6 py-3">
-          <p className="text-sm font-normal text-primary/60">
+        <div className="flex items-center justify-between rounded-b-xl border-t border-border/50 bg-muted/50 px-5 py-3">
+          <p className="text-xs text-muted-foreground">
             {isSubscribed
               ? "Manage your subscription via the customer portal."
-              : "Purchase the Direct plan to unlock all features."}
+              : "You are not currently subscribed to a plan."}
           </p>
           {!isSubscribed && (
-            <Button type="submit" size="sm" onClick={handlePurchase}>
+            <Button size="sm" onClick={handlePurchase}>
               Purchase Direct
             </Button>
           )}
         </div>
-      </div>
+      </section>
 
       {/* Manage Subscription */}
       {isSubscribed && (
-        <div className="flex w-full flex-col items-start rounded-lg border border-border bg-card">
-          <div className="flex flex-col gap-2 p-6">
-            <h2 className="text-xl font-medium text-primary">
-              Manage Subscription
-            </h2>
-            <p className="flex items-start gap-1 text-sm font-normal text-primary/60">
-              Update your payment method, billing address, and more.
-            </p>
+        <section className="w-full rounded-xl border border-border/50 bg-card shadow-xs">
+          <div className="flex flex-col gap-6 p-5">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+                <Shield className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-sm font-medium text-foreground">
+                  Manage Subscription
+                </h2>
+                <p className="text-xs text-muted-foreground">
+                  Update your payment method, billing address, and more.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="flex min-h-14 w-full items-center justify-between rounded-lg rounded-t-none border-t border-border bg-secondary px-6 py-3">
-            <p className="text-sm font-normal text-primary/60">
+          <div className="flex items-center justify-between rounded-b-xl border-t border-border/50 bg-muted/50 px-5 py-3">
+            <p className="text-xs text-muted-foreground">
               You will be redirected to the Dodo Payments Customer Portal.
             </p>
-            <Button type="submit" size="sm" onClick={handleManageSubscription}>
+            <Button size="sm" onClick={handleManageSubscription}>
               Manage
             </Button>
           </div>
-        </div>
+        </section>
       )}
     </div>
   );

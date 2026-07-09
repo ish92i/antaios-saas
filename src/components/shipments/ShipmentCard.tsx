@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge"
-import { shipmentTitle, statusLabel, completenessLabel, completenessTone } from "@/lib/shipment-ui"
+import { statusLabel, completenessLabel, completenessTone } from "@/lib/shipment-ui"
 import { formatDateFr } from "@/lib/formatters"
 import { cn } from "@/lib/utils"
 import type { Doc } from "@cvx/_generated/dataModel"
@@ -28,7 +28,14 @@ export function ShipmentCard({
   onSelect: () => void
 }) {
   const tone = completenessTone(shipment.completeness)
-  const title = shipmentTitle(shipment.extractedData as Record<string, unknown> | undefined | null)
+  const subtitle = (() => {
+    const ed = shipment.extractedData as Record<string, unknown> | undefined | null
+    const name = ed?.commodityName
+    if (typeof name === "string" && name.trim().length > 0) return name.trim()
+    const ref = ed?.shipmentRef
+    if (typeof ref === "string" && ref.trim().length > 0) return ref.trim()
+    return "Nouvel envoi"
+  })()
   const docCount = (shipment as Record<string, unknown>).documentCount as number ?? 0
 
   return (
@@ -44,10 +51,10 @@ export function ShipmentCard({
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
           <h3 className="truncate text-sm font-medium text-foreground">
-            {title}
+            {shipment.internalRef || shipment._id}
           </h3>
           <p className="mt-0.5 truncate text-xs text-muted-foreground">
-            {shipmentReference(shipment)}
+            {subtitle}
           </p>
         </div>
         <Badge
@@ -79,9 +86,4 @@ export function ShipmentCard({
   )
 }
 
-function shipmentReference(shipment: Shipment): string {
-  if (shipment.internalRef) return shipment.internalRef
-  const ref = (shipment.extractedData as Record<string, unknown> | undefined)?.shipmentRef
-  if (typeof ref === "string" && ref.trim().length > 0) return ref.trim()
-  return shipment._id ?? "—"
-}
+
