@@ -36,8 +36,6 @@ export function ShipmentCard({
     if (typeof ref === "string" && ref.trim().length > 0) return ref.trim()
     return "Nouvel envoi"
   })()
-  const docCount = (shipment as Record<string, unknown>).documentCount as number ?? 0
-
   return (
     <button
       type="button"
@@ -67,7 +65,6 @@ export function ShipmentCard({
 
       <div className="mt-3 flex items-center gap-3 text-xs text-muted-foreground">
         <span>{statusLabel(shipment.status)}</span>
-        <span>{docCount} document{docCount !== 1 ? "s" : ""}</span>
         {shipment._creationTime && <span>{formatDateFr(shipment._creationTime)}</span>}
       </div>
 

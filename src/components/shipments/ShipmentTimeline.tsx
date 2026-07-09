@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils"
-import { CheckCircle2, Circle, Clock, FileText, Search, UserCheck, Globe, ShieldCheck } from "lucide-react"
+import { Check, ChevronRight } from "lucide-react"
 
-const steps = [
-  { key: "documents", label: "Documents", icon: FileText },
-  { key: "extraction", label: "Extraction", icon: Search },
-  { key: "verification", label: "Vérification", icon: CheckCircle2 },
-  { key: "supplier", label: "Fournisseur", icon: UserCheck },
-  { key: "scan", label: "Scan déforestation", icon: Globe },
-  { key: "ready", label: "Prêt", icon: ShieldCheck },
-  { key: "submitted", label: "Soumis", icon: CheckCircle2 },
+const stepLabels = [
+  "Documents",
+  "Extraction",
+  "Vérification",
+  "Fournisseur",
+  "Scan déforest.",
+  "Prêt",
+  "Soumis",
 ]
 
 export function ShipmentTimeline({
@@ -16,53 +16,57 @@ export function ShipmentTimeline({
 }: {
   currentStep: string
 }) {
-  const currentIdx = steps.findIndex((s) => s.key === currentStep)
+  const stepKeys = ["documents", "extraction", "verification", "supplier", "scan", "ready", "submitted"]
+  const currentIdx = stepKeys.indexOf(currentStep)
 
   return (
-    <div className="flex items-center gap-0">
-      {steps.map((step, i) => {
-        const isCompleted = i < currentIdx
-        const isCurrent = i === currentIdx
-        return (
-          <div key={step.key} className="flex flex-1 items-center">
-            <div className="flex flex-col items-center gap-1">
-              <div
-                className={cn(
-                  "flex h-7 w-7 items-center justify-center rounded-full text-xs transition-colors",
-                  isCompleted && "bg-primary text-primary-foreground",
-                  isCurrent && "border-2 border-primary text-primary",
-                  !isCompleted && !isCurrent && "border border-border text-muted-foreground",
-                )}
-              >
-                {isCompleted ? (
-                  <CheckCircle2 className="h-4 w-4" />
-                ) : isCurrent ? (
-                  <Clock className="h-3.5 w-3.5" />
-                ) : (
-                  <Circle className="h-3.5 w-3.5" />
-                )}
-              </div>
-              <span
-                className={cn(
-                  "hidden text-[10px] leading-tight md:block",
-                  isCompleted && "text-primary",
-                  isCurrent && "font-medium text-foreground",
-                  !isCompleted && !isCurrent && "text-muted-foreground",
-                )}
-              >
-                {step.label}
-              </span>
+    <div className="flex justify-between items-start">
+      {stepKeys.flatMap((key, i) => {
+        const done = i < currentIdx
+        const active = i === currentIdx
+        const lineDone = i + 1 < currentIdx
+        const items: React.ReactNode[] = [
+          <div key={key} className="flex flex-col items-center gap-1.5 flex-1">
+            <div
+              className={cn(
+                "w-6 h-6 rounded-full flex items-center justify-center",
+                done && "bg-green-600 text-white",
+                active && "bg-primary text-primary-foreground",
+                !done && !active && "border border-border",
+              )}
+              style={!done && !active ? { borderWidth: "0.5px" } : undefined}
+            >
+              {done ? (
+                <Check className="size-[13px]" />
+              ) : active ? (
+                <ChevronRight className="size-3" />
+              ) : (
+                <div className="size-2 rounded-full bg-border" />
+              )}
             </div>
-            {i < steps.length - 1 && (
-              <div
-                className={cn(
-                  "mx-1 mb-5 h-px flex-1 md:mb-0",
-                  i < currentIdx ? "bg-primary" : "bg-border",
-                )}
-              />
-            )}
-          </div>
-        )
+            <span
+              className={cn(
+                "text-[10px] leading-tight",
+                active && "font-medium text-primary",
+                !active && "text-muted-foreground",
+              )}
+            >
+              {stepLabels[i]}
+            </span>
+          </div>,
+        ]
+        if (i < stepKeys.length - 1) {
+          items.push(
+            <div
+              key={`${key}-line`}
+              className={cn(
+                "h-px flex-1 self-start mt-3",
+                lineDone ? "bg-green-600" : "bg-border",
+              )}
+            />,
+          )
+        }
+        return items
       })}
     </div>
   )

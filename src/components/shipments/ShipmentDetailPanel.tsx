@@ -3,14 +3,26 @@ import { TracesCredentialsModal } from "./TracesCredentialsModal"
 import { useQuery } from "convex/react"
 import { api } from "@cvx/_generated/api"
 import { ShipmentTimeline, getTimelineStep } from "./ShipmentTimeline"
-import { DocumentList } from "./DocumentList"
 import { ExtractedDataGrid } from "./ExtractedDataGrid"
 import { DeforestationScanSection } from "./DeforestationScanSection"
 import { Button } from "@/components/ui/button"
-import { completenessTone, statusLabel } from "@/lib/shipment-ui"
-import { CheckCircle2, X, ChevronRight } from "lucide-react"
+import { completenessTone } from "@/lib/shipment-ui"
+import { X, Paperclip, AlertTriangle, CircleDot, ArrowRight, CheckCircle2 } from "lucide-react"
 import { useState, useEffect, useCallback, forwardRef, useImperativeHandle, useRef } from "react"
 import type { Id } from "@cvx/_generated/dataModel"
+
+const statusBadge: Record<string, { label: string }> = {
+  draft: { label: "Brouillon" },
+  extracting: { label: "Extraction en cours" },
+  resolving: { label: "Vérification" },
+  pending_scan: { label: "En attente scan" },
+  scanning: { label: "Scan en cours" },
+  ready: { label: "Prêt à soumettre" },
+  pending_supplier: { label: "En attente fournisseur" },
+  submitting: { label: "Soumission en cours" },
+  submitted: { label: "Soumis" },
+  error: { label: "Erreur" },
+}
 
 export const ShipmentDetailPanel = forwardRef<
   { triggerResolve: () => void },
@@ -42,8 +54,8 @@ export const ShipmentDetailPanel = forwardRef<
       }
       if (e.key === "s" && !e.metaKey && !e.ctrlKey) {
         e.preventDefault()
-        const data = s.extractedData as Record<string, unknown> | undefined
-        const hasGeoJson = !!data?.geoJson
+        const d = s.extractedData as Record<string, unknown> | undefined
+        const hasGeoJson = !!d?.geoJson
         const hasResult = !!s.scanResult
         const recentlyRun = !!s.scanRunAt && Date.now() - s.scanRunAt < 60_000
         if (hasGeoJson && !hasResult && !recentlyRun) setScanTrigger((n) => n + 1)
@@ -54,6 +66,7 @@ export const ShipmentDetailPanel = forwardRef<
   }, [])
 
   const shipment = useQuery(api.shipments.getShipment, shipmentId ? { shipmentId: shipmentId as Id<"shipments"> } : "skip")
+  const documents = useQuery(api.documents.getDocuments, shipmentId ? { shipmentId: shipmentId as Id<"shipments"> } : "skip")
 
   useEffect(() => {
     shipmentRef.current = shipment
@@ -77,117 +90,112 @@ export const ShipmentDetailPanel = forwardRef<
   const timelineStep = getTimelineStep(shipment)
   const isSubmitted = shipment.status === "submitted"
   const isReadyToSubmit = shipment.status === "ready" && tone === "green" && !shipment.lockedAt
-  const hasExtractionData = Boolean(
-    shipment.extractedData &&
-      Object.values(shipment.extractedData as Record<string, unknown>).some(
-        (value) => value !== null && value !== undefined,
-      ),
-  )
+  const data = (shipment.extractedData ?? {}) as Record<string, unknown>
+  const hasExtractionData = Object.values(data).some((v) => v !== null && v !== undefined)
   const hasExtractionQuestions = Boolean(
     (shipment.pendingQuestions as unknown[] | null | undefined)?.some(
       (q) => typeof q === "object" && q !== null && "field" in (q as Record<string, unknown>),
     ),
   )
+  const pendingQuestionCount = (shipment.pendingQuestions as unknown[] | null | undefined)?.filter(
+    (q) => typeof q === "object" && q !== null && "field" in (q as Record<string, unknown>),
+  ).length ?? 0
   const showExtractionPanel = hasExtractionData || hasExtractionQuestions || shipment.status === "extracting" || shipment.status === "resolving"
+  const docCount = documents?.length ?? 0
+  const statusCfg = statusBadge[shipment.status as string] ?? statusBadge.draft
+
+  const formatDate = (ts?: number | null) => {
+    if (!ts) return ""
+    return new Intl.DateTimeFormat("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" }).format(ts)
+  }
 
   return (
     <div className="flex h-full flex-col">
-      <div className="sticky top-0 flex items-center justify-between border-b border-border bg-card px-4 py-3">
-        <div className="min-w-0 flex-1">
-          <h2 className="truncate text-sm font-semibold text-foreground">
-            {(shipment.extractedData as Record<string, unknown> | undefined)?.commodityName as string ?? "Envoi"}
-          </h2>
-          <p className="truncate text-xs text-muted-foreground">
-            {shipment.internalRef || shipment._id}
-          </p>
+      <div className="flex items-start justify-between px-4 pt-4 pb-1">
+        <div>
+          <p className="text-xs text-muted-foreground m-0 mb-0.5">{(data?.operatorName as string) ?? shipment.internalRef ?? shipment._id}</p>
+          <h2 className="text-xl font-semibold text-foreground m-0 leading-tight">{(data?.commodityName as string) ?? "Raw Cocoa Beans"}</h2>
         </div>
-        <Button variant="ghost" size="icon" onClick={onClose}>
-          <X className="h-4 w-4" />
-        </Button>
+        <button onClick={onClose} className="w-7 h-7 flex items-center justify-center shrink-0 rounded-md hover:bg-muted transition-colors" aria-label="Fermer">
+          <X className="size-3.5" />
+        </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4">
-        <div className="space-y-6">
-          <div className="rounded-lg border border-border bg-muted/20 px-4 py-3">
-            <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              Statut
-            </p>
-            <div className="mt-1 flex items-center gap-2">
-              <span className="text-sm font-medium text-foreground">
-                {statusLabel(shipment.status)}
-              </span>
-              <span className="text-xs text-muted-foreground">
-                {shipment.completeness === "green"
-                  ? "Prêt côté données"
-                  : shipment.completeness === "yellow"
-                    ? "Données partielles"
-                    : "Données incomplètes"}
-              </span>
-            </div>
-          </div>
+      <div className="flex items-center gap-1.5 mt-3.5 mb-5 px-4">
+        <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-accent-foreground bg-accent px-2.5 py-1 rounded-md">
+          <CircleDot className="size-3.5" />
+          {statusCfg.label}
+        </span>
+        <span className="text-[13px] text-muted-foreground">·</span>
+        <span className="text-[13px] text-muted-foreground">{formatDate(shipment._creationTime)}</span>
+      </div>
 
-          <ShipmentTimeline currentStep={timelineStep} />
+      <div className="px-4 mb-6">
+        <ShipmentTimeline currentStep={timelineStep} />
+      </div>
 
-          <section>
-            <h3 className="mb-2 text-sm font-medium text-foreground">Documents</h3>
-            <DocumentList shipmentId={shipmentId} />
-          </section>
+      <div className="flex-1 overflow-y-auto px-4 pb-4">
+        <div className="space-y-5">
+          <DeforestationScanSection
+            shipmentId={shipmentId}
+            scanResult={shipment.scanResult}
+            geoJson={data?.geoJson}
+            scanRunAt={shipment.scanRunAt}
+            triggerScan={scanTrigger}
+          />
 
           {showExtractionPanel && (
-            <section>
+            <>
               {(shipment.status === "extracting" || shipment.status === "resolving") && !hasExtractionData ? (
-                <div className="rounded-lg border border-border bg-muted/20 px-4 py-5 text-sm text-muted-foreground">
+                <div className="rounded-xl border border-border bg-muted/20 px-4 py-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 animate-pulse rounded-full bg-primary" />
+                    <div className="h-2.5 w-2.5 animate-pulse rounded-full bg-primary shrink-0" />
                     <span>Extraction en cours, les données vont apparaître dès que les documents auront été traités.</span>
                   </div>
                 </div>
               ) : (
                 <ExtractedDataGrid
-                  extractedData={shipment.extractedData as Record<string, unknown> | undefined | null}
+                  extractedData={data}
                   pendingQuestions={shipment.pendingQuestions as unknown[] | null | undefined}
                   onResolve={() => setIsConflictOpen(true)}
                 />
               )}
-            </section>
+            </>
           )}
-
-          <section>
-            <DeforestationScanSection
-              shipmentId={shipmentId}
-              scanResult={shipment.scanResult}
-              geoJson={(shipment.extractedData as Record<string, unknown> | undefined)?.geoJson}
-              scanRunAt={shipment.scanRunAt}
-              triggerScan={scanTrigger}
-            />
-          </section>
         </div>
       </div>
 
-      <div className="sticky bottom-0 border-t border-border bg-card p-4">
+      <div className="border-t border-border px-4 py-3 flex items-center justify-between">
+        <span className="text-xs text-muted-foreground flex items-center gap-1.5">
+          <Paperclip className="size-3.5" />
+          {docCount} fichier{docCount !== 1 ? "s" : ""} extrait{docCount !== 1 ? "s" : ""}
+        </span>
         {isSubmitted ? (
-          <div className="space-y-2">
-            <p className="flex items-center gap-2 text-sm text-green-600">
-              <CheckCircle2 className="h-4 w-4" />
-              Envoi soumis
-            </p>
-          </div>
+          <span className="flex items-center gap-1.5 text-sm text-green-600">
+            <CheckCircle2 className="size-4" />
+            Envoi soumis
+          </span>
         ) : (
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                <kbd className="inline-flex h-4 w-4 items-center justify-center rounded border border-border bg-muted text-[9px] font-medium">R</kbd>
+          <div className="flex items-center gap-2">
+            {pendingQuestionCount > 0 && (
+              <button
+                onClick={() => setIsConflictOpen(true)}
+                className="text-sm inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-yellow-600/40 text-yellow-600 hover:bg-yellow-50 transition-colors"
+              >
+                <kbd className="text-[11px] leading-none px-1 py-px rounded border border-yellow-600/40">R</kbd>
                 Résoudre
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                <kbd className="inline-flex h-4 w-4 items-center justify-center rounded border border-border bg-muted text-[9px] font-medium">S</kbd>
-                Scan
-              </span>
-            </div>
+                <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-yellow-100 text-yellow-700 text-[10px] font-semibold px-1">
+                  {pendingQuestionCount}
+                </span>
+              </button>
+            )}
+            <span className="text-xs text-muted-foreground flex items-center gap-1.5">
+              <kbd className="text-[11px] leading-none px-1 py-px rounded border border-border">S</kbd>
+              Scanner
+            </span>
             {isReadyToSubmit && (
               <Button size="sm" onClick={() => setIsTracesOpen(true)}>
-                Soumettre
-                <ChevronRight className="h-4 w-4" />
+                Soumettre <ArrowRight className="size-3.5 ml-1" />
               </Button>
             )}
           </div>
@@ -197,8 +205,7 @@ export const ShipmentDetailPanel = forwardRef<
       <ConflictResolutionDialog
         open={isConflictOpen}
         onOpenChange={setIsConflictOpen}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        shipment={shipment as any}
+        shipment={shipment as never}
       />
 
       <TracesCredentialsModal
