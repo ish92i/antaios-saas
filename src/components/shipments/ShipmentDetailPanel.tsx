@@ -9,23 +9,55 @@ import { DeforestationScanSection } from "./DeforestationScanSection"
 import { Button } from "@/components/ui/button"
 import { completenessTone, statusLabel } from "@/lib/shipment-ui"
 import { CheckCircle2, X, ChevronRight } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect, useCallback, forwardRef, useImperativeHandle, useRef } from "react"
 import type { Id } from "@cvx/_generated/dataModel"
 
-export function ShipmentDetailPanel({
-  shipmentId,
-  onClose,
-}: {
-  shipmentId?: string
-  onClose: () => void
-}) {
+export const ShipmentDetailPanel = forwardRef<
+  { triggerResolve: () => void },
+  { shipmentId?: string; onClose: () => void }
+>(function ShipmentDetailPanel({ shipmentId, onClose }, ref) {
   const [isConflictOpen, setIsConflictOpen] = useState(false)
   const [isTracesOpen, setIsTracesOpen] = useState(false)
+  const [scanTrigger, setScanTrigger] = useState(0)
 
-  const shipment = useQuery(
-    api.shipments.getShipment,
-    shipmentId ? { shipmentId: shipmentId as Id<"shipments"> } : "skip",
-  )
+  const triggerResolve = useCallback(() => {
+    setIsConflictOpen(true)
+  }, [])
+
+  useImperativeHandle(ref, () => ({ triggerResolve }), [triggerResolve])
+
+  const shipmentRef = useRef<typeof shipment>(undefined)
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
+      const s = shipmentRef.current
+      if (!s) return
+      if (e.key === "r" && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault()
+        const hasQuestions = (s.pendingQuestions as unknown[] | null | undefined)?.some(
+          (q) => typeof q === "object" && q !== null && "field" in (q as Record<string, unknown>),
+        )
+        if (hasQuestions) setIsConflictOpen(true)
+      }
+      if (e.key === "s" && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault()
+        const data = s.extractedData as Record<string, unknown> | undefined
+        const hasGeoJson = !!data?.geoJson
+        const hasResult = !!s.scanResult
+        const recentlyRun = !!s.scanRunAt && Date.now() - s.scanRunAt < 60_000
+        if (hasGeoJson && !hasResult && !recentlyRun) setScanTrigger((n) => n + 1)
+      }
+    }
+    window.addEventListener("keydown", handler)
+    return () => window.removeEventListener("keydown", handler)
+  }, [])
+
+  const shipment = useQuery(api.shipments.getShipment, shipmentId ? { shipmentId: shipmentId as Id<"shipments"> } : "skip")
+
+  useEffect(() => {
+    shipmentRef.current = shipment
+  }, [shipment])
 
   if (!shipmentId) return null
 
@@ -126,6 +158,7 @@ export function ShipmentDetailPanel({
               scanResult={shipment.scanResult}
               geoJson={(shipment.extractedData as Record<string, unknown> | undefined)?.geoJson}
               scanRunAt={shipment.scanRunAt}
+              triggerScan={scanTrigger}
             />
           </section>
         </div>
@@ -140,9 +173,19 @@ export function ShipmentDetailPanel({
             </p>
           </div>
         ) : (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <kbd className="inline-flex h-4 w-4 items-center justify-center rounded border border-border bg-muted text-[9px] font-medium">R</kbd>
+                Résoudre
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <kbd className="inline-flex h-4 w-4 items-center justify-center rounded border border-border bg-muted text-[9px] font-medium">S</kbd>
+                Scan
+              </span>
+            </div>
             {isReadyToSubmit && (
-              <Button size="sm" className="ml-auto" onClick={() => setIsTracesOpen(true)}>
+              <Button size="sm" onClick={() => setIsTracesOpen(true)}>
                 Soumettre
                 <ChevronRight className="h-4 w-4" />
               </Button>
@@ -165,4 +208,4 @@ export function ShipmentDetailPanel({
       />
     </div>
   )
-}
+})

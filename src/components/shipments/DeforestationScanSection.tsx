@@ -3,7 +3,7 @@ import { api } from "@cvx/_generated/api"
 import { Button } from "@/components/ui/button"
 import { Globe, ShieldCheck, MapPin, Loader2, AlertTriangle } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import type { Id } from "@cvx/_generated/dataModel"
 
 const scanStateConfig: Record<string, { icon: typeof Globe; label: string; color: string }> = {
@@ -20,11 +20,13 @@ export function DeforestationScanSection({
   scanResult,
   geoJson,
   scanRunAt,
+  triggerScan,
 }: {
   shipmentId: string
   scanResult?: string | null
   geoJson?: unknown | null
   scanRunAt?: number | null
+  triggerScan?: number
 }) {
   const [isScanning, setIsScanning] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -36,7 +38,7 @@ export function DeforestationScanSection({
   const Icon = isScanning ? Loader2 : cfg.icon
   const canRunScan = !!geoJson && !isScanning && !recentlyRun && !scanResult
 
-  const handleScan = async () => {
+  const handleScan = useCallback(async () => {
     setIsScanning(true)
     setError(null)
     try {
@@ -46,7 +48,13 @@ export function DeforestationScanSection({
     } finally {
       setIsScanning(false)
     }
-  }
+  }, [runScan, shipmentId])
+
+  useEffect(() => {
+    if (triggerScan && triggerScan > 0 && !isScanning) {
+      handleScan()
+    }
+  }, [triggerScan, handleScan, isScanning])
 
   return (
     <div className="space-y-3">

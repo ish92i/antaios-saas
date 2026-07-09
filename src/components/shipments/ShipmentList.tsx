@@ -1,7 +1,8 @@
 import type { Doc } from "@cvx/_generated/dataModel"
 import { ShipmentCard } from "./ShipmentCard"
 import { Button } from "@/components/ui/button"
-import { Plus, Inbox } from "lucide-react"
+import { Search, Plus, Inbox } from "lucide-react"
+import { useModifierSymbol } from "@/hooks/use-modifier-symbol"
 
 type Shipment = Doc<"shipments">
 
@@ -11,13 +12,17 @@ export function ShipmentList({
   selectedId,
   onSelect,
   onCreate,
+  onOpenCommand,
 }: {
   shipments?: Shipment[]
   isLoading: boolean
   selectedId?: string
   onSelect: (id: string) => void
   onCreate: () => void
+  onOpenCommand?: () => void
 }) {
+  const modSymbol = useModifierSymbol()
+
   if (isLoading) {
     return (
       <div className="flex flex-col gap-2 p-4">
@@ -55,11 +60,25 @@ export function ShipmentList({
 
   return (
     <div className="flex flex-col gap-3 px-5 pt-5 pb-16">
+      <button
+        onClick={onOpenCommand}
+        className="flex w-full items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground shadow-xs transition-colors hover:bg-accent hover:text-accent-foreground"
+      >
+        <Search className="h-4 w-4 shrink-0" />
+        <span className="flex-1 text-left">Rechercher...</span>
+        <kbd className="flex h-5 items-center gap-0.5 rounded border border-border bg-muted px-1.5 text-[10px] font-medium text-muted-foreground">
+          {modSymbol}K
+        </kbd>
+      </button>
+
       <div className="flex items-center justify-between px-0.5">
-        <h2 className="text-sm font-semibold text-foreground">
-          Envois ({shipments.length})
+        <h2 className="text-base font-bold text-foreground">
+          Envois{" "}
+          <span className="text-sm font-normal text-muted-foreground">
+            ({shipments.length})
+          </span>
         </h2>
-        <Button onClick={onCreate} size="xs" variant="outline">
+        <Button onClick={onCreate} size="xs" variant="default">
           <Plus className="h-3.5 w-3.5" />
           Nouvel envoi
         </Button>
