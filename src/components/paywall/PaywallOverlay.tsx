@@ -17,12 +17,8 @@ export function PaywallOverlay() {
 
   const handlePurchase = async () => {
     setIsLoading(true)
-    try {
-      const { checkoutUrl } = await createCheckout({})
-      if (checkoutUrl) window.location.href = checkoutUrl
-    } catch {
-      setIsLoading(false)
-    }
+    const { checkoutUrl } = await createCheckout({})
+    if (checkoutUrl) window.location.href = checkoutUrl
   }
 
   return (
