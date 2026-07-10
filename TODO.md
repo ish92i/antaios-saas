@@ -1,0 +1,38 @@
+# TODO
+
+## Clerk Webhook — Org Deletion Cascade
+
+1. Set the webhook secret:
+   ```sh
+   npx convex env set CLERK_WEBHOOK_SECRET whsec_...
+   ```
+
+2. Configure in Clerk Dashboard → Webhooks → Add Endpoint:
+   - URL: `https://[PROJECT].convex.site/webhooks/clerk`
+   - Events: `organization.deleted`
+   - Use the signing secret from there in step 1
+
+3. Verify: delete a test org in Clerk, check Convex logs
+
+## Infrastructure — Monitoring
+
+- [ ] **UptimeRobot** — set up monitoring + Discord webhook alerts
+- [ ] **Email-to-Discord bot** — forward `support@antaios.app` emails to Discord channel (e.g., via Zapier/Make/Pipedream or a custom bot)
+
+## Legal — Mentions Légales
+
+Fill in these blanks in `src/routes/legal/notices.tsx`:
+
+- [ ] **RCS / SIRET number** (register at formalites.entreprises.gouv.fr if not done)
+- [ ] **VAT number (TVA intracommunautaire)** — if you exceed €36,800 B2C / €36,800 B2B annual revenue
+
+## Legal — Status Summary
+
+| Document | Route | Status |
+|----------|-------|--------|
+| Terms of Service | `/legal/terms` | ✅ Done |
+| Privacy Policy | `/legal/privacy` | ✅ Done |
+| Terms of Sale | `/legal/terms-of-sale` | ✅ Done |
+| Data Processing Addendum | `/legal/dpa` | ✅ Done |
+| Legal Notices (Mentions Légales) | `/legal/notices` | ✅ Drafted, needs 2 fields |
+| Cookie Consent Banner | — | 🚫 Not needed (no analytics/tracking cookies) |

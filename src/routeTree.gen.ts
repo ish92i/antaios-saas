@@ -12,6 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupplierTokenRouteImport } from './routes/supplier/$token'
+import { Route as LegalTermsOfSaleRouteImport } from './routes/legal/terms-of-sale'
+import { Route as LegalTermsRouteImport } from './routes/legal/terms'
+import { Route as LegalPrivacyRouteImport } from './routes/legal/privacy'
+import { Route as LegalNoticesRouteImport } from './routes/legal/notices'
+import { Route as LegalDpaRouteImport } from './routes/legal/dpa'
 import { Route as AppAuthRouteImport } from './routes/_app/_auth'
 import { Route as AppLoginLayoutRouteImport } from './routes/_app/login/_layout'
 import { Route as AppLoginLayoutIndexRouteImport } from './routes/_app/login/_layout.index'
@@ -36,6 +41,31 @@ const IndexRoute = IndexRouteImport.update({
 const SupplierTokenRoute = SupplierTokenRouteImport.update({
   id: '/supplier/$token',
   path: '/supplier/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsOfSaleRoute = LegalTermsOfSaleRouteImport.update({
+  id: '/legal/terms-of-sale',
+  path: '/legal/terms-of-sale',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/legal/privacy',
+  path: '/legal/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalNoticesRoute = LegalNoticesRouteImport.update({
+  id: '/legal/notices',
+  path: '/legal/notices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalDpaRoute = LegalDpaRouteImport.update({
+  id: '/legal/dpa',
+  path: '/legal/dpa',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppAuthRoute = AppAuthRouteImport.update({
@@ -101,6 +131,11 @@ const AppAuthDashboardLayoutSettingsBillingRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/legal/dpa': typeof LegalDpaRoute
+  '/legal/notices': typeof LegalNoticesRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
+  '/legal/terms-of-sale': typeof LegalTermsOfSaleRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/login': typeof AppLoginLayoutRouteWithChildren
   '/dashboard': typeof AppAuthDashboardLayoutRouteWithChildren
@@ -115,6 +150,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/legal/dpa': typeof LegalDpaRoute
+  '/legal/notices': typeof LegalNoticesRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
+  '/legal/terms-of-sale': typeof LegalTermsOfSaleRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/onboarding': typeof AppAuthOnboardingLayoutRouteWithChildren
   '/login': typeof AppLoginLayoutIndexRoute
@@ -130,6 +170,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
   '/_app/_auth': typeof AppAuthRouteWithChildren
+  '/legal/dpa': typeof LegalDpaRoute
+  '/legal/notices': typeof LegalNoticesRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
+  '/legal/terms-of-sale': typeof LegalTermsOfSaleRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/_app/login/_layout': typeof AppLoginLayoutRouteWithChildren
   '/_app/_auth/dashboard/_layout': typeof AppAuthDashboardLayoutRouteWithChildren
@@ -146,6 +191,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/legal/dpa'
+    | '/legal/notices'
+    | '/legal/privacy'
+    | '/legal/terms'
+    | '/legal/terms-of-sale'
     | '/supplier/$token'
     | '/login'
     | '/dashboard'
@@ -160,6 +210,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/legal/dpa'
+    | '/legal/notices'
+    | '/legal/privacy'
+    | '/legal/terms'
+    | '/legal/terms-of-sale'
     | '/supplier/$token'
     | '/onboarding'
     | '/login'
@@ -174,6 +229,11 @@ export interface FileRouteTypes {
     | '/'
     | '/_app'
     | '/_app/_auth'
+    | '/legal/dpa'
+    | '/legal/notices'
+    | '/legal/privacy'
+    | '/legal/terms'
+    | '/legal/terms-of-sale'
     | '/supplier/$token'
     | '/_app/login/_layout'
     | '/_app/_auth/dashboard/_layout'
@@ -190,6 +250,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  LegalDpaRoute: typeof LegalDpaRoute
+  LegalNoticesRoute: typeof LegalNoticesRoute
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalTermsRoute: typeof LegalTermsRoute
+  LegalTermsOfSaleRoute: typeof LegalTermsOfSaleRoute
   SupplierTokenRoute: typeof SupplierTokenRoute
 }
 
@@ -214,6 +279,41 @@ declare module '@tanstack/react-router' {
       path: '/supplier/$token'
       fullPath: '/supplier/$token'
       preLoaderRoute: typeof SupplierTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms-of-sale': {
+      id: '/legal/terms-of-sale'
+      path: '/legal/terms-of-sale'
+      fullPath: '/legal/terms-of-sale'
+      preLoaderRoute: typeof LegalTermsOfSaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/legal/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/notices': {
+      id: '/legal/notices'
+      path: '/legal/notices'
+      fullPath: '/legal/notices'
+      preLoaderRoute: typeof LegalNoticesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/dpa': {
+      id: '/legal/dpa'
+      path: '/legal/dpa'
+      fullPath: '/legal/dpa'
+      preLoaderRoute: typeof LegalDpaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app/_auth': {
@@ -387,6 +487,11 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  LegalDpaRoute: LegalDpaRoute,
+  LegalNoticesRoute: LegalNoticesRoute,
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalTermsRoute: LegalTermsRoute,
+  LegalTermsOfSaleRoute: LegalTermsOfSaleRoute,
   SupplierTokenRoute: SupplierTokenRoute,
 }
 export const routeTree = rootRouteImport

@@ -7,7 +7,7 @@ import { ExtractedDataGrid } from "./ExtractedDataGrid"
 import { DeforestationScanSection } from "./DeforestationScanSection"
 import { Button } from "@/components/ui/button"
 import { completenessTone } from "@/lib/shipment-ui"
-import { X, Paperclip, AlertTriangle, CircleDot, ArrowRight, CheckCircle2 } from "lucide-react"
+import { X, Paperclip, CircleDot, ArrowRight, CheckCircle2 } from "lucide-react"
 import { useState, useEffect, useCallback, forwardRef, useImperativeHandle, useRef } from "react"
 import type { Id } from "@cvx/_generated/dataModel"
 
@@ -157,7 +157,7 @@ export const ShipmentDetailPanel = forwardRef<
                 <ExtractedDataGrid
                   extractedData={data}
                   pendingQuestions={shipment.pendingQuestions as unknown[] | null | undefined}
-                  onResolve={() => setIsConflictOpen(true)}
+                  shipmentId={shipmentId}
                 />
               )}
             </>
@@ -189,10 +189,6 @@ export const ShipmentDetailPanel = forwardRef<
                 </span>
               </button>
             )}
-            <span className="text-xs text-muted-foreground flex items-center gap-1.5">
-              <kbd className="text-[11px] leading-none px-1 py-px rounded border border-border">S</kbd>
-              Scanner
-            </span>
             {isReadyToSubmit && (
               <Button size="sm" onClick={() => setIsTracesOpen(true)}>
                 Soumettre <ArrowRight className="size-3.5 ml-1" />

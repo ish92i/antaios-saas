@@ -31,7 +31,7 @@ export const EXTRACTION_SCHEMA = `{
   "geoJson": "object | null — only if explicit coordinates present",
   "farmName": "string | null",
   "villageName": "string | null",
-  "certifications": "string[] | null — e.g. Rainforest Alliance, FSC, RSPO",
+  "certifications": "Array<{type: string, body: string | null}> | null — e.g. [{type: \"Rainforest Alliance\", body: \"SCS\"}, {type: \"Fair Trade\", body: \"FLOCERT\"}]",
   "scientificName": "string | null — deduce from commodityName if possible",
   "region": "string | null",
   "supplierEmail": "string | null"

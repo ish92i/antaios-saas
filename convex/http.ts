@@ -2,6 +2,7 @@ import { createDodoWebhookHandler } from "@dodopayments/convex";
 import { httpRouter } from "convex/server";
 import { internal } from "./_generated/api";
 import { planNameFromProductId } from "./dodo";
+import { handleClerkWebhook } from "./clerkWebhook";
 
 const http = httpRouter();
 
@@ -85,6 +86,12 @@ http.route({
       }
     },
   }),
+})
+
+http.route({
+  path: "/webhooks/clerk",
+  method: "POST",
+  handler: handleClerkWebhook,
 })
 
 export default http

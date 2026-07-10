@@ -11,3 +11,4 @@ export const LITELLM_API_KEY = process.env.LITELLM_API_KEY;
 export const GFW_API_KEY = process.env.GFW_API_KEY;
 export const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
 export const TRACES_ENCRYPTION_KEY = process.env.TRACES_ENCRYPTION_KEY;
+export const CLERK_WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;

@@ -206,11 +206,22 @@ export const mergeAndResolve = internalAction({
       }
 
       if (field === "certifications") {
-        const allCerts = new Set<string>()
+        const certMap = new Map<string, string | undefined>()
         for (const arr of nonNull) {
-          if (Array.isArray(arr)) arr.forEach((c: string) => allCerts.add(c))
+          if (Array.isArray(arr)) {
+            for (const c of arr) {
+              if (typeof c === "string") {
+                if (!certMap.has(c)) certMap.set(c, undefined)
+              } else if (typeof c === "object" && c !== null) {
+                const entry = c as { type: string; body?: string }
+                if (entry.type && !certMap.has(entry.type)) {
+                  certMap.set(entry.type, entry.body)
+                }
+              }
+            }
+          }
         }
-        merged[field] = Array.from(allCerts)
+        merged[field] = Array.from(certMap.entries()).map(([type, body]) => ({ type, ...(body ? { body } : {}) }))
         continue
       }
 

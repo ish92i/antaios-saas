@@ -24,7 +24,10 @@ export const extractedDataValidator = v.object({
   villageName: v.optional(v.string()),
   mitigationMeasures: v.optional(v.string()),
   declarationText: v.optional(v.string()),
-  certifications: v.optional(v.array(v.string())),
+  certifications: v.optional(v.array(v.object({
+    type: v.string(),
+    body: v.optional(v.string()),
+  }))),
   missingFields: v.optional(v.array(v.string())),
 })
 
@@ -52,7 +55,7 @@ export type ExtractedData = {
   villageName?: string
   mitigationMeasures?: string
   declarationText?: string
-  certifications?: string[]
+  certifications?: Array<{ type: string; body?: string }>
   missingFields?: string[]
 }
 
@@ -71,7 +74,10 @@ export function validateExtractedData(raw: unknown): raw is ExtractedData {
   if (obj.certifications !== undefined && obj.certifications !== null) {
     if (!Array.isArray(obj.certifications)) return false
     for (const c of obj.certifications) {
-      if (typeof c !== "string") return false
+      if (typeof c !== "object" || c === null) return false
+      if (typeof (c as Record<string, unknown>).type !== "string") return false
+      const body = (c as Record<string, unknown>).body
+      if (body !== undefined && body !== null && typeof body !== "string") return false
     }
   }
 
