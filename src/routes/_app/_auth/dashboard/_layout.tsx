@@ -1,16 +1,25 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
 import { Navigation } from "./-ui.navigation";
 
 import { useQuery } from "@tanstack/react-query";
 import { convexQuery } from "@convex-dev/react-query";
 import { api } from "@cvx/_generated/api";
 import { Button } from "@/components/ui/button";
+import { PaywallOverlay } from "@/components/paywall/PaywallOverlay";
+
+const EXEMPT_ROUTES = [
+  "/dashboard/settings/billing",
+  "/dashboard/checkout",
+];
 
 export const Route = createFileRoute("/_app/_auth/dashboard/_layout")({
   component: DashboardLayout,
 });
 
 function DashboardLayout() {
+  const location = useLocation();
+  const isExempt = EXEMPT_ROUTES.some((r) => location.pathname.startsWith(r));
+
   const {
     data: user,
     isLoading,
@@ -18,6 +27,10 @@ function DashboardLayout() {
     error,
     refetch,
   } = useQuery(convexQuery(api.app.getCurrentUser, {}));
+
+  const { data: shipmentCount = 0 } = useQuery(
+    convexQuery(api.shipments.getShipmentCount, {}),
+  );
 
   if (isLoading) {
     return (
@@ -53,10 +66,22 @@ function DashboardLayout() {
       </main>
     );
   }
+  const isSubscribed = user.subscription?.status === "active";
+  const showPaywall = !isSubscribed && shipmentCount >= 1 && !isExempt;
+
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-secondary">
       <Navigation user={user} />
-      <Outlet />
+      {showPaywall ? (
+        <div className="relative flex flex-1">
+          <div className="absolute inset-0 overflow-hidden blur-sm opacity-30 pointer-events-none">
+            <Outlet />
+          </div>
+          <PaywallOverlay />
+        </div>
+      ) : (
+        <Outlet />
+      )}
     </div>
   );
 }
