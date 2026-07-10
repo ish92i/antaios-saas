@@ -50,6 +50,19 @@ export const listShipments = query({
   },
 })
 
+export const getShipmentCount = query({
+  args: {},
+  handler: async (ctx) => {
+    const orgId = await getOrgId(ctx)
+    if (!orgId) return 0
+    const shipments = await ctx.db
+      .query("shipments")
+      .withIndex("orgId", (q) => q.eq("orgId", orgId as string))
+      .collect()
+    return shipments.length
+  },
+})
+
 export const getShipmentBySupplierToken = query({
   args: { token: v.string() },
   handler: async (ctx, args) => {
