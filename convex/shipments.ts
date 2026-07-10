@@ -18,6 +18,24 @@ export const createShipment = mutation({
     const orgId = await getOrgId(ctx)
     if (!orgId) throw new Error("No organization found")
 
+    const existingShipments = await ctx.db
+      .query("shipments")
+      .withIndex("orgId", (q) => q.eq("orgId", orgId as string))
+      .collect()
+
+    const subscription = await ctx.db
+      .query("subscriptions")
+      .withIndex("orgId", (q) => q.eq("orgId", orgId as string))
+      .first()
+
+    const hasActiveSub = subscription?.status === "active"
+
+    if (!hasActiveSub && existingShipments.length >= 1) {
+      throw new Error(
+        "Free tier limit reached. Upgrade to Direct to create more shipments.",
+      )
+    }
+
     const shipmentId = await ctx.db.insert("shipments", {
       orgId: orgId as string,
       createdBy: clerkUserId,
