@@ -28,11 +28,10 @@ function DashboardLayout() {
     refetch,
   } = useQuery(convexQuery(api.app.getCurrentUser, {}));
 
-  const { data: shipmentCount = 0 } = useQuery(
-    convexQuery(api.shipments.getShipmentCount, {}),
-  );
+  const { data: shipmentCount = 0, isLoading: isShipmentCountLoading } =
+    useQuery(convexQuery(api.shipments.getShipmentCount, {}));
 
-  if (isLoading) {
+  if (isLoading || isShipmentCountLoading) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-secondary px-6">
         <section className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm">
