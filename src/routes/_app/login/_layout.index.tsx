@@ -47,8 +47,8 @@ function Login() {
       />
       <p className="px-12 text-center text-sm font-normal leading-normal text-primary/60">
         By clicking continue, you agree to our{" "}
-        <a className="underline hover:text-primary transition-colors">Terms of Service</a> and{" "}
-        <a className="underline hover:text-primary transition-colors">Privacy Policy.</a>
+        <a href="/legal/terms" className="underline hover:text-primary transition-colors">Terms of Service</a> and{" "}
+        <a href="/legal/privacy" className="underline hover:text-primary transition-colors">Privacy Policy.</a>
       </p>
       <p className="text-xs text-muted-foreground">
         Trusted by European importers and customs agents

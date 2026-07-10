@@ -18,9 +18,11 @@ export const createShipment = mutation({
     const orgId = await getOrgId(ctx)
     if (!orgId) throw new Error("No organization found")
 
+    const subscriptionOrgId =
+      identity.orgId ?? identity.organization_id ?? identity.organizationId ?? clerkUserId
     const subscription = await ctx.db
       .query("subscriptions")
-      .withIndex("orgId", (q) => q.eq("orgId", orgId as string))
+      .withIndex("orgId", (q) => q.eq("orgId", subscriptionOrgId as string))
       .first()
 
     if (subscription?.status !== "active") {
