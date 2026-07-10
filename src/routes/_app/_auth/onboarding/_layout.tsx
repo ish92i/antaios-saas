@@ -14,7 +14,7 @@ export default function OnboardingLayout() {
       <div className="absolute left-1/2 top-8 mx-auto -translate-x-1/2 transform justify-center">
         <Logo />
       </div>
-      <div className="z-10 h-screen w-screen">
+      <div className="z-10 h-screen w-screen animate-in fade-in duration-700">
         <Outlet />
       </div>
       <div className="base-grid fixed h-screen w-screen opacity-40" />
