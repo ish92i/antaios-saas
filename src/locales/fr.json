@@ -71,7 +71,9 @@
     "previous": "Précédent",
     "continue": "Continuer →",
     "finish": "Terminer",
-    "close": "Fermer"
+    "close": "Fermer",
+    "verification_title": "Vérification des données",
+    "supplier_email_placeholder": "fournisseur@example.com"
   },
   "question": {
     "count": "Question {{n}} sur {{total}}",
@@ -82,7 +84,11 @@
     "upload": "Télécharger",
     "processing": "Traitement...",
     "upload_failed": "Échec du téléchargement",
-    "submit_error": "Erreur lors de la soumission"
+    "submit_error": "Erreur lors de la soumission",
+    "upload_file": "Uploader un fichier",
+    "manual_entry": "Saisir manuellement",
+    "add_point": "Ajouter un point",
+    "send_to_supplier_missing": "Vous ne les avez pas ? Envoyer au fournisseur"
   },
   "supplier": {
     "invalid_token": "Lien invalide",

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import { Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -8,14 +9,15 @@ export function ProgressStepper({
   current: number
   total: number
 }) {
+  const { t } = useTranslation()
   return (
     <div>
       <div className="flex items-center justify-between">
         <span className="text-base font-medium text-foreground">
-          Vérification des données
+          {t("conflict.verification_title")}
         </span>
         <span className="text-xs text-muted-foreground">
-          Question {current + 1} sur {total}
+          {t("question.count", { n: current + 1, total })}
         </span>
       </div>
 

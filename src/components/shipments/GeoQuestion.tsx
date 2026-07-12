@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import { Upload, Plus, Trash2, Loader2, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -26,6 +27,7 @@ export function GeoQuestion({
   onLngChange: (value: string) => void
   onSupplierClick: () => void
 }) {
+  const { t } = useTranslation()
   return (
     <div>
       <p className={cn("text-sm font-medium text-foreground")}>{label}</p>
@@ -65,15 +67,15 @@ export function GeoQuestion({
           ) : (
             <>
               <Upload className={cn("h-5 w-5 text-muted-foreground")} />
-              <p className={cn("mt-2 text-xs font-medium text-foreground")}>Uploader un fichier</p>
-              <p className={cn("mt-0.5 text-[10px] text-muted-foreground")}>GeoJSON, KML, Shapefile</p>
+              <p className={cn("mt-2 text-xs font-medium text-foreground")}>{t("question.upload_file")}</p>
+              <p className={cn("mt-0.5 text-[10px] text-muted-foreground")}>{t("question.geo_formats")}</p>
             </>
           )}
         </div>
 
         {/* Manual entry */}
         <div className={cn("rounded-lg border border-border px-3 py-3")}>
-          <p className={cn("text-xs font-medium text-foreground")}>Saisir manuellement</p>
+          <p className={cn("text-xs font-medium text-foreground")}>{t("question.manual_entry")}</p>
           <div className={cn("mt-2 flex gap-1.5")}>
             <input
               type="text"
@@ -95,7 +97,7 @@ export function GeoQuestion({
             className={cn("mt-2 flex items-center gap-1 text-[11px] font-medium text-blue-600 hover:underline")}
           >
             <Plus className={cn("h-3 w-3")} />
-            Ajouter un point
+            {t("question.add_point")}
           </button>
         </div>
       </div>
@@ -105,7 +107,7 @@ export function GeoQuestion({
         onClick={onSupplierClick}
         className={cn("mt-3 flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline")}
       >
-        Vous ne les avez pas ? Envoyer au fournisseur
+        {t("question.send_to_supplier_missing")}
         <ArrowRight className={cn("h-3 w-3")} />
       </button>
     </div>

@@ -71,7 +71,9 @@
     "previous": "Previous",
     "continue": "Continue →",
     "finish": "Finish",
-    "close": "Close"
+    "close": "Close",
+    "verification_title": "Data verification",
+    "supplier_email_placeholder": "supplier@example.com"
   },
   "question": {
     "count": "Question {{n}} of {{total}}",
@@ -82,7 +84,11 @@
     "upload": "Upload",
     "processing": "Processing...",
     "upload_failed": "Upload failed",
-    "submit_error": "Error submitting"
+    "submit_error": "Error submitting",
+    "upload_file": "Upload a file",
+    "manual_entry": "Enter manually",
+    "add_point": "Add point",
+    "send_to_supplier_missing": "Don't have this information? Send to supplier"
   },
   "supplier": {
     "invalid_token": "Invalid link",
