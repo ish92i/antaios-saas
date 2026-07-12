@@ -1,7 +1,7 @@
-import { internalQuery } from "@cvx/_generated/server"
+import { query } from "@cvx/_generated/server"
 import { v } from "convex/values"
 
-export const getCachedTranslation = internalQuery({
+export const getCachedTranslation = query({
   args: {
     sourceText: v.string(),
     sourceLang: v.string(),
