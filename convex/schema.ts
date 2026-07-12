@@ -57,7 +57,7 @@ const schema = defineSchema({
       id: v.string(),
       field: v.string(),
       type: v.string(),
-      label: v.string(),
+      label: v.union(v.string(), v.object({ fr: v.string(), en: v.string() })),
       options: v.optional(v.array(v.any())),
       geoType: v.optional(v.union(v.literal("file"), v.literal("coordinates"), v.null())),
       pendingSupplier: v.optional(v.boolean()),

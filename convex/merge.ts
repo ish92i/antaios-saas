@@ -52,35 +52,35 @@ const ALL_FIELDS = [
   "geoJson",
 ]
 
-const FIELD_LABELS: Record<string, string> = {
-  operatorName: "Nom de l'opérateur",
-  operatorAddress: "Adresse de l'opérateur",
-  operatorEmail: "Email de l'opérateur",
-  operatorPhone: "Téléphone de l'opérateur",
-  eoriNumber: "Numéro EORI",
-  supplierName: "Nom du fournisseur",
-  supplierAddress: "Adresse du fournisseur",
-  supplierEmail: "Email du fournisseur",
-  commodityName: "Nom du produit",
-  scientificName: "Nom scientifique",
-  hsCode: "Code SH",
-  quantity: "Quantité",
-  quantityUnit: "Unité",
-  shipmentRef: "Référence d'envoi",
-  countryOfExport: "Pays d'exportation",
-  countryOfProduction: "Pays de production",
-  productionDate: "Date de production",
-  region: "Région",
-  portOfLoading: "Port de chargement",
-  portOfEntry: "Port d'entrée",
-  farmName: "Nom de l'exploitation",
-  villageName: "Nom du village",
-  certifications: "Certifications",
-  geoJson: "Données géospatiales",
+const FIELD_LABELS: Record<string, { fr: string; en: string }> = {
+  operatorName:     { fr: "Nom de l'opérateur",    en: "Operator name" },
+  operatorAddress:  { fr: "Adresse de l'opérateur", en: "Operator address" },
+  operatorEmail:    { fr: "Email de l'opérateur",   en: "Operator email" },
+  operatorPhone:    { fr: "Téléphone de l'opérateur", en: "Operator phone" },
+  eoriNumber:       { fr: "Numéro EORI",            en: "EORI number" },
+  supplierName:     { fr: "Nom du fournisseur",     en: "Supplier name" },
+  supplierAddress:  { fr: "Adresse du fournisseur", en: "Supplier address" },
+  supplierEmail:    { fr: "Email du fournisseur",   en: "Supplier email" },
+  commodityName:    { fr: "Dénomination",           en: "Commodity" },
+  scientificName:   { fr: "Nom scientifique",       en: "Scientific name" },
+  hsCode:           { fr: "Code SH",                en: "HS code" },
+  quantity:         { fr: "Quantité",               en: "Quantity" },
+  quantityUnit:     { fr: "Unité",                  en: "Unit" },
+  shipmentRef:      { fr: "Référence d'envoi",      en: "Shipment reference" },
+  countryOfExport:  { fr: "Pays d'exportation",     en: "Country of export" },
+  countryOfProduction: { fr: "Pays de production",  en: "Country of production" },
+  productionDate:   { fr: "Date de production",     en: "Production date" },
+  region:           { fr: "Région",                 en: "Region" },
+  portOfLoading:    { fr: "Port de chargement",     en: "Port of loading" },
+  portOfEntry:      { fr: "Port d'entrée",          en: "Port of entry" },
+  farmName:         { fr: "Nom de l'exploitation",  en: "Farm name" },
+  villageName:      { fr: "Nom du village",         en: "Village name" },
+  certifications:   { fr: "Certifications",         en: "Certifications" },
+  geoJson:          { fr: "Données géospatiales",   en: "Geospatial data" },
 }
 
-function fieldLabel(field: string): string {
-  return FIELD_LABELS[field] ?? field
+function fieldLabel(field: string): { fr: string; en: string } {
+  return FIELD_LABELS[field] ?? { fr: field, en: field }
 }
 
 const COUNTRY_FIELDS = ["countryOfExport", "countryOfProduction"]
@@ -90,7 +90,7 @@ function buildQuestion(question: {
   id: string
   field: string
   type: string
-  label: string
+  label: { fr: string; en: string }
   options?: string[]
   geoType?: "file" | "coordinates" | null
 }) {
@@ -134,7 +134,7 @@ export const mergeAndResolve = internalAction({
         id: `missing-${field}`,
         field,
         type: "missing" as const,
-        label: `Veuillez fournir ${fieldLabel(field)}`,
+        label: { fr: `Veuillez fournir ${fieldLabel(field).fr}`, en: `Please provide ${fieldLabel(field).en}` },
         geoType: null,
       }))
 
@@ -163,7 +163,7 @@ export const mergeAndResolve = internalAction({
             id: `missing-${field}`,
             field,
             type: "geo_missing",
-            label: "Veuillez fournir les coordonnées géographiques ou télécharger un fichier",
+            label: { fr: "Veuillez fournir les coordonnées géographiques ou télécharger un fichier", en: "Please provide geographic coordinates or upload a file" },
             geoType: null,
           })
         } else {
@@ -171,7 +171,7 @@ export const mergeAndResolve = internalAction({
             id: `missing-${field}`,
             field,
             type: "missing",
-            label: `Veuillez fournir ${fieldLabel(field)}`,
+            label: { fr: `Veuillez fournir ${fieldLabel(field).fr}`, en: `Please provide ${fieldLabel(field).en}` },
             geoType: null,
           })
         }
@@ -198,7 +198,7 @@ export const mergeAndResolve = internalAction({
           id: `conflict-${field}`,
           field,
           type: "conflict",
-          label: `Quantité divergente: ${nonNull.join(" vs ")}`,
+          label: { fr: `Quantité divergente: ${nonNull.join(" vs ")}`, en: `Conflicting quantity: ${nonNull.join(" vs ")}` },
           options: nonNull.map(String),
           geoType: null,
         })
@@ -231,7 +231,7 @@ export const mergeAndResolve = internalAction({
         id: `conflict-${field}`,
         field,
         type: "conflict",
-        label: `${fieldLabel(field)}: ${uniqueValues.join(" vs ")}`,
+        label: { fr: `${fieldLabel(field).fr}: ${uniqueValues.join(" vs ")}`, en: `${fieldLabel(field).en}: ${uniqueValues.join(" vs ")}` },
         options: uniqueValues,
         geoType: null,
       })
@@ -239,13 +239,13 @@ export const mergeAndResolve = internalAction({
 
     if (questions.length > 0) {
       try {
-        const conflictFields = questions.map((q) => `${q.field}: ${q.label}`).join("\n")
+        const conflictFields = questions.map((q) => `${q.field}: ${q.label.fr} / ${q.label.en}`).join("\n")
         const llmResult = await callLiteLLM("text-primary", [
-          { role: "user", content: `Generate human-readable French labels for these missing/conflicting EUDR compliance fields:\n${conflictFields}\n\nReturn JSON array: [{ "id": "conflict-fieldName", "label": "French label describing what's needed" }]\nReturn ONLY valid JSON.` },
+          { role: "user", content: `Generate human-readable labels in French AND English for these missing/conflicting EUDR compliance fields:\n${conflictFields}\n\nReturn JSON array: [{ "id": "conflict-fieldName", "label": { "fr": "French label", "en": "English label" } }]\nReturn ONLY valid JSON.` },
         ])
         const content = llmResult.choices[0]?.message?.content
         if (content) {
-          const labels = parseLlmJson<Array<{ id: string; label: string }>>(content)
+          const labels = parseLlmJson<Array<{ id: string; label: { fr: string; en: string } }>>(content)
           for (const label of labels) {
             const q = questions.find((q) => q.id === label.id)
             if (q && label.label) q.label = label.label

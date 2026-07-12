@@ -28,6 +28,7 @@ import type * as extract from "../extract.js";
 import type * as extractOcr from "../extractOcr.js";
 import type * as geo from "../geo.js";
 import type * as geoAnswer from "../geoAnswer.js";
+import type * as getTranslation from "../getTranslation.js";
 import type * as http from "../http.js";
 import type * as lib_completeness from "../lib/completeness.js";
 import type * as lib_gfw from "../lib/gfw.js";
@@ -44,6 +45,7 @@ import type * as supplier from "../supplier.js";
 import type * as supplier_email from "../supplier_email.js";
 import type * as traces_credentials from "../traces_credentials.js";
 import type * as traces_crypto from "../traces_crypto.js";
+import type * as translateValue from "../translateValue.js";
 
 import type {
   ApiFromModules,
@@ -72,6 +74,7 @@ declare const fullApi: ApiFromModules<{
   extractOcr: typeof extractOcr;
   geo: typeof geo;
   geoAnswer: typeof geoAnswer;
+  getTranslation: typeof getTranslation;
   http: typeof http;
   "lib/completeness": typeof lib_completeness;
   "lib/gfw": typeof lib_gfw;
@@ -88,6 +91,7 @@ declare const fullApi: ApiFromModules<{
   supplier_email: typeof supplier_email;
   traces_credentials: typeof traces_credentials;
   traces_crypto: typeof traces_crypto;
+  translateValue: typeof translateValue;
 }>;
 
 /**
