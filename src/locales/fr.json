@@ -31,7 +31,7 @@
     "create_error": "Erreur lors de la création de l'envoi",
     "files": "Fichiers",
     "no_files": "Aucun fichier",
-    "file_count": "{n} fichier(s)",
+    "file_count": "{{count}} fichier(s)",
     "cancel": "Annuler",
     "create_cta": "Créer l'envoi",
     "new_shipment_title": "Nouvel envoi",
@@ -67,7 +67,7 @@
     "close": "Fermer"
   },
   "question": {
-    "count": "Question {n} sur {total}",
+    "count": "Question {{n}} sur {{total}}",
     "your_answer": "Votre réponse",
     "click_to_select": "Cliquez pour sélectionner un fichier",
     "geo_formats": "GeoJSON, KML, ZIP",

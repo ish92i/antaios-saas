@@ -31,7 +31,7 @@
     "create_error": "Error creating shipment",
     "files": "Files",
     "no_files": "No files",
-    "file_count": "{count} file(s)",
+    "file_count": "{{count}} file(s)",
     "cancel": "Cancel",
     "create_cta": "Create shipment",
     "new_shipment_title": "New shipment",
@@ -67,7 +67,7 @@
     "close": "Close"
   },
   "question": {
-    "count": "Question {n} of {total}",
+    "count": "Question {{n}} of {{total}}",
     "your_answer": "Your answer",
     "click_to_select": "Click to select a file",
     "geo_formats": "GeoJSON, KML, ZIP",
