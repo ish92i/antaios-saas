@@ -7,6 +7,7 @@ const schema = defineSchema({
     name: v.optional(v.string()),
     image: v.optional(v.string()),
     email: v.optional(v.string()),
+    locale: v.optional(v.string()),
   })
     .index("clerkUserId", ["clerkUserId"])
     .index("email", ["email"]),

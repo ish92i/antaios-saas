@@ -147,6 +147,7 @@
   },
   "locale": {
     "en": "English",
-    "fr": "Français"
+    "fr": "Fran\u00e7ais",
+    "switch": "Changer de langue"
   }
 }

@@ -88,6 +88,15 @@ export const updateUserImage = mutation({
   },
 });
 
+export const updateUserLocale = mutation({
+  args: { locale: v.string() },
+  handler: async (ctx, args) => {
+    const user = await ensureUser(ctx);
+    if (!user) return;
+    await ctx.db.patch(user._id, { locale: args.locale });
+  },
+});
+
 export const removeUserImage = mutation({
   args: {},
   handler: async (ctx) => {
