@@ -16,13 +16,14 @@ import { ProgressStepper } from "./ProgressStepper"
 import { ConflictQuestion } from "./ConflictQuestion"
 import { TextQuestion } from "./TextQuestion"
 import { GeoQuestion } from "./GeoQuestion"
+import { resolveLabel, type BilingualLabel } from "@/lib/i18n-utils"
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
 
 interface Question {
   id: string
   field: string
-  label: string
+  label: string | BilingualLabel
   type?: string
   options?: string[]
   geoType?: "file" | "coordinates" | null
@@ -324,7 +325,7 @@ export function ConflictResolutionDialog({
             <>
               {currentQuestion.type === "conflict" && currentQuestion.options ? (
                 <ConflictQuestion
-                  label={currentQuestion.label}
+                  label={resolveLabel(currentQuestion.label)}
                   description="Deux valeurs ont été trouvées dans vos documents. Laquelle est correcte?"
                   options={currentQuestion.options}
                   selectedValue={selectedAnswer[currentQuestion.field]}
@@ -332,7 +333,7 @@ export function ConflictResolutionDialog({
                 />
               ) : currentQuestion.type === "geo_missing" ? (
                 <GeoQuestion
-                  label={currentQuestion.label}
+                  label={resolveLabel(currentQuestion.label)}
                   description="Aucune coordonnée GPS n'a été trouvée."
                   geoFile={geoFile}
                   isUploading={isUploadingGeo}
@@ -349,7 +350,7 @@ export function ConflictResolutionDialog({
                 />
               ) : (
                 <TextQuestion
-                  label={currentQuestion.label}
+                  label={resolveLabel(currentQuestion.label)}
                   description="Ce champ est absent de tous vos documents."
                   value={selectedAnswer[currentQuestion.field] ?? ""}
                   onChange={(v) => setSelectedAnswer((prev) => ({ ...prev, [currentQuestion.field]: v }))}

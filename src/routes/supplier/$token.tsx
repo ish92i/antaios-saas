@@ -4,6 +4,7 @@ import { api } from "@cvx/_generated/api"
 import { SupplierQuestionStepper } from "@/components/supplier/SupplierQuestionStepper"
 import { Loader2, AlertTriangle } from "lucide-react"
 import { Helmet } from "react-helmet-async"
+import type { BilingualLabel } from "@/lib/i18n-utils"
 
 export const Route = createFileRoute("/supplier/$token")({
   component: SupplierPage,
@@ -63,7 +64,7 @@ function SupplierPage() {
   const pendingQuestions = (shipment.pendingQuestions ?? []) as {
     id: string
     field: string
-    label: string
+    label: string | BilingualLabel
     type: string
   }[]
 

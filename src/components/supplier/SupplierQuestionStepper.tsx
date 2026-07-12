@@ -6,11 +6,12 @@ import { Button } from "@/components/ui/button"
 import { CheckCircle2, ChevronLeft, ChevronRight, Upload, File, Loader2, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { Id } from "@cvx/_generated/dataModel"
+import { resolveLabel, type BilingualLabel } from "@/lib/i18n-utils"
 
 interface Question {
   id: string
   field: string
-  label: string
+  label: string | BilingualLabel
   type?: string
   geoType?: "file" | "coordinates" | null
 }
@@ -133,7 +134,7 @@ export function SupplierQuestionStepper({
       <div className="space-y-4">
         <div>
           <p className="text-xs text-muted-foreground">{current.field}</p>
-          <p className="text-base font-medium text-foreground">{current.label}</p>
+          <p className="text-base font-medium text-foreground">{resolveLabel(current.label)}</p>
         </div>
 
         <div>
