@@ -131,6 +131,14 @@ const schema = defineSchema({
   })
     .index("shipmentId", ["shipmentId"])
     .index("orgId_timestamp", ["orgId", "timestamp"]),
+  translationCache: defineTable({
+    sourceText: v.string(),
+    sourceLang: v.string(),
+    targetLang: v.string(),
+    translatedText: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_source_target", ["sourceText", "sourceLang", "targetLang"]),
 });
 
 export default schema;
