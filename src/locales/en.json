@@ -85,6 +85,7 @@
     "processing": "Processing...",
     "upload_failed": "Upload failed",
     "submit_error": "Error submitting",
+    "next": "Next",
     "upload_file": "Upload a file",
     "manual_entry": "Enter manually",
     "add_point": "Add point",
@@ -148,14 +149,44 @@
     "title": "Deforestation scan",
     "clean": "Clean",
     "alerts_found": "Alerts found",
-    "no_polygon": "No polygon"
+    "no_polygon": "No polygon",
+    "geolocation_heading": "GEOLOCATION",
+    "geolocated_parcel": "Geolocated parcel",
+    "no_geo_data": "No geospatial data available",
+    "add_parcel": "Add parcel",
+    "in_progress": "Scanning...",
+    "clean_desc": "Verified via Global Forest Watch. No forest cover change since 2020.",
+    "alerts_desc": "Forest cover change detected in 2023 on this parcel (Global Forest Watch).",
+    "retry": "Restart scan",
+    "not_started": "Scan not started",
+    "not_started_desc": "Requires parcel geolocation to be executed.",
+    "start": "Start scan",
+    "error": "Scan error"
   },
   "onboarding": {
     "create_org": "Create your organization",
     "setup_desc": "Set up your organization to get started."
   },
   "legal": {
-    "login_disclaimer": "By clicking continue, you agree to our Terms of Service and Privacy Policy."
+    "login_disclaimer": "By clicking continue, you agree to our <0>Terms of Service</0> and <1>Privacy Policy.</1>"
+  },
+  "document": {
+    "status_pending": "Pending",
+    "status_processing": "Extracting",
+    "status_done": "Extracted",
+    "status_failed": "Failed",
+    "empty": "No documents imported"
+  },
+  "command": {
+    "search_title": "Search shipments",
+    "search_desc": "Search shipments by supplier, reference or commodity",
+    "search_placeholder": "Search shipment, supplier, reference...",
+    "empty": "No results.",
+    "actions": "Actions"
+  },
+  "auth": {
+    "setup_failed": "Account setup failed",
+    "setup_failed_desc": "The account creation request did not complete."
   },
   "nav": {
     "billing": "Billing"

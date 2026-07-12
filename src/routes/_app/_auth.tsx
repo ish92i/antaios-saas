@@ -14,6 +14,7 @@ import {
 import { convexQuery, useConvexMutation } from "@convex-dev/react-query";
 import { api } from "@cvx/_generated/api";
 import { useConvexAuth } from "convex/react";
+import { useTranslation } from "react-i18next";
 import { Logo } from "@/components/logo";
 import { DashboardSkeleton } from "@/routes/_app/_auth/dashboard/_layout";
 
@@ -34,6 +35,7 @@ function LoadingAuthed() {
 }
 
 function AuthLayout() {
+  const { t } = useTranslation();
   const { isSignedIn, isLoaded } = useAuth();
   const clerk = useClerk();
   const location = useLocation();
@@ -128,10 +130,10 @@ function AuthLayout() {
           <section className="mx-auto flex w-full max-w-96 flex-col items-center justify-center gap-6">
             <div className="flex flex-col items-center gap-2">
               <h3 className="text-center text-2xl font-medium text-primary">
-                Create your organization
+                {t("onboarding.create_org")}
               </h3>
               <p className="text-center text-base font-normal text-primary/60">
-                Set up your organization to get started.
+                {t("onboarding.setup_desc")}
               </p>
             </div>
             <CreateOrganization
@@ -181,12 +183,12 @@ function AuthLayout() {
       <main className="flex min-h-screen items-center justify-center bg-background px-6 text-foreground">
         <section className="w-full max-w-md rounded-lg border bg-card p-6 shadow-sm">
           <h1 className="text-xl font-semibold text-card-foreground">
-            Account setup failed
+            {t("auth.setup_failed")}
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {createUserError instanceof Error
               ? createUserError.message
-              : "The account creation request did not complete."}
+              : t("auth.setup_failed_desc")}
           </p>
         </section>
       </main>

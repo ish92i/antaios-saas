@@ -85,6 +85,7 @@
     "processing": "Traitement...",
     "upload_failed": "Échec du téléchargement",
     "submit_error": "Erreur lors de la soumission",
+    "next": "Suivant",
     "upload_file": "Uploader un fichier",
     "manual_entry": "Saisir manuellement",
     "add_point": "Ajouter un point",
@@ -148,14 +149,44 @@
     "title": "Scan déforestation",
     "clean": "Aucune alerte",
     "alerts_found": "Alertes détectées",
-    "no_polygon": "Aucun polygone"
+    "no_polygon": "Aucun polygone",
+    "geolocation_heading": "GÉOLOCALISATION",
+    "geolocated_parcel": "Parcelle géolocalisée",
+    "no_geo_data": "Aucune donnée géospatiale disponible",
+    "add_parcel": "Ajouter une parcelle",
+    "in_progress": "Scan en cours...",
+    "clean_desc": "Vérifié via Global Forest Watch. Sans changement de couvert forestier depuis 2020.",
+    "alerts_desc": "Changement de couvert forestier signalé en 2023 sur cette parcelle (Global Forest Watch).",
+    "retry": "Relancer le scan",
+    "not_started": "Scan non lancé",
+    "not_started_desc": "Nécessite la géolocalisation de la parcelle pour être exécuté.",
+    "start": "Lancer le scan",
+    "error": "Erreur lors du scan"
   },
   "onboarding": {
     "create_org": "Créez votre organisation",
     "setup_desc": "Configurez votre organisation pour commencer."
   },
   "legal": {
-    "login_disclaimer": "En cliquant sur continuer, vous acceptez nos Conditions d'utilisation et notre Politique de confidentialité."
+    "login_disclaimer": "En cliquant sur continuer, vous acceptez nos <0>Conditions d'utilisation</0> et notre <1>Politique de confidentialité.</1>"
+  },
+  "document": {
+    "status_pending": "En attente",
+    "status_processing": "Extraction en cours",
+    "status_done": "Extrait",
+    "status_failed": "Échec",
+    "empty": "Aucun document importé"
+  },
+  "command": {
+    "search_title": "Recherche d'envois",
+    "search_desc": "Recherchez des envois par fournisseur, référence ou marchandise",
+    "search_placeholder": "Rechercher un envoi, fournisseur, référence...",
+    "empty": "Aucun résultat.",
+    "actions": "Actions"
+  },
+  "auth": {
+    "setup_failed": "Échec de la configuration du compte",
+    "setup_failed_desc": "La demande de création de compte n'a pas abouti."
   },
   "nav": {
     "billing": "Facturation"

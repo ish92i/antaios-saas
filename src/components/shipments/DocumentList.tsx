@@ -3,20 +3,21 @@ import { api } from "@cvx/_generated/api"
 import { cn } from "@/lib/utils"
 import { FileText, RefreshCw, AlertCircle, Check, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useTranslation } from "react-i18next"
 import type { Id } from "@cvx/_generated/dataModel"
-
-const extractionStatusConfig: Record<string, { icon: typeof FileText; label: string; className: string }> = {
-  pending: { icon: Clock, label: "En attente", className: "text-muted-foreground" },
-  processing: { icon: Clock, label: "Extraction en cours", className: "text-primary" },
-  done: { icon: Check, label: "Extrait", className: "text-green-600" },
-  failed: { icon: AlertCircle, label: "Échec", className: "text-destructive" },
-}
 
 export function DocumentList({
   shipmentId,
 }: {
   shipmentId: string
 }) {
+  const { t } = useTranslation()
+  const extractionStatusConfig: Record<string, { icon: typeof FileText; label: string; className: string }> = {
+    pending: { icon: Clock, label: t("document.status_pending"), className: "text-muted-foreground" },
+    processing: { icon: Clock, label: t("document.status_processing"), className: "text-primary" },
+    done: { icon: Check, label: t("document.status_done"), className: "text-green-600" },
+    failed: { icon: AlertCircle, label: t("document.status_failed"), className: "text-destructive" },
+  }
   const documents = useQuery(api.documents.getDocuments, {
     shipmentId: shipmentId as Id<"shipments">,
   })
@@ -34,7 +35,7 @@ export function DocumentList({
 
   if (documents.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">Aucun document importé</p>
+      <p className="text-sm text-muted-foreground">{t("document.empty")}</p>
     )
   }
 

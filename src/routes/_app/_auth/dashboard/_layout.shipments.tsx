@@ -8,6 +8,8 @@ import { ShipmentDetailPanel } from "@/components/shipments/ShipmentDetailPanel"
 import { CreateShipmentPanel } from "@/components/shipments/CreateShipmentPanel"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Search, Plus } from "lucide-react"
+import { useTranslation } from "react-i18next"
+import i18n from "@/lib/i18n"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import {
   Command,
@@ -33,13 +35,14 @@ type ViewState =
 export const Route = createFileRoute("/_app/_auth/dashboard/_layout/shipments")({
   component: ShipmentsPage,
   beforeLoad: () => ({
-    title: "Antaios - Expéditions",
-    headerTitle: "Expéditions",
-    headerDescription: "Gérez vos envois et leur conformité EUDR",
+    title: `Antaios - ${i18n.t("shipment.title")}`,
+    headerTitle: i18n.t("shipment.title"),
+    headerDescription: i18n.t("shipment.description"),
   }),
 })
 
 function ShipmentsPage() {
+  const { t } = useTranslation()
   const { data: shipments, isLoading } = useQuery(
     convexQuery(api.shipments.listShipments, {}),
   )
@@ -105,7 +108,7 @@ function ShipmentsPage() {
             <div className="flex items-center border-b border-border px-4 py-2">
               <Button variant="ghost" size="sm" onClick={handleBack}>
                 <ArrowLeft className="h-4 w-4" />
-                Retour
+                {t("detail.return")}
               </Button>
             </div>
           )}
@@ -121,7 +124,7 @@ function ShipmentsPage() {
             <div className="flex items-center border-b border-border px-4 py-2">
               <Button variant="ghost" size="sm" onClick={() => setView({ mode: "idle" })}>
                 <ArrowLeft className="h-4 w-4" />
-                Retour
+                {t("detail.return")}
               </Button>
             </div>
           )}
@@ -133,15 +136,15 @@ function ShipmentsPage() {
       )}
       {view.mode === "idle" && !isMobile && (
         <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
-          Sélectionnez un envoi pour voir les détails
+          {t("shipment.select_hint")}
         </div>
       )}
 
       <Dialog open={isCommandOpen} onOpenChange={setIsCommandOpen}>
         <DialogContent className="overflow-hidden p-0 sm:max-w-lg">
-          <DialogTitle className="sr-only">Recherche d'envois</DialogTitle>
+          <DialogTitle className="sr-only">{t("command.search_title")}</DialogTitle>
           <DialogDescription className="sr-only">
-            Recherchez des envois par fournisseur, référence ou marchandise
+            {t("command.search_desc")}
           </DialogDescription>
           <Command
             onKeyDown={(e) => {
@@ -154,11 +157,11 @@ function ShipmentsPage() {
             }}
             className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
           >
-            <CommandInput placeholder="Rechercher un envoi, fournisseur, référence..." />
+            <CommandInput placeholder={t("command.search_placeholder")} />
             <CommandList>
-              <CommandEmpty>Aucun résultat.</CommandEmpty>
+              <CommandEmpty>{t("command.empty")}</CommandEmpty>
               {shipments && shipments.length > 0 && (
-                <CommandGroup heading="Envois">
+                <CommandGroup heading={t("shipment.title")}>
                   {shipments.map((s, i) => {
                     const data = s.extractedData as Record<string, unknown> | null | undefined
                     const label = [data?.supplier, data?.commodityName, s.internalRef].filter(Boolean).join(" · ") || s._id
@@ -176,10 +179,10 @@ function ShipmentsPage() {
                   })}
                 </CommandGroup>
               )}
-              <CommandGroup heading="Actions">
+              <CommandGroup heading={t("command.actions")}>
                 <CommandItem onSelect={handleCommandCreate}>
                   <Plus className="h-4 w-4" />
-                  <span>Nouvel envoi</span>
+                  <span>{t("shipment.create")}</span>
                 </CommandItem>
               </CommandGroup>
             </CommandList>

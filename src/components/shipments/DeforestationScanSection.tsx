@@ -13,6 +13,7 @@ import {
   AlertTriangle,
 } from "lucide-react"
 import { useState, useEffect, useCallback } from "react"
+import { useTranslation } from "react-i18next"
 import type { Id } from "@cvx/_generated/dataModel"
 
 type GeoJsonGeometry = { type: string; coordinates: unknown }
@@ -72,6 +73,7 @@ export function DeforestationScanSection({
   scanRunAt?: number | null
   triggerScan?: number
 }) {
+  const { t } = useTranslation()
   const [isScanning, setIsScanning] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const runScan = useAction(api.scan.runDeforestationScan)
@@ -87,7 +89,7 @@ export function DeforestationScanSection({
     try {
       await runScan({ shipmentId: shipmentId as Id<"shipments"> })
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur lors du scan")
+      setError(err instanceof Error ? err.message : t("scan.error"))
     } finally {
       setIsScanning(false)
     }
@@ -107,7 +109,7 @@ export function DeforestationScanSection({
         <div className="flex items-center gap-1.5 px-3.5 pb-2 pt-2.5">
           <Map className="size-3.5 text-muted-foreground" />
           <span className="text-[11px] font-medium text-muted-foreground tracking-wider">
-            GÉOLOCALISATION
+            {t("scan.geolocation_heading")}
           </span>
         </div>
 
@@ -117,7 +119,7 @@ export function DeforestationScanSection({
               viewBox="0 0 300 140"
               className="w-full h-[140px] block bg-muted"
               role="img"
-              aria-label="Parcelle géolocalisée"
+              aria-label={t("scan.geolocated_parcel")}
             >
               <polygon
                 points={polygonPoints ?? "120,25 220,40 260,90 180,125 90,110 65,55"}
@@ -138,7 +140,7 @@ export function DeforestationScanSection({
             <div className="h-[140px] flex flex-col items-center justify-center gap-2 bg-muted">
               <MapPinOff className="size-5 text-muted-foreground" />
               <p className="text-xs text-muted-foreground text-center max-w-[180px]">
-                Aucune donnée géospatiale disponible
+                {t("scan.no_geo_data")}
               </p>
             </div>
             <div className="border-t border-border px-3.5 py-2.5">
@@ -148,7 +150,7 @@ export function DeforestationScanSection({
                 className="w-full justify-center text-xs gap-1.5"
               >
                 <Upload className="size-3.5" />
-                Ajouter une parcelle
+                {t("scan.add_parcel")}
               </Button>
             </div>
           </>
@@ -159,7 +161,7 @@ export function DeforestationScanSection({
         <div className="flex items-center gap-1.5 px-3.5 pb-2 pt-2.5">
           <ShieldCheck className="size-3.5 text-muted-foreground" />
           <span className="text-[11px] font-medium text-muted-foreground tracking-wider">
-            DÉFORESTATION
+            {t("scan.title")}
           </span>
         </div>
 
@@ -169,16 +171,16 @@ export function DeforestationScanSection({
               <div className="size-10 rounded-full bg-muted flex items-center justify-center mb-1">
                 <Loader2 className="size-5 text-muted-foreground animate-spin" />
               </div>
-              <span className="text-sm font-medium text-muted-foreground">Scan en cours...</span>
+              <span className="text-sm font-medium text-muted-foreground">{t("scan.in_progress")}</span>
             </>
           ) : scanResult === "clean" ? (
             <>
               <div className="size-10 rounded-full bg-green-600 flex items-center justify-center mb-1">
                 <Check className="size-5 text-white" />
               </div>
-              <span className="text-sm font-medium text-green-600">Aucune alerte</span>
+              <span className="text-sm font-medium text-green-600">{t("scan.clean")}</span>
               <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
-                Vérifié via Global Forest Watch. Sans changement de couvert forestier depuis 2020.
+                {t("scan.clean_desc")}
               </p>
             </>
           ) : scanResult === "alert" ? (
@@ -186,9 +188,9 @@ export function DeforestationScanSection({
               <div className="size-10 rounded-full bg-red-100 flex items-center justify-center mb-1">
                 <AlertTriangle className="size-5 text-destructive" />
               </div>
-              <span className="text-sm font-medium text-destructive">Alerte détectée</span>
+              <span className="text-sm font-medium text-destructive">{t("scan.alerts_found")}</span>
               <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
-                Changement de couvert forestier signalé en 2023 sur cette parcelle (Global Forest Watch).
+                {t("scan.alerts_desc")}
               </p>
               <Button
                 size="xs"
@@ -196,7 +198,7 @@ export function DeforestationScanSection({
                 disabled={isScanning}
                 className="mt-1 gap-1"
               >
-                Relancer le scan
+                {t("scan.retry")}
               </Button>
             </>
           ) : (
@@ -204,9 +206,9 @@ export function DeforestationScanSection({
               <div className="size-10 rounded-full bg-muted flex items-center justify-center mb-1">
                 <CircleDashed className="size-5 text-muted-foreground" />
               </div>
-              <span className="text-sm font-medium text-muted-foreground">Scan non lancé</span>
+              <span className="text-sm font-medium text-muted-foreground">{t("scan.not_started")}</span>
               <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
-                Nécessite la géolocalisation de la parcelle pour être exécuté.
+                {t("scan.not_started_desc")}
               </p>
               {canRunScan && (
                 <Button
@@ -215,7 +217,7 @@ export function DeforestationScanSection({
                   disabled={isScanning}
                   className="mt-1 gap-1"
                 >
-                  Lancer le scan
+                  {t("scan.start")}
                 </Button>
               )}
             </>

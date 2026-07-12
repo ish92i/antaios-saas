@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SignIn } from "@clerk/clerk-react";
+import { Trans, useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/_app/login/_layout/")({
   component: Login,
@@ -9,6 +10,7 @@ export const Route = createFileRoute("/_app/login/_layout/")({
 });
 
 function Login() {
+  const { t } = useTranslation();
   return (
     <>
       <div className="flex flex-1 items-center justify-center px-4">
@@ -40,9 +42,11 @@ function Login() {
         />
       </div>
       <p className="px-12 pb-8 text-center text-sm font-normal leading-normal text-primary/60">
-        By clicking continue, you agree to our{" "}
-        <a href="/legal/terms" className="underline hover:text-primary transition-colors">Terms of Service</a> and{" "}
-        <a href="/legal/privacy" className="underline hover:text-primary transition-colors">Privacy Policy.</a>
+        <Trans i18nKey="legal.login_disclaimer">
+          By clicking continue, you agree to our{" "}
+          <a href="/legal/terms">Terms of Service</a> and{" "}
+          <a href="/legal/privacy">Privacy Policy.</a>
+        </Trans>
       </p>
     </>
   );

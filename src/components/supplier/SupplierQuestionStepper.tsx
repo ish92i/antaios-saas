@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { CheckCircle2, ChevronLeft, ChevronRight, Upload, File, Loader2, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useTranslation } from "react-i18next"
 import type { Id } from "@cvx/_generated/dataModel"
 import { resolveLabel, type BilingualLabel } from "@/lib/i18n-utils"
 
@@ -23,6 +24,7 @@ export function SupplierQuestionStepper({
   token: string
   questions: Question[]
 }) {
+  const { t } = useTranslation()
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, unknown>>({})
   const [submitted, setSubmitted] = useState(false)
@@ -57,7 +59,7 @@ export function SupplierQuestionStepper({
         headers: { "Content-Type": file.type },
         body: file,
       })
-      if (!uploadResp.ok) throw new Error("Échec du téléchargement")
+      if (!uploadResp.ok) throw new Error(t("question.upload_failed"))
       const { storageId } = (await uploadResp.json()) as { storageId: string }
       const geoJson = await processGeoFile({
         storageId: storageId as Id<"_storage">,
@@ -66,7 +68,7 @@ export function SupplierQuestionStepper({
       setAnswers((prev) => ({ ...prev, [current.field]: geoJson }))
       setGeoFile(null)
     } catch (err) {
-      setGeoError(err instanceof Error ? err.message : "Erreur lors du traitement du fichier")
+      setGeoError(err instanceof Error ? err.message : t("question.submit_error"))
     } finally {
       setIsUploadingGeo(false)
     }
@@ -86,7 +88,7 @@ export function SupplierQuestionStepper({
       })
       setSubmitted(true)
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur lors de la soumission")
+      setError(err instanceof Error ? err.message : t("question.submit_error"))
     } finally {
       setIsSubmitting(false)
     }
@@ -96,9 +98,9 @@ export function SupplierQuestionStepper({
     return (
       <div className="flex flex-col items-center gap-4 py-12 text-center">
         <CheckCircle2 className="h-12 w-12 text-green-600" />
-        <h2 className="text-lg font-semibold text-foreground">Merci pour vos réponses</h2>
+        <h2 className="text-lg font-semibold text-foreground">{t("supplier.thanks_title")}</h2>
         <p className="text-sm text-muted-foreground">
-          Les informations ont bien été transmises à l'opérateur.
+          {t("supplier.thanks_desc")}
         </p>
       </div>
     )
@@ -108,7 +110,7 @@ export function SupplierQuestionStepper({
     return (
       <div className="flex flex-col items-center gap-4 py-12 text-center">
         <CheckCircle2 className="h-12 w-12 text-green-600" />
-        <h2 className="text-lg font-semibold text-foreground">Aucune question en attente</h2>
+        <h2 className="text-lg font-semibold text-foreground">{t("supplier.no_pending")}</h2>
       </div>
     )
   }
@@ -128,7 +130,7 @@ export function SupplierQuestionStepper({
       </div>
 
       <p className="text-xs text-muted-foreground">
-        Question {step + 1} sur {questions.length}
+        {t("question.count", { n: step + 1, total: questions.length })}
       </p>
 
       <div className="space-y-4">
@@ -151,7 +153,7 @@ export function SupplierQuestionStepper({
                     disabled={isUploadingGeo}
                   >
                     <Trash2 className="h-3.5 w-3.5" />
-                    Retirer
+                    {t("question.remove")}
                   </button>
                 </div>
               ) : (
@@ -171,10 +173,10 @@ export function SupplierQuestionStepper({
                   />
                   <Upload className="mb-2 h-8 w-8 text-muted-foreground" />
                   <p className="text-sm font-medium text-foreground">
-                    Cliquez pour sélectionner un fichier
+                    {t("question.click_to_select")}
                   </p>
                   <p className="mt-1 text-xs text-muted-foreground">
-                    GeoJSON, KML, ZIP
+                    {t("question.geo_formats")}
                   </p>
                 </div>
               )}
@@ -185,9 +187,9 @@ export function SupplierQuestionStepper({
                   disabled={isUploadingGeo}
                 >
                   {isUploadingGeo ? (
-                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Traitement...</>
+                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" />{t("question.processing")}</>
                   ) : (
-                    "Télécharger"
+                    t("question.upload")
                   )}
                 </Button>
               )}
@@ -197,7 +199,7 @@ export function SupplierQuestionStepper({
             <Input
               value={typeof answers[current.field] === "string" ? (answers[current.field] as string) : ""}
               onChange={(e) => setAnswers((prev) => ({ ...prev, [current.field]: e.target.value }))}
-              placeholder="Votre réponse"
+              placeholder={t("question.your_answer")}
             />
           )}
         </div>
@@ -208,16 +210,16 @@ export function SupplierQuestionStepper({
       <div className="flex items-center justify-between">
         <Button variant="ghost" size="sm" onClick={handleBack} disabled={step === 0}>
           <ChevronLeft className="h-4 w-4" />
-          Précédent
+          {t("conflict.previous")}
         </Button>
         {step < questions.length - 1 ? (
           <Button size="sm" onClick={handleNext} disabled={!answers[current.field]}>
-            Suivant
+            {t("question.next")}
             <ChevronRight className="h-4 w-4" />
           </Button>
         ) : (
           <Button size="sm" onClick={handleSubmitAll} disabled={isSubmitting}>
-            {isSubmitting ? "Envoi..." : "Envoyer mes réponses"}
+            {isSubmitting ? t("supplier.sending") : t("supplier.send_answers")}
           </Button>
         )}
       </div>
