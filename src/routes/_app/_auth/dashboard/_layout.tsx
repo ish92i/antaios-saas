@@ -16,6 +16,38 @@ export const Route = createFileRoute("/_app/_auth/dashboard/_layout")({
   component: DashboardLayout,
 });
 
+export function DashboardSkeleton() {
+  return (
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-secondary">
+      <nav className="flex w-full items-center justify-between border-b border-border bg-card px-4 py-3">
+        <div className="flex items-center gap-2">
+          <div className="h-9 w-9 animate-pulse rounded-lg bg-muted" />
+          <div className="h-8 w-32 animate-pulse rounded-md bg-muted" />
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 animate-pulse rounded-md bg-muted" />
+          <div className="h-11 w-11 animate-pulse rounded-full bg-muted" />
+        </div>
+      </nav>
+      <div className="flex flex-1 overflow-hidden bg-secondary">
+        <div className="w-96 border-r border-border">
+          <div className="mx-4 my-3 h-9 animate-pulse rounded-md bg-muted" />
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-3 px-4 py-3">
+              <div className="h-4 w-4 animate-pulse rounded bg-muted" />
+              <div className="flex-1">
+                <div className="h-4 w-3/4 animate-pulse rounded bg-muted" />
+                <div className="mt-2 h-3 w-1/2 animate-pulse rounded bg-muted" />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex-1 bg-secondary" />
+      </div>
+    </div>
+  );
+}
+
 function DashboardLayout() {
   const location = useLocation();
   const isExempt = EXEMPT_ROUTES.some((r) => location.pathname.startsWith(r));
@@ -28,20 +60,8 @@ function DashboardLayout() {
     refetch,
   } = useQuery(convexQuery(api.app.getCurrentUser, {}));
 
-  const { data: shipmentCount = 0, isLoading: isShipmentCountLoading } =
-    useQuery(convexQuery(api.shipments.getShipmentCount, {}));
-
-  if (isLoading || isShipmentCountLoading) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-secondary px-6">
-        <section className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm">
-          <h1 className="text-xl font-semibold text-primary">Loading dashboard</h1>
-          <p className="mt-2 text-sm text-primary/60">
-            Fetching your workspace data.
-          </p>
-        </section>
-      </main>
-    );
+  if (isLoading) {
+    return <DashboardSkeleton />;
   }
 
   if (isError || !user) {
@@ -66,7 +86,7 @@ function DashboardLayout() {
     );
   }
   const isSubscribed = user.subscription?.status === "active";
-  const showPaywall = !isSubscribed && shipmentCount >= 1 && !isExempt;
+  const showPaywall = !isSubscribed && !isExempt;
 
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-secondary">

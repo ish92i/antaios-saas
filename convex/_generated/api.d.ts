@@ -11,6 +11,8 @@
 import type * as app from "../app.js";
 import type * as audit from "../audit.js";
 import type * as auth from "../auth.js";
+import type * as clerkWebhook from "../clerkWebhook.js";
+import type * as clerkWebhookDelete from "../clerkWebhookDelete.js";
 import type * as crons from "../crons.js";
 import type * as dds from "../dds.js";
 import type * as documents from "../documents.js";
@@ -53,6 +55,8 @@ declare const fullApi: ApiFromModules<{
   app: typeof app;
   audit: typeof audit;
   auth: typeof auth;
+  clerkWebhook: typeof clerkWebhook;
+  clerkWebhookDelete: typeof clerkWebhookDelete;
   crons: typeof crons;
   dds: typeof dds;
   documents: typeof documents;

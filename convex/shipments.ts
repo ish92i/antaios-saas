@@ -1,10 +1,22 @@
 import { mutation, query, internalMutation, internalQuery } from "@cvx/_generated/server"
+import type { UserIdentity } from "convex/server"
 import { v } from "convex/values"
 import { v4 as uuidv4 } from "uuid"
 import { internal } from "@cvx/_generated/api"
 import { getOrgId } from "@cvx/auth"
 import { validateExtractedData } from "@cvx/lib/validators"
 import { recomputeCompleteness } from "@cvx/lib/completeness"
+
+const claimString = (identity: UserIdentity, claim: string) => {
+  const value = identity[claim as keyof typeof identity]
+  return typeof value === "string" && value.length > 0 ? value : null
+}
+
+const subscriberId = (identity: UserIdentity) =>
+  claimString(identity, "org_id") ??
+  claimString(identity, "organization_id") ??
+  claimString(identity, "organizationId") ??
+  identity.subject
 
 export const createShipment = mutation({
   args: {
@@ -18,8 +30,7 @@ export const createShipment = mutation({
     const orgId = await getOrgId(ctx)
     if (!orgId) throw new Error("No organization found")
 
-    const subscriptionOrgId =
-      identity.orgId ?? identity.organization_id ?? identity.organizationId ?? clerkUserId
+    const subscriptionOrgId = subscriberId(identity)
     const subscription = await ctx.db
       .query("subscriptions")
       .withIndex("orgId", (q) => q.eq("orgId", subscriptionOrgId as string))
@@ -31,7 +42,7 @@ export const createShipment = mutation({
         .withIndex("orgId", (q) => q.eq("orgId", orgId as string))
         .collect()
 
-      if (existingShipments.length >= 1) {
+      if (existingShipments.length > 0) {
         throw new Error(
           "Free tier limit reached. Upgrade to Direct to create more shipments.",
         )

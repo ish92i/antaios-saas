@@ -40,8 +40,8 @@ export function ShipmentList({
 
   if (!shipments || shipments.length === 0) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted">
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 p-8 -mt-20 text-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted relative top-3">
           <Inbox className="h-6 w-6 text-muted-foreground" />
         </div>
         <div>

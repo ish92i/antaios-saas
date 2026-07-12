@@ -55,6 +55,12 @@ function findCountry(value: string | undefined): CountryEntry {
   return { value: "", label: "", callingCode: "" };
 }
 
+const PhoneContainer = ({ children, className, ...rest }: React.ComponentProps<"div">) => (
+  <div className={cn("flex flex-1", className)} {...rest}>{children}</div>
+);
+
+const NullComponent = () => null;
+
 const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
   React.forwardRef<React.ElementRef<typeof RPNInput.default>, PhoneInputProps>(
     ({ className, onChange, value, ...props }, ref) => {
@@ -64,7 +70,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
       );
 
       return (
-        <div className={cn("flex", className)}>
+        <div className={cn("flex w-full", className)}>
           <CountrySelector
             selected={currentCountry}
             onSelect={(code) => {
@@ -74,10 +80,8 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
           />
           <RPNInput.default
             ref={ref}
-            containerComponent={({ children, className, ...rest }) => (
-              <div className={cn("flex flex-1", className)} {...rest}>{children}</div>
-            )}
-            countrySelectComponent={() => null}
+            containerComponent={PhoneContainer}
+            countrySelectComponent={NullComponent}
             flagComponent={FlagComponent}
             inputComponent={InputComponent}
             smartCaret={false}

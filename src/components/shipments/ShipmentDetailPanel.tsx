@@ -89,7 +89,10 @@ export const ShipmentDetailPanel = forwardRef<
   const tone = completenessTone(shipment.completeness)
   const timelineStep = getTimelineStep(shipment)
   const isSubmitted = shipment.status === "submitted"
-  const isReadyToSubmit = shipment.status === "ready" && tone === "green" && !shipment.lockedAt
+  const pendingQuestionCount = (shipment.pendingQuestions as unknown[] | null | undefined)?.filter(
+    (q) => typeof q === "object" && q !== null && "field" in (q as Record<string, unknown>),
+  ).length ?? 0
+  const isReadyToSubmit = shipment.status === "ready" && tone === "green" && !shipment.lockedAt && pendingQuestionCount === 0
   const data = (shipment.extractedData ?? {}) as Record<string, unknown>
   const hasExtractionData = Object.values(data).some((v) => v !== null && v !== undefined)
   const hasExtractionQuestions = Boolean(
@@ -97,9 +100,6 @@ export const ShipmentDetailPanel = forwardRef<
       (q) => typeof q === "object" && q !== null && "field" in (q as Record<string, unknown>),
     ),
   )
-  const pendingQuestionCount = (shipment.pendingQuestions as unknown[] | null | undefined)?.filter(
-    (q) => typeof q === "object" && q !== null && "field" in (q as Record<string, unknown>),
-  ).length ?? 0
   const showExtractionPanel = hasExtractionData || hasExtractionQuestions || shipment.status === "extracting" || shipment.status === "resolving"
   const docCount = documents?.length ?? 0
   const statusCfg = statusBadge[shipment.status as string] ?? statusBadge.draft

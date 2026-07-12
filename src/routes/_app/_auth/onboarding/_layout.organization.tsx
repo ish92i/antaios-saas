@@ -37,15 +37,18 @@ export default function OnboardingOrganization() {
     validatorAdapter: zodValidator(),
     defaultValues: {
       eoriNumber: "",
-      address: "",
+      street: "",
+      city: "",
+      postalCode: "",
       phone: "",
       country: "",
     },
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
+      const address = `${value.street}\n${value.postalCode} ${value.city}`;
       await updateOrg({
         eoriNumber: value.eoriNumber,
-        address: value.address,
+        address,
         phone: value.phone || undefined,
         country: value.country,
       });
@@ -88,37 +91,45 @@ export default function OnboardingOrganization() {
       </div>
 
       {/* Step indicator */}
-      <div className="flex w-full items-center gap-2">
-        {STEPS.map((s, i) => (
-          <div key={s} className="flex items-center gap-2 flex-1">
-            <div
-              className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium transition-colors ${
-                i === step
-                  ? "bg-primary text-primary-foreground"
-                  : i < step
-                    ? "bg-primary/20 text-primary"
-                    : "bg-muted text-muted-foreground"
-              }`}
-            >
-              {i + 1}
-            </div>
-            <span
-              className={`text-sm hidden sm:block ${
-                i === step ? "text-foreground font-medium" : "text-muted-foreground"
-              }`}
-            >
-              {s}
-            </span>
-            {i < STEPS.length - 1 && (
-              <div className="flex-1 h-px bg-border">
-                <div
-                  className="h-full bg-primary transition-all"
-                  style={{ width: i < step ? "100%" : "0%" }}
-                />
-              </div>
-            )}
-          </div>
-        ))}
+      <div className="flex items-center gap-2">
+        <div
+          className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium shrink-0 transition-colors ${
+            step === 0
+              ? "bg-primary text-primary-foreground"
+              : "bg-primary/20 text-primary"
+          }`}
+        >
+          1
+        </div>
+        <span
+          className={`text-sm whitespace-nowrap ${
+            step === 0 ? "text-foreground font-medium" : "text-muted-foreground"
+          }`}
+        >
+          Company Details
+        </span>
+        <div className="w-20 h-px bg-border mx-2">
+          <div
+            className="h-full bg-primary transition-all duration-500"
+            style={{ width: step > 0 ? "100%" : "0%" }}
+          />
+        </div>
+        <div
+          className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium shrink-0 transition-colors ${
+            step >= 1
+              ? "bg-primary text-primary-foreground"
+              : "bg-muted text-muted-foreground"
+          }`}
+        >
+          2
+        </div>
+        <span
+          className={`text-sm whitespace-nowrap ${
+            step >= 1 ? "text-foreground font-medium" : "text-muted-foreground"
+          }`}
+        >
+          Contact Info
+        </span>
       </div>
 
       <form
@@ -211,16 +222,16 @@ export default function OnboardingOrganization() {
             />
 
             <form.Field
-              name="address"
-              validators={{ onSubmit: validators.address }}
+              name="street"
+              validators={{ onSubmit: validators.street }}
               children={(field) => (
                 <div className="flex w-full flex-col gap-1.5">
-                  <label htmlFor="address" className="text-sm font-medium text-primary/80">
-                    Address
+                  <label htmlFor="street" className="text-sm font-medium text-primary/80">
+                    Street
                   </label>
                   <Input
                     placeholder="e.g. 123 Rue de Paris"
-                    autoComplete="off"
+                    autoComplete="street-address"
                     required
                     value={field.state.value}
                     onBlur={field.handleBlur}
@@ -238,6 +249,66 @@ export default function OnboardingOrganization() {
                 </div>
               )}
             />
+
+            <div className="flex w-full gap-3">
+              <form.Field
+                name="postalCode"
+                validators={{ onSubmit: validators.postalCode }}
+                children={(field) => (
+                  <div className="flex w-full flex-col gap-1.5">
+                    <label htmlFor="postalCode" className="text-sm font-medium text-primary/80">
+                      Postal Code
+                    </label>
+                    <Input
+                      placeholder="e.g. 75001"
+                      autoComplete="postal-code"
+                      required
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      className={`bg-transparent ${
+                        field.state.meta?.errors.length > 0 &&
+                        "border-destructive focus-visible:ring-destructive"
+                      }`}
+                    />
+                    {field.state.meta?.errors.length > 0 && (
+                      <span className="text-sm text-destructive">
+                        {field.state.meta.errors.join(" ")}
+                      </span>
+                    )}
+                  </div>
+                )}
+              />
+
+              <form.Field
+                name="city"
+                validators={{ onSubmit: validators.city }}
+                children={(field) => (
+                  <div className="flex w-full flex-col gap-1.5">
+                    <label htmlFor="city" className="text-sm font-medium text-primary/80">
+                      City
+                    </label>
+                    <Input
+                      placeholder="e.g. Paris"
+                      autoComplete="address-level2"
+                      required
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      className={`bg-transparent ${
+                        field.state.meta?.errors.length > 0 &&
+                        "border-destructive focus-visible:ring-destructive"
+                      }`}
+                    />
+                    {field.state.meta?.errors.length > 0 && (
+                      <span className="text-sm text-destructive">
+                        {field.state.meta.errors.join(" ")}
+                      </span>
+                    )}
+                  </div>
+                )}
+              />
+            </div>
           </div>
         )}
 
