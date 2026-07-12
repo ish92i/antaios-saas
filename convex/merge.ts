@@ -49,6 +49,7 @@ const ALL_FIELDS = [
   "region",
   "portOfLoading", "portOfEntry",
   "farmName", "villageName", "certifications",
+  "certificationType", "certificationBody",
   "geoJson",
 ]
 
@@ -76,6 +77,8 @@ const FIELD_LABELS: Record<string, { fr: string; en: string }> = {
   farmName:         { fr: "Nom de l'exploitation",  en: "Farm name" },
   villageName:      { fr: "Nom du village",         en: "Village name" },
   certifications:   { fr: "Certifications",         en: "Certifications" },
+  certificationType: { fr: "Type de certification", en: "Certification type" },
+  certificationBody: { fr: "Organisme certificateur", en: "Certification body" },
   geoJson:          { fr: "Données géospatiales",   en: "Geospatial data" },
 }
 

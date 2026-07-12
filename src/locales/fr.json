@@ -115,6 +115,8 @@
     "farmName": "Nom de l'exploitation",
     "villageName": "Nom du village",
     "certifications": "Certifications",
+    "certificationType": "Type de certification",
+    "certificationBody": "Organisme certificateur",
     "geoJson": "Données géospatiales"
   },
   "fields_group": {
@@ -144,6 +146,22 @@
   },
   "nav": {
     "billing": "Facturation"
+  },
+  "add": "Ajouter",
+  "extracted_data": {
+    "empty": "Aucune donnée extraite pour le moment."
+  },
+  "extracted_grid": {
+    "operator": "Opérateur",
+    "eori": "EORI",
+    "supplier": "Fournisseur",
+    "supplier_email": "Email fournisseur",
+    "hs_code": "Code SH",
+    "quantity": "Quantité",
+    "origin": "Origine",
+    "region": "Région",
+    "certification": "Certification",
+    "harvest_date": "Date de récolte"
   },
   "locale": {
     "en": "English",

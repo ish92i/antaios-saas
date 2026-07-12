@@ -115,6 +115,8 @@
     "farmName": "Farm name",
     "villageName": "Village name",
     "certifications": "Certifications",
+    "certificationType": "Certification type",
+    "certificationBody": "Certification body",
     "geoJson": "Geospatial data"
   },
   "fields_group": {
@@ -144,6 +146,22 @@
   },
   "nav": {
     "billing": "Billing"
+  },
+  "add": "Add",
+  "extracted_data": {
+    "empty": "No extracted data yet."
+  },
+  "extracted_grid": {
+    "operator": "Operator",
+    "eori": "EORI",
+    "supplier": "Supplier",
+    "supplier_email": "Supplier email",
+    "hs_code": "HS code",
+    "quantity": "Quantity",
+    "origin": "Origin",
+    "region": "Region",
+    "certification": "Certification",
+    "harvest_date": "Harvest date"
   },
   "locale": {
     "en": "English",

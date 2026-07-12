@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { countryName, displayValue } from "@/lib/shipment-ui"
 import {
   AlertTriangle,
@@ -34,6 +35,7 @@ export function ExtractedDataGrid({
   pendingQuestions?: unknown[] | null
   shipmentId?: string
 }) {
+  const { t } = useTranslation()
   const data = extractedData ?? {}
   const questions = (pendingQuestions ?? []).filter(
     (q: unknown) => typeof q === "object" && q !== null && "field" in (q as Record<string, unknown>),
@@ -63,7 +65,7 @@ export function ExtractedDataGrid({
   const rows: RowDef[] = [
     {
       icon: Building2,
-      label: "Opérateur",
+      label: t("extracted_grid.operator"),
       getValue: (d) => {
         const val = d.operatorName
         return isMissing(val) ? null : displayValue(val)
@@ -72,7 +74,7 @@ export function ExtractedDataGrid({
     },
     {
       icon: Hash,
-      label: "EORI",
+      label: t("extracted_grid.eori"),
       getValue: (d) => {
         const val = d.eoriNumber
         return isMissing(val) ? null : displayValue(val)
@@ -81,7 +83,7 @@ export function ExtractedDataGrid({
     },
     {
       icon: Truck,
-      label: "Fournisseur",
+      label: t("extracted_grid.supplier"),
       getValue: (d) => {
         const val = d.supplierName
         return isMissing(val) ? null : displayValue(val)
@@ -90,7 +92,7 @@ export function ExtractedDataGrid({
     },
     {
       icon: Mail,
-      label: "Email fournisseur",
+      label: t("extracted_grid.supplier_email"),
       getValue: (d) => {
         const val = d.supplierEmail
         return isMissing(val) ? null : displayValue(val)
@@ -104,7 +106,7 @@ export function ExtractedDataGrid({
     },
     {
       icon: Package,
-      label: "Code SH",
+      label: t("extracted_grid.hs_code"),
       getValue: (d) => {
         const val = d.hsCode
         return isMissing(val) ? null : displayValue(val)
@@ -113,7 +115,7 @@ export function ExtractedDataGrid({
     },
     {
       icon: Scale,
-      label: "Quantité",
+      label: t("extracted_grid.quantity"),
       getValue: (d) => {
         const qty = d.quantity
         if (isMissing(qty)) return null
@@ -125,7 +127,7 @@ export function ExtractedDataGrid({
     },
     {
       icon: MapPin,
-      label: "Origine",
+      label: t("extracted_grid.origin"),
       getValue: (d) => {
         const val = d.countryOfProduction
         return isMissing(val) ? null : countryName(String(val))
@@ -134,7 +136,7 @@ export function ExtractedDataGrid({
     },
     {
       icon: Map,
-      label: "Région",
+      label: t("extracted_grid.region"),
       getValue: (d) => {
         const val = d.region
         return isMissing(val) ? null : displayValue(val)
@@ -143,13 +145,13 @@ export function ExtractedDataGrid({
     },
     {
       icon: Award,
-      label: "Certification",
+      label: t("extracted_grid.certification"),
       getValue: (d) => formatCertifications(d.certifications),
       isWarning: () => false,
     },
     {
       icon: Calendar,
-      label: "Date de récolte",
+      label: t("extracted_grid.harvest_date"),
       getValue: (d) => {
         const val = d.productionDate
         return isMissing(val) ? null : displayValue(val)
@@ -163,7 +165,7 @@ export function ExtractedDataGrid({
   if (!hasAnyData && !hasQuestions) {
     return (
       <div className="rounded-lg border border-dashed border-border bg-muted/30 px-4 py-6 text-sm text-muted-foreground">
-        Aucune donnée extraite pour le moment.
+        {t("extracted_data.empty")}
       </div>
     )
   }
@@ -175,8 +177,8 @@ export function ExtractedDataGrid({
           const Icon = row.icon
           const value = row.getValue(data)
           const isValMissing = value === null
-          const isCertRow = row.label === "Certification"
-          const isDateRow = row.label === "Date de récolte"
+          const isCertRow = row.icon === Award
+          const isDateRow = row.icon === Calendar
           const isActionRow = (isCertRow || isDateRow) && isValMissing
           const showWarning = !isValMissing && row.isWarning(data, questions)
           const isLast = i === rows.length - 1
@@ -202,7 +204,7 @@ export function ExtractedDataGrid({
                   className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors"
                 >
                   <Plus className="size-3.5" />
-                  Ajouter
+                  {t("add")}
                 </button>
               ) : showWarning ? (
                 <span className="text-sm text-yellow-600 flex items-center gap-1.5">

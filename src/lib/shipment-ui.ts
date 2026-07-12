@@ -1,28 +1,17 @@
+import i18n from "@/lib/i18n"
+
 export type CompletenessTone = "red" | "yellow" | "green"
 
 export function statusLabel(status?: string): string {
-  const labels: Record<string, string> = {
-    draft: "Brouillon",
-    extracting: "Extraction en cours",
-    resolving: "Vérification",
-    pending_scan: "En attente scan",
-    scanning: "Scan déforestation",
-    ready: "Prêt",
-    pending_supplier: "En attente fournisseur",
-    submitting: "Soumission en cours",
-    submitted: "Soumis",
-    error: "Erreur",
-  }
-  return labels[status ?? ""] ?? status ?? "Inconnu"
+  const key = status ?? ""
+  const label = i18n.t(`status.${key}`, { defaultValue: "" })
+  return label || status || i18n.t("completeness.unknown")
 }
 
 export function completenessLabel(completeness?: string): string {
-  const labels: Record<string, string> = {
-    red: "Complétude insuffisante",
-    yellow: "Complétude partielle",
-    green: "Complet",
-  }
-  return labels[completeness ?? ""] ?? "Non évalué"
+  const key = completeness ?? ""
+  const label = i18n.t(`completeness.${key}`, { defaultValue: "" })
+  return label || i18n.t("completeness.unknown")
 }
 
 export function completenessTone(completeness?: string): CompletenessTone {
@@ -54,46 +43,46 @@ export function shipmentReference(shipment: {
 
 export const fieldGroups = [
   {
-    title: "Opérateur",
+    title: i18n.t("fields_group.operator"),
     fields: [
-      { key: "operatorName", label: "Nom de l'opérateur" },
-      { key: "eoriNumber", label: "Numéro EORI" },
+      { key: "operatorName", label: i18n.t("fields.operatorName") },
+      { key: "eoriNumber", label: i18n.t("fields.eoriNumber") },
     ],
   },
   {
-    title: "Fournisseur",
+    title: i18n.t("fields_group.supplier"),
     fields: [
-      { key: "supplierName", label: "Nom du fournisseur" },
-      { key: "supplierEmail", label: "Email fournisseur" },
+      { key: "supplierName", label: i18n.t("fields.supplierName") },
+      { key: "supplierEmail", label: i18n.t("fields.supplierEmail") },
     ],
   },
   {
-    title: "Marchandise",
+    title: i18n.t("fields_group.commodity"),
     fields: [
-      { key: "commodityName", label: "Dénomination" },
-      { key: "hsCode", label: "Code SH" },
-      { key: "quantity", label: "Quantité" },
-      { key: "quantityUnit", label: "Unité" },
+      { key: "commodityName", label: i18n.t("fields.commodityName") },
+      { key: "hsCode", label: i18n.t("fields.hsCode") },
+      { key: "quantity", label: i18n.t("fields.quantity") },
+      { key: "quantityUnit", label: i18n.t("fields.quantityUnit") },
     ],
   },
   {
-    title: "Géographie",
+    title: i18n.t("fields_group.geography"),
     fields: [
-      { key: "countryOfProduction", label: "Pays de production" },
-      { key: "region", label: "Région" },
+      { key: "countryOfProduction", label: i18n.t("fields.countryOfProduction") },
+      { key: "region", label: i18n.t("fields.region") },
     ],
   },
   {
-    title: "Certifications",
+    title: i18n.t("fields_group.certifications"),
     fields: [
-      { key: "certificationType", label: "Type de certification" },
-      { key: "certificationBody", label: "Organisme certificateur" },
+      { key: "certificationType", label: i18n.t("fields.certificationType") },
+      { key: "certificationBody", label: i18n.t("fields.certificationBody") },
     ],
   },
   {
-    title: "Géolocalisation",
+    title: i18n.t("fields_group.geolocation"),
     fields: [
-      { key: "geoJson", label: "Données géospatiales" },
+      { key: "geoJson", label: i18n.t("fields.geoJson") },
     ],
   },
 ]
@@ -124,7 +113,7 @@ export function countryName(code: string): string {
 export function displayValue(value: unknown): string {
   if (value === null || value === undefined) return "-"
   if (typeof value === "number") return new Intl.NumberFormat("fr-FR").format(value)
-  if (typeof value === "boolean") return value ? "Oui" : "Non"
+  if (typeof value === "boolean") return value ? i18n.t("fields_value.yes") : i18n.t("fields_value.no")
   if (Array.isArray(value)) return value.join(", ")
   if (typeof value === "object") return JSON.stringify(value)
   return String(value)
