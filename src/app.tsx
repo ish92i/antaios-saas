@@ -6,6 +6,7 @@ import { ConvexQueryClient } from "@convex-dev/react-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
 import React from "react";
+import "@/lib/i18n";
 import { router } from "@/router";
 
 const VITE_CONVEX_URL = import.meta.env.VITE_CONVEX_URL as string | undefined;

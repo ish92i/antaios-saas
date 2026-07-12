@@ -1,0 +1,152 @@
+{
+  "status": {
+    "draft": "Draft",
+    "extracting": "Extracting",
+    "resolving": "Reviewing",
+    "pending_scan": "Pending scan",
+    "scanning": "Deforestation scan",
+    "ready": "Ready",
+    "pending_supplier": "Awaiting supplier",
+    "submitting": "Submitting",
+    "submitted": "Submitted",
+    "error": "Error"
+  },
+  "completeness": {
+    "red": "Insufficient completeness",
+    "yellow": "Partial completeness",
+    "green": "Complete",
+    "unknown": "Not evaluated"
+  },
+  "shipment": {
+    "title": "Shipments",
+    "description": "Manage your shipments and their EUDR compliance",
+    "create": "New shipment",
+    "search": "Search...",
+    "empty_title": "No shipments yet",
+    "empty_desc": "Import your first document to create a shipment.",
+    "select_hint": "Select a shipment to view details",
+    "name_label": "Shipment name",
+    "name_hint": "An internal name to easily identify this shipment in the list",
+    "name_required": "Shipment name is required",
+    "create_error": "Error creating shipment",
+    "files": "Files",
+    "no_files": "No files",
+    "file_count": "{count} file(s)",
+    "cancel": "Cancel",
+    "create_cta": "Create shipment",
+    "new_shipment_title": "New shipment",
+    "new_shipment_subtitle": "Create a shipment and import its documents",
+    "not_found": "Nouvel envoi"
+  },
+  "detail": {
+    "return": "Back",
+    "documents": "Documents",
+    "extracted_data": "Extracted data",
+    "resolve": "Résoudre les conflits",
+    "billing_title": "Billing"
+  },
+  "conflict": {
+    "title": "Resolve conflicts",
+    "description": "Answer the questions or forward them to your supplier.",
+    "send_to_supplier": "Send to supplier",
+    "send_to_supplier_hint": "A link will be sent to the supplier to answer this question.",
+    "conflict_prompt": "Two values were found in your documents. Which one is correct?",
+    "geo_missing": "No GPS coordinates were found.",
+    "missing_field": "This field is missing from all your documents.",
+    "invalid_email": "Please enter a valid email address",
+    "save_error": "Error saving",
+    "supplier_send_error": "Error sending to supplier",
+    "finalize_error": "Error finalizing",
+    "file_error": "Error processing file",
+    "done_title": "Processing complete",
+    "done_desc": "The questions have been processed.",
+    "no_questions": "No questions to process.",
+    "previous": "Previous",
+    "continue": "Continue →",
+    "finish": "Finish",
+    "close": "Close"
+  },
+  "question": {
+    "count": "Question {n} of {total}",
+    "your_answer": "Your answer",
+    "click_to_select": "Click to select a file",
+    "geo_formats": "GeoJSON, KML, ZIP",
+    "remove": "Remove",
+    "upload": "Upload",
+    "processing": "Processing...",
+    "upload_failed": "Upload failed",
+    "submit_error": "Error submitting"
+  },
+  "supplier": {
+    "invalid_token": "Invalid link",
+    "invalid_token_desc": "This link is not valid or has expired. Contact your operator to get a new link.",
+    "page_title": "Supplier questions — Antaios",
+    "already_completed": "Questionnaire already completed",
+    "already_completed_desc": "The information has already been sent to your operator. Thank you for your participation.",
+    "questions_title": "Questions about your shipment",
+    "questions_desc": "Your operator has requested the following information from you.",
+    "thanks_title": "Thank you for your answers",
+    "thanks_desc": "The information has been sent to the operator.",
+    "no_pending": "No pending questions",
+    "send_answers": "Send my answers",
+    "sending": "Sending..."
+  },
+  "fields": {
+    "operatorName": "Operator name",
+    "operatorAddress": "Operator address",
+    "operatorEmail": "Operator email",
+    "operatorPhone": "Operator phone",
+    "eoriNumber": "EORI number",
+    "supplierName": "Supplier name",
+    "supplierAddress": "Supplier address",
+    "supplierEmail": "Supplier email",
+    "commodityName": "Commodity",
+    "scientificName": "Scientific name",
+    "hsCode": "HS code",
+    "quantity": "Quantity",
+    "quantityUnit": "Unit",
+    "shipmentRef": "Shipment reference",
+    "countryOfExport": "Country of export",
+    "countryOfProduction": "Country of production",
+    "productionDate": "Production date",
+    "region": "Region",
+    "portOfLoading": "Port of loading",
+    "portOfEntry": "Port of entry",
+    "farmName": "Farm name",
+    "villageName": "Village name",
+    "certifications": "Certifications",
+    "geoJson": "Geospatial data"
+  },
+  "fields_group": {
+    "operator": "Operator",
+    "supplier": "Supplier",
+    "commodity": "Commodity",
+    "geography": "Geography",
+    "certifications": "Certifications",
+    "geolocation": "Geolocation"
+  },
+  "fields_value": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "scan": {
+    "title": "Deforestation scan",
+    "clean": "Clean",
+    "alerts_found": "Alerts found",
+    "no_polygon": "No polygon"
+  },
+  "onboarding": {
+    "create_org": "Create your organization",
+    "setup_desc": "Set up your organization to get started."
+  },
+  "legal": {
+    "login_disclaimer": "By clicking continue, you agree to our Terms of Service and Privacy Policy."
+  },
+  "nav": {
+    "billing": "Billing"
+  },
+  "locale": {
+    "en": "English",
+    "fr": "Français"
+  }
+}

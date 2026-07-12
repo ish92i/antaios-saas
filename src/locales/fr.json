@@ -1,0 +1,152 @@
+{
+  "status": {
+    "draft": "Brouillon",
+    "extracting": "Extraction en cours",
+    "resolving": "Vérification",
+    "pending_scan": "En attente scan",
+    "scanning": "Scan déforestation",
+    "ready": "Prêt",
+    "pending_supplier": "En attente fournisseur",
+    "submitting": "Soumission en cours",
+    "submitted": "Soumis",
+    "error": "Erreur"
+  },
+  "completeness": {
+    "red": "Complétude insuffisante",
+    "yellow": "Complétude partielle",
+    "green": "Complet",
+    "unknown": "Non évalué"
+  },
+  "shipment": {
+    "title": "Expéditions",
+    "description": "Gérez vos envois et leur conformité EUDR",
+    "create": "Nouvel envoi",
+    "search": "Rechercher...",
+    "empty_title": "Aucun envoi",
+    "empty_desc": "Importez votre premier document pour créer un envoi.",
+    "select_hint": "Sélectionnez un envoi pour voir les détails",
+    "name_label": "Nom de l'envoi",
+    "name_hint": "Un nom interne pour identifier facilement cet envoi dans la liste",
+    "name_required": "Le nom de l'envoi est requis",
+    "create_error": "Erreur lors de la création de l'envoi",
+    "files": "Fichiers",
+    "no_files": "Aucun fichier",
+    "file_count": "{n} fichier(s)",
+    "cancel": "Annuler",
+    "create_cta": "Créer l'envoi",
+    "new_shipment_title": "Nouvel envoi",
+    "new_shipment_subtitle": "Créez un envoi et importez ses documents",
+    "not_found": "Nouvel envoi"
+  },
+  "detail": {
+    "return": "Retour",
+    "documents": "Documents",
+    "extracted_data": "Données extraites",
+    "resolve": "Résoudre les conflits",
+    "billing_title": "Billing"
+  },
+  "conflict": {
+    "title": "Résolution des conflits",
+    "description": "Répondez aux questions ou transmettez-les à votre fournisseur.",
+    "send_to_supplier": "Transmettre au fournisseur",
+    "send_to_supplier_hint": "Un lien sera envoyé au fournisseur pour répondre à cette question.",
+    "conflict_prompt": "Deux valeurs ont été trouvées dans vos documents. Laquelle est correcte?",
+    "geo_missing": "Aucune coordonnée GPS n'a été trouvée.",
+    "missing_field": "Ce champ est absent de tous vos documents.",
+    "invalid_email": "Veuillez saisir une adresse email valide",
+    "save_error": "Erreur lors de l'enregistrement",
+    "supplier_send_error": "Erreur lors de l'envoi au fournisseur",
+    "finalize_error": "Erreur lors de la finalisation",
+    "file_error": "Erreur lors du traitement du fichier",
+    "done_title": "Traitement terminé",
+    "done_desc": "Les questions ont été traitées.",
+    "no_questions": "Aucune question à traiter.",
+    "previous": "Précédent",
+    "continue": "Continuer →",
+    "finish": "Terminer",
+    "close": "Fermer"
+  },
+  "question": {
+    "count": "Question {n} sur {total}",
+    "your_answer": "Votre réponse",
+    "click_to_select": "Cliquez pour sélectionner un fichier",
+    "geo_formats": "GeoJSON, KML, ZIP",
+    "remove": "Retirer",
+    "upload": "Télécharger",
+    "processing": "Traitement...",
+    "upload_failed": "Échec du téléchargement",
+    "submit_error": "Erreur lors de la soumission"
+  },
+  "supplier": {
+    "invalid_token": "Lien invalide",
+    "invalid_token_desc": "Ce lien n'est pas valide ou a expiré. Contactez votre opérateur pour obtenir un nouveau lien.",
+    "page_title": "Questions fournisseur — Antaios",
+    "already_completed": "Questionnaire déjà complété",
+    "already_completed_desc": "Les informations ont déjà été transmises à votre opérateur. Merci de votre participation.",
+    "questions_title": "Questions concernant votre envoi",
+    "questions_desc": "Votre opérateur vous a sollicité pour compléter les informations suivantes.",
+    "thanks_title": "Merci pour vos réponses",
+    "thanks_desc": "Les informations ont bien été transmises à l'opérateur.",
+    "no_pending": "Aucune question en attente",
+    "send_answers": "Envoyer mes réponses",
+    "sending": "Envoi..."
+  },
+  "fields": {
+    "operatorName": "Nom de l'opérateur",
+    "operatorAddress": "Adresse de l'opérateur",
+    "operatorEmail": "Email de l'opérateur",
+    "operatorPhone": "Téléphone de l'opérateur",
+    "eoriNumber": "Numéro EORI",
+    "supplierName": "Nom du fournisseur",
+    "supplierAddress": "Adresse du fournisseur",
+    "supplierEmail": "Email du fournisseur",
+    "commodityName": "Dénomination",
+    "scientificName": "Nom scientifique",
+    "hsCode": "Code SH",
+    "quantity": "Quantité",
+    "quantityUnit": "Unité",
+    "shipmentRef": "Référence d'envoi",
+    "countryOfExport": "Pays d'exportation",
+    "countryOfProduction": "Pays de production",
+    "productionDate": "Date de production",
+    "region": "Région",
+    "portOfLoading": "Port de chargement",
+    "portOfEntry": "Port d'entrée",
+    "farmName": "Nom de l'exploitation",
+    "villageName": "Nom du village",
+    "certifications": "Certifications",
+    "geoJson": "Données géospatiales"
+  },
+  "fields_group": {
+    "operator": "Opérateur",
+    "supplier": "Fournisseur",
+    "commodity": "Marchandise",
+    "geography": "Géographie",
+    "certifications": "Certifications",
+    "geolocation": "Géolocalisation"
+  },
+  "fields_value": {
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "scan": {
+    "title": "Scan déforestation",
+    "clean": "Aucune alerte",
+    "alerts_found": "Alertes détectées",
+    "no_polygon": "Aucun polygone"
+  },
+  "onboarding": {
+    "create_org": "Créez votre organisation",
+    "setup_desc": "Configurez votre organisation pour commencer."
+  },
+  "legal": {
+    "login_disclaimer": "En cliquant sur continuer, vous acceptez nos Conditions d'utilisation et notre Politique de confidentialité."
+  },
+  "nav": {
+    "billing": "Facturation"
+  },
+  "locale": {
+    "en": "English",
+    "fr": "Français"
+  }
+}
