@@ -173,7 +173,7 @@ export function CreateShipmentPanel({
                   {t("shipment.creating")}
                 </>
               ) : (
-                {t("shipment.create_cta")}
+                t("shipment.create_cta")
               )}
             </Button>
           </div>

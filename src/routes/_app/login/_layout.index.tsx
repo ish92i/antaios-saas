@@ -10,7 +10,7 @@ export const Route = createFileRoute("/_app/login/_layout/")({
 });
 
 function Login() {
-  const { t } = useTranslation();
+  useTranslation();
   return (
     <>
       <div className="flex flex-1 items-center justify-center px-4">
