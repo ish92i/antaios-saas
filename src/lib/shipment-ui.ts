@@ -27,7 +27,7 @@ export function shipmentTitle(
   if (typeof name === "string" && name.trim().length > 0) return name.trim()
   const ref = extractedData?.shipmentRef
   if (typeof ref === "string" && ref.trim().length > 0) return ref.trim()
-  return "Nouvel envoi"
+  return i18n.t("shipment.not_found")
 }
 
 export function shipmentReference(shipment: {

@@ -36,14 +36,21 @@
     "create_cta": "Create shipment",
     "new_shipment_title": "New shipment",
     "new_shipment_subtitle": "Create a shipment and import its documents",
-    "not_found": "New shipment"
+    "not_found": "New shipment",
+    "name_placeholder": "e.g. Order #2024-056",
+    "files_hint": "Import documents related to this shipment (invoices, customs documents, etc.)",
+    "creating": "Creating..."
   },
   "detail": {
     "return": "Back",
     "documents": "Documents",
     "extracted_data": "Extracted data",
     "resolve": "Resolve conflicts",
-    "billing_title": "Billing"
+    "billing_title": "Billing",
+    "close": "Close",
+    "submit": "Submit",
+    "extracting_status": "Extraction in progress, data will appear once documents have been processed.",
+    "files_extracted": "{{count}} file(s) extracted"
   },
   "conflict": {
     "title": "Resolve conflicts",

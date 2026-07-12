@@ -36,14 +36,21 @@
     "create_cta": "Créer l'envoi",
     "new_shipment_title": "Nouvel envoi",
     "new_shipment_subtitle": "Créez un envoi et importez ses documents",
-    "not_found": "Nouvel envoi"
+    "not_found": "Nouvel envoi",
+    "name_placeholder": "Ex: Commande #2024-056",
+    "files_hint": "Importez les documents liés à cet envoi (factures, documents douaniers, etc.)",
+    "creating": "Création..."
   },
   "detail": {
     "return": "Retour",
     "documents": "Documents",
     "extracted_data": "Données extraites",
     "resolve": "Résoudre les conflits",
-    "billing_title": "Facturation"
+    "billing_title": "Facturation",
+    "close": "Fermer",
+    "submit": "Soumettre",
+    "extracting_status": "Extraction en cours, les données vont apparaître dès que les documents auront été traités.",
+    "files_extracted": "{{count}} fichier(s) extrait(s)"
   },
   "conflict": {
     "title": "Résolution des conflits",

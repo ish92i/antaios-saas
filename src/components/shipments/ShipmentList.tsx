@@ -3,6 +3,7 @@ import { ShipmentCard } from "./ShipmentCard"
 import { Button } from "@/components/ui/button"
 import { Search, Plus, Inbox } from "lucide-react"
 import { useModifierSymbol } from "@/hooks/use-modifier-symbol"
+import { useTranslation } from "react-i18next"
 
 type Shipment = Doc<"shipments">
 
@@ -21,6 +22,7 @@ export function ShipmentList({
   onCreate: () => void
   onOpenCommand?: () => void
 }) {
+  const { t } = useTranslation()
   const modSymbol = useModifierSymbol()
 
   if (isLoading) {
@@ -45,14 +47,14 @@ export function ShipmentList({
           <Inbox className="h-6 w-6 text-muted-foreground" />
         </div>
         <div>
-          <h3 className="text-sm font-medium text-foreground">Aucun envoi</h3>
+          <h3 className="text-sm font-medium text-foreground">{t("shipment.empty_title")}</h3>
           <p className="mt-1 text-xs text-muted-foreground">
-            Importez votre premier document pour créer un envoi.
+            {t("shipment.empty_desc")}
           </p>
         </div>
         <Button onClick={onCreate} size="sm">
           <Plus className="h-4 w-4" />
-          Nouvel envoi
+          {t("shipment.create")}
         </Button>
       </div>
     )
@@ -65,7 +67,7 @@ export function ShipmentList({
         className="flex w-full items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground shadow-xs transition-colors hover:bg-accent hover:text-accent-foreground"
       >
         <Search className="h-4 w-4 shrink-0" />
-        <span className="flex-1 text-left">Rechercher...</span>
+        <span className="flex-1 text-left">{t("shipment.search")}</span>
         <kbd className="flex h-5 items-center gap-0.5 rounded border border-border bg-muted px-1.5 text-[10px] font-medium text-muted-foreground">
           {modSymbol}K
         </kbd>
@@ -73,14 +75,14 @@ export function ShipmentList({
 
       <div className="flex items-center justify-between px-0.5">
         <h2 className="text-base font-bold text-foreground">
-          Envois{" "}
+          {t("shipment.title")}{" "}
           <span className="text-sm font-normal text-muted-foreground">
             ({shipments.length})
           </span>
         </h2>
         <Button onClick={onCreate} size="xs" variant="default">
           <Plus className="h-3.5 w-3.5" />
-          Nouvel envoi
+          {t("shipment.create")}
         </Button>
       </div>
       {shipments.map((s) => (

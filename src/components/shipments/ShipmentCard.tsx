@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge"
-import { statusLabel, completenessLabel, completenessTone } from "@/lib/shipment-ui"
+import { statusLabel, completenessLabel, completenessTone, shipmentTitle } from "@/lib/shipment-ui"
 import { formatDateFr } from "@/lib/formatters"
 import { cn } from "@/lib/utils"
 import type { Doc } from "@cvx/_generated/dataModel"
@@ -28,14 +28,7 @@ export function ShipmentCard({
   onSelect: () => void
 }) {
   const tone = completenessTone(shipment.completeness)
-  const subtitle = (() => {
-    const ed = shipment.extractedData as Record<string, unknown> | undefined | null
-    const name = ed?.commodityName
-    if (typeof name === "string" && name.trim().length > 0) return name.trim()
-    const ref = ed?.shipmentRef
-    if (typeof ref === "string" && ref.trim().length > 0) return ref.trim()
-    return "Nouvel envoi"
-  })()
+  const subtitle = shipmentTitle(shipment.extractedData)
   return (
     <button
       type="button"

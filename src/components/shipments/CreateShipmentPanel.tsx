@@ -8,6 +8,7 @@ import { FilePreview } from "./FilePreview"
 import { X, Loader2, FileUp } from "lucide-react"
 import type { Id } from "@cvx/_generated/dataModel"
 import { motion } from "motion/react"
+import { useTranslation } from "react-i18next"
 
 export function CreateShipmentPanel({
   onCreated,
@@ -16,6 +17,7 @@ export function CreateShipmentPanel({
   onCreated: (id: string) => void
   onCancel: () => void
 }) {
+  const { t } = useTranslation()
   const [files, setFiles] = useState<UploadFile[]>([])
   const [name, setName] = useState("")
   const [nameError, setNameError] = useState<string | null>(null)
@@ -30,7 +32,7 @@ export function CreateShipmentPanel({
 
   const handleSubmit = async () => {
     if (!name.trim()) {
-      setNameError("Le nom de l'envoi est requis")
+      setNameError(t("shipment.name_required"))
       return
     }
     setNameError(null)
@@ -61,7 +63,7 @@ export function CreateShipmentPanel({
 
       onCreated(shipmentId as unknown as string)
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur lors de la création de l'envoi")
+      setError(err instanceof Error ? err.message : t("shipment.create_error"))
     } finally {
       setIsSubmitting(false)
     }
@@ -76,8 +78,8 @@ export function CreateShipmentPanel({
     >
       <div className="flex items-center justify-between border-b border-border px-6 py-4">
         <div>
-          <h2 className="text-sm font-semibold text-foreground">Nouvel envoi</h2>
-          <p className="text-xs text-muted-foreground">Créez un envoi et importez ses documents</p>
+          <h2 className="text-sm font-semibold text-foreground">{t("shipment.new_shipment_title")}</h2>
+          <p className="text-xs text-muted-foreground">{t("shipment.new_shipment_subtitle")}</p>
         </div>
         <Button variant="ghost" size="icon" onClick={onCancel} disabled={isSubmitting}>
           <X className="h-4 w-4" />
@@ -89,13 +91,13 @@ export function CreateShipmentPanel({
           <section>
             <div className="mb-1.5 flex items-center gap-1.5">
               <label className="text-sm font-medium text-foreground" htmlFor="shipment-name">
-                Nom de l'envoi
+                {t("shipment.name_label")}
               </label>
               <span className="text-xs text-red-500">*</span>
             </div>
             <Input
               id="shipment-name"
-              placeholder="Ex: Commande #2024-056"
+              placeholder={t("shipment.name_placeholder")}
               value={name}
               onChange={(e) => {
                 setName(e.target.value)
@@ -108,7 +110,7 @@ export function CreateShipmentPanel({
               <p className="mt-1.5 text-xs text-red-500" role="alert">{nameError}</p>
             ) : (
               <p className="mt-1.5 text-xs text-muted-foreground">
-                Un nom interne pour identifier facilement cet envoi dans la liste
+                {t("shipment.name_hint")}
               </p>
             )}
           </section>
@@ -118,10 +120,10 @@ export function CreateShipmentPanel({
           <section>
             <div className="mb-1 flex items-center gap-2">
               <FileUp className="h-4 w-4 text-primary" />
-              <label className="text-sm font-medium text-foreground">Fichiers</label>
+              <label className="text-sm font-medium text-foreground">{t("shipment.files")}</label>
             </div>
             <p className="mb-4 text-xs text-muted-foreground">
-              Importez les documents liés à cet envoi (factures, documents douaniers, etc.)
+              {t("shipment.files_hint")}
             </p>
             <UploadDropzone
               files={files}
@@ -151,13 +153,13 @@ export function CreateShipmentPanel({
             </div>
             <span className="text-xs text-muted-foreground">
               {validFiles.length === 0
-                ? "Aucun fichier"
-                : `${validFiles.length} fichier${validFiles.length > 1 ? "s" : ""}`}
+                ? t("shipment.no_files")
+                : t("shipment.file_count", { count: validFiles.length })}
             </span>
           </div>
           <div className="flex items-center gap-3">
             <Button variant="outline" size="sm" onClick={onCancel} disabled={isSubmitting}>
-              Annuler
+              {t("shipment.cancel")}
             </Button>
             <Button
               size="lg"
@@ -168,10 +170,10 @@ export function CreateShipmentPanel({
               {isSubmitting ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Création...
+                  {t("shipment.creating")}
                 </>
               ) : (
-                "Créer l'envoi"
+                {t("shipment.create_cta")}
               )}
             </Button>
           </div>
