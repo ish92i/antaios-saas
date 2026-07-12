@@ -36,13 +36,13 @@
     "create_cta": "Create shipment",
     "new_shipment_title": "New shipment",
     "new_shipment_subtitle": "Create a shipment and import its documents",
-    "not_found": "Nouvel envoi"
+    "not_found": "New shipment"
   },
   "detail": {
     "return": "Back",
     "documents": "Documents",
     "extracted_data": "Extracted data",
-    "resolve": "Résoudre les conflits",
+    "resolve": "Resolve conflicts",
     "billing_title": "Billing"
   },
   "conflict": {
