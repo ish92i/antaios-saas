@@ -1,5 +1,3 @@
-"use node"
-
 import { internalMutation } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { translateText } from "@cvx/lib/translate"
