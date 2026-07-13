@@ -50,7 +50,9 @@
     "close": "Close",
     "submit": "Submit",
     "extracting_status": "Extraction in progress, data will appear once documents have been processed.",
-    "files_extracted": "{{count}} file(s) extracted"
+    "files_extracted": "{{count}} file(s) extracted",
+    "download_audit_trail": "Download audit trail",
+    "audit_trail_hint": "Some data may be missing"
   },
   "conflict": {
     "title": "Resolve conflicts",
@@ -177,6 +179,15 @@
     "status_failed": "Failed",
     "empty": "No documents imported"
   },
+  "timeline": {
+    "documents": "Documents",
+    "extraction": "Extraction",
+    "verification": "Verification",
+    "supplier": "Supplier",
+    "scan": "Deforest. scan",
+    "ready": "Ready",
+    "submitted": "Submitted"
+  },
   "command": {
     "search_title": "Search shipments",
     "search_desc": "Search shipments by supplier, reference or commodity",
@@ -208,8 +219,13 @@
     "harvest_date": "Harvest date"
   },
   "locale": {
+    "de": "German",
     "en": "English",
+    "es": "Spanish",
     "fr": "Fran\u00e7ais",
+    "it": "Italian",
+    "nl": "Dutch",
+    "pt": "Portuguese",
     "switch": "Switch language"
   }
 }

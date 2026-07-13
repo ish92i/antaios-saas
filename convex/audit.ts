@@ -18,6 +18,7 @@ export const insertAuditLog = internalMutation({
       v.literal("scan_completed"),
       v.literal("dds_submitted"),
       v.literal("pdf_generated"),
+      v.literal("risk_assessment_generated"),
       v.literal("shipment_locked"),
     ),
     payload: v.any(),

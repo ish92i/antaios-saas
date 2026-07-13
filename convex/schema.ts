@@ -58,7 +58,7 @@ const schema = defineSchema({
       id: v.string(),
       field: v.string(),
       type: v.string(),
-      label: v.union(v.string(), v.object({ fr: v.string(), en: v.string() })),
+      label: v.union(v.string(), v.object({ fr: v.string(), en: v.string(), es: v.string(), de: v.string(), nl: v.string(), pt: v.string(), it: v.string() })),
       options: v.optional(v.array(v.any())),
       geoType: v.optional(v.union(v.literal("file"), v.literal("coordinates"), v.null())),
       pendingSupplier: v.optional(v.boolean()),
@@ -78,6 +78,38 @@ const schema = defineSchema({
     riskPdfStorageId: v.optional(v.id("_storage")),
     tracesRef: v.optional(v.string()),
     lockedAt: v.optional(v.number()),
+    riskAssessment: v.optional(v.object({
+      shipmentId: v.id("shipments"),
+      generatedAt: v.number(),
+      countryRisk: v.object({
+        classification: v.union(v.literal("low"), v.literal("standard"), v.literal("high")),
+        deforestationRate: v.union(v.string(), v.null()),
+        source: v.string(),
+      }),
+      deforestationRisk: v.object({
+        result: v.union(v.literal("clear"), v.literal("flagged"), v.literal("unknown")),
+        scanDate: v.number(),
+        source: v.string(),
+      }),
+      supplyChainComplexity: v.object({
+        intermediaryCount: v.number(),
+        mixingRisk: v.boolean(),
+      }),
+      documentationRisk: v.object({
+        complete: v.boolean(),
+        redFlags: v.array(v.string()),
+      }),
+      indigenousRights: v.object({
+        flagged: v.boolean(),
+        note: v.union(v.string(), v.null()),
+      }),
+      verdict: v.union(v.literal("negligible"), v.literal("non_negligible")),
+      flaggedCriteria: v.array(v.string()),
+      mitigationActions: v.union(v.array(v.object({
+        action: v.string(),
+        date: v.number(),
+      })), v.null()),
+    })),
   })
     .index("orgId", ["orgId"])
     .index("supplierToken", ["supplierToken"]),
@@ -126,6 +158,7 @@ const schema = defineSchema({
       v.literal("scan_completed"),
       v.literal("dds_submitted"),
       v.literal("pdf_generated"),
+      v.literal("risk_assessment_generated"),
       v.literal("shipment_locked"),
     ),
     payload: v.any(),

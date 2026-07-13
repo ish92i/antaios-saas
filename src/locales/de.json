@@ -1,0 +1,229 @@
+{
+  "status": {
+    "draft": "Entwurf",
+    "extracting": "Extraktion läuft",
+    "resolving": "Überprüfung",
+    "pending_scan": "Scan ausstehend",
+    "scanning": "Entwaldungsscan",
+    "ready": "Bereit",
+    "pending_supplier": "Warten auf Lieferant",
+    "submitting": "Wird übermittelt",
+    "submitted": "Übermittelt",
+    "error": "Fehler"
+  },
+  "completeness": {
+    "red": "Unzureichende Vollständigkeit",
+    "yellow": "Teilweise vollständig",
+    "green": "Vollständig",
+    "unknown": "Nicht bewertet"
+  },
+  "shipment": {
+    "title": "Sendungen",
+    "description": "Verwalten Sie Ihre Sendungen und deren EUDR-Konformität",
+    "create": "Neue Sendung",
+    "search": "Suchen...",
+    "empty_title": "Noch keine Sendungen",
+    "empty_desc": "Importieren Sie Ihr erstes Dokument, um eine Sendung zu erstellen.",
+    "select_hint": "Wählen Sie eine Sendung aus, um Details anzuzeigen",
+    "name_label": "Name der Sendung",
+    "name_hint": "Ein interner Name, um diese Sendung in der Liste leicht zu identifizieren",
+    "name_required": "Der Name der Sendung ist erforderlich",
+    "create_error": "Fehler beim Erstellen der Sendung",
+    "files": "Dateien",
+    "no_files": "Keine Dateien",
+    "file_count": "{{count}} Datei(en)",
+    "cancel": "Abbrechen",
+    "create_cta": "Sendung erstellen",
+    "new_shipment_title": "Neue Sendung",
+    "new_shipment_subtitle": "Erstellen Sie eine Sendung und importieren Sie deren Dokumente",
+    "not_found": "Neue Sendung",
+    "name_placeholder": "z. B. Bestellung #2024-056",
+    "files_hint": "Importieren Sie Dokumente zu dieser Sendung (Rechnungen, Zolldokumente usw.)",
+    "creating": "Wird erstellt..."
+  },
+  "detail": {
+    "return": "Zurück",
+    "documents": "Dokumente",
+    "extracted_data": "Extrahierte Daten",
+    "resolve": "Konflikte lösen",
+    "billing_title": "Abrechnung",
+    "close": "Schließen",
+    "submit": "Absenden",
+    "extracting_status": "Extraktion läuft, die Daten erscheinen, sobald die Dokumente verarbeitet wurden.",
+    "files_extracted": "{{count}} Datei(en) extrahiert"
+  },
+  "conflict": {
+    "title": "Konflikte lösen",
+    "description": "Beantworten Sie die Fragen oder leiten Sie sie an Ihren Lieferanten weiter.",
+    "send_to_supplier": "An Lieferant weiterleiten",
+    "send_to_supplier_hint": "Ein Link wird an den Lieferanten gesendet, damit er diese Frage beantworten kann.",
+    "conflict_prompt": "In Ihren Dokumenten wurden zwei Werte gefunden. Welcher ist korrekt?",
+    "geo_missing": "Es wurden keine GPS-Koordinaten gefunden.",
+    "missing_field": "Dieses Feld fehlt in allen Ihren Dokumenten.",
+    "invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "save_error": "Fehler beim Speichern",
+    "supplier_send_error": "Fehler beim Senden an den Lieferanten",
+    "finalize_error": "Fehler beim Abschließen",
+    "file_error": "Fehler bei der Dateiverarbeitung",
+    "done_title": "Verarbeitung abgeschlossen",
+    "done_desc": "Die Fragen wurden bearbeitet.",
+    "no_questions": "Keine Fragen zu bearbeiten.",
+    "previous": "Zurück",
+    "continue": "Weiter →",
+    "finish": "Fertigstellen",
+    "close": "Schließen",
+    "verification_title": "Datenüberprüfung",
+    "supplier_email_placeholder": "lieferant@beispiel.de"
+  },
+  "question": {
+    "count": "Frage {{n}} von {{total}}",
+    "your_answer": "Ihre Antwort",
+    "click_to_select": "Klicken Sie, um eine Datei auszuwählen",
+    "geo_formats": "GeoJSON, KML, ZIP",
+    "remove": "Entfernen",
+    "upload": "Hochladen",
+    "processing": "Wird verarbeitet...",
+    "upload_failed": "Hochladen fehlgeschlagen",
+    "submit_error": "Fehler beim Absenden",
+    "next": "Weiter",
+    "upload_file": "Datei hochladen",
+    "manual_entry": "Manuell eingeben",
+    "add_point": "Punkt hinzufügen",
+    "send_to_supplier_missing": "Sie haben diese Information nicht? An Lieferant senden"
+  },
+  "supplier": {
+    "invalid_token": "Ungültiger Link",
+    "invalid_token_desc": "Dieser Link ist ungültig oder abgelaufen. Wenden Sie sich an Ihren Betreiber, um einen neuen Link zu erhalten.",
+    "page_title": "Lieferantenfragen — Antaios",
+    "already_completed": "Fragebogen bereits ausgefüllt",
+    "already_completed_desc": "Die Informationen wurden bereits an Ihren Betreiber übermittelt. Vielen Dank für Ihre Teilnahme.",
+    "questions_title": "Fragen zu Ihrer Sendung",
+    "questions_desc": "Ihr Betreiber hat die folgenden Informationen von Ihnen angefordert.",
+    "thanks_title": "Vielen Dank für Ihre Antworten",
+    "thanks_desc": "Die Informationen wurden an den Betreiber gesendet.",
+    "no_pending": "Keine ausstehenden Fragen",
+    "send_answers": "Meine Antworten senden",
+    "sending": "Wird gesendet..."
+  },
+  "fields": {
+    "operatorName": "Name des Betreibers",
+    "operatorAddress": "Adresse des Betreibers",
+    "operatorEmail": "E-Mail des Betreibers",
+    "operatorPhone": "Telefon des Betreibers",
+    "eoriNumber": "EORI-Nummer",
+    "supplierName": "Name des Lieferanten",
+    "supplierAddress": "Adresse des Lieferanten",
+    "supplierEmail": "E-Mail des Lieferanten",
+    "commodityName": "Ware",
+    "scientificName": "Wissenschaftlicher Name",
+    "hsCode": "HS-Code",
+    "quantity": "Menge",
+    "quantityUnit": "Einheit",
+    "shipmentRef": "Sendungsreferenz",
+    "countryOfExport": "Ausfuhrland",
+    "countryOfProduction": "Erzeugerland",
+    "productionDate": "Produktionsdatum",
+    "region": "Region",
+    "portOfLoading": "Verladehafen",
+    "portOfEntry": "Eingangshafen",
+    "farmName": "Name des Betriebs",
+    "villageName": "Name des Dorfes",
+    "certifications": "Zertifizierungen",
+    "certificationType": "Zertifizierungsart",
+    "certificationBody": "Zertifizierungsstelle",
+    "geoJson": "Geodaten"
+  },
+  "fields_group": {
+    "operator": "Betreiber",
+    "supplier": "Lieferant",
+    "commodity": "Ware",
+    "geography": "Geografie",
+    "certifications": "Zertifizierungen",
+    "geolocation": "Geolokalisierung"
+  },
+  "fields_value": {
+    "yes": "Ja",
+    "no": "Nein"
+  },
+  "scan": {
+    "title": "Entwaldungsscan",
+    "clean": "Unbedenklich",
+    "alerts_found": "Warnungen gefunden",
+    "no_polygon": "Kein Polygon",
+    "geolocation_heading": "GEOLOKALISIERUNG",
+    "geolocated_parcel": "Geolokalisierte Parzelle",
+    "no_geo_data": "Keine Geodaten verfügbar",
+    "add_parcel": "Parzelle hinzufügen",
+    "in_progress": "Scan läuft...",
+    "clean_desc": "Über Global Forest Watch verifiziert. Keine Waldveränderung seit 2020.",
+    "alerts_desc": "Waldveränderung 2023 auf dieser Parzelle festgestellt (Global Forest Watch).",
+    "retry": "Scan neu starten",
+    "not_started": "Scan nicht gestartet",
+    "not_started_desc": "Erfordert die Geolokalisierung der Parzelle.",
+    "start": "Scan starten",
+    "error": "Fehler beim Scan"
+  },
+  "onboarding": {
+    "create_org": "Erstellen Sie Ihre Organisation",
+    "setup_desc": "Richten Sie Ihre Organisation ein, um loszulegen."
+  },
+  "legal": {
+    "login_disclaimer": "Mit Klick auf Weiter stimmen Sie unseren <0>Nutzungsbedingungen</0> und unserer <1>Datenschutzerklärung</1> zu."
+  },
+  "document": {
+    "status_pending": "Ausstehend",
+    "status_processing": "Extraktion läuft",
+    "status_done": "Extrahiert",
+    "status_failed": "Fehlgeschlagen",
+    "empty": "Keine Dokumente importiert"
+  },
+  "timeline": {
+    "documents": "Dokumente",
+    "extraction": "Extraktion",
+    "verification": "Überprüfung",
+    "supplier": "Lieferant",
+    "scan": "Entwaldungsscan",
+    "ready": "Bereit",
+    "submitted": "Übermittelt"
+  },
+  "command": {
+    "search_title": "Sendungen suchen",
+    "search_desc": "Suchen Sie Sendungen nach Lieferant, Referenz oder Ware",
+    "search_placeholder": "Sendung, Lieferant, Referenz suchen...",
+    "empty": "Keine Ergebnisse.",
+    "actions": "Aktionen"
+  },
+  "auth": {
+    "setup_failed": "Kontoeinrichtung fehlgeschlagen",
+    "setup_failed_desc": "Die Anfrage zur Kontoerstellung wurde nicht abgeschlossen."
+  },
+  "nav": {
+    "billing": "Abrechnung"
+  },
+  "add": "Hinzufügen",
+  "extracted_data": {
+    "empty": "Noch keine extrahierten Daten."
+  },
+  "extracted_grid": {
+    "operator": "Betreiber",
+    "eori": "EORI",
+    "supplier": "Lieferant",
+    "supplier_email": "E-Mail des Lieferanten",
+    "hs_code": "HS-Code",
+    "quantity": "Menge",
+    "origin": "Herkunft",
+    "region": "Region",
+    "certification": "Zertifizierung",
+    "harvest_date": "Erntedatum"
+  },
+  "locale": {
+    "de": "Deutsch",
+    "en": "English",
+    "es": "Spanisch",
+    "fr": "Fran\u00e7ais",
+    "it": "Italienisch",
+    "nl": "Niederländisch",
+    "pt": "Portugiesisch",
+    "switch": "Sprache wechseln"
+  }
+}

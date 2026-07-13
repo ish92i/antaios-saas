@@ -1,0 +1,229 @@
+{
+  "status": {
+    "draft": "Bozza",
+    "extracting": "Estrazione in corso",
+    "resolving": "Verifica",
+    "pending_scan": "Scansione in attesa",
+    "scanning": "Scansione deforestazione",
+    "ready": "Pronto",
+    "pending_supplier": "In attesa del fornitore",
+    "submitting": "Invio in corso",
+    "submitted": "Inviato",
+    "error": "Errore"
+  },
+  "completeness": {
+    "red": "Completezza insufficiente",
+    "yellow": "Completezza parziale",
+    "green": "Completo",
+    "unknown": "Non valutato"
+  },
+  "shipment": {
+    "title": "Spedizioni",
+    "description": "Gestisci le tue spedizioni e la loro conformità EUDR",
+    "create": "Nuova spedizione",
+    "search": "Cerca...",
+    "empty_title": "Nessuna spedizione",
+    "empty_desc": "Importa il tuo primo documento per creare una spedizione.",
+    "select_hint": "Seleziona una spedizione per visualizzarne i dettagli",
+    "name_label": "Nome della spedizione",
+    "name_hint": "Un nome interno per identificare facilmente questa spedizione nell'elenco",
+    "name_required": "Il nome della spedizione è obbligatorio",
+    "create_error": "Errore durante la creazione della spedizione",
+    "files": "File",
+    "no_files": "Nessun file",
+    "file_count": "{{count}} file",
+    "cancel": "Annulla",
+    "create_cta": "Crea spedizione",
+    "new_shipment_title": "Nuova spedizione",
+    "new_shipment_subtitle": "Crea una spedizione e importa i suoi documenti",
+    "not_found": "Nuova spedizione",
+    "name_placeholder": "es. Ordine #2024-056",
+    "files_hint": "Importa i documenti relativi a questa spedizione (fatture, documenti doganali, ecc.)",
+    "creating": "Creazione in corso..."
+  },
+  "detail": {
+    "return": "Indietro",
+    "documents": "Documenti",
+    "extracted_data": "Dati estratti",
+    "resolve": "Risolvi conflitti",
+    "billing_title": "Fatturazione",
+    "close": "Chiudi",
+    "submit": "Invia",
+    "extracting_status": "Estrazione in corso, i dati appariranno non appena i documenti saranno stati elaborati.",
+    "files_extracted": "{{count}} file estratto/i"
+  },
+  "conflict": {
+    "title": "Risolvi conflitti",
+    "description": "Rispondi alle domande o inoltrale al tuo fornitore.",
+    "send_to_supplier": "Inoltra al fornitore",
+    "send_to_supplier_hint": "Un link sarà inviato al fornitore per rispondere a questa domanda.",
+    "conflict_prompt": "Sono stati trovati due valori nei tuoi documenti. Quale è corretto?",
+    "geo_missing": "Non sono state trovate coordinate GPS.",
+    "missing_field": "Questo campo manca in tutti i tuoi documenti.",
+    "invalid_email": "Inserisci un indirizzo email valido",
+    "save_error": "Errore durante il salvataggio",
+    "supplier_send_error": "Errore durante l'invio al fornitore",
+    "finalize_error": "Errore durante la finalizzazione",
+    "file_error": "Errore durante l'elaborazione del file",
+    "done_title": "Elaborazione completata",
+    "done_desc": "Le domande sono state elaborate.",
+    "no_questions": "Nessuna domanda da elaborare.",
+    "previous": "Precedente",
+    "continue": "Continua →",
+    "finish": "Termina",
+    "close": "Chiudi",
+    "verification_title": "Verifica dei dati",
+    "supplier_email_placeholder": "fornitore@esempio.com"
+  },
+  "question": {
+    "count": "Domanda {{n}} di {{total}}",
+    "your_answer": "La tua risposta",
+    "click_to_select": "Clicca per selezionare un file",
+    "geo_formats": "GeoJSON, KML, ZIP",
+    "remove": "Rimuovi",
+    "upload": "Carica",
+    "processing": "Elaborazione...",
+    "upload_failed": "Caricamento non riuscito",
+    "submit_error": "Errore durante l'invio",
+    "next": "Avanti",
+    "upload_file": "Carica un file",
+    "manual_entry": "Inserisci manualmente",
+    "add_point": "Aggiungi punto",
+    "send_to_supplier_missing": "Non hai questa informazione? Invia al fornitore"
+  },
+  "supplier": {
+    "invalid_token": "Link non valido",
+    "invalid_token_desc": "Questo link non è valido o è scaduto. Contatta il tuo operatore per ottenere un nuovo link.",
+    "page_title": "Domande al fornitore — Antaios",
+    "already_completed": "Questionario già completato",
+    "already_completed_desc": "Le informazioni sono già state inviate al tuo operatore. Grazie per la tua partecipazione.",
+    "questions_title": "Domande sulla tua spedizione",
+    "questions_desc": "Il tuo operatore ha richiesto le seguenti informazioni.",
+    "thanks_title": "Grazie per le tue risposte",
+    "thanks_desc": "Le informazioni sono state inviate all'operatore.",
+    "no_pending": "Nessuna domanda in sospeso",
+    "send_answers": "Invia le mie risposte",
+    "sending": "Invio in corso..."
+  },
+  "fields": {
+    "operatorName": "Nome dell'operatore",
+    "operatorAddress": "Indirizzo dell'operatore",
+    "operatorEmail": "Email dell'operatore",
+    "operatorPhone": "Telefono dell'operatore",
+    "eoriNumber": "Numero EORI",
+    "supplierName": "Nome del fornitore",
+    "supplierAddress": "Indirizzo del fornitore",
+    "supplierEmail": "Email del fornitore",
+    "commodityName": "Materia prima",
+    "scientificName": "Nome scientifico",
+    "hsCode": "Codice SA",
+    "quantity": "Quantità",
+    "quantityUnit": "Unità",
+    "shipmentRef": "Riferimento spedizione",
+    "countryOfExport": "Paese di esportazione",
+    "countryOfProduction": "Paese di produzione",
+    "productionDate": "Data di produzione",
+    "region": "Regione",
+    "portOfLoading": "Porto di carico",
+    "portOfEntry": "Porto di entrata",
+    "farmName": "Nome dell'azienda agricola",
+    "villageName": "Nome del villaggio",
+    "certifications": "Certificazioni",
+    "certificationType": "Tipo di certificazione",
+    "certificationBody": "Ente certificatore",
+    "geoJson": "Dati geospaziali"
+  },
+  "fields_group": {
+    "operator": "Operatore",
+    "supplier": "Fornitore",
+    "commodity": "Materia prima",
+    "geography": "Geografia",
+    "certifications": "Certificazioni",
+    "geolocation": "Geolocalizzazione"
+  },
+  "fields_value": {
+    "yes": "Sì",
+    "no": "No"
+  },
+  "scan": {
+    "title": "Scansione deforestazione",
+    "clean": "Nessuna segnalazione",
+    "alerts_found": "Segnalazioni trovate",
+    "no_polygon": "Nessun poligono",
+    "geolocation_heading": "GEOLOCALIZZAZIONE",
+    "geolocated_parcel": "Particella geolocalizzata",
+    "no_geo_data": "Nessun dato geospaziale disponibile",
+    "add_parcel": "Aggiungi particella",
+    "in_progress": "Scansione in corso...",
+    "clean_desc": "Verificato tramite Global Forest Watch. Nessun cambiamento della copertura forestale dal 2020.",
+    "alerts_desc": "Cambiamento della copertura forestale rilevato nel 2023 su questa particella (Global Forest Watch).",
+    "retry": "Riavvia scansione",
+    "not_started": "Scansione non avviata",
+    "not_started_desc": "Richiede la geolocalizzazione della particella per essere eseguita.",
+    "start": "Avvia scansione",
+    "error": "Errore durante la scansione"
+  },
+  "onboarding": {
+    "create_org": "Crea la tua organizzazione",
+    "setup_desc": "Configura la tua organizzazione per iniziare."
+  },
+  "legal": {
+    "login_disclaimer": "Facendo clic su continua, accetti i nostri <0>Termini di Servizio</0> e la nostra <1>Informativa sulla Privacy.</1>"
+  },
+  "document": {
+    "status_pending": "In attesa",
+    "status_processing": "Estrazione in corso",
+    "status_done": "Estratto",
+    "status_failed": "Non riuscito",
+    "empty": "Nessun documento importato"
+  },
+  "timeline": {
+    "documents": "Documenti",
+    "extraction": "Estrazione",
+    "verification": "Verifica",
+    "supplier": "Fornitore",
+    "scan": "Scans. deforest.",
+    "ready": "Pronto",
+    "submitted": "Inviato"
+  },
+  "command": {
+    "search_title": "Cerca spedizioni",
+    "search_desc": "Cerca spedizioni per fornitore, riferimento o materia prima",
+    "search_placeholder": "Cerca spedizione, fornitore, riferimento...",
+    "empty": "Nessun risultato.",
+    "actions": "Azioni"
+  },
+  "auth": {
+    "setup_failed": "Configurazione dell'account non riuscita",
+    "setup_failed_desc": "La richiesta di creazione dell'account non è stata completata."
+  },
+  "nav": {
+    "billing": "Fatturazione"
+  },
+  "add": "Aggiungi",
+  "extracted_data": {
+    "empty": "Nessun dato estratto per il momento."
+  },
+  "extracted_grid": {
+    "operator": "Operatore",
+    "eori": "EORI",
+    "supplier": "Fornitore",
+    "supplier_email": "Email fornitore",
+    "hs_code": "Codice SA",
+    "quantity": "Quantità",
+    "origin": "Origine",
+    "region": "Regione",
+    "certification": "Certificazione",
+    "harvest_date": "Data di raccolta"
+  },
+  "locale": {
+    "de": "Tedesco",
+    "en": "English",
+    "es": "Spagnolo",
+    "fr": "Fran\u00e7ais",
+    "it": "Italiano",
+    "nl": "Olandese",
+    "pt": "Portoghese",
+    "switch": "Cambia lingua"
+  }
+}

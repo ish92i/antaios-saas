@@ -45,7 +45,7 @@ export function ConflictResolutionDialog({
     extractedData?: Record<string, unknown> | null
   }
 }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const hasCaptured = useRef(false)
   const isLoading = shipment.pendingQuestions === undefined && !hasCaptured.current
   const [questions, setQuestions] = useState<Question[]>(() => shipment.pendingQuestions ?? [])
@@ -327,7 +327,7 @@ export function ConflictResolutionDialog({
             <>
               {currentQuestion.type === "conflict" && currentQuestion.options ? (
                 <ConflictQuestion
-                  label={resolveLabel(currentQuestion.label)}
+                  label={resolveLabel(currentQuestion.label, i18n.language, currentQuestion.field)}
                   description={t("conflict.conflict_prompt")}
                   options={currentQuestion.options}
                   selectedValue={selectedAnswer[currentQuestion.field]}
@@ -335,7 +335,7 @@ export function ConflictResolutionDialog({
                 />
               ) : currentQuestion.type === "geo_missing" ? (
                 <GeoQuestion
-                  label={resolveLabel(currentQuestion.label)}
+                  label={resolveLabel(currentQuestion.label, i18n.language, currentQuestion.field)}
                   description={t("conflict.geo_missing")}
                   geoFile={geoFile}
                   isUploading={isUploadingGeo}
@@ -352,7 +352,7 @@ export function ConflictResolutionDialog({
                 />
               ) : (
                 <TextQuestion
-                  label={resolveLabel(currentQuestion.label)}
+                  label={resolveLabel(currentQuestion.label, i18n.language, currentQuestion.field)}
                   description={t("conflict.missing_field")}
                   value={selectedAnswer[currentQuestion.field] ?? ""}
                   onChange={(v) => setSelectedAnswer((prev) => ({ ...prev, [currentQuestion.field]: v }))}

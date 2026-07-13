@@ -1,5 +1,7 @@
+import { useTranslatedValue } from "@/hooks/use-translated-value"
+import { useTranslation } from "react-i18next"
 import { Badge } from "@/components/ui/badge"
-import { statusLabel, completenessLabel, completenessTone, shipmentTitle } from "@/lib/shipment-ui"
+import { statusLabel, completenessLabel, completenessTone } from "@/lib/shipment-ui"
 import { formatDateFr } from "@/lib/formatters"
 import { cn } from "@/lib/utils"
 import type { Doc } from "@cvx/_generated/dataModel"
@@ -27,8 +29,10 @@ export function ShipmentCard({
   isSelected: boolean
   onSelect: () => void
 }) {
+  const { t } = useTranslation()
   const tone = completenessTone(shipment.completeness)
-  const subtitle = shipmentTitle(shipment.extractedData)
+  const commodityName = useTranslatedValue(shipment.extractedData?.commodityName as string)
+  const subtitle = commodityName ?? shipment.extractedData?.shipmentRef ?? t("shipment.not_found")
   return (
     <button
       type="button"

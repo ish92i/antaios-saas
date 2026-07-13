@@ -1,21 +1,13 @@
 import { cn } from "@/lib/utils"
 import { Check, ChevronRight } from "lucide-react"
-
-const stepLabels = [
-  "Documents",
-  "Extraction",
-  "Vérification",
-  "Fournisseur",
-  "Scan déforest.",
-  "Prêt",
-  "Soumis",
-]
+import { useTranslation } from "react-i18next"
 
 export function ShipmentTimeline({
   currentStep,
 }: {
   currentStep: string
 }) {
+  const { t } = useTranslation()
   const stepKeys = ["documents", "extraction", "verification", "supplier", "scan", "ready", "submitted"]
   const currentIdx = stepKeys.indexOf(currentStep)
 
@@ -51,7 +43,7 @@ export function ShipmentTimeline({
                 !active && "text-muted-foreground",
               )}
             >
-              {stepLabels[i]}
+              {t(`timeline.${key}`)}
             </span>
           </div>,
         ]

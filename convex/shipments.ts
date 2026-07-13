@@ -256,6 +256,10 @@ export const finalizeModal = mutation({
     patch.completeness = completeness
 
     await ctx.db.patch(args.shipmentId, patch)
+
+    await ctx.scheduler.runAfter(0, internal.riskAssessment.computeRiskAssessment, {
+      shipmentId: args.shipmentId,
+    })
   },
 })
 
@@ -364,6 +368,12 @@ export const updateShipmentField = mutation({
       eventType: "field_changed",
       payload: { field: args.field, previousValue, newValue: args.value, source: "user" },
     })
+
+    if (shipment.riskAssessment) {
+      await ctx.scheduler.runAfter(0, internal.riskAssessment.computeRiskAssessment, {
+        shipmentId: args.shipmentId,
+      })
+    }
   },
 })
 
@@ -616,6 +626,18 @@ export const storePdfResult = internalMutation({
       actor: "system",
       eventType: "pdf_generated",
       payload: { storageId: args.storageId, generationDurationMs: 0 },
+    })
+  },
+})
+
+export const storeRiskAssessment = internalMutation({
+  args: {
+    shipmentId: v.id("shipments"),
+    riskAssessment: v.any(),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.shipmentId, {
+      riskAssessment: args.riskAssessment,
     })
   },
 })

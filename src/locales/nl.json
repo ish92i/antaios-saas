@@ -1,0 +1,229 @@
+{
+  "status": {
+    "draft": "Concept",
+    "extracting": "Extractie bezig",
+    "resolving": "Controle",
+    "pending_scan": "Scan in afwachting",
+    "scanning": "Ontbossingsscan",
+    "ready": "Gereed",
+    "pending_supplier": "Wachten op leverancier",
+    "submitting": "Wordt ingediend",
+    "submitted": "Ingediend",
+    "error": "Fout"
+  },
+  "completeness": {
+    "red": "Onvoldoende volledigheid",
+    "yellow": "Gedeeltelijk volledig",
+    "green": "Volledig",
+    "unknown": "Niet geëvalueerd"
+  },
+  "shipment": {
+    "title": "Zendingen",
+    "description": "Beheer uw zendingen en hun EUDR-naleving",
+    "create": "Nieuwe zending",
+    "search": "Zoeken...",
+    "empty_title": "Nog geen zendingen",
+    "empty_desc": "Importeer uw eerste document om een zending aan te maken.",
+    "select_hint": "Selecteer een zending om de details te bekijken",
+    "name_label": "Naam van de zending",
+    "name_hint": "Een interne naam om deze zending gemakkelijk te herkennen in de lijst",
+    "name_required": "De naam van de zending is verplicht",
+    "create_error": "Fout bij het aanmaken van de zending",
+    "files": "Bestanden",
+    "no_files": "Geen bestanden",
+    "file_count": "{{count}} bestand(en)",
+    "cancel": "Annuleren",
+    "create_cta": "Zending aanmaken",
+    "new_shipment_title": "Nieuwe zending",
+    "new_shipment_subtitle": "Maak een zending aan en importeer de bijbehorende documenten",
+    "not_found": "Nieuwe zending",
+    "name_placeholder": "bijv. Bestelling #2024-056",
+    "files_hint": "Importeer documenten met betrekking tot deze zending (facturen, douanedocumenten, enz.)",
+    "creating": "Bezig met aanmaken..."
+  },
+  "detail": {
+    "return": "Terug",
+    "documents": "Documenten",
+    "extracted_data": "Geëxtraheerde gegevens",
+    "resolve": "Conflicten oplossen",
+    "billing_title": "Facturering",
+    "close": "Sluiten",
+    "submit": "Indienen",
+    "extracting_status": "Extractie bezig, gegevens verschijnen zodra de documenten zijn verwerkt.",
+    "files_extracted": "{{count}} bestand(en) geëxtraheerd"
+  },
+  "conflict": {
+    "title": "Conflicten oplossen",
+    "description": "Beantwoord de vragen of stuur ze door naar uw leverancier.",
+    "send_to_supplier": "Doorsturen naar leverancier",
+    "send_to_supplier_hint": "Er wordt een link naar de leverancier gestuurd om deze vraag te beantwoorden.",
+    "conflict_prompt": "Er zijn twee waarden gevonden in uw documenten. Welke is correct?",
+    "geo_missing": "Er zijn geen GPS-coördinaten gevonden.",
+    "missing_field": "Dit veld ontbreekt in al uw documenten.",
+    "invalid_email": "Voer een geldig e-mailadres in",
+    "save_error": "Fout bij het opslaan",
+    "supplier_send_error": "Fout bij het verzenden naar de leverancier",
+    "finalize_error": "Fout bij het afronden",
+    "file_error": "Fout bij het verwerken van het bestand",
+    "done_title": "Verwerking voltooid",
+    "done_desc": "De vragen zijn verwerkt.",
+    "no_questions": "Geen vragen om te verwerken.",
+    "previous": "Vorige",
+    "continue": "Doorgaan →",
+    "finish": "Voltooien",
+    "close": "Sluiten",
+    "verification_title": "Gegevenscontrole",
+    "supplier_email_placeholder": "leverancier@voorbeeld.nl"
+  },
+  "question": {
+    "count": "Vraag {{n}} van {{total}}",
+    "your_answer": "Uw antwoord",
+    "click_to_select": "Klik om een bestand te selecteren",
+    "geo_formats": "GeoJSON, KML, ZIP",
+    "remove": "Verwijderen",
+    "upload": "Uploaden",
+    "processing": "Verwerken...",
+    "upload_failed": "Uploaden mislukt",
+    "submit_error": "Fout bij het indienen",
+    "next": "Volgende",
+    "upload_file": "Bestand uploaden",
+    "manual_entry": "Handmatig invoeren",
+    "add_point": "Punt toevoegen",
+    "send_to_supplier_missing": "Heeft u deze informatie niet? Verstuur naar leverancier"
+  },
+  "supplier": {
+    "invalid_token": "Ongeldige link",
+    "invalid_token_desc": "Deze link is ongeldig of verlopen. Neem contact op met uw operator voor een nieuwe link.",
+    "page_title": "Leveranciersvragen — Antaios",
+    "already_completed": "Vragenlijst al voltooid",
+    "already_completed_desc": "De informatie is al doorgestuurd naar uw operator. Bedankt voor uw deelname.",
+    "questions_title": "Vragen over uw zending",
+    "questions_desc": "Uw operator heeft de volgende informatie bij u opgevraagd.",
+    "thanks_title": "Bedankt voor uw antwoorden",
+    "thanks_desc": "De informatie is naar de operator gestuurd.",
+    "no_pending": "Geen openstaande vragen",
+    "send_answers": "Mijn antwoorden versturen",
+    "sending": "Versturen..."
+  },
+  "fields": {
+    "operatorName": "Naam van de operator",
+    "operatorAddress": "Adres van de operator",
+    "operatorEmail": "E-mail van de operator",
+    "operatorPhone": "Telefoon van de operator",
+    "eoriNumber": "EORI-nummer",
+    "supplierName": "Naam van de leverancier",
+    "supplierAddress": "Adres van de leverancier",
+    "supplierEmail": "E-mail van de leverancier",
+    "commodityName": "Grondstof",
+    "scientificName": "Wetenschappelijke naam",
+    "hsCode": "GS-code",
+    "quantity": "Hoeveelheid",
+    "quantityUnit": "Eenheid",
+    "shipmentRef": "Zendingsreferentie",
+    "countryOfExport": "Land van uitvoer",
+    "countryOfProduction": "Land van productie",
+    "productionDate": "Productiedatum",
+    "region": "Regio",
+    "portOfLoading": "Laadhaven",
+    "portOfEntry": "Haven van binnenkomst",
+    "farmName": "Naam van het bedrijf",
+    "villageName": "Naam van het dorp",
+    "certifications": "Certificeringen",
+    "certificationType": "Type certificering",
+    "certificationBody": "Certificerende instantie",
+    "geoJson": "Geospatiale gegevens"
+  },
+  "fields_group": {
+    "operator": "Operator",
+    "supplier": "Leverancier",
+    "commodity": "Grondstof",
+    "geography": "Geografie",
+    "certifications": "Certificeringen",
+    "geolocation": "Geolocatie"
+  },
+  "fields_value": {
+    "yes": "Ja",
+    "no": "Nee"
+  },
+  "scan": {
+    "title": "Ontbossingsscan",
+    "clean": "Schoon",
+    "alerts_found": "Waarschuwingen gevonden",
+    "no_polygon": "Geen polygoon",
+    "geolocation_heading": "GEOLOCATIE",
+    "geolocated_parcel": "Gegeolokaliseerd perceel",
+    "no_geo_data": "Geen geospatiale gegevens beschikbaar",
+    "add_parcel": "Perceel toevoegen",
+    "in_progress": "Bezig met scannen...",
+    "clean_desc": "Geverifieerd via Global Forest Watch. Geen verandering in bosbedekking sinds 2020.",
+    "alerts_desc": "Verandering in bosbedekking gedetecteerd in 2023 op dit perceel (Global Forest Watch).",
+    "retry": "Scan opnieuw starten",
+    "not_started": "Scan niet gestart",
+    "not_started_desc": "Vereist geolocatie van het perceel om te worden uitgevoerd.",
+    "start": "Scan starten",
+    "error": "Fout bij scannen"
+  },
+  "onboarding": {
+    "create_org": "Maak uw organisatie aan",
+    "setup_desc": "Stel uw organisatie in om te beginnen."
+  },
+  "legal": {
+    "login_disclaimer": "Door op doorgaan te klikken, gaat u akkoord met onze <0>Gebruiksvoorwaarden</0> en ons <1>Privacybeleid.</1>"
+  },
+  "document": {
+    "status_pending": "In afwachting",
+    "status_processing": "Extractie bezig",
+    "status_done": "Geëxtraheerd",
+    "status_failed": "Mislukt",
+    "empty": "Geen documenten geïmporteerd"
+  },
+  "timeline": {
+    "documents": "Documenten",
+    "extraction": "Extractie",
+    "verification": "Controle",
+    "supplier": "Leverancier",
+    "scan": "Ontbossingsscan",
+    "ready": "Gereed",
+    "submitted": "Ingediend"
+  },
+  "command": {
+    "search_title": "Zendingen zoeken",
+    "search_desc": "Zoek zendingen op leverancier, referentie of grondstof",
+    "search_placeholder": "Zending, leverancier, referentie zoeken...",
+    "empty": "Geen resultaten.",
+    "actions": "Acties"
+  },
+  "auth": {
+    "setup_failed": "Accountinstelling mislukt",
+    "setup_failed_desc": "Het verzoek om een account aan te maken is niet voltooid."
+  },
+  "nav": {
+    "billing": "Facturering"
+  },
+  "add": "Toevoegen",
+  "extracted_data": {
+    "empty": "Nog geen geëxtraheerde gegevens."
+  },
+  "extracted_grid": {
+    "operator": "Operator",
+    "eori": "EORI",
+    "supplier": "Leverancier",
+    "supplier_email": "E-mail leverancier",
+    "hs_code": "GS-code",
+    "quantity": "Hoeveelheid",
+    "origin": "Herkomst",
+    "region": "Regio",
+    "certification": "Certificering",
+    "harvest_date": "Oogstdatum"
+  },
+  "locale": {
+    "de": "Duits",
+    "en": "English",
+    "es": "Spaans",
+    "fr": "Fran\u00e7ais",
+    "it": "Italiaans",
+    "nl": "Nederlands",
+    "pt": "Portugees",
+    "switch": "Taal wijzigen"
+  }
+}

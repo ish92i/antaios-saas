@@ -50,7 +50,9 @@
     "close": "Fermer",
     "submit": "Soumettre",
     "extracting_status": "Extraction en cours, les données vont apparaître dès que les documents auront été traités.",
-    "files_extracted": "{{count}} fichier(s) extrait(s)"
+    "files_extracted": "{{count}} fichier(s) extrait(s)",
+    "download_audit_trail": "Télécharger la piste d'audit",
+    "audit_trail_hint": "Certaines données peuvent être manquantes"
   },
   "conflict": {
     "title": "Résolution des conflits",
@@ -177,6 +179,15 @@
     "status_failed": "Échec",
     "empty": "Aucun document importé"
   },
+  "timeline": {
+    "documents": "Documents",
+    "extraction": "Extraction",
+    "verification": "Vérification",
+    "supplier": "Fournisseur",
+    "scan": "Scan déforest.",
+    "ready": "Prêt",
+    "submitted": "Soumis"
+  },
   "command": {
     "search_title": "Recherche d'envois",
     "search_desc": "Recherchez des envois par fournisseur, référence ou marchandise",
@@ -208,8 +219,13 @@
     "harvest_date": "Date de récolte"
   },
   "locale": {
+    "de": "Allemand",
     "en": "English",
+    "es": "Espagnol",
     "fr": "Fran\u00e7ais",
+    "it": "Italien",
+    "nl": "N\u00e9erlandais",
+    "pt": "Portugais",
     "switch": "Changer de langue"
   }
 }

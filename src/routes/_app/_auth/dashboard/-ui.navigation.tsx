@@ -1,5 +1,5 @@
-import { CreditCard, Globe, Slash } from "lucide-react";
-import { useState } from "react";
+import { CreditCard, Languages, Slash } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "convex/react";
 import { api } from "@cvx/_generated/api";
@@ -13,14 +13,36 @@ import { User } from "~/types";
 export function Navigation({ user }: { user: User }) {
   const { t, i18n } = useTranslation();
   const [localeOpen, setLocaleOpen] = useState(false);
+  const localeRef = useRef<HTMLDivElement>(null);
   const currentLang = i18n.language?.split("-")[0] ?? "en";
   const updateUserLocale = useMutation(api.app.updateUserLocale);
+
+  useEffect(() => {
+    if (!localeOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (localeRef.current && !localeRef.current.contains(e.target as Node)) {
+        setLocaleOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [localeOpen]);
 
   const switchLocale = (lang: string) => {
     localStorage.setItem("antaios:locale", lang);
     i18n.changeLanguage(lang);
     updateUserLocale({ locale: lang });
     setLocaleOpen(false);
+  };
+
+  const NATIVE_LABELS: Record<string, string> = {
+    en: "English",
+    fr: "Français",
+    es: "Español",
+    de: "Deutsch",
+    nl: "Nederlands",
+    pt: "Português",
+    it: "Italiano",
   };
 
   if (!user) {
@@ -65,17 +87,17 @@ export function Navigation({ user }: { user: User }) {
           >
             <CreditCard className="h-5 w-5 stroke-[1.5px]" />
           </Link>
-          <div className="relative">
+          <div className="relative" ref={localeRef}>
             <button
               onClick={() => setLocaleOpen(!localeOpen)}
               className="flex h-10 w-10 items-center justify-center rounded-md text-primary/60 hover:bg-primary/5 hover:text-primary"
               title={t("locale.switch")}
             >
-              <Globe className="h-5 w-5 stroke-[1.5px]" />
+              <Languages className="h-5 w-5 stroke-[1.5px]" />
             </button>
             {localeOpen && (
               <div className="absolute right-0 top-full mt-1 min-w-[140px] rounded-md border bg-popover p-1 shadow-md z-50">
-                {["en", "fr"].map((lang) => (
+                {["en", "fr", "es", "de", "nl", "pt", "it"].map((lang) => (
                   <button
                     key={lang}
                     onClick={() => switchLocale(lang)}
@@ -85,7 +107,7 @@ export function Navigation({ user }: { user: User }) {
                         : "text-popover-foreground hover:bg-accent/50"
                     }`}
                   >
-                    {lang === "en" ? "\u{1F1EC}\u{1F1E7}" : "\u{1F1EB}\u{1F1F7}"} {t(`locale.${lang}`)}
+                    {({ en: "\u{1F1EC}\u{1F1E7}", fr: "\u{1F1EB}\u{1F1F7}", es: "\u{1F1EA}\u{1F1F8}", de: "\u{1F1E9}\u{1F1EA}", nl: "\u{1F1F3}\u{1F1F1}", pt: "\u{1F1F5}\u{1F1F9}", it: "\u{1F1EE}\u{1F1F9}" } as Record<string, string>)[lang]} {NATIVE_LABELS[lang]}
                   </button>
                 ))}
               </div>

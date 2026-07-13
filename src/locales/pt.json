@@ -1,0 +1,229 @@
+{
+  "status": {
+    "draft": "Rascunho",
+    "extracting": "Extraindo",
+    "resolving": "Em análise",
+    "pending_scan": "Verificação pendente",
+    "scanning": "Verificação de desmatamento",
+    "ready": "Pronto",
+    "pending_supplier": "Aguardando fornecedor",
+    "submitting": "Enviando",
+    "submitted": "Enviado",
+    "error": "Erro"
+  },
+  "completeness": {
+    "red": "Completude insuficiente",
+    "yellow": "Completude parcial",
+    "green": "Completo",
+    "unknown": "Não avaliado"
+  },
+  "shipment": {
+    "title": "Remessas",
+    "description": "Gerencie suas remessas e sua conformidade com o EUDR",
+    "create": "Nova remessa",
+    "search": "Pesquisar...",
+    "empty_title": "Ainda não há remessas",
+    "empty_desc": "Importe seu primeiro documento para criar uma remessa.",
+    "select_hint": "Selecione uma remessa para ver os detalhes",
+    "name_label": "Nome da remessa",
+    "name_hint": "Um nome interno para identificar facilmente esta remessa na lista",
+    "name_required": "O nome da remessa é obrigatório",
+    "create_error": "Erro ao criar a remessa",
+    "files": "Arquivos",
+    "no_files": "Nenhum arquivo",
+    "file_count": "{{count}} arquivo(s)",
+    "cancel": "Cancelar",
+    "create_cta": "Criar remessa",
+    "new_shipment_title": "Nova remessa",
+    "new_shipment_subtitle": "Crie uma remessa e importe seus documentos",
+    "not_found": "Nova remessa",
+    "name_placeholder": "ex.: Pedido #2024-056",
+    "files_hint": "Importe os documentos relacionados a esta remessa (faturas, documentos aduaneiros, etc.)",
+    "creating": "Criando..."
+  },
+  "detail": {
+    "return": "Voltar",
+    "documents": "Documentos",
+    "extracted_data": "Dados extraídos",
+    "resolve": "Resolver conflitos",
+    "billing_title": "Faturamento",
+    "close": "Fechar",
+    "submit": "Enviar",
+    "extracting_status": "Extração em andamento, os dados aparecerão assim que os documentos forem processados.",
+    "files_extracted": "{{count}} arquivo(s) extraído(s)"
+  },
+  "conflict": {
+    "title": "Resolver conflitos",
+    "description": "Responda às perguntas ou encaminhe-as ao seu fornecedor.",
+    "send_to_supplier": "Encaminhar ao fornecedor",
+    "send_to_supplier_hint": "Um link será enviado ao fornecedor para responder a esta pergunta.",
+    "conflict_prompt": "Foram encontrados dois valores em seus documentos. Qual está correto?",
+    "geo_missing": "Nenhuma coordenada GPS foi encontrada.",
+    "missing_field": "Este campo está ausente em todos os seus documentos.",
+    "invalid_email": "Insira um endereço de e-mail válido",
+    "save_error": "Erro ao salvar",
+    "supplier_send_error": "Erro ao enviar ao fornecedor",
+    "finalize_error": "Erro ao finalizar",
+    "file_error": "Erro ao processar o arquivo",
+    "done_title": "Processamento concluído",
+    "done_desc": "As perguntas foram processadas.",
+    "no_questions": "Nenhuma pergunta a processar.",
+    "previous": "Anterior",
+    "continue": "Continuar →",
+    "finish": "Concluir",
+    "close": "Fechar",
+    "verification_title": "Verificação de dados",
+    "supplier_email_placeholder": "fornecedor@exemplo.com"
+  },
+  "question": {
+    "count": "Pergunta {{n}} de {{total}}",
+    "your_answer": "Sua resposta",
+    "click_to_select": "Clique para selecionar um arquivo",
+    "geo_formats": "GeoJSON, KML, ZIP",
+    "remove": "Remover",
+    "upload": "Enviar",
+    "processing": "Processando...",
+    "upload_failed": "Falha no envio",
+    "submit_error": "Erro ao enviar",
+    "next": "Próximo",
+    "upload_file": "Enviar um arquivo",
+    "manual_entry": "Inserir manualmente",
+    "add_point": "Adicionar ponto",
+    "send_to_supplier_missing": "Não tem essa informação? Enviar ao fornecedor"
+  },
+  "supplier": {
+    "invalid_token": "Link inválido",
+    "invalid_token_desc": "Este link não é válido ou expirou. Entre em contato com seu operador para obter um novo link.",
+    "page_title": "Perguntas ao fornecedor — Antaios",
+    "already_completed": "Questionário já concluído",
+    "already_completed_desc": "As informações já foram enviadas ao seu operador. Obrigado pela sua participação.",
+    "questions_title": "Perguntas sobre sua remessa",
+    "questions_desc": "Seu operador solicitou as seguintes informações.",
+    "thanks_title": "Obrigado pelas suas respostas",
+    "thanks_desc": "As informações foram enviadas ao operador.",
+    "no_pending": "Nenhuma pergunta pendente",
+    "send_answers": "Enviar minhas respostas",
+    "sending": "Enviando..."
+  },
+  "fields": {
+    "operatorName": "Nome do operador",
+    "operatorAddress": "Endereço do operador",
+    "operatorEmail": "E-mail do operador",
+    "operatorPhone": "Telefone do operador",
+    "eoriNumber": "Número EORI",
+    "supplierName": "Nome do fornecedor",
+    "supplierAddress": "Endereço do fornecedor",
+    "supplierEmail": "E-mail do fornecedor",
+    "commodityName": "Mercadoria",
+    "scientificName": "Nome científico",
+    "hsCode": "Código SH",
+    "quantity": "Quantidade",
+    "quantityUnit": "Unidade",
+    "shipmentRef": "Referência da remessa",
+    "countryOfExport": "País de exportação",
+    "countryOfProduction": "País de produção",
+    "productionDate": "Data de produção",
+    "region": "Região",
+    "portOfLoading": "Porto de carregamento",
+    "portOfEntry": "Porto de entrada",
+    "farmName": "Nome da propriedade",
+    "villageName": "Nome da vila",
+    "certifications": "Certificações",
+    "certificationType": "Tipo de certificação",
+    "certificationBody": "Organismo certificador",
+    "geoJson": "Dados geoespaciais"
+  },
+  "fields_group": {
+    "operator": "Operador",
+    "supplier": "Fornecedor",
+    "commodity": "Mercadoria",
+    "geography": "Geografia",
+    "certifications": "Certificações",
+    "geolocation": "Geolocalização"
+  },
+  "fields_value": {
+    "yes": "Sim",
+    "no": "Não"
+  },
+  "scan": {
+    "title": "Verificação de desmatamento",
+    "clean": "Sem alertas",
+    "alerts_found": "Alertas encontrados",
+    "no_polygon": "Nenhum polígono",
+    "geolocation_heading": "GEOLOCALIZAÇÃO",
+    "geolocated_parcel": "Parcela geolocalizada",
+    "no_geo_data": "Nenhum dado geoespacial disponível",
+    "add_parcel": "Adicionar parcela",
+    "in_progress": "Verificando...",
+    "clean_desc": "Verificado via Global Forest Watch. Sem mudança na cobertura florestal desde 2020.",
+    "alerts_desc": "Mudança na cobertura florestal detectada em 2023 nesta parcela (Global Forest Watch).",
+    "retry": "Reiniciar verificação",
+    "not_started": "Verificação não iniciada",
+    "not_started_desc": "Requer a geolocalização da parcela para ser executada.",
+    "start": "Iniciar verificação",
+    "error": "Erro na verificação"
+  },
+  "onboarding": {
+    "create_org": "Crie sua organização",
+    "setup_desc": "Configure sua organização para começar."
+  },
+  "legal": {
+    "login_disclaimer": "Ao clicar em continuar, você concorda com nossos <0>Termos de Serviço</0> e nossa <1>Política de Privacidade.</1>"
+  },
+  "document": {
+    "status_pending": "Pendente",
+    "status_processing": "Extraindo",
+    "status_done": "Extraído",
+    "status_failed": "Falhou",
+    "empty": "Nenhum documento importado"
+  },
+  "timeline": {
+    "documents": "Documentos",
+    "extraction": "Extração",
+    "verification": "Verificação",
+    "supplier": "Fornecedor",
+    "scan": "Verif. desmatam.",
+    "ready": "Pronto",
+    "submitted": "Enviado"
+  },
+  "command": {
+    "search_title": "Pesquisar remessas",
+    "search_desc": "Pesquise remessas por fornecedor, referência ou mercadoria",
+    "search_placeholder": "Pesquisar remessa, fornecedor, referência...",
+    "empty": "Nenhum resultado.",
+    "actions": "Ações"
+  },
+  "auth": {
+    "setup_failed": "Falha na configuração da conta",
+    "setup_failed_desc": "A solicitação de criação de conta não foi concluída."
+  },
+  "nav": {
+    "billing": "Faturamento"
+  },
+  "add": "Adicionar",
+  "extracted_data": {
+    "empty": "Ainda não há dados extraídos."
+  },
+  "extracted_grid": {
+    "operator": "Operador",
+    "eori": "EORI",
+    "supplier": "Fornecedor",
+    "supplier_email": "E-mail do fornecedor",
+    "hs_code": "Código SH",
+    "quantity": "Quantidade",
+    "origin": "Origem",
+    "region": "Região",
+    "certification": "Certificação",
+    "harvest_date": "Data da colheita"
+  },
+  "locale": {
+    "de": "Alemão",
+    "en": "English",
+    "es": "Espanhol",
+    "fr": "Fran\u00e7ais",
+    "it": "Italiano",
+    "nl": "Holandês",
+    "pt": "Português",
+    "switch": "Mudar idioma"
+  }
+}

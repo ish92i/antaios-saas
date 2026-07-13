@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 
-const SUPPORTED = ["en", "fr"]
+const SUPPORTED = ["en", "fr", "es", "de", "nl", "pt", "it"]
 
 export function useInitializeLocale() {
   const { i18n } = useTranslation()

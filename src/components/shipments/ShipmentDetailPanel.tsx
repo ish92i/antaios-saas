@@ -1,26 +1,56 @@
 import { ConflictResolutionDialog } from "./ConflictResolutionDialog"
 import { TracesCredentialsModal } from "./TracesCredentialsModal"
-import { useQuery } from "convex/react"
+import { useQuery, useAction } from "convex/react"
 import { api } from "@cvx/_generated/api"
 import { ShipmentTimeline, getTimelineStep } from "./ShipmentTimeline"
 import { ExtractedDataGrid } from "./ExtractedDataGrid"
 import { DeforestationScanSection } from "./DeforestationScanSection"
 import { Button } from "@/components/ui/button"
 import { completenessTone } from "@/lib/shipment-ui"
-import { X, Paperclip, CircleDot, ArrowRight, CheckCircle2 } from "lucide-react"
+import { X, Paperclip, CircleDot, ArrowRight, CheckCircle2, FileText } from "lucide-react"
 import { useState, useEffect, useCallback, forwardRef, useImperativeHandle, useRef } from "react"
 import type { Id } from "@cvx/_generated/dataModel"
 import { useTranslation } from "react-i18next"
 import { useTranslatedValue } from "@/hooks/use-translated-value"
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
 
 export const ShipmentDetailPanel = forwardRef<
   { triggerResolve: () => void },
   { shipmentId?: string; onClose: () => void }
 >(function ShipmentDetailPanel({ shipmentId, onClose }, ref) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [isConflictOpen, setIsConflictOpen] = useState(false)
   const [isTracesOpen, setIsTracesOpen] = useState(false)
   const [scanTrigger, setScanTrigger] = useState(0)
+  const [isDownloading, setIsDownloading] = useState(false)
+  const generateAuditTrail = useAction(api.auditTrailPdf.generateAuditTrailPdf)
+
+  const handleDownloadAuditTrail = useCallback(async () => {
+    if (!shipmentId || isDownloading) return
+    setIsDownloading(true)
+    try {
+      const result = await generateAuditTrail({
+        shipmentId: shipmentId as unknown as Id<"shipments">,
+        locale: i18n.language,
+      }) as { url: string; filename: string }
+      if (result?.url) {
+        const response = await fetch(result.url)
+        const blob = await response.blob()
+        const blobUrl = URL.createObjectURL(blob)
+        const a = document.createElement("a")
+        a.href = blobUrl
+        a.download = result.filename
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(blobUrl)
+      }
+    } catch (err) {
+      console.error("Audit trail download failed:", err)
+    } finally {
+      setIsDownloading(false)
+    }
+  }, [shipmentId, isDownloading, generateAuditTrail, i18n.language])
 
   const triggerResolve = useCallback(() => {
     setIsConflictOpen(true)
@@ -29,9 +59,15 @@ export const ShipmentDetailPanel = forwardRef<
   useImperativeHandle(ref, () => ({ triggerResolve }), [triggerResolve])
 
   const shipmentRef = useRef<typeof shipment>(undefined)
+  const isDialogOpenRef = useRef(false)
+  isDialogOpenRef.current = isConflictOpen || isTracesOpen
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !isDialogOpenRef.current) {
+        onClose()
+        return
+      }
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
       const s = shipmentRef.current
       if (!s) return
@@ -53,7 +89,7 @@ export const ShipmentDetailPanel = forwardRef<
     }
     window.addEventListener("keydown", handler)
     return () => window.removeEventListener("keydown", handler)
-  }, [])
+  }, [onClose])
 
   const shipment = useQuery(api.shipments.getShipment, shipmentId ? { shipmentId: shipmentId as Id<"shipments"> } : "skip")
   const documents = useQuery(api.documents.getDocuments, shipmentId ? { shipmentId: shipmentId as Id<"shipments"> } : "skip")
@@ -61,6 +97,8 @@ export const ShipmentDetailPanel = forwardRef<
   useEffect(() => {
     shipmentRef.current = shipment
   }, [shipment])
+
+  const commodityName = useTranslatedValue((shipment?.extractedData as Record<string, unknown> | undefined)?.commodityName as string)
 
   if (!shipmentId) return null
 
@@ -84,7 +122,6 @@ export const ShipmentDetailPanel = forwardRef<
   ).length ?? 0
   const isReadyToSubmit = shipment.status === "ready" && tone === "green" && !shipment.lockedAt && pendingQuestionCount === 0
   const data = (shipment.extractedData ?? {}) as Record<string, unknown>
-  const commodityName = useTranslatedValue(data?.commodityName as string)
   const hasExtractionData = Object.values(data).some((v) => v !== null && v !== undefined)
   const hasExtractionQuestions = Boolean(
     (shipment.pendingQuestions as unknown[] | null | undefined)?.some(
@@ -185,6 +222,21 @@ export const ShipmentDetailPanel = forwardRef<
                 {t("detail.submit")} <ArrowRight className="size-3.5 ml-1" />
               </Button>
             )}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={handleDownloadAuditTrail}
+                  disabled={isDownloading}
+                  className="text-xs text-muted-foreground/40 hover:text-muted-foreground transition-colors ml-2"
+                >
+                  <FileText className="size-3.5 inline mr-1" />
+                  {isDownloading ? "..." : t("detail.download_audit_trail")}
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="top">
+                <p>{t("detail.audit_trail_hint")}</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         )}
       </div>

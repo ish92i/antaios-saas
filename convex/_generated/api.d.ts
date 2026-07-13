@@ -10,6 +10,7 @@
 
 import type * as app from "../app.js";
 import type * as audit from "../audit.js";
+import type * as auditTrailPdf from "../auditTrailPdf.js";
 import type * as auth from "../auth.js";
 import type * as clerkWebhook from "../clerkWebhook.js";
 import type * as clerkWebhookDelete from "../clerkWebhookDelete.js";
@@ -39,6 +40,7 @@ import type * as merge from "../merge.js";
 import type * as orgs from "../orgs.js";
 import type * as payments from "../payments.js";
 import type * as pdf from "../pdf.js";
+import type * as riskAssessment from "../riskAssessment.js";
 import type * as scan from "../scan.js";
 import type * as shipments from "../shipments.js";
 import type * as supplier from "../supplier.js";
@@ -56,6 +58,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   app: typeof app;
   audit: typeof audit;
+  auditTrailPdf: typeof auditTrailPdf;
   auth: typeof auth;
   clerkWebhook: typeof clerkWebhook;
   clerkWebhookDelete: typeof clerkWebhookDelete;
@@ -85,6 +88,7 @@ declare const fullApi: ApiFromModules<{
   orgs: typeof orgs;
   payments: typeof payments;
   pdf: typeof pdf;
+  riskAssessment: typeof riskAssessment;
   scan: typeof scan;
   shipments: typeof shipments;
   supplier: typeof supplier;

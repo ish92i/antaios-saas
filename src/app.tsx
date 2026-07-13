@@ -1,13 +1,16 @@
 import { ConvexReactClient } from "convex/react";
-import { ClerkProvider, useAuth } from "@clerk/clerk-react";
+import { ClerkProvider, useAuth, useClerk } from "@clerk/clerk-react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { RouterProvider } from "@tanstack/react-router";
 import { ConvexQueryClient } from "@convex-dev/react-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
 import React from "react";
+import { TooltipProvider } from "@/components/ui/tooltip"
 import "@/lib/i18n";
 import { useInitializeLocale } from "@/hooks/use-initialize-locale";
+import { getClerkLocale, getInitialClerkLocale } from "@/lib/clerk-locale";
+import { useTranslation } from "react-i18next";
 import { router } from "@/router";
 
 const VITE_CONVEX_URL = import.meta.env.VITE_CONVEX_URL as string | undefined;
@@ -121,12 +124,29 @@ function Providers({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY as string}>
+    <ClerkProvider
+      publishableKey={CLERK_PUBLISHABLE_KEY as string}
+      localization={getInitialClerkLocale() as any}
+    >
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>{children}</TooltipProvider>
+        </QueryClientProvider>
       </ConvexProviderWithClerk>
     </ClerkProvider>
   );
+}
+
+function ClerkLocaleSync() {
+  const clerk = useClerk()
+  const { i18n } = useTranslation()
+
+  React.useEffect(() => {
+    const locale = getClerkLocale(i18n.language)
+    ;(clerk as any).__unstable__updateProps?.({ options: { localization: locale } })
+  }, [i18n.language, clerk])
+
+  return null
 }
 
 function InnerApp() {
@@ -142,7 +162,12 @@ function InnerApp() {
     );
   }
 
-  return <RouterProvider router={router} context={{ queryClient }} />;
+  return (
+    <>
+      <ClerkLocaleSync />
+      <RouterProvider router={router} context={{ queryClient }} />
+    </>
+  );
 }
 
 const helmetContext = {};

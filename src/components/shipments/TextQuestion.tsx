@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useTranslation } from "react-i18next"
 
 export function TextQuestion({
   label,
@@ -16,6 +17,7 @@ export function TextQuestion({
   onSupplierClick: () => void
   placeholder?: string
 }) {
+  const { t } = useTranslation()
   return (
     <div>
       <p className={cn("text-sm font-medium text-foreground")}>{label}</p>
@@ -34,7 +36,7 @@ export function TextQuestion({
         onClick={onSupplierClick}
         className={cn("mt-3 flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline")}
       >
-        Vous ne l'avez pas ? Envoyer au fournisseur
+        {t("question.send_to_supplier_missing")}
         <ArrowRight className="h-3 w-3" />
       </button>
     </div>

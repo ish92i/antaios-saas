@@ -24,7 +24,7 @@ export function SupplierQuestionStepper({
   token: string
   questions: Question[]
 }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, unknown>>({})
   const [submitted, setSubmitted] = useState(false)
@@ -136,7 +136,7 @@ export function SupplierQuestionStepper({
       <div className="space-y-4">
         <div>
           <p className="text-xs text-muted-foreground">{current.field}</p>
-          <p className="text-base font-medium text-foreground">{resolveLabel(current.label)}</p>
+          <p className="text-base font-medium text-foreground">{resolveLabel(current.label, i18n.language, current.field)}</p>
         </div>
 
         <div>
