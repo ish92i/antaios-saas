@@ -205,6 +205,21 @@ export const ShipmentDetailPanel = forwardRef<
           </span>
         ) : (
           <div className="flex items-center gap-2">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={handleDownloadAuditTrail}
+                  disabled={isDownloading}
+                  className="text-xs text-muted-foreground/40 hover:text-muted-foreground transition-colors ml-2"
+                >
+                  <FileText className="size-3.5 inline mr-1" />
+                  {isDownloading ? "..." : t("detail.download_audit_trail")}
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="top">
+                <p>{t("detail.audit_trail_hint")}</p>
+              </TooltipContent>
+            </Tooltip>
             {pendingQuestionCount > 0 && (
               <button
                 onClick={() => setIsConflictOpen(true)}
@@ -222,21 +237,6 @@ export const ShipmentDetailPanel = forwardRef<
                 {t("detail.submit")} <ArrowRight className="size-3.5 ml-1" />
               </Button>
             )}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  onClick={handleDownloadAuditTrail}
-                  disabled={isDownloading}
-                  className="text-xs text-muted-foreground/40 hover:text-muted-foreground transition-colors ml-2"
-                >
-                  <FileText className="size-3.5 inline mr-1" />
-                  {isDownloading ? "..." : t("detail.download_audit_trail")}
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top">
-                <p>{t("detail.audit_trail_hint")}</p>
-              </TooltipContent>
-            </Tooltip>
           </div>
         )}
       </div>
