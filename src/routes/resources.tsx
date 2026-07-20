@@ -4,6 +4,9 @@ import { ArrowRight, Clock, Tag } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { Nav } from "@/components/landing/nav";
 import { Footer } from "@/components/landing/footer";
+import { Route as EudrChecklistRoute } from "./resources.eudr-checklist";
+import { Route as EudrOverviewRoute } from "./resources.eudr-overview";
+import { Route as TraceabilityGuideRoute } from "./resources.traceability-guide";
 
 export const Route = createFileRoute("/resources")({
   component: ResourcesPage,
@@ -12,7 +15,7 @@ export const Route = createFileRoute("/resources")({
 
 const articles = [
   {
-    slug: "/resources/eudr-checklist",
+    to: EudrChecklistRoute.fullPath,
     title: "resources.list.article1.title",
     titleEn: "EUDR Compliance Checklist: Your 5-Step Guide to Article 10(2)",
     description: "resources.list.article1.desc",
@@ -24,7 +27,7 @@ const articles = [
     readTimeEn: "5 min read",
   },
   {
-    slug: "/resources/traceability-guide",
+    to: TraceabilityGuideRoute.fullPath,
     title: "resources.list.article2.title",
     titleEn: "Importer's Guide to Supply Chain Traceability Under EUDR",
     description: "resources.list.article2.desc",
@@ -36,7 +39,7 @@ const articles = [
     readTimeEn: "6 min read",
   },
   {
-    slug: "/resources/eudr-overview",
+    to: EudrOverviewRoute.fullPath,
     title: "resources.list.article3.title",
     titleEn: "Is Your Business Ready for EUDR? A Practical Overview",
     description: "resources.list.article3.desc",
@@ -96,7 +99,7 @@ function ResourcesPage() {
               {articles.map((article, i) => (
                 <Link
                   key={i}
-                  to={article.slug}
+                  to={article.to}
                   className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/50"
                 >
                   <div className="mb-3 flex items-center gap-2">
