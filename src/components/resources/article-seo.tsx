@@ -13,7 +13,7 @@ export function ArticleSeo({ title, description, path, datePublished, category }
   const url = `${siteConfig.siteUrl}${path}`;
   const fullTitle = `${title} — Antaios Resources`;
 
-  const articleSchema = {
+  const articleSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: title,
@@ -30,6 +30,10 @@ export function ArticleSeo({ title, description, path, datePublished, category }
       url: siteConfig.siteUrl,
     },
   };
+
+  if (category) {
+    articleSchema.articleSection = category;
+  }
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
