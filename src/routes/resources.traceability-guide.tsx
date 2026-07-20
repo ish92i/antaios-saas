@@ -20,7 +20,7 @@ function TraceabilityGuidePage() {
     <div className="flex min-h-screen flex-col bg-background">
       <ArticleSeo
         title="Importer's Guide to Supply Chain Traceability Under EUDR"
-        description="Traceability is the backbone of EUDR compliance. Learn what 'traceability throughout the supply chain' actually means, how geolocation data fits in, and how to build a traceability system from scratch."
+        description="Learn what supply chain traceability means under EUDR. How geolocation data feeds into compliance and practical steps to build traceability from scratch for your imports."
         path="/resources/traceability-guide"
         datePublished="2024-11-20"
         category="Technical Guide"

@@ -6,6 +6,8 @@ import { convexQuery } from "@convex-dev/react-query";
 import { api } from "@cvx/_generated/api";
 import { Button } from "@/components/ui/button";
 import { PaywallOverlay } from "@/components/paywall/PaywallOverlay";
+import { useEffect } from "react";
+import { useJourneyTracking } from "@/hooks/use-journey-tracking";
 
 const EXEMPT_ROUTES = [
   "/dashboard/settings/billing",
@@ -51,6 +53,7 @@ export function DashboardSkeleton() {
 function DashboardLayout() {
   const location = useLocation();
   const isExempt = EXEMPT_ROUTES.some((r) => location.pathname.startsWith(r));
+  const journey = useJourneyTracking();
 
   const {
     data: user,
@@ -87,6 +90,12 @@ function DashboardLayout() {
   }
   const isSubscribed = user.subscription?.status === "active";
   const showPaywall = !isSubscribed && !isExempt;
+
+  useEffect(() => {
+    if (isSubscribed) {
+      journey.trackSubscriptionActivated(user.subscription?.planName || "direct");
+    }
+  }, [isSubscribed, journey, user.subscription?.planName]);
 
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-secondary">

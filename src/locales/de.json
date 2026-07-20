@@ -216,14 +216,237 @@
     "certification": "Zertifizierung",
     "harvest_date": "Erntedatum"
   },
+  "upload": {
+    "dropzone_idle": "Dateien hierher ziehen und ablegen",
+    "dropzone_active": "Dateien hier ablegen",
+    "browse": "oder <0>durchsuchen</0> Sie Ihre Dateien",
+    "max_file_size": "Max. {{size}} pro Datei",
+    "max_files_error": "Maximal {{count}} Dateien erlaubt",
+    "file_too_large": "Datei zu groß (max. {{size}})",
+    "unsupported_type": "Nicht unterstützter Dateityp ({{ext}})",
+    "remove_file": "Datei entfernen"
+  },
   "locale": {
     "de": "Deutsch",
     "en": "English",
     "es": "Spanisch",
-    "fr": "Fran\u00e7ais",
+    "fr": "Français",
     "it": "Italienisch",
     "nl": "Niederländisch",
     "pt": "Portugiesisch",
     "switch": "Sprache wechseln"
+  },
+  "freeTool": {
+    "title": "EUDR-Compliance-Diagnose",
+    "subtitle": "8 Fragen zur Bewertung Ihrer Bereitschaft gemäß Artikel 10(2), EU-Verordnung 2023/1115",
+    "progress": "Frage {{current}} von {{total}}",
+    "back": "Zurück",
+    "start": "Diagnose starten",
+    "next": "Weiter",
+    "questions": {
+      "q1": {
+        "title": "Welche Rohstoffe importieren Sie?",
+        "subtitle": "Wählen Sie alle zutreffenden",
+        "options": {
+          "coffee": "Kaffee",
+          "cocoa": "Kakao",
+          "timber": "Holz",
+          "rubber": "Kautschuk",
+          "soy": "Soja",
+          "palm_oil": "Palmöl",
+          "cattle": "Rinder"
+        }
+      },
+      "q2": {
+        "title": "Wie hoch sind Ihr Jahresumsatz und Ihre Mitarbeiterzahl?",
+        "options": {
+          "large_medium": "Großes/mittleres Unternehmen (>2 Mio. € Umsatz oder >10 Mitarbeiter)",
+          "small_micro": "Kleinst-/Kleinunternehmen (≤2 Mio. € Umsatz und ≤10 Mitarbeiter)"
+        }
+      },
+      "q3": {
+        "title": "Kennen Sie den geografischen Ursprung (Parzellenebene) Ihrer Lieferungen?",
+        "yes": "Ja",
+        "no": "Nein"
+      },
+      "q4": {
+        "title": "Haben Sie bereits einen dokumentierten Sorgfaltspflichtprozess?",
+        "yes": "Ja",
+        "no": "Nein"
+      },
+      "q5": {
+        "title": "Verlassen Sie sich bei der Rückverfolgbarkeit auf Dritte (Händler, Genossenschaften)?",
+        "yes": "Ja",
+        "no": "Nein"
+      },
+      "q6": {
+        "title": "Liegen Ihnen Lieferantenerklärungen oder Zertifikate vor?",
+        "yes": "Ja — wir haben entwaldungsfreie Erklärungen",
+        "no": "Nein — diese liegen uns nicht vor"
+      },
+      "q7": {
+        "title": "Haben Sie die Rechtmäßigkeit der Produktion nach den Gesetzen des Ursprungslands geprüft?",
+        "yes": "Ja — wir haben Arbeits-, Landnutzungs- und Umweltgenehmigungen geprüft",
+        "no": "Nein — noch nicht geprüft"
+      },
+      "q8": {
+        "title": "Verfolgen Sie Sendungen derzeit einzeln oder nur auf Batch-/Aggregatebene?",
+        "options": {
+          "individual": "Einzelverfolgung auf Sendungsebene",
+          "batch": "Nur auf Batch- oder Aggregatebene"
+        }
+      }
+    },
+    "result": {
+      "title": "Ihr Compliance-Überblick",
+      "regulation": "Bewertet nach Artikel 10(2), EU-Verordnung 2023/1115",
+      "deadline": "Anwendbare Frist: {{date}}",
+      "tier": {
+        "high": "Hohes Risiko",
+        "medium": "Mittleres Risiko",
+        "low": "Niedriges Risiko",
+        "high_desc": "Sie haben {{count}} kritische Lücken, die Sie vor Ihrer Frist schließen müssen",
+        "medium_desc": "Sie haben {{count}} Bereiche, die Sie für die vollständige Compliance angehen sollten",
+        "low_desc": "Sie sind gut aufgestellt — {{count}} Punkte zu überprüfen"
+      },
+      "criteria": {
+        "traceability": "Rückverfolgbarkeit in der gesamten Lieferkette",
+        "geolocation": "Geolokalisierung auf Parzellenebene",
+        "dueDiligenceDocs": "Dokumentierte Sorgfaltspflichtverfahren",
+        "supplierAttestations": "Lieferantenerklärungen und Zertifizierungen",
+        "legalityAssessment": "Rechtmäßigkeitsprüfung",
+        "pass": "✓ Bestanden",
+        "fail": "✗ Handlungsbedarf",
+        "subclause": "Erforderlich gemäß {{citation}}"
+      },
+      "actions": "Empfohlene nächste Schritte",
+      "retake": "Test wiederholen",
+      "support": "Fragen zu Ihrem Ergebnis? Schreiben Sie uns an support@antaios.app",
+      "supportLink": "mailto:support@antaios.app"
+    },
+    "cta": {
+      "high": "Starten Sie mit Antaios — 500 €/Monat",
+      "medium": "Erfahren Sie, wie Antaios das löst",
+      "low": "Bleiben Sie informiert"
+    }
+  },
+  "landing": {
+    "nav": {
+      "freeTool": "Kostenlose Diagnose",
+      "resources": "Ressourcen",
+      "pricing": "Preise",
+      "login": "Anmelden",
+      "getStarted": "Loslegen",
+      "dashboard": "Dashboard"
+    },
+    "hero": {
+      "badge": "Frist — 30. Dez. 2026",
+      "title": "EUDR-konform werden, bevor Ihre Frist abläuft — ohne 12.000 €/Jahresvertrag",
+      "subtitle": "Verstreute PDFs, Tabellen und Deadline-Stress? Antaios bewertet Ihre Lieferkette nach allen 5 Sorgfaltspflichtkriterien gemäß Artikel 10(2), EU-Verordnung 2023/1115.",
+      "cta": "Compliance kostenlos prüfen",
+      "login": "Sie wissen bereits, dass Sie das brauchen? Registrieren →"
+    },
+    "trust": {
+      "text": "Entwickelt rund um die exakten 5 Sorgfaltspflichtkriterien nach Artikel 10(2), EU-Verordnung 2023/1115."
+    },
+    "problem": {
+      "q1": "\"Wer hat welche Dokumente gesendet? Welche Sendungen benötigen noch eine Geolokalisierung?\"",
+      "q2": "\"Was passiert, wenn der Prüfer unsere Sorgfaltspflichtunterlagen anfordert?\"",
+      "q3": "\"Sind wir wirklich compliant — oder hoffen wir es nur?\"",
+      "contrast": "Enterprise-Tools kosten 12.000 €+/Jahr und brauchen Monate für die Einrichtung. Antaios liefert, was Sie wirklich brauchen, ab 500 €/Monat."
+    },
+    "how": {
+      "title": "So funktioniert es",
+      "step1": {
+        "title": "Sendungen erfassen",
+        "desc": "Laden Sie CSV-Dateien, PDF-Rechnungen oder Frachtpapiere direkt in Antaios hoch. Oder fügen Sie Sendungen einzell über unser optimiertes Formular hinzu — keine spezielle Formatierung erforderlich. Antaios parst und organisiert Ihre Daten automatisch, damit nichts durchs Raster fällt."
+      },
+      "step2": {
+        "title": "Antaios bewertet Ihr Risiko",
+        "desc": "Antaios bewertet sofort jede Sendung anhand aller fünf EUDR-Kriterien: Rückverfolgbarkeit, Geolokalisierung, Dokumentation, Erklärungen und Rechtmäßigkeit. Jedes Kriterium wird bewertet und grün, gelb oder rot markiert, sodass Sie Ihre Compliance-Lücken auf einen Blick erkennen. Ihr Risikoprofil wird in Sekunden berechnet — keine manuelle Tabellenarbeit mehr."
+      },
+      "step3": {
+        "title": "DDS erstellen",
+        "desc": "Mit einem Klick erstellt Antaios die Sorgfaltspflicht-erklärung (DDS) für jede Sendung. Die Erklärung ist TRACES-konform formatiert und kann ohne Nachbearbeitung eingereicht werden. Was früher Stunden dauerte, ist jetzt ein Knopfdruck."
+      },
+      "step4": {
+        "title": "Prüfpfad erhalten",
+        "desc": "Alle Ihre Compliance-Aufzeichnungen — Risikobewertungen, Belegdokumente und eingereichte DDS-Erklärungen — werden für die gesamte gesetzliche Aufbewahrungsfrist von 5 Jahren sicher gespeichert. Wenn ein Prüfer Unterlagen anfordert, können Sie die vollständigen Akten innerhalb von 24 Stunden abrufen und exportieren. Die Gewissheit, dass Sie jederzeit prüfungsbereit sind."
+      }
+    },
+    "midCta": {
+      "title": "Sie wissen nicht, wo Sie stehen?",
+      "desc": "Machen Sie unsere kostenlose 3-Minuten-Diagnose. 8 Fragen, keine E-Mail erforderlich.",
+      "cta": "Kostenlose Diagnose starten →"
+    },
+    "pricing": {
+      "title": "Einfache, transparente Preise",
+      "price": "500 €/Monat",
+      "flat": "Festpreis, keine Gebühren pro Sendung",
+      "annual": "5.000 €/Jahr — Break-even nach 10 Monaten",
+      "compare1": "Berater: 5.000–20.000 € pro Projekt",
+      "compare2": "Enterprise-SaaS: 15.000 €+/Jahr",
+      "caveat": "Wenn Sie als nachgelagerter Händler nur Referenznummern verwalten und kein vollständiger Importeur sind, könnte ein schlankeres Tool besser geeignet sein. Wir sagen Ihnen ehrlich, ob das der Fall ist."
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "q1": {
+        "q": "Reicht das für die TRACES-Einreichung?",
+        "a": "Ja. Antaios erstellt eine Sorgfaltspflicht-erklärung, die den Anforderungen von Artikel 10(2) entspricht und für die TRACES-Einreichung verwendet werden kann."
+      },
+      "q2": {
+        "q": "Was, wenn ich kein großes Unternehmen bin?",
+        "a": "Die kostenlose Diagnose passt die EUDR-Frist an Ihre Unternehmensgröße an — Kleinst-/Kleinunternehmen haben bis zum 30. Juni 2027 Zeit. Unsere Preise beginnen bei 500 €/Monat, unabhängig von der Größe."
+      },
+      "q3": {
+        "q": "Was, wenn ich Händler und nicht Importeur bin?",
+        "a": "Auch Händler unterliegen den EUDR-Pflichten. Unsere Diagnose deckt Ihren Fall ab, und wir geben eine ehrliche Einschätzung, ob ein schlankeres Tool besser geeignet ist."
+      },
+      "q4": {
+        "q": "Sind meine Daten sicher?",
+        "a": "Ja. Wir verwenden Verschlüsselung im Ruhezustand und während der Übertragung. Für optionale Übersetzungen verarbeiten wir Daten über DeepL — Details finden Sie in unserer Datenschutzerklärung."
+      }
+    },
+    "final": {
+      "cta": "Compliance kostenlos prüfen",
+      "login": "Bereit zu kaufen? Registrieren →"
+    }
+  },
+  "resources": {
+    "title": "EUDR-Compliance-Ressourcen",
+    "subtitle": "Leitfäden, Checklisten und praktische Ressourcen für Importeure, die sich mit der EU-Entwaldungsverordnung auseinandersetzen.",
+    "readMore": "Weiterlesen →",
+    "readTime": "{{minutes}} Min. Lesezeit",
+    "back": "← Zurück zu den Ressourcen",
+    "cta": "Sie wissen nicht, wo Sie stehen? Machen Sie unsere kostenlose Diagnose →",
+    "articles": {
+      "checklist": {
+        "title": "EUDR-Compliance-Checkliste: Ihr 5-Schritte-Leitfaden zu Artikel 10(2)",
+        "desc": "Ein praktischer Leitfaden durch die 5 Sorgfaltspflichtkriterien. Was jedes erfordert, welche Nachweise Sie brauchen und häufige Fallstricke.",
+        "category": "Compliance-Leitfaden"
+      },
+      "traceability": {
+        "title": "Leitfaden für Importeure zur Lieferkettenrückverfolgbarkeit nach EUDR",
+        "desc": "Was 'Rückverfolgbarkeit in der gesamten Lieferkette' tatsächlich bedeutet, wie die Geolokalisierung dazu beiträgt und praktische Schritte zum Aufbau der Rückverfolgbarkeit von Grund auf.",
+        "category": "Technischer Leitfaden"
+      },
+      "overview": {
+        "title": "Ist Ihr Unternehmen bereit für die EUDR? Ein praktischer Überblick",
+        "desc": "Ein Überblick über die EU-Entwaldungsverordnung: wen sie betrifft, wichtige Fristen, regulierte Rohstoffe und erste Schritte.",
+        "category": "Überblick"
+      }
+    }
+  },
+  "common": {
+    "cookieBanner": {
+      "title": "Cookie-Einwilligung",
+      "message": "Wir verwenden essenzielle Cookies für Authentifizierung und Sicherheit. Mit Ihrer Einwilligung nutzen wir auch Analyse-Cookies zur Verbesserung unseres Dienstes.",
+      "acceptAll": "Alle akzeptieren",
+      "rejectAll": "Alle ablehnen",
+      "customize": "Anpassen",
+      "analyticsToggle": "Analyse-Cookies",
+      "savePreferences": "Einstellungen speichern",
+      "privacyLink": "Mehr erfahren"
+    }
   }
 }

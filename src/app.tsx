@@ -12,6 +12,10 @@ import { useInitializeLocale } from "@/hooks/use-initialize-locale";
 import { getClerkLocale, getInitialClerkLocale } from "@/lib/clerk-locale";
 import { useTranslation } from "react-i18next";
 import { router } from "@/router";
+import { initAnonymizedAnalytics } from "@/lib/analytics";
+
+// Initialize analytics on module load (before consent)
+initAnonymizedAnalytics();
 
 const VITE_CONVEX_URL = import.meta.env.VITE_CONVEX_URL as string | undefined;
 const CLERK_PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as

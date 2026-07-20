@@ -14,10 +14,14 @@
 
 3. Verify: delete a test org in Clerk, check Convex logs
 
-## Infrastructure — Monitoring
+## Infrastructure
 
-- [ ] **UptimeRobot** — set up monitoring + Discord webhook alerts
-- [ ] **Email-to-Discord bot** — forward `support@antaios.app` emails to Discord channel (e.g., via Zapier/Make/Pipedream or a custom bot)
+- [ ] **Sentry** — Error monitoring (currently only console.error + PostHog events).
+- [ ] **Automated tests** — Zero. No unit, integration, or E2E tests anywhere in the repo.
+- [ ] **Security headers** — No CSP, HSTS, X-Frame-Options. Relies on Convex/Netlify defaults.
+- [ ] **Stripe cleanup** — `stripe` package in deps but entirely unused.
+- [ ] **File size validation (server-side)** — Only client-side 10MB check on uploads. No server-side enforcement.
+- [ ] **Admin dashboard** — Simple password-protected panel (password: `Abcdefg1234@@@@@`) to manage users, orgs, subscriptions, view data.
 
 ## Legal — Mentions Légales
 

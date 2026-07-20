@@ -12,7 +12,7 @@ export function Logo({ width, height, className, ...args }: LogoProps) {
     <img
       {...args}
       src="/images/logo.png"
-      alt="Logo"
+      alt="Antaios — EUDR Compliance Platform"
       width={width ?? 40}
       height={height ?? 40}
       className={cn(className)}

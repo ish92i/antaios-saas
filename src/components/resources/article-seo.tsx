@@ -6,10 +6,11 @@ interface ArticleSeoProps {
   description: string;
   path: string;
   datePublished: string;
+  dateModified?: string;
   category?: string;
 }
 
-export function ArticleSeo({ title, description, path, datePublished, category }: ArticleSeoProps) {
+export function ArticleSeo({ title, description, path, datePublished, dateModified, category }: ArticleSeoProps) {
   const url = `${siteConfig.siteUrl}${path}`;
   const fullTitle = `${title} — Antaios Resources`;
 
@@ -19,15 +20,20 @@ export function ArticleSeo({ title, description, path, datePublished, category }
     headline: title,
     description,
     datePublished,
+    dateModified: dateModified ?? datePublished,
+    image: `${siteConfig.siteUrl}${siteConfig.siteImage}`,
     author: {
-      "@type": "Organization",
-      name: siteConfig.siteTitle,
-      url: siteConfig.siteUrl,
+      "@type": "Person",
+      name: "Patricia Konan",
     },
     publisher: {
       "@type": "Organization",
       name: siteConfig.siteTitle,
       url: siteConfig.siteUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.siteUrl}${siteConfig.siteImage}`,
+      },
     },
   };
 

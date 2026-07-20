@@ -61,9 +61,9 @@ function ResourcesPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <Helmet>
         <title>Resources — Antaios</title>
-        <meta name="description" content="Guides, checklists, and practical resources for importers navigating the EU Deforestation Regulation (EUDR)." />
+        <meta name="description" content="Free EUDR compliance resources for importers. Guides, checklists, and practical content on the EU Deforestation Regulation, due-diligence criteria, and supply chain traceability." />
         <meta property="og:title" content="Resources — Antaios" />
-        <meta property="og:description" content="Guides, checklists, and practical resources for importers navigating the EU Deforestation Regulation (EUDR)." />
+        <meta property="og:description" content="Free EUDR compliance resources for importers. Guides, checklists, and practical content on the EU Deforestation Regulation, due-diligence criteria, and supply chain traceability." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://antaios.app/resources" />
         <meta name="twitter:card" content="summary_large_image" />

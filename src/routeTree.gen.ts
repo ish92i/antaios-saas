@@ -9,9 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as FreeToolRouteImport } from './routes/free-tool'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupplierTokenRouteImport } from './routes/supplier/$token'
+import { Route as ResourcesTraceabilityGuideRouteImport } from './routes/resources.traceability-guide'
+import { Route as ResourcesEudrOverviewRouteImport } from './routes/resources.eudr-overview'
+import { Route as ResourcesEudrChecklistRouteImport } from './routes/resources.eudr-checklist'
 import { Route as LegalTermsOfSaleRouteImport } from './routes/legal/terms-of-sale'
 import { Route as LegalTermsRouteImport } from './routes/legal/terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal/privacy'
@@ -29,6 +34,16 @@ import { Route as AppAuthDashboardLayoutSettingsRouteImport } from './routes/_ap
 import { Route as AppAuthDashboardLayoutCheckoutRouteImport } from './routes/_app/_auth/dashboard/_layout.checkout'
 import { Route as AppAuthDashboardLayoutSettingsBillingRouteImport } from './routes/_app/_auth/dashboard/_layout.settings.billing'
 
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FreeToolRoute = FreeToolRouteImport.update({
+  id: '/free-tool',
+  path: '/free-tool',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
@@ -42,6 +57,22 @@ const SupplierTokenRoute = SupplierTokenRouteImport.update({
   id: '/supplier/$token',
   path: '/supplier/$token',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesTraceabilityGuideRoute =
+  ResourcesTraceabilityGuideRouteImport.update({
+    id: '/traceability-guide',
+    path: '/traceability-guide',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
+const ResourcesEudrOverviewRoute = ResourcesEudrOverviewRouteImport.update({
+  id: '/eudr-overview',
+  path: '/eudr-overview',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const ResourcesEudrChecklistRoute = ResourcesEudrChecklistRouteImport.update({
+  id: '/eudr-checklist',
+  path: '/eudr-checklist',
+  getParentRoute: () => ResourcesRoute,
 } as any)
 const LegalTermsOfSaleRoute = LegalTermsOfSaleRouteImport.update({
   id: '/legal/terms-of-sale',
@@ -131,11 +162,16 @@ const AppAuthDashboardLayoutSettingsBillingRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/free-tool': typeof FreeToolRoute
+  '/resources': typeof ResourcesRouteWithChildren
   '/legal/dpa': typeof LegalDpaRoute
   '/legal/notices': typeof LegalNoticesRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/legal/terms-of-sale': typeof LegalTermsOfSaleRoute
+  '/resources/eudr-checklist': typeof ResourcesEudrChecklistRoute
+  '/resources/eudr-overview': typeof ResourcesEudrOverviewRoute
+  '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/login': typeof AppLoginLayoutRouteWithChildren
   '/dashboard': typeof AppAuthDashboardLayoutRouteWithChildren
@@ -150,11 +186,16 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/free-tool': typeof FreeToolRoute
+  '/resources': typeof ResourcesRouteWithChildren
   '/legal/dpa': typeof LegalDpaRoute
   '/legal/notices': typeof LegalNoticesRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/legal/terms-of-sale': typeof LegalTermsOfSaleRoute
+  '/resources/eudr-checklist': typeof ResourcesEudrChecklistRoute
+  '/resources/eudr-overview': typeof ResourcesEudrOverviewRoute
+  '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/onboarding': typeof AppAuthOnboardingLayoutRouteWithChildren
   '/login': typeof AppLoginLayoutIndexRoute
@@ -169,12 +210,17 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
+  '/free-tool': typeof FreeToolRoute
+  '/resources': typeof ResourcesRouteWithChildren
   '/_app/_auth': typeof AppAuthRouteWithChildren
   '/legal/dpa': typeof LegalDpaRoute
   '/legal/notices': typeof LegalNoticesRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/legal/terms-of-sale': typeof LegalTermsOfSaleRoute
+  '/resources/eudr-checklist': typeof ResourcesEudrChecklistRoute
+  '/resources/eudr-overview': typeof ResourcesEudrOverviewRoute
+  '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/_app/login/_layout': typeof AppLoginLayoutRouteWithChildren
   '/_app/_auth/dashboard/_layout': typeof AppAuthDashboardLayoutRouteWithChildren
@@ -191,11 +237,16 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/free-tool'
+    | '/resources'
     | '/legal/dpa'
     | '/legal/notices'
     | '/legal/privacy'
     | '/legal/terms'
     | '/legal/terms-of-sale'
+    | '/resources/eudr-checklist'
+    | '/resources/eudr-overview'
+    | '/resources/traceability-guide'
     | '/supplier/$token'
     | '/login'
     | '/dashboard'
@@ -210,11 +261,16 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/free-tool'
+    | '/resources'
     | '/legal/dpa'
     | '/legal/notices'
     | '/legal/privacy'
     | '/legal/terms'
     | '/legal/terms-of-sale'
+    | '/resources/eudr-checklist'
+    | '/resources/eudr-overview'
+    | '/resources/traceability-guide'
     | '/supplier/$token'
     | '/onboarding'
     | '/login'
@@ -228,12 +284,17 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_app'
+    | '/free-tool'
+    | '/resources'
     | '/_app/_auth'
     | '/legal/dpa'
     | '/legal/notices'
     | '/legal/privacy'
     | '/legal/terms'
     | '/legal/terms-of-sale'
+    | '/resources/eudr-checklist'
+    | '/resources/eudr-overview'
+    | '/resources/traceability-guide'
     | '/supplier/$token'
     | '/_app/login/_layout'
     | '/_app/_auth/dashboard/_layout'
@@ -250,6 +311,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  FreeToolRoute: typeof FreeToolRoute
+  ResourcesRoute: typeof ResourcesRouteWithChildren
   LegalDpaRoute: typeof LegalDpaRoute
   LegalNoticesRoute: typeof LegalNoticesRoute
   LegalPrivacyRoute: typeof LegalPrivacyRoute
@@ -260,6 +323,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/free-tool': {
+      id: '/free-tool'
+      path: '/free-tool'
+      fullPath: '/free-tool'
+      preLoaderRoute: typeof FreeToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_app': {
       id: '/_app'
       path: ''
@@ -280,6 +357,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/supplier/$token'
       preLoaderRoute: typeof SupplierTokenRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/resources/traceability-guide': {
+      id: '/resources/traceability-guide'
+      path: '/traceability-guide'
+      fullPath: '/resources/traceability-guide'
+      preLoaderRoute: typeof ResourcesTraceabilityGuideRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/eudr-overview': {
+      id: '/resources/eudr-overview'
+      path: '/eudr-overview'
+      fullPath: '/resources/eudr-overview'
+      preLoaderRoute: typeof ResourcesEudrOverviewRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/eudr-checklist': {
+      id: '/resources/eudr-checklist'
+      path: '/eudr-checklist'
+      fullPath: '/resources/eudr-checklist'
+      preLoaderRoute: typeof ResourcesEudrChecklistRouteImport
+      parentRoute: typeof ResourcesRoute
     }
     '/legal/terms-of-sale': {
       id: '/legal/terms-of-sale'
@@ -484,9 +582,27 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+interface ResourcesRouteChildren {
+  ResourcesEudrChecklistRoute: typeof ResourcesEudrChecklistRoute
+  ResourcesEudrOverviewRoute: typeof ResourcesEudrOverviewRoute
+  ResourcesTraceabilityGuideRoute: typeof ResourcesTraceabilityGuideRoute
+}
+
+const ResourcesRouteChildren: ResourcesRouteChildren = {
+  ResourcesEudrChecklistRoute: ResourcesEudrChecklistRoute,
+  ResourcesEudrOverviewRoute: ResourcesEudrOverviewRoute,
+  ResourcesTraceabilityGuideRoute: ResourcesTraceabilityGuideRoute,
+}
+
+const ResourcesRouteWithChildren = ResourcesRoute._addFileChildren(
+  ResourcesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  FreeToolRoute: FreeToolRoute,
+  ResourcesRoute: ResourcesRouteWithChildren,
   LegalDpaRoute: LegalDpaRoute,
   LegalNoticesRoute: LegalNoticesRoute,
   LegalPrivacyRoute: LegalPrivacyRoute,

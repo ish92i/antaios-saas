@@ -7,12 +7,11 @@ import { ExtractedDataGrid } from "./ExtractedDataGrid"
 import { DeforestationScanSection } from "./DeforestationScanSection"
 import { Button } from "@/components/ui/button"
 import { completenessTone } from "@/lib/shipment-ui"
-import { X, Paperclip, CircleDot, ArrowRight, CheckCircle2, FileText } from "lucide-react"
+import { X, Paperclip, CircleDot, ArrowRight, CheckCircle2, FileText, Loader2 } from "lucide-react"
 import { useState, useEffect, useCallback, forwardRef, useImperativeHandle, useRef } from "react"
 import type { Id } from "@cvx/_generated/dataModel"
 import { useTranslation } from "react-i18next"
 import { useTranslatedValue } from "@/hooks/use-translated-value"
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
 
 export const ShipmentDetailPanel = forwardRef<
   { triggerResolve: () => void },
@@ -198,47 +197,51 @@ export const ShipmentDetailPanel = forwardRef<
           <Paperclip className="size-3.5" />
           {t("detail.files_extracted", { count: docCount })}
         </span>
-        {isSubmitted ? (
-          <span className="flex items-center gap-1.5 text-sm text-green-600">
-            <CheckCircle2 className="size-4" />
-            {t("status.submitted")}
-          </span>
-        ) : (
-          <div className="flex items-center gap-2">
-            <Tooltip>
-              <TooltipTrigger asChild>
+        <div className="flex items-center gap-2">
+          {(timelineStep === "ready" || timelineStep === "submitted") && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleDownloadAuditTrail}
+              disabled={isDownloading}
+            >
+              {isDownloading ? (
+                <Loader2 className="size-3.5 animate-spin" />
+              ) : (
+                <>
+                  <FileText className="size-3.5" />
+                  {t("detail.download_audit_trail")}
+                </>
+              )}
+            </Button>
+          )}
+          {isSubmitted ? (
+            <span className="flex items-center gap-1.5 text-sm text-green-600">
+              <CheckCircle2 className="size-4" />
+              {t("status.submitted")}
+            </span>
+          ) : (
+            <>
+              {pendingQuestionCount > 0 && (
                 <button
-                  onClick={handleDownloadAuditTrail}
-                  disabled={isDownloading}
-                  className="text-xs text-muted-foreground/40 hover:text-muted-foreground transition-colors ml-2"
+                  onClick={() => setIsConflictOpen(true)}
+                  className="text-sm inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-yellow-600/40 text-yellow-600 hover:bg-yellow-50 transition-colors"
                 >
-                  <FileText className="size-3.5 inline mr-1" />
-                  {isDownloading ? "..." : t("detail.download_audit_trail")}
+                  <kbd className="text-[11px] leading-none px-1 py-px rounded border border-yellow-600/40">R</kbd>
+                  {t("detail.resolve")}
+                  <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-yellow-100 text-yellow-700 text-[10px] font-semibold px-1">
+                    {pendingQuestionCount}
+                  </span>
                 </button>
-              </TooltipTrigger>
-              <TooltipContent side="top">
-                <p>{t("detail.audit_trail_hint")}</p>
-              </TooltipContent>
-            </Tooltip>
-            {pendingQuestionCount > 0 && (
-              <button
-                onClick={() => setIsConflictOpen(true)}
-                className="text-sm inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-yellow-600/40 text-yellow-600 hover:bg-yellow-50 transition-colors"
-              >
-                <kbd className="text-[11px] leading-none px-1 py-px rounded border border-yellow-600/40">R</kbd>
-                {t("detail.resolve")}
-                <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-yellow-100 text-yellow-700 text-[10px] font-semibold px-1">
-                  {pendingQuestionCount}
-                </span>
-              </button>
-            )}
-            {isReadyToSubmit && (
-              <Button size="sm" onClick={() => setIsTracesOpen(true)}>
-                {t("detail.submit")} <ArrowRight className="size-3.5 ml-1" />
-              </Button>
-            )}
-          </div>
-        )}
+              )}
+              {isReadyToSubmit && (
+                <Button size="sm" onClick={() => setIsTracesOpen(true)}>
+                  {t("detail.submit")} <ArrowRight className="size-3.5 ml-1" />
+                </Button>
+              )}
+            </>
+          )}
+        </div>
       </div>
 
       <ConflictResolutionDialog

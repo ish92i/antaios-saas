@@ -218,14 +218,257 @@
     "certification": "Certification",
     "harvest_date": "Harvest date"
   },
+  "upload": {
+    "dropzone_idle": "Drag and drop your files here",
+    "dropzone_active": "Drop your files here",
+    "browse": "or <0>browse</0> your files",
+    "max_file_size": "Max {{size}} per file",
+    "max_files_error": "Maximum {{count}} files allowed",
+    "file_too_large": "File too large (max {{size}})",
+    "unsupported_type": "Unsupported file type ({{ext}})",
+    "remove_file": "Remove file"
+  },
   "locale": {
     "de": "German",
     "en": "English",
     "es": "Spanish",
-    "fr": "Fran\u00e7ais",
+    "fr": "Français",
     "it": "Italian",
     "nl": "Dutch",
     "pt": "Portuguese",
     "switch": "Switch language"
+  },
+  "freeTool": {
+    "title": "EUDR Compliance Diagnostic",
+    "subtitle": "8 questions to assess your readiness against Article 10(2), EU Regulation 2023/1115",
+    "progress": "Question {{current}} of {{total}}",
+    "back": "Back",
+    "start": "Start diagnostic",
+    "next": "Next",
+    "questions": {
+      "q1": {
+        "title": "Which commodities do you import?",
+        "subtitle": "Select all that apply",
+        "options": {
+          "coffee": "Coffee",
+          "cocoa": "Cocoa",
+          "timber": "Timber",
+          "rubber": "Rubber",
+          "soy": "Soy",
+          "palm_oil": "Palm oil",
+          "cattle": "Cattle"
+        }
+      },
+      "q2": {
+        "title": "What is your annual revenue and headcount?",
+        "options": {
+          "large_medium": "Large/medium enterprise (>€2M revenue or >10 employees)",
+          "small_micro": "Small/micro enterprise (≤€2M revenue and ≤10 employees)"
+        }
+      },
+      "q3": {
+        "title": "Do you know the geographic origin (plot-level) of your supply?",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "q4": {
+        "title": "Do you already have a documented due-diligence process?",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "q5": {
+        "title": "Do you rely on a third party (trader, cooperative) for traceability?",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "q6": {
+        "title": "Do you have supplier attestations or certificates on file?",
+        "yes": "Yes — we have deforestation-free declarations",
+        "no": "No — we don't have these on file"
+      },
+      "q7": {
+        "title": "Have you assessed legality of production under the country of origin's laws?",
+        "yes": "Yes — we've assessed labor, land use, and environmental permits",
+        "no": "No — not yet assessed"
+      },
+      "q8": {
+        "title": "Do you currently track shipments individually, or only at batch/aggregate level?",
+        "options": {
+          "individual": "Individual shipment-level tracking",
+          "batch": "Batch or aggregate level only"
+        }
+      }
+    },
+    "result": {
+      "title": "Your Compliance Snapshot",
+      "regulation": "Assessed against Article 10(2), EU Regulation 2023/1115",
+      "deadline": "Applicable deadline: {{date}}",
+      "tier": {
+        "high": "High Risk",
+        "medium": "Medium Risk",
+        "low": "Low Risk",
+        "high_desc": "You have {{count}} critical gaps to address before your deadline",
+        "medium_desc": "You have {{count}} areas to address for full compliance",
+        "low_desc": "You're in good shape — {{count}} items to review"
+      },
+      "criteria": {
+        "traceability": "Traceability throughout the supply chain",
+        "geolocation": "Plot-level geolocation",
+        "dueDiligenceDocs": "Documented due-diligence procedures",
+        "supplierAttestations": "Supplier attestations and certifications",
+        "legalityAssessment": "Legality assessment",
+        "pass": "✓ Pass",
+        "fail": "✗ Action needed",
+        "subclause": "Required under {{citation}}"
+      },
+      "actions": "Recommended next actions",
+      "retake": "Retake the test",
+      "support": "Questions about your result? Email us at support@antaios.app",
+      "supportLink": "mailto:support@antaios.app"
+    },
+    "cta": {
+      "high": "Start with Antaios — €500/month",
+      "medium": "See how Antaios solves this",
+      "low": "Stay informed"
+    }
+  },
+  "landing": {
+    "nav": {
+      "freeTool": "Free Diagnostic",
+      "resources": "Resources",
+      "pricing": "Pricing",
+      "login": "Sign in",
+      "getStarted": "Get Started",
+      "dashboard": "Dashboard"
+    },
+    "hero": {
+      "badge": "Deadline — Dec 30, 2026",
+      "title": "EUDR Compliance Platform for Importers — Meet the Deforestation Regulation Deadline",
+      "subtitle": "Antaios extracts data from your import documents to cover all 5 EUDR due-diligence criteria and generate your DDS.",
+      "cta": "Free diagnostic — 2 minutes",
+      "login": "Create my account →"
+    },
+    "trust": {
+      "text": "Built around the exact 5 due-diligence criteria under Article 10(2), EU Regulation 2023/1115."
+    },
+    "problem": {
+      "q1": "\"Who sent which documents? Which shipments still need geolocation?\"",
+      "q2": "\"What happens when the auditor asks for our due-diligence records?\"",
+      "q3": "\"Are we actually compliant — or just hoping we are?\"",
+      "contrast": "Enterprise tools charge €12,000+/year and take months to set up. Antaios does what you actually need, starting at €500/month.",
+      "header": "Enterprise tools overcharge. Antaios just delivers.",
+      "body": "What a PME actually needs — not what an enterprise account bills for. Operational in an afternoon, not a quarter."
+    },
+    "how": {
+      "title": "How it works",
+      "step1": {
+        "title": "Enter your shipments",
+        "desc": "Upload CSV files, PDF invoices, or shipping manifests directly into Antaios. Or add shipments one by one through our streamlined form — no special formatting required. Antaios automatically parses and organizes your data so nothing slips through the cracks."
+      },
+      "step2": {
+        "title": "Antaios scores your risk",
+        "desc": "Antaios instantly evaluates every shipment against all five EUDR criteria: traceability, geolocation, documentation, attestations, and legality. Each criterion is scored and flagged green, amber, or red so you can see your compliance gaps at a glance. Your risk profile is calculated in seconds — no more manual spreadsheet work."
+      },
+      "step3": {
+        "title": "Generate your DDS",
+        "desc": "With a single click, Antaios compiles your due-diligence statement (DDS) for every shipment. The statement is formatted to TRACES specifications, ready to file without any rework. What used to take hours of paperwork is now one button press."
+      },
+      "step4": {
+        "title": "Audit trail retained",
+        "desc": "All your compliance records — risk scores, supporting documents, and filed DDS statements — are stored securely for the full 5-year regulatory retention period. When an auditor requests records, you can retrieve and export the complete file within 24 hours. Peace of mind that you are always inspection-ready."
+      }
+    },
+    "footer": {
+      "freeTool": "Free Tool",
+      "resources": "Resources",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    },
+    "midCta": {
+      "title": "Not sure where you stand?",
+      "desc": "2-minute diagnostic. 8 questions, no email required.",
+      "cta": "Take the free diagnostic →"
+    },
+    "pricing": {
+      "title": "All-inclusive. €500/month.",
+      "price": "€500/month",
+      "flat": "Flat rate, no per-shipment fees",
+      "annual": "€5,000/year — 2 months free",
+      "compare1": "Consultants: €5,000–20,000 per project",
+      "compare2": "Enterprise SaaS: €15,000+/year",
+      "caveat": "If you're a downstream trader just storing reference numbers rather than a full importer, a lighter tool may suit you better. We'll tell you honestly if that's the case.",
+      "feature1": "Unlimited shipments",
+      "feature2": "Annual plan: ×10 months",
+      "feature3": "Email + chat support",
+      "compareTitle": "Compared to your other options",
+      "compareOption1": "Consulting firm",
+      "comparePrice1": "€5,000 – €20,000 / engagement",
+      "compareOption2": "Enterprise SaaS platform",
+      "comparePrice2": "€15,000+ / year",
+      "compareOption3": "Antaios",
+      "comparePrice3": "€6,000 / year"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": {
+        "q": "Is this sufficient for TRACES filing?",
+        "a": "Yes. Antaios generates a due-diligence statement that meets the requirements of Article 10(2) and can be used for TRACES submission."
+      },
+      "q2": {
+        "q": "What if I'm not a large enterprise?",
+        "a": "The free diagnostic adjusts the EUDR deadline based on your company size — small/micro enterprises have until June 30, 2027. Our pricing starts at €500/month regardless of size."
+      },
+      "q3": {
+        "q": "What if I'm a trader, not an importer?",
+        "a": "Traders still fall under EUDR obligations. Our diagnostic covers your case, and we'll include an honest assessment of whether a lighter tool may suit you better."
+      },
+      "q4": {
+        "q": "Is my data secure?",
+        "a": "Yes. We use encryption at rest and in transit. We process data through DeepL for optional translations — see our privacy policy for details."
+      }
+    },
+    "final": {
+      "title": "Ready before the deadline?",
+      "subtitle": "2 minutes, no email, no commitment.",
+      "cta": "Check your compliance — it's free",
+      "login": "Ready to buy? Sign up →"
+    }
+  },
+  "resources": {
+    "title": "EUDR Compliance Resources",
+    "subtitle": "Guides, checklists, and practical resources for importers navigating the EU Deforestation Regulation.",
+    "readMore": "Read more →",
+    "readTime": "{{minutes}} min read",
+    "back": "← Back to resources",
+    "cta": "Not sure where you stand? Take our free diagnostic →",
+    "articles": {
+      "checklist": {
+        "title": "EUDR Compliance Checklist: Your 5-Step Guide to Article 10(2)",
+        "desc": "A practical walk through the 5 due-diligence criteria. What each requires, what evidence you need, and common pitfalls to avoid.",
+        "category": "Compliance Guide"
+      },
+      "traceability": {
+        "title": "Importer's Guide to Supply Chain Traceability Under EUDR",
+        "desc": "What 'traceability throughout the supply chain' actually means, how geolocation feeds into it, and practical steps to build traceability from scratch.",
+        "category": "Technical Guide"
+      },
+      "overview": {
+        "title": "Is Your Business Ready for EUDR? A Practical Overview",
+        "desc": "A high-level overview of the EU Deforestation Regulation: who it affects, key deadlines, regulated commodities, and first steps to take.",
+        "category": "Overview"
+      }
+    }
+  },
+  "common": {
+    "cookieBanner": {
+      "title": "Cookie Consent",
+      "message": "We use essential cookies for authentication and security. With your consent, we also use analytics cookies to improve our service.",
+      "acceptAll": "Accept All",
+      "rejectAll": "Reject All",
+      "customize": "Customize",
+      "analyticsToggle": "Analytics cookies",
+      "savePreferences": "Save preferences",
+      "privacyLink": "Learn more"
+    }
   }
 }

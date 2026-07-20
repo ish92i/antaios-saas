@@ -4,7 +4,26 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Antaios</title>
+    <title>Antaios — EUDR Compliance Platform</title>
+    <meta name="description" content="EUDR compliance platform for importers. Score your supply chain across all 5 due-diligence criteria under Article 10(2), EU Regulation 2023/1115." />
+    <meta property="og:title" content="Antaios — EUDR Compliance Platform" />
+    <meta property="og:description" content="EUDR compliance platform for importers. Score your supply chain across all 5 due-diligence criteria under Article 10(2), EU Regulation 2023/1115." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://antaios.app" />
+    <meta property="og:image" content="/images/og-image.png" />
+    <meta property="og:site_name" content="Antaios" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://antaios.app" />
+    <link rel="preconnect" href="https://clerk.accounts.dev" />
+    <link rel="preconnect" href="https://app.posthog.com" />
+    <script>
+      partytown = {
+        forward: ["posthog"],
+        resolveUrl: function (url) {
+          return url;
+        },
+      };
+    </script>
   </head>
   <body class="min-h-screen w-full">
     <div id="root" class="h-full"></div>

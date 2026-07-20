@@ -22,7 +22,7 @@ function EudrChecklistPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <ArticleSeo
         title="EUDR Compliance Checklist: Your 5-Step Guide to Article 10(2)"
-        description="A practical walk-through of the five due-diligence criteria under Article 10(2) of the EU Deforestation Regulation. Covers what each criterion requires, what evidence you need, and common pitfalls to avoid."
+        description="Walk through the 5 due-diligence criteria of Article 10(2), EU Deforestation Regulation. What each criterion requires, evidence needed, common pitfalls — plus a free compliance diagnostic."
         path="/resources/eudr-checklist"
         datePublished="2024-11-15"
         category="Compliance Guide"

@@ -3,6 +3,8 @@ import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
 import { getOrgId } from "@cvx/auth"
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024
+
 export const addDocument = mutation({
   args: {
     shipmentId: v.id("shipments"),
@@ -13,6 +15,13 @@ export const addDocument = mutation({
   handler: async (ctx, args) => {
     const orgId = await getOrgId(ctx)
     if (!orgId) throw new Error("No organization")
+
+    const metadata = await ctx.storage.getMetadata(args.storageId)
+    if (!metadata) throw new Error("File not found in storage")
+    if (metadata.size > MAX_FILE_SIZE) {
+      await ctx.storage.delete(args.storageId)
+      throw new Error("File too large. Maximum size is 10 MB.")
+    }
 
     const docId = await ctx.db.insert("shipmentDocuments", {
       shipmentId: args.shipmentId,

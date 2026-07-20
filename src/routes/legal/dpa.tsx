@@ -1,11 +1,27 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { Helmet } from "react-helmet-async"
+import siteConfig from "~/site.config"
 import { Logo } from "@/components/logo"
+
+const pageTitle = "Data Processing Addendum (DPA) — Antaios"
+const pageDescription =
+  "Antaios Data Processing Addendum (DPA) governing the processing of personal data under GDPR. Sub-processors, security measures, data subject rights."
+const pageUrl = `${siteConfig.siteUrl}/legal/dpa`
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.siteUrl },
+    { "@type": "ListItem", position: 2, name: "Legal", item: `${siteConfig.siteUrl}/legal/dpa` },
+    { "@type": "ListItem", position: 3, name: "Data Processing Addendum", item: pageUrl },
+  ],
+}
 
 export const Route = createFileRoute("/legal/dpa")({
   component: DPAPage,
   beforeLoad: () => ({
-    title: "Data Processing Addendum (DPA) — Antaios",
+    title: pageTitle,
   }),
 })
 
@@ -13,7 +29,17 @@ function DPAPage() {
   return (
     <>
       <Helmet>
-        <title>Data Processing Addendum (DPA) — Antaios</title>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href={pageUrl} />
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
       <div className="min-h-screen bg-background">
         <div className="sticky top-0 z-50 mx-auto flex w-full max-w-screen-lg items-center justify-between p-6 py-3">

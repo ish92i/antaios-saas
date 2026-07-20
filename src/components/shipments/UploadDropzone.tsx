@@ -3,6 +3,7 @@ import { useDropzone, type FileRejection } from "react-dropzone"
 import { Upload, FileText, X, FileWarning } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { formatFileSize } from "@/lib/formatters"
+import { useTranslation, Trans } from "react-i18next"
 
 const ACCEPTED_TYPES: Record<string, string[]> = {
   "application/*": [".pdf", ".docx", ".xlsx", ".geojson", ".kml", ".zip"],
@@ -28,6 +29,7 @@ export function UploadDropzone({
   onFilesChange: (files: UploadFile[]) => void
   onFileClick?: (index: number) => void
 }) {
+  const { t } = useTranslation()
   const onDrop = useCallback(
     (accepted: File[], rejections: FileRejection[]) => {
       const newFiles: UploadFile[] = [
@@ -42,7 +44,7 @@ export function UploadDropzone({
       if (newFiles.length > MAX_FILES) {
         newFiles.splice(MAX_FILES)
         newFiles[MAX_FILES - 1].errors.push(
-          `Maximum ${MAX_FILES} fichiers autorisés`,
+          t("upload.max_files_error", { count: MAX_FILES }),
         )
       }
 
@@ -60,7 +62,7 @@ export function UploadDropzone({
       if (file.size > MAX_SIZE) {
         return {
           code: "file-too-large",
-          message: `Fichier trop volumineux (max ${formatFileSize(MAX_SIZE)})`,
+          message: t("upload.file_too_large", { size: formatFileSize(MAX_SIZE) }),
         }
       }
       const ext = "." + file.name.split(".").pop()?.toLowerCase()
@@ -68,7 +70,7 @@ export function UploadDropzone({
       if (!allowed.includes(ext)) {
         return {
           code: "invalid-extension",
-          message: `Type de fichier non supporté (${ext})`,
+          message: t("upload.unsupported_type", { ext }),
         }
       }
       return null
@@ -104,14 +106,12 @@ export function UploadDropzone({
             />
           </div>
           <p className="text-sm font-medium text-foreground">
-            {isDragActive ? "Déposez les fichiers ici" : "Glissez-déposez vos fichiers"}
+            {isDragActive ? t("upload.dropzone_active") : t("upload.dropzone_idle")}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            ou{" "}
-            <span className="font-medium text-primary underline-offset-2 hover:underline">
-              parcourez
-            </span>{" "}
-            vos fichiers
+            <Trans i18nKey="upload.browse">
+              or <span className="font-medium text-primary underline-offset-2 hover:underline">browse</span> your files
+            </Trans>
           </p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5">
             {FORMAT_LABELS.map((fmt) => (
@@ -124,7 +124,7 @@ export function UploadDropzone({
             ))}
           </div>
           <p className="mt-2 text-[10px] text-muted-foreground/60">
-            Max {formatFileSize(MAX_SIZE)} par fichier
+            {t("upload.max_file_size", { size: formatFileSize(MAX_SIZE) })}
           </p>
         </div>
       </div>
@@ -171,7 +171,7 @@ export function UploadDropzone({
                     removeFile(i)
                   }}
                   className="flex h-6 w-6 items-center justify-center rounded-md text-muted-foreground opacity-0 transition-opacity hover:bg-destructive/10 hover:text-destructive group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none"
-                  aria-label="Supprimer"
+                  aria-label={t("upload.remove_file")}
                 >
                   <X className="h-3.5 w-3.5" />
                 </button>

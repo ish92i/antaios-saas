@@ -216,14 +216,237 @@
     "certification": "Certificação",
     "harvest_date": "Data da colheita"
   },
+  "upload": {
+    "dropzone_idle": "Arraste e solte seus arquivos aqui",
+    "dropzone_active": "Solte os arquivos aqui",
+    "browse": "ou <0>navegue</0> seus arquivos",
+    "max_file_size": "Máx {{size}} por arquivo",
+    "max_files_error": "Máximo de {{count}} arquivos permitidos",
+    "file_too_large": "Arquivo muito grande (máx {{size}})",
+    "unsupported_type": "Tipo de arquivo não suportado ({{ext}})",
+    "remove_file": "Remover arquivo"
+  },
   "locale": {
     "de": "Alemão",
     "en": "English",
     "es": "Espanhol",
-    "fr": "Fran\u00e7ais",
+    "fr": "Français",
     "it": "Italiano",
     "nl": "Holandês",
     "pt": "Português",
     "switch": "Mudar idioma"
+  },
+  "freeTool": {
+    "title": "Diagnóstico de Conformidade EUDR",
+    "subtitle": "8 perguntas para avaliar a sua preparação nos termos do artigo 10.º, n.º 2, do Regulamento (UE) 2023/1115",
+    "progress": "Pergunta {{current}} de {{total}}",
+    "back": "Anterior",
+    "start": "Iniciar diagnóstico",
+    "next": "Seguinte",
+    "questions": {
+      "q1": {
+        "title": "Que mercadorias importa?",
+        "subtitle": "Selecione todas as que se aplicam",
+        "options": {
+          "coffee": "Café",
+          "cocoa": "Cacau",
+          "timber": "Madeira",
+          "rubber": "Borracha",
+          "soy": "Soja",
+          "palm_oil": "Óleo de palma",
+          "cattle": "Gado bovino"
+        }
+      },
+      "q2": {
+        "title": "Qual é o seu volume de negócios anual e número de funcionários?",
+        "options": {
+          "large_medium": "Grande/média empresa (>2 M€ de volume de negócios ou >10 funcionários)",
+          "small_micro": "Pequena/microempresa (≤2 M€ de volume de negócios e ≤10 funcionários)"
+        }
+      },
+      "q3": {
+        "title": "Conhece a origem geográfica (ao nível da parcela) dos seus produtos?",
+        "yes": "Sim",
+        "no": "Não"
+      },
+      "q4": {
+        "title": "Já possui um processo de diligência devida documentado?",
+        "yes": "Sim",
+        "no": "Não"
+      },
+      "q5": {
+        "title": "Depende de terceiros (comerciante, cooperativa) para a rastreabilidade?",
+        "yes": "Sim",
+        "no": "Não"
+      },
+      "q6": {
+        "title": "Tem declarações ou certificados de fornecedores arquivados?",
+        "yes": "Sim — temos declarações de ausência de desflorestação",
+        "no": "Não — não temos estes documentos arquivados"
+      },
+      "q7": {
+        "title": "Avaliou a legalidade da produção ao abrigo das leis do país de origem?",
+        "yes": "Sim — avaliámos trabalho, uso do solo e licenças ambientais",
+        "no": "Não — ainda não foi avaliado"
+      },
+      "q8": {
+        "title": "Faz atualmente o acompanhamento de remessas individualmente ou apenas ao nível do lote/agregado?",
+        "options": {
+          "individual": "Acompanhamento individual ao nível da remessa",
+          "batch": "Apenas ao nível do lote ou agregado"
+        }
+      }
+    },
+    "result": {
+      "title": "Resumo da Sua Conformidade",
+      "regulation": "Avaliado nos termos do artigo 10.º, n.º 2, do Regulamento (UE) 2023/1115",
+      "deadline": "Prazo aplicável: {{date}}",
+      "tier": {
+        "high": "Alto Risco",
+        "medium": "Risco Médio",
+        "low": "Baixo Risco",
+        "high_desc": "Tem {{count}} lacunas críticas a resolver antes do prazo",
+        "medium_desc": "Tem {{count}} áreas a resolver para conformidade total",
+        "low_desc": "Está bem encaminhado — {{count}} itens a rever"
+      },
+      "criteria": {
+        "traceability": "Rastreabilidade em toda a cadeia de abastecimento",
+        "geolocation": "Geolocalização ao nível da parcela",
+        "dueDiligenceDocs": "Procedimentos de diligência devida documentados",
+        "supplierAttestations": "Declarações e certificações de fornecedores",
+        "legalityAssessment": "Avaliação de legalidade",
+        "pass": "✓ Conforme",
+        "fail": "✗ Ação necessária",
+        "subclause": "Exigido nos termos de {{citation}}"
+      },
+      "actions": "Próximas ações recomendadas",
+      "retake": "Refazer o teste",
+      "support": "Dúvidas sobre o resultado? Envie-nos um e-mail para support@antaios.app",
+      "supportLink": "mailto:support@antaios.app"
+    },
+    "cta": {
+      "high": "Comece com a Antaios — 500 €/mês",
+      "medium": "Veja como a Antaios resolve isto",
+      "low": "Manter-se informado"
+    }
+  },
+  "landing": {
+    "nav": {
+      "freeTool": "Diagnóstico Gratuito",
+      "resources": "Recursos",
+      "pricing": "Preços",
+      "login": "Iniciar sessão",
+      "getStarted": "Começar",
+      "dashboard": "Painel de controlo"
+    },
+    "hero": {
+      "badge": "Prazo — 30 dez. 2026",
+      "title": "Esteja em conformidade com o EUDR antes do prazo — sem um contrato de 12 000 €/ano",
+      "subtitle": "PDFs dispersos, folhas de cálculo e ansiedade com prazos? A Antaios avalia a sua cadeia de abastecimento em todos os 5 critérios de diligência devida nos termos do artigo 10.º, n.º 2, do Regulamento (UE) 2023/1115.",
+      "cta": "Verifique a sua conformidade — gratuito",
+      "login": "Já sabe que precisa disto? Registar-se →"
+    },
+    "trust": {
+      "text": "Construído em torno dos exatos 5 critérios de diligência devida nos termos do artigo 10.º, n.º 2, do Regulamento (UE) 2023/1115."
+    },
+    "problem": {
+      "q1": "\"Quem enviou quais documentos? Que remessas ainda precisam de geolocalização?\"",
+      "q2": "\"O que acontece quando o auditor pedir os nossos registos de diligência devida?\"",
+      "q3": "\"Estamos realmente em conformidade — ou apenas a esperar que sim?\"",
+      "contrast": "As ferramentas empresariais custam 12 000 €+/ano e demoram meses a configurar. A Antaios faz o que realmente precisa, a partir de 500 €/mês."
+    },
+    "how": {
+      "title": "Como funciona",
+      "step1": {
+        "title": "Introduza as suas remessas",
+        "desc": "Carregue ficheiros CSV, faturas PDF ou manifestos de expedição diretamente na Antaios. Ou adicione remessas uma a uma através do nosso formulário simplificado — sem necessidade de formatação especial. A Antaios analisa e organiza automaticamente os seus dados para que nada passe despercebido."
+      },
+      "step2": {
+        "title": "A Antaios classifica o seu risco",
+        "desc": "A Antaios avalia instantaneamente cada remessa em todos os cinco critérios EUDR: rastreabilidade, geolocalização, documentação, declarações e legalidade. Cada critério é classificado e sinalizado a verde, âmbar ou vermelho para que veja as lacunas de conformidade num relance. O seu perfil de risco é calculado em segundos — sem mais trabalho manual em folhas de cálculo."
+      },
+      "step3": {
+        "title": "Gere a sua DDS",
+        "desc": "Com um único clique, a Antaios compila a sua declaração de diligência devida (DDS) para cada remessa. A declaração é formatada segundo as especificações TRACES, pronta a ser submetida sem qualquer retrabalho. O que antes demorava horas de papelada é agora um simples botão."
+      },
+      "step4": {
+        "title": "Registo de auditoria mantido",
+        "desc": "Todos os seus registos de conformidade — classificações de risco, documentos de apoio e declarações DDS apresentadas — são armazenados de forma segura durante todo o período regulamentar de retenção de 5 anos. Quando um auditor solicitar registos, pode recuperar e exportar o processo completo em 24 horas. Tranquilidade por estar sempre preparado para uma inspeção."
+      }
+    },
+    "midCta": {
+      "title": "Não sabe ao certo onde se encontra?",
+      "desc": "Faça o nosso diagnóstico gratuito de 3 minutos. 8 perguntas, sem necessidade de e-mail.",
+      "cta": "Fazer o diagnóstico gratuito →"
+    },
+    "pricing": {
+      "title": "Preços simples e transparentes",
+      "price": "500 €/mês",
+      "flat": "Taxa fixa, sem custos por remessa",
+      "annual": "5 000 €/ano — ponto de equilíbrio aos 10 meses",
+      "compare1": "Consultores: 5 000–20 000 € por projeto",
+      "compare2": "SaaS empresarial: 15 000 €+/ano",
+      "caveat": "Se é um comerciante a jusante que apenas armazena números de referência em vez de um importador direto, uma ferramenta mais leve poderá ser mais adequada. Diremos honestamente se for esse o caso."
+    },
+    "faq": {
+      "title": "Perguntas frequentes",
+      "q1": {
+        "q": "Isto é suficiente para a submissão no TRACES?",
+        "a": "Sim. A Antaios gera uma declaração de diligência devida que cumpre os requisitos do artigo 10.º, n.º 2, e pode ser utilizada para submissão no TRACES."
+      },
+      "q2": {
+        "q": "E se não for uma grande empresa?",
+        "a": "O diagnóstico gratuito ajusta o prazo EUDR com base na dimensão da sua empresa — pequenas/microempresas têm até 30 de junho de 2027. O nosso preço começa nos 500 €/mês independentemente da dimensão."
+      },
+      "q3": {
+        "q": "E se for um comerciante e não um importador?",
+        "a": "Os comerciantes também estão sujeitos às obrigações EUDR. O nosso diagnóstico abrange o seu caso e incluiremos uma avaliação honesta sobre se uma ferramenta mais leve poderá ser mais adequada."
+      },
+      "q4": {
+        "q": "Os meus dados estão seguros?",
+        "a": "Sim. Utilizamos encriptação em repouso e em trânsito. Processamos dados através da DeepL para traduções opcionais — consulte a nossa política de privacidade para mais detalhes."
+      }
+    },
+    "final": {
+      "cta": "Verifique a sua conformidade — é gratuito",
+      "login": "Pronto para comprar? Registar-se →"
+    }
+  },
+  "resources": {
+    "title": "Recursos de Conformidade EUDR",
+    "subtitle": "Guias, listas de verificação e recursos práticos para importadores a navegar o Regulamento Europeu contra a Desflorestação.",
+    "readMore": "Ler mais →",
+    "readTime": "{{minutes}} min de leitura",
+    "back": "← Voltar aos recursos",
+    "cta": "Não sabe ao certo onde se encontra? Faça o nosso diagnóstico gratuito →",
+    "articles": {
+      "checklist": {
+        "title": "Lista de Verificação de Conformidade EUDR: Guia em 5 Passos para o Artigo 10.º, n.º 2",
+        "desc": "Uma abordagem prática dos 5 critérios de diligência devida. O que cada um exige, que provas são necessárias e os erros comuns a evitar.",
+        "category": "Guia de Conformidade"
+      },
+      "traceability": {
+        "title": "Guia do Importador para a Rastreabilidade na Cadeia de Abastecimento ao Abrigo do EUDR",
+        "desc": "O que significa realmente \"rastreabilidade em toda a cadeia de abastecimento\", como a geolocalização se insere nisto e os passos práticos para construir rastreabilidade de raiz.",
+        "category": "Guia Técnico"
+      },
+      "overview": {
+        "title": "A Sua Empresa Está Pronta para o EUDR? Uma Visão Geral Prática",
+        "desc": "Uma visão geral do Regulamento Europeu contra a Desflorestação: a quem se aplica, prazos principais, mercadorias regulamentadas e primeiros passos a dar.",
+        "category": "Visão Geral"
+      }
+    }
+  },
+  "common": {
+    "cookieBanner": {
+      "title": "Consentimento de Cookies",
+      "message": "Utilizamos cookies essenciais para autenticação e segurança. Com o seu consentimento, também utilizamos cookies analíticos para melhorar o nosso serviço.",
+      "acceptAll": "Aceitar Tudo",
+      "rejectAll": "Rejeitar Tudo",
+      "customize": "Personalizar",
+      "analyticsToggle": "Cookies analíticos",
+      "savePreferences": "Guardar preferências",
+      "privacyLink": "Saber mais"
+    }
   }
 }

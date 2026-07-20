@@ -1,0 +1,30 @@
+# Antaios — EUDR Compliance Platform
+
+Antaios is a B2B SaaS platform that helps importers comply with the EU Deforestation Regulation (EUDR) (EU Regulation 2023/1115). It automates the extraction of compliance data from import documents, manages due diligence statements (DDS), triggers deforestation scans, and submits DDS to the TRACES system.
+
+## Key Features
+- Automated document data extraction (PDF, CSV, Excel, GeoJSON, images)
+- Due Diligence Statement (DDS) management
+- Global Forest Watch deforestation scanning
+- TRACES system submission
+- Risk assessment PDF generation
+- Supplier data management via supplier portal
+- Free compliance diagnostic (8 questions, no email required)
+
+## Useful Links
+- Homepage: https://antaios.app
+- Free Diagnostic Tool: https://antaios.app/free-tool
+- Pricing: https://antaios.app/pricing
+- Resources: https://antaios.app/resources
+- EUDR Compliance Checklist: https://antaios.app/resources/eudr-checklist
+- EUDR Overview: https://antaios.app/resources/eudr-overview
+- Traceability Guide: https://antaios.app/resources/traceability-guide
+- Privacy Policy: https://antaios.app/legal/privacy
+- Terms of Service: https://antaios.app/legal/terms
+
+## EUDR Deadlines
+- Large and medium enterprises: December 30, 2026
+- Small and micro enterprises: June 30, 2027
+
+## About
+Antaios evaluates every shipment against all five EUDR criteria from Article 10(2): traceability, geolocation, documentation, attestations, and legality. Each criterion is scored green, amber, or red. Compliance records are retained for the full 5-year regulatory period.

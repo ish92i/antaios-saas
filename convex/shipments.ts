@@ -523,6 +523,12 @@ export const storeScanResult = internalMutation({
       eventType: "scan_completed",
       payload: { scanResult: args.scanResult, alertCount: args.scanAlertCount },
     })
+
+    if (shipment.riskAssessment) {
+      await ctx.scheduler.runAfter(0, internal.riskAssessment.computeRiskAssessment, {
+        shipmentId: args.shipmentId,
+      })
+    }
   },
 })
 
@@ -651,5 +657,22 @@ export const patchPdfExtractedData = internalMutation({
     await ctx.db.patch(args.shipmentId, {
       extractedData: args.extractedData,
     })
+  },
+})
+
+export const recomputeRiskAssessmentsForScannedShipments = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const shipments = await ctx.db.query("shipments").collect()
+    let count = 0
+    for (const s of shipments) {
+      if (s.scanResult && s.riskAssessment) {
+        await ctx.scheduler.runAfter(0, internal.riskAssessment.computeRiskAssessment, {
+          shipmentId: s._id,
+        })
+        count++
+      }
+    }
+    return count
   },
 })

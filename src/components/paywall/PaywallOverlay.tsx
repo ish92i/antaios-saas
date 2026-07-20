@@ -1,11 +1,12 @@
 import { useAction } from "convex/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "motion/react"
 import { Check, Globe, Loader2, Scan, Ship } from "lucide-react"
 
 import { api } from "@cvx/_generated/api"
 
 import { Button } from "@/components/ui/button"
+import { useJourneyTracking } from "@/hooks/use-journey-tracking"
 
 const features = [
   { icon: Ship, label: "Unlimited shipments" },
@@ -23,8 +24,14 @@ const directCost = "€500/month"
 export function PaywallOverlay() {
   const createCheckout = useAction(api.payments.createCheckoutSession)
   const [isLoading, setIsLoading] = useState(false)
+  const journey = useJourneyTracking()
+
+  useEffect(() => {
+    journey.trackPaywallEncountered()
+  }, [journey])
 
   const handlePurchase = async () => {
+    journey.trackCheckoutInitiated("direct", 500)
     setIsLoading(true)
     try {
       const { checkoutUrl } = await createCheckout({})

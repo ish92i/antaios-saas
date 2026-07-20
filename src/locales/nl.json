@@ -216,14 +216,237 @@
     "certification": "Certificering",
     "harvest_date": "Oogstdatum"
   },
+  "upload": {
+    "dropzone_idle": "Sleep uw bestanden hier naartoe",
+    "dropzone_active": "Zet de bestanden hier neer",
+    "browse": "of <0>blader</0> door uw bestanden",
+    "max_file_size": "Max {{size}} per bestand",
+    "max_files_error": "Maximaal {{count}} bestanden toegestaan",
+    "file_too_large": "Bestand te groot (max {{size}})",
+    "unsupported_type": "Niet-ondersteund bestandstype ({{ext}})",
+    "remove_file": "Bestand verwijderen"
+  },
   "locale": {
     "de": "Duits",
     "en": "English",
     "es": "Spaans",
-    "fr": "Fran\u00e7ais",
+    "fr": "Français",
     "it": "Italiaans",
     "nl": "Nederlands",
     "pt": "Portugees",
     "switch": "Taal wijzigen"
+  },
+    "freeTool": {
+    "title": "EUDR Compliance Diagnose",
+    "subtitle": "8 vragen om uw gereedheid te beoordelen op basis van artikel 10, lid 2, van EU-verordening 2023/1115",
+    "progress": "Vraag {{current}} van {{total}}",
+    "back": "Terug",
+    "start": "Start diagnose",
+    "next": "Volgende",
+    "questions": {
+      "q1": {
+        "title": "Welke grondstoffen importeert u?",
+        "subtitle": "Selecteer alles wat van toepassing is",
+        "options": {
+          "coffee": "Koffie",
+          "cocoa": "Cacao",
+          "timber": "Hout",
+          "rubber": "Rubber",
+          "soy": "Soja",
+          "palm_oil": "Palmolie",
+          "cattle": "Rundvee"
+        }
+      },
+      "q2": {
+        "title": "Wat is uw jaarlijkse omzet en aantal medewerkers?",
+        "options": {
+          "large_medium": "Grote/middelgrote onderneming (>€2M omzet of >10 werknemers)",
+          "small_micro": "Kleine/micro-onderneming (≤€2M omzet en ≤10 werknemers)"
+        }
+      },
+      "q3": {
+        "title": "Kent u de geografische herkomst (perceelsniveau) van uw levering?",
+        "yes": "Ja",
+        "no": "Nee"
+      },
+      "q4": {
+        "title": "Heeft u al een gedocumenteerd due diligence-proces?",
+        "yes": "Ja",
+        "no": "Nee"
+      },
+      "q5": {
+        "title": "Vertrouwt u op een derde partij (handelaar, coöperatie) voor traceerbaarheid?",
+        "yes": "Ja",
+        "no": "Nee"
+      },
+      "q6": {
+        "title": "Heeft u verklaringen of certificaten van leveranciers in uw bezit?",
+        "yes": "Ja — we hebben ontbossingsvrije verklaringen",
+        "no": "Nee — deze hebben we niet in ons bezit"
+      },
+      "q7": {
+        "title": "Heeft u de legaliteit van de productie beoordeeld volgens de wetten van het land van herkomst?",
+        "yes": "Ja — we hebben arbeids-, grondgebruiks- en milieuvergunningen beoordeeld",
+        "no": "Nee — nog niet beoordeeld"
+      },
+      "q8": {
+        "title": "Volgt u zendingen individueel of alleen op batch-/aggregatieniveau?",
+        "options": {
+          "individual": "Tracking op individueel zendingsniveau",
+          "batch": "Alleen batch- of aggregatieniveau"
+        }
+      }
+    },
+    "result": {
+      "title": "Uw Compliance-overzicht",
+      "regulation": "Beoordeeld op basis van artikel 10, lid 2, van EU-verordening 2023/1115",
+      "deadline": "Toepasselijke deadline: {{date}}",
+      "tier": {
+        "high": "Hoog risico",
+        "medium": "Gemiddeld risico",
+        "low": "Laag risico",
+        "high_desc": "U heeft {{count}} kritieke hiaten om aan te pakken voor uw deadline",
+        "medium_desc": "U heeft {{count}} aandachtspunten voor volledige naleving",
+        "low_desc": "U zit goed — {{count}} punten om te controleren"
+      },
+      "criteria": {
+        "traceability": "Traceerbaarheid in de hele toeleveringsketen",
+        "geolocation": "Geolocatie op perceelsniveau",
+        "dueDiligenceDocs": "Gedocumenteerde due diligence-procedures",
+        "supplierAttestations": "Verklaringen en certificeringen van leveranciers",
+        "legalityAssessment": "Legaliteitsbeoordeling",
+        "pass": "✓ Voldoet",
+        "fail": "✗ Actie vereist",
+        "subclause": "Vereist onder {{citation}}"
+      },
+      "actions": "Aanbevolen vervolgstappen",
+      "retake": "Test opnieuw doen",
+      "support": "Vragen over uw resultaat? E-mail ons op support@antaios.app",
+      "supportLink": "mailto:support@antaios.app"
+    },
+    "cta": {
+      "high": "Start met Antaios — €500/maand",
+      "medium": "Ontdek hoe Antaios dit oplost",
+      "low": "Blijf op de hoogte"
+    }
+  },
+  "landing": {
+    "nav": {
+      "freeTool": "Gratis Diagnose",
+      "resources": "Bronnen",
+      "pricing": "Prijzen",
+      "login": "Inloggen",
+      "getStarted": "Aan de slag",
+      "dashboard": "Dashboard"
+    },
+    "hero": {
+      "badge": "Deadline — 30 dec. 2026",
+      "title": "Word EUDR-compliant voor uw deadline — zonder een contract van €12.000/jaar",
+      "subtitle": "Verspreide PDF's, spreadsheets en deadline-angst? Antaios beoordeelt uw toeleveringsketen op alle 5 due diligence-criteria onder artikel 10, lid 2, van EU-verordening 2023/1115.",
+      "cta": "Controleer uw compliance — gratis",
+      "login": "Weet u al dat u dit nodig heeft? Aanmelden →"
+    },
+    "trust": {
+      "text": "Gebouwd rond de exacte 5 due diligence-criteria onder artikel 10, lid 2, van EU-verordening 2023/1115."
+    },
+    "problem": {
+      "q1": "\"Wie heeft welke documenten gestuurd? Welke zendingen hebben nog geolocatie nodig?\"",
+      "q2": "\"Wat gebeurt er als de auditor om onze due diligence-dossiers vraagt?\"",
+      "q3": "\"Zijn we echt compliant — of hopen we het alleen maar?\"",
+      "contrast": "Enterprise-tools kosten €12.000+/jaar en zijn maanden nodig om in te stellen. Antaios doet wat u echt nodig heeft, vanaf €500/maand."
+    },
+    "how": {
+      "title": "Hoe het werkt",
+      "step1": {
+        "title": "Voer uw zendingen in",
+        "desc": "Upload CSV-bestanden, PDF-facturen of verzendmanifesten direct in Antaios. Of voeg zendingen een voor een toe via ons gestroomlijnde formulier — geen speciale opmaak vereist. Antaios parseert en organiseert uw gegevens automatisch, zodat niets door de mazen van het net glipt."
+      },
+      "step2": {
+        "title": "Antaios beoordeelt uw risico",
+        "desc": "Antaios evalueert onmiddellijk elke zending op alle vijf EUDR-criteria: traceerbaarheid, geolocatie, documentatie, verklaringen en legaliteit. Elk criterium wordt gescoord en gemarkeerd als groen, oranje of rood, zodat u uw compliance-hiaten in één oogopslag ziet. Uw risicoprofiel wordt in seconden berekend — geen handmatig spreadsheetwerk meer."
+      },
+      "step3": {
+        "title": "Genereer uw DDS",
+        "desc": "Met één klik stelt Antaios uw due diligence-verklaring (DDS) voor elke zending samen. De verklaring is opgemaakt volgens TRACES-specificaties, klaar om in te dienen zonder nabewerking. Wat vroeger uren papierwerk kostte, is nu één druk op de knop."
+      },
+      "step4": {
+        "title": "Audit trail bewaard",
+        "desc": "Al uw compliance-dossiers — risicoscores, ondersteunende documenten en ingediende DDS-verklaringen — worden veilig opgeslagen voor de volledige wettelijke bewaartermijn van 5 jaar. Wanneer een auditor om dossiers vraagt, kunt u het volledige bestand binnen 24 uur ophalen en exporteren. Gemoedsrust dat u altijd klaar bent voor inspectie."
+      }
+    },
+    "midCta": {
+      "title": "Weet u niet zeker waar u staat?",
+      "desc": "Doe onze gratis 3-minuten diagnose. 8 vragen, geen e-mail vereist.",
+      "cta": "Doe de gratis diagnose →"
+    },
+    "pricing": {
+      "title": "Eenvoudige, transparante prijzen",
+      "price": "€500/maand",
+      "flat": "Vast tarief, geen kosten per zending",
+      "annual": "€5.000/jaar — break-even na 10 maanden",
+      "compare1": "Consultants: €5.000–20.000 per project",
+      "compare2": "Enterprise SaaS: €15.000+/jaar",
+      "caveat": "Als u een stroomafwaartse handelaar bent die alleen referentienummers opslaat in plaats van een volledige importeur, past een lichtere tool mogelijk beter bij u. We zullen u eerlijk vertellen of dat het geval is."
+    },
+    "faq": {
+      "title": "Veelgestelde vragen",
+      "q1": {
+        "q": "Is dit voldoende voor TRACES-indiening?",
+        "a": "Ja. Antaios genereert een due diligence-verklaring die voldoet aan de vereisten van artikel 10(2) en kan worden gebruikt voor TRACES-indiening."
+      },
+      "q2": {
+        "q": "Wat als ik geen grote onderneming ben?",
+        "a": "De gratis diagnose past de EUDR-deadline aan op basis van uw bedrijfsgrootte — kleine/micro-ondernemingen hebben tot 30 juni 2027. Onze prijzen beginnen bij €500/maand, ongeacht de grootte."
+      },
+      "q3": {
+        "q": "Wat als ik een handelaar ben, geen importeur?",
+        "a": "Handelaren vallen ook onder de EUDR-verplichtingen. Onze diagnose dekt uw situatie en we geven een eerlijke beoordeling of een lichtere tool mogelijk beter bij u past."
+      },
+      "q4": {
+        "q": "Zijn mijn gegevens veilig?",
+        "a": "Ja. We gebruiken encryptie in rust en onderweg. We verwerken gegevens via DeepL voor optionele vertalingen — raadpleeg onze privacyverklaring voor details."
+      }
+    },
+    "final": {
+      "cta": "Controleer uw compliance — het is gratis",
+      "login": "Klaar om te kopen? Aanmelden →"
+    }
+  },
+  "resources": {
+    "title": "EUDR Compliance-bronnen",
+    "subtitle": "Handleidingen, checklists en praktische bronnen voor importeurs die de EU-ontbossingsverordening navigeren.",
+    "readMore": "Lees meer →",
+    "readTime": "{{minutes}} min lezen",
+    "back": "← Terug naar bronnen",
+    "cta": "Weet u niet zeker waar u staat? Doe onze gratis diagnose →",
+    "articles": {
+      "checklist": {
+        "title": "EUDR Compliance-checklist: uw 5-stappenplan voor artikel 10(2)",
+        "desc": "Een praktische doorloop van de 5 due diligence-criteria. Wat elk vereist, welk bewijs u nodig heeft en veelvoorkomende valkuilen om te vermijden.",
+        "category": "Compliance-gids"
+      },
+      "traceability": {
+        "title": "Importeursgids voor traceerbaarheid in de toeleveringsketen onder EUDR",
+        "desc": "Wat 'traceerbaarheid in de hele toeleveringsketen' werkelijk betekent, hoe geolocatie hierin past en praktische stappen om traceerbaarheid vanaf nul op te bouwen.",
+        "category": "Technische gids"
+      },
+      "overview": {
+        "title": "Is uw bedrijf klaar voor EUDR? Een praktisch overzicht",
+        "desc": "Een overzicht op hoofdlijnen van de EU-ontbossingsverordening: wie het treft, belangrijke deadlines, gereguleerde grondstoffen en eerste stappen om te nemen.",
+        "category": "Overzicht"
+      }
+    }
+  },
+  "common": {
+    "cookieBanner": {
+      "title": "Cookie-instellingen",
+      "message": "We gebruiken essentiële cookies voor authenticatie en beveiliging. Met uw toestemming gebruiken we ook analytische cookies om onze service te verbeteren.",
+      "acceptAll": "Alles accepteren",
+      "rejectAll": "Alles weigeren",
+      "customize": "Aanpassen",
+      "analyticsToggle": "Analytische cookies",
+      "savePreferences": "Voorkeuren opslaan",
+      "privacyLink": "Meer informatie"
+    }
   }
 }

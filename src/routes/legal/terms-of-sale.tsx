@@ -1,11 +1,27 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { Helmet } from "react-helmet-async"
+import siteConfig from "~/site.config"
 import { Logo } from "@/components/logo"
+
+const pageTitle = "Terms and Conditions of Sale — Antaios"
+const pageDescription =
+  "Antaios Terms and Conditions of Sale for paid subscriptions to the EUDR compliance platform. Pricing, payment terms, cancellation, and service level."
+const pageUrl = `${siteConfig.siteUrl}/legal/terms-of-sale`
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.siteUrl },
+    { "@type": "ListItem", position: 2, name: "Legal", item: `${siteConfig.siteUrl}/legal/terms-of-sale` },
+    { "@type": "ListItem", position: 3, name: "Terms and Conditions of Sale", item: pageUrl },
+  ],
+}
 
 export const Route = createFileRoute("/legal/terms-of-sale")({
   component: TermsOfSalePage,
   beforeLoad: () => ({
-    title: "Terms and Conditions of Sale — Antaios",
+    title: pageTitle,
   }),
 })
 
@@ -13,7 +29,17 @@ function TermsOfSalePage() {
   return (
     <>
       <Helmet>
-        <title>Terms and Conditions of Sale — Antaios</title>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href={pageUrl} />
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
       <div className="min-h-screen bg-background">
         <div className="sticky top-0 z-50 mx-auto flex w-full max-w-screen-lg items-center justify-between p-6 py-3">

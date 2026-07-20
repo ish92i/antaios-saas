@@ -20,7 +20,7 @@ function EudrOverviewPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <ArticleSeo
         title="Is Your Business Ready for EUDR? A Practical Overview"
-        description="New to the EU Deforestation Regulation? This overview covers who it affects, key deadlines, the seven regulated commodities, and the first steps you should take to prepare."
+        description="New to the EU Deforestation Regulation (EUDR)? This overview covers who it affects, key deadlines, the 7 regulated commodities, and first steps to prepare your business for compliance."
         path="/resources/eudr-overview"
         datePublished="2024-11-10"
         category="Overview"

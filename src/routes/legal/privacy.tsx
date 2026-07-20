@@ -1,11 +1,27 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { Helmet } from "react-helmet-async"
+import siteConfig from "~/site.config"
 import { Logo } from "@/components/logo"
+
+const pageTitle = "Privacy Policy — Antaios"
+const pageDescription =
+  "Antaios privacy policy: how we collect, process, and protect your personal data in compliance with GDPR and the French Data Protection Act."
+const pageUrl = `${siteConfig.siteUrl}/legal/privacy`
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.siteUrl },
+    { "@type": "ListItem", position: 2, name: "Legal", item: `${siteConfig.siteUrl}/legal/privacy` },
+    { "@type": "ListItem", position: 3, name: "Privacy Policy", item: pageUrl },
+  ],
+}
 
 export const Route = createFileRoute("/legal/privacy")({
   component: PrivacyPage,
   beforeLoad: () => ({
-    title: "Privacy Policy — Antaios",
+    title: pageTitle,
   }),
 })
 
@@ -14,6 +30,7 @@ function PrivacyPage() {
     <>
       <Helmet>
         <title>Privacy Policy — Antaios</title>
+        <meta name="description" content="Antaios privacy policy for EUDR compliance platform users. Learn how we process personal data, our sub-processors, GDPR compliance, data retention policies, and your data rights." />
       </Helmet>
       <div className="min-h-screen bg-background">
         <div className="sticky top-0 z-50 mx-auto flex w-full max-w-screen-lg items-center justify-between p-6 py-3">

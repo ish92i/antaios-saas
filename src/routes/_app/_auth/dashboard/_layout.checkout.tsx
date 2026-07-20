@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { ExternalLink } from "lucide-react";
 import { buttonVariants } from "@/components/button-util";
 import { Logo } from "@/components/logo";
 import { Route as DashboardRoute } from "@/routes/_app/_auth/dashboard/_layout.index";
+import { useJourneyTracking } from "@/hooks/use-journey-tracking";
 export const Route = createFileRoute("/_app/_auth/dashboard/_layout/checkout")({
   component: DashboardCheckout,
   beforeLoad: () => ({
@@ -11,6 +13,11 @@ export const Route = createFileRoute("/_app/_auth/dashboard/_layout/checkout")({
 });
 
 export default function DashboardCheckout() {
+  const journey = useJourneyTracking();
+
+  useEffect(() => {
+    journey.trackCheckoutReturned();
+  }, [journey]);
   return (
     <div className="flex h-full w-full bg-secondary px-6 py-8">
       <div className="z-10 mx-auto flex h-full w-full max-w-screen-xl gap-12">
