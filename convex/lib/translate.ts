@@ -1,4 +1,5 @@
 import { DEEPL_API_KEY } from "@cvx/env"
+import { logger } from "@cvx/lib/logger"
 
 interface DeepLResponse {
   translations: Array<{
@@ -6,6 +7,8 @@ interface DeepLResponse {
     text: string
   }>
 }
+
+export const TRANSLATION_CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000 // 30 days
 
 export async function translateText(
   text: string,
@@ -34,7 +37,7 @@ export async function translateText(
 
   if (!response.ok) {
     const body = await response.text()
-    console.error(`DeepL error ${response.status}: ${body}`)
+    logger.error("DeepL translation failed", { status: response.status, body })
     return text
   }
 

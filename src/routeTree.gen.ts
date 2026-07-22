@@ -10,9 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as FreeToolRouteImport } from './routes/free-tool'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as SupplierTokenRouteImport } from './routes/supplier/$token'
 import { Route as ResourcesTraceabilityGuideRouteImport } from './routes/resources.traceability-guide'
 import { Route as ResourcesEudrOverviewRouteImport } from './routes/resources.eudr-overview'
@@ -22,6 +25,11 @@ import { Route as LegalTermsRouteImport } from './routes/legal/terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal/privacy'
 import { Route as LegalNoticesRouteImport } from './routes/legal/notices'
 import { Route as LegalDpaRouteImport } from './routes/legal/dpa'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminSubscriptionsRouteImport } from './routes/admin.subscriptions'
+import { Route as AdminShipmentsRouteImport } from './routes/admin.shipments'
+import { Route as AdminOrganizationsRouteImport } from './routes/admin.organizations'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AppAuthRouteImport } from './routes/_app/_auth'
 import { Route as AppLoginLayoutRouteImport } from './routes/_app/login/_layout'
 import { Route as AppLoginLayoutIndexRouteImport } from './routes/_app/login/_layout.index'
@@ -31,6 +39,7 @@ import { Route as AppAuthDashboardLayoutIndexRouteImport } from './routes/_app/_
 import { Route as AppAuthOnboardingLayoutOrganizationRouteImport } from './routes/_app/_auth/onboarding/_layout.organization'
 import { Route as AppAuthDashboardLayoutShipmentsRouteImport } from './routes/_app/_auth/dashboard/_layout.shipments'
 import { Route as AppAuthDashboardLayoutSettingsRouteImport } from './routes/_app/_auth/dashboard/_layout.settings'
+import { Route as AppAuthDashboardLayoutExportRouteImport } from './routes/_app/_auth/dashboard/_layout.export'
 import { Route as AppAuthDashboardLayoutCheckoutRouteImport } from './routes/_app/_auth/dashboard/_layout.checkout'
 import { Route as AppAuthDashboardLayoutSettingsBillingRouteImport } from './routes/_app/_auth/dashboard/_layout.settings.billing'
 
@@ -39,9 +48,19 @@ const ResourcesRoute = ResourcesRouteImport.update({
   path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FreeToolRoute = FreeToolRouteImport.update({
   id: '/free-tool',
   path: '/free-tool',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
@@ -52,6 +71,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const SupplierTokenRoute = SupplierTokenRouteImport.update({
   id: '/supplier/$token',
@@ -98,6 +122,31 @@ const LegalDpaRoute = LegalDpaRouteImport.update({
   id: '/legal/dpa',
   path: '/legal/dpa',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSubscriptionsRoute = AdminSubscriptionsRouteImport.update({
+  id: '/subscriptions',
+  path: '/subscriptions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminShipmentsRoute = AdminShipmentsRouteImport.update({
+  id: '/shipments',
+  path: '/shipments',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminOrganizationsRoute = AdminOrganizationsRouteImport.update({
+  id: '/organizations',
+  path: '/organizations',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AppAuthRoute = AppAuthRouteImport.update({
   id: '/_auth',
@@ -147,6 +196,12 @@ const AppAuthDashboardLayoutSettingsRoute =
     path: '/settings',
     getParentRoute: () => AppAuthDashboardLayoutRoute,
   } as any)
+const AppAuthDashboardLayoutExportRoute =
+  AppAuthDashboardLayoutExportRouteImport.update({
+    id: '/export',
+    path: '/export',
+    getParentRoute: () => AppAuthDashboardLayoutRoute,
+  } as any)
 const AppAuthDashboardLayoutCheckoutRoute =
   AppAuthDashboardLayoutCheckoutRouteImport.update({
     id: '/checkout',
@@ -162,8 +217,15 @@ const AppAuthDashboardLayoutSettingsBillingRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/free-tool': typeof FreeToolRoute
+  '/pricing': typeof PricingRoute
   '/resources': typeof ResourcesRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/organizations': typeof AdminOrganizationsRoute
+  '/admin/shipments': typeof AdminShipmentsRoute
+  '/admin/subscriptions': typeof AdminSubscriptionsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/legal/dpa': typeof LegalDpaRoute
   '/legal/notices': typeof LegalNoticesRoute
   '/legal/privacy': typeof LegalPrivacyRoute
@@ -173,11 +235,13 @@ export interface FileRoutesByFullPath {
   '/resources/eudr-overview': typeof ResourcesEudrOverviewRoute
   '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
+  '/admin/': typeof AdminIndexRoute
   '/login': typeof AppLoginLayoutRouteWithChildren
   '/dashboard': typeof AppAuthDashboardLayoutRouteWithChildren
   '/onboarding': typeof AppAuthOnboardingLayoutRouteWithChildren
   '/login/': typeof AppLoginLayoutIndexRoute
   '/dashboard/checkout': typeof AppAuthDashboardLayoutCheckoutRoute
+  '/dashboard/export': typeof AppAuthDashboardLayoutExportRoute
   '/dashboard/settings': typeof AppAuthDashboardLayoutSettingsRouteWithChildren
   '/dashboard/shipments': typeof AppAuthDashboardLayoutShipmentsRoute
   '/onboarding/organization': typeof AppAuthOnboardingLayoutOrganizationRoute
@@ -187,7 +251,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/free-tool': typeof FreeToolRoute
+  '/pricing': typeof PricingRoute
   '/resources': typeof ResourcesRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/organizations': typeof AdminOrganizationsRoute
+  '/admin/shipments': typeof AdminShipmentsRoute
+  '/admin/subscriptions': typeof AdminSubscriptionsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/legal/dpa': typeof LegalDpaRoute
   '/legal/notices': typeof LegalNoticesRoute
   '/legal/privacy': typeof LegalPrivacyRoute
@@ -197,9 +267,11 @@ export interface FileRoutesByTo {
   '/resources/eudr-overview': typeof ResourcesEudrOverviewRoute
   '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
+  '/admin': typeof AdminIndexRoute
   '/onboarding': typeof AppAuthOnboardingLayoutRouteWithChildren
   '/login': typeof AppLoginLayoutIndexRoute
   '/dashboard/checkout': typeof AppAuthDashboardLayoutCheckoutRoute
+  '/dashboard/export': typeof AppAuthDashboardLayoutExportRoute
   '/dashboard/settings': typeof AppAuthDashboardLayoutSettingsRouteWithChildren
   '/dashboard/shipments': typeof AppAuthDashboardLayoutShipmentsRoute
   '/onboarding/organization': typeof AppAuthOnboardingLayoutOrganizationRoute
@@ -210,9 +282,16 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
+  '/admin': typeof AdminRouteWithChildren
   '/free-tool': typeof FreeToolRoute
+  '/pricing': typeof PricingRoute
   '/resources': typeof ResourcesRouteWithChildren
   '/_app/_auth': typeof AppAuthRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/organizations': typeof AdminOrganizationsRoute
+  '/admin/shipments': typeof AdminShipmentsRoute
+  '/admin/subscriptions': typeof AdminSubscriptionsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/legal/dpa': typeof LegalDpaRoute
   '/legal/notices': typeof LegalNoticesRoute
   '/legal/privacy': typeof LegalPrivacyRoute
@@ -222,11 +301,13 @@ export interface FileRoutesById {
   '/resources/eudr-overview': typeof ResourcesEudrOverviewRoute
   '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
+  '/admin/': typeof AdminIndexRoute
   '/_app/login/_layout': typeof AppLoginLayoutRouteWithChildren
   '/_app/_auth/dashboard/_layout': typeof AppAuthDashboardLayoutRouteWithChildren
   '/_app/_auth/onboarding/_layout': typeof AppAuthOnboardingLayoutRouteWithChildren
   '/_app/login/_layout/': typeof AppLoginLayoutIndexRoute
   '/_app/_auth/dashboard/_layout/checkout': typeof AppAuthDashboardLayoutCheckoutRoute
+  '/_app/_auth/dashboard/_layout/export': typeof AppAuthDashboardLayoutExportRoute
   '/_app/_auth/dashboard/_layout/settings': typeof AppAuthDashboardLayoutSettingsRouteWithChildren
   '/_app/_auth/dashboard/_layout/shipments': typeof AppAuthDashboardLayoutShipmentsRoute
   '/_app/_auth/onboarding/_layout/organization': typeof AppAuthOnboardingLayoutOrganizationRoute
@@ -237,8 +318,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/free-tool'
+    | '/pricing'
     | '/resources'
+    | '/admin/login'
+    | '/admin/organizations'
+    | '/admin/shipments'
+    | '/admin/subscriptions'
+    | '/admin/users'
     | '/legal/dpa'
     | '/legal/notices'
     | '/legal/privacy'
@@ -248,11 +336,13 @@ export interface FileRouteTypes {
     | '/resources/eudr-overview'
     | '/resources/traceability-guide'
     | '/supplier/$token'
+    | '/admin/'
     | '/login'
     | '/dashboard'
     | '/onboarding'
     | '/login/'
     | '/dashboard/checkout'
+    | '/dashboard/export'
     | '/dashboard/settings'
     | '/dashboard/shipments'
     | '/onboarding/organization'
@@ -262,7 +352,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/free-tool'
+    | '/pricing'
     | '/resources'
+    | '/admin/login'
+    | '/admin/organizations'
+    | '/admin/shipments'
+    | '/admin/subscriptions'
+    | '/admin/users'
     | '/legal/dpa'
     | '/legal/notices'
     | '/legal/privacy'
@@ -272,9 +368,11 @@ export interface FileRouteTypes {
     | '/resources/eudr-overview'
     | '/resources/traceability-guide'
     | '/supplier/$token'
+    | '/admin'
     | '/onboarding'
     | '/login'
     | '/dashboard/checkout'
+    | '/dashboard/export'
     | '/dashboard/settings'
     | '/dashboard/shipments'
     | '/onboarding/organization'
@@ -284,9 +382,16 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_app'
+    | '/admin'
     | '/free-tool'
+    | '/pricing'
     | '/resources'
     | '/_app/_auth'
+    | '/admin/login'
+    | '/admin/organizations'
+    | '/admin/shipments'
+    | '/admin/subscriptions'
+    | '/admin/users'
     | '/legal/dpa'
     | '/legal/notices'
     | '/legal/privacy'
@@ -296,11 +401,13 @@ export interface FileRouteTypes {
     | '/resources/eudr-overview'
     | '/resources/traceability-guide'
     | '/supplier/$token'
+    | '/admin/'
     | '/_app/login/_layout'
     | '/_app/_auth/dashboard/_layout'
     | '/_app/_auth/onboarding/_layout'
     | '/_app/login/_layout/'
     | '/_app/_auth/dashboard/_layout/checkout'
+    | '/_app/_auth/dashboard/_layout/export'
     | '/_app/_auth/dashboard/_layout/settings'
     | '/_app/_auth/dashboard/_layout/shipments'
     | '/_app/_auth/onboarding/_layout/organization'
@@ -311,7 +418,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  AdminRoute: typeof AdminRouteWithChildren
   FreeToolRoute: typeof FreeToolRoute
+  PricingRoute: typeof PricingRoute
   ResourcesRoute: typeof ResourcesRouteWithChildren
   LegalDpaRoute: typeof LegalDpaRoute
   LegalNoticesRoute: typeof LegalNoticesRoute
@@ -330,11 +439,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/free-tool': {
       id: '/free-tool'
       path: '/free-tool'
       fullPath: '/free-tool'
       preLoaderRoute: typeof FreeToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -350,6 +473,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/supplier/$token': {
       id: '/supplier/$token'
@@ -414,6 +544,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalDpaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/subscriptions': {
+      id: '/admin/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/admin/subscriptions'
+      preLoaderRoute: typeof AdminSubscriptionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/shipments': {
+      id: '/admin/shipments'
+      path: '/shipments'
+      fullPath: '/admin/shipments'
+      preLoaderRoute: typeof AdminShipmentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/organizations': {
+      id: '/admin/organizations'
+      path: '/organizations'
+      fullPath: '/admin/organizations'
+      preLoaderRoute: typeof AdminOrganizationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/_app/_auth': {
       id: '/_app/_auth'
       path: ''
@@ -477,6 +642,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAuthDashboardLayoutSettingsRouteImport
       parentRoute: typeof AppAuthDashboardLayoutRoute
     }
+    '/_app/_auth/dashboard/_layout/export': {
+      id: '/_app/_auth/dashboard/_layout/export'
+      path: '/export'
+      fullPath: '/dashboard/export'
+      preLoaderRoute: typeof AppAuthDashboardLayoutExportRouteImport
+      parentRoute: typeof AppAuthDashboardLayoutRoute
+    }
     '/_app/_auth/dashboard/_layout/checkout': {
       id: '/_app/_auth/dashboard/_layout/checkout'
       path: '/checkout'
@@ -511,6 +683,7 @@ const AppAuthDashboardLayoutSettingsRouteWithChildren =
 
 interface AppAuthDashboardLayoutRouteChildren {
   AppAuthDashboardLayoutCheckoutRoute: typeof AppAuthDashboardLayoutCheckoutRoute
+  AppAuthDashboardLayoutExportRoute: typeof AppAuthDashboardLayoutExportRoute
   AppAuthDashboardLayoutSettingsRoute: typeof AppAuthDashboardLayoutSettingsRouteWithChildren
   AppAuthDashboardLayoutShipmentsRoute: typeof AppAuthDashboardLayoutShipmentsRoute
   AppAuthDashboardLayoutIndexRoute: typeof AppAuthDashboardLayoutIndexRoute
@@ -519,6 +692,7 @@ interface AppAuthDashboardLayoutRouteChildren {
 const AppAuthDashboardLayoutRouteChildren: AppAuthDashboardLayoutRouteChildren =
   {
     AppAuthDashboardLayoutCheckoutRoute: AppAuthDashboardLayoutCheckoutRoute,
+    AppAuthDashboardLayoutExportRoute: AppAuthDashboardLayoutExportRoute,
     AppAuthDashboardLayoutSettingsRoute:
       AppAuthDashboardLayoutSettingsRouteWithChildren,
     AppAuthDashboardLayoutShipmentsRoute: AppAuthDashboardLayoutShipmentsRoute,
@@ -582,6 +756,26 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+interface AdminRouteChildren {
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminOrganizationsRoute: typeof AdminOrganizationsRoute
+  AdminShipmentsRoute: typeof AdminShipmentsRoute
+  AdminSubscriptionsRoute: typeof AdminSubscriptionsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminLoginRoute: AdminLoginRoute,
+  AdminOrganizationsRoute: AdminOrganizationsRoute,
+  AdminShipmentsRoute: AdminShipmentsRoute,
+  AdminSubscriptionsRoute: AdminSubscriptionsRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 interface ResourcesRouteChildren {
   ResourcesEudrChecklistRoute: typeof ResourcesEudrChecklistRoute
   ResourcesEudrOverviewRoute: typeof ResourcesEudrOverviewRoute
@@ -601,7 +795,9 @@ const ResourcesRouteWithChildren = ResourcesRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  AdminRoute: AdminRouteWithChildren,
   FreeToolRoute: FreeToolRoute,
+  PricingRoute: PricingRoute,
   ResourcesRoute: ResourcesRouteWithChildren,
   LegalDpaRoute: LegalDpaRoute,
   LegalNoticesRoute: LegalNoticesRoute,

@@ -41,7 +41,7 @@ export function Hero() {
   const { t } = useTranslation();
 
   return (
-    <section className="relative min-h-[100dvh] overflow-hidden px-6 pb-20 pt-28 md:pb-32 md:pt-36">
+    <section className="relative min-h-[100dvh] overflow-hidden px-6 pb-20 pt-12 md:pb-32 md:pt-16">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--primary)/0.06,transparent_60%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[length:24px_24px] [background-image:radial-gradient(circle,var(--border)/0.4_0.5px,transparent_0.5px)]" />
       <div className="pointer-events-none absolute -left-32 -top-32 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
@@ -73,7 +73,7 @@ export function Hero() {
               <h1 className="mx-auto max-w-xl text-center text-4xl font-bold tracking-tighter text-foreground md:text-5xl lg:max-w-3xl lg:text-6xl leading-[1.05]">
                 {t(
                   "landing.hero.title",
-                  "Devenez conforme EUDR par vous-même avant l'échéance.",
+                  "EUDR Compliance Without the Spreadsheet Nightmare.",
                 )}
               </h1>
             </FadeIn>
@@ -82,7 +82,7 @@ export function Hero() {
               <p className="mx-auto max-w-2xl text-center text-base leading-relaxed text-muted-foreground md:text-lg">
                 {t(
                   "landing.hero.subtitle",
-                  "Antaios extrait les données de vos documents pour couvrir les 5 critères EUDR et générer votre DDS.",
+                  "Upload your documents. Antaios extracts the data, covers all 5 due-diligence criteria, and generates your DDS — in minutes.",
                 )}
               </p>
             </FadeIn>
@@ -94,7 +94,7 @@ export function Hero() {
                   size="lg"
                   className="w-full gap-2 rounded-full px-8 py-4 text-base sm:w-auto"
                 >
-                  {t("landing.hero.cta", "Diagnostic gratuit — 2 minutes")}
+                  {t("landing.hero.cta", "Check Your EUDR Compliance — Free")}
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -102,7 +102,7 @@ export function Hero() {
                 to={AuthLoginRoute.fullPath}
                 className="px-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
-                {t("landing.hero.login", "Créer mon compte →")}
+                {t("landing.hero.login", "Create your account →")}
               </Link>
             </FadeIn>
           </div>

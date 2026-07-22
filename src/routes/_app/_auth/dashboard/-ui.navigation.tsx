@@ -1,4 +1,4 @@
-import { CreditCard, Languages, Slash } from "lucide-react";
+import { CreditCard, Download, Languages, Slash } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "convex/react";
@@ -8,6 +8,7 @@ import { OrganizationSwitcher, UserButton } from "@clerk/clerk-react";
 import { Logo } from "@/components/logo";
 import { Link } from "@tanstack/react-router";
 import { Route as BillingSettingsRoute } from "@/routes/_app/_auth/dashboard/_layout.settings.billing";
+import { Route as ExportRoute } from "@/routes/_app/_auth/dashboard/_layout.export";
 import { User } from "~/types";
 
 export function Navigation({ user }: { user: User }) {
@@ -77,6 +78,13 @@ export function Navigation({ user }: { user: User }) {
             }}
           />
           </div>
+          <Link
+            to={ExportRoute.fullPath}
+            className="flex h-10 w-10 items-center justify-center rounded-md text-primary/60 hover:bg-primary/5 hover:text-primary"
+            title="Export Data"
+          >
+            <Download className="h-5 w-5 stroke-[1.5px]" />
+          </Link>
         </div>
 
         <div className="flex h-10 items-center gap-3">

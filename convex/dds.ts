@@ -5,6 +5,7 @@ import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
 import crypto from "crypto"
 import { decrypt } from "@cvx/traces_crypto"
+import { logger } from "@cvx/lib/logger"
 
 export const generateDds = internalAction({
   args: {
@@ -18,6 +19,8 @@ export const generateDds = internalAction({
     })
     if (!shipment) throw new Error("Shipment not found")
     if (shipment.status !== "submitting") return
+
+    logger.info("DDS generation started", { shipmentId: args.shipmentId })
 
     try {
       const extractedData = (shipment.extractedData ?? {}) as Record<string, unknown>
@@ -75,9 +78,16 @@ export const generateDds = internalAction({
         tracesRef = response.referenceNumber ?? response.id ?? String(Date.now())
         tracesRawResponse = JSON.stringify(response)
       } catch (apiError) {
-        console.error("DDS API call failed, using simulation:", apiError)
+        logger.error("DDS API call failed, using simulation", {
+          error: apiError instanceof Error ? apiError.message : String(apiError),
+          shipmentId: args.shipmentId,
+        })
         tracesRef = `SIM-${Date.now()}`
-        tracesRawResponse = JSON.stringify({ simulated: true })
+        tracesRawResponse = JSON.stringify({
+          simulated: true,
+          warning: "TRACES API call failed — this is a simulated reference. Submit manually via TRACES Next.",
+          originalError: apiError instanceof Error ? apiError.message : String(apiError),
+        })
       }
 
       await ctx.runMutation(internal.shipments.storeDdsResult, {

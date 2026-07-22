@@ -22,7 +22,8 @@ const SUBSCRIPTION_COLORS: Record<string, string> = {
 };
 
 function AdminUsersPage() {
-  const secret = getAdminSecret()!;
+  const secret = getAdminSecret();
+  if (!secret) return null;
   const [search, setSearch] = useState("");
   const { data: users, isLoading } = useQuery(
     convexQuery(api.admin.listUsers, { adminSecret: secret, search: search || undefined }),

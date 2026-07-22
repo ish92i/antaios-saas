@@ -52,7 +52,9 @@
     "extracting_status": "Extraction en cours, les données vont apparaître dès que les documents auront été traités.",
     "files_extracted": "{{count}} fichier(s) extrait(s)",
     "download_audit_trail": "Télécharger la piste d'audit",
-    "audit_trail_hint": "Certaines données peuvent être manquantes"
+    "audit_trail_hint": "Certaines données peuvent être manquantes",
+    "copy_supplier_link": "Copier le lien fournisseur",
+    "link_copied": "Lien copié !"
   },
   "conflict": {
     "title": "Résolution des conflits",
@@ -239,97 +241,97 @@
     "switch": "Changer de langue"
   },
   "freeTool": {
-    "title": "EUDR Compliance Diagnostic",
-    "subtitle": "8 questions to assess your readiness against Article 10(2), EU Regulation 2023/1115",
-    "progress": "Question {{current}} of {{total}}",
-    "back": "Back",
-    "start": "Start diagnostic",
-    "next": "Next",
+    "title": "Diagnostic de conformité EUDR",
+    "subtitle": "8 questions pour évaluer votre conformité selon l'Article 10(2), Règlement UE 2023/1115",
+    "progress": "Question {{current}} sur {{total}}",
+    "back": "Retour",
+    "start": "Commencer le diagnostic",
+    "next": "Suivant",
     "questions": {
       "q1": {
-        "title": "Which commodities do you import?",
-        "subtitle": "Select all that apply",
+        "title": "Quelles marchandises importez-vous ?",
+        "subtitle": "Sélectionnez toutes les options applicables",
         "options": {
-          "coffee": "Coffee",
-          "cocoa": "Cocoa",
-          "timber": "Timber",
-          "rubber": "Rubber",
-          "soy": "Soy",
-          "palm_oil": "Palm oil",
-          "cattle": "Cattle"
+          "coffee": "Café",
+          "cocoa": "Cacao",
+          "timber": "Bois",
+          "rubber": "Caoutchouc",
+          "soy": "Soja",
+          "palm_oil": "Huile de palme",
+          "cattle": "Bovins"
         }
       },
       "q2": {
-        "title": "What is your annual revenue and headcount?",
+        "title": "Quels sont votre chiffre d'affaires annuel et votre effectif ?",
         "options": {
-          "large_medium": "Large/medium enterprise (>€2M revenue or >10 employees)",
-          "small_micro": "Small/micro enterprise (≤€2M revenue and ≤10 employees)"
+          "large_medium": "Grande/moyenne entreprise (>2 M€ de CA ou >10 salariés)",
+          "small_micro": "Petite/micro-entreprise (≤2 M€ de CA et ≤10 salariés)"
         }
       },
       "q3": {
-        "title": "Do you know the geographic origin (plot-level) of your supply?",
-        "yes": "Yes",
-        "no": "No"
+        "title": "Connaissez-vous l'origine géographique (parcellaire) de votre approvisionnement ?",
+        "yes": "Oui",
+        "no": "Non"
       },
       "q4": {
-        "title": "Do you already have a documented due-diligence process?",
-        "yes": "Yes",
-        "no": "No"
+        "title": "Disposez-vous déjà d'un processus de due diligence documenté ?",
+        "yes": "Oui",
+        "no": "Non"
       },
       "q5": {
-        "title": "Do you rely on a third party (trader, cooperative) for traceability?",
-        "yes": "Yes",
-        "no": "No"
+        "title": "Avez-vous recours à un tiers (négociant, coopérative) pour la traçabilité ?",
+        "yes": "Oui",
+        "no": "Non"
       },
       "q6": {
-        "title": "Do you have supplier attestations or certificates on file?",
-        "yes": "Yes — we have deforestation-free declarations",
-        "no": "No — we don't have these on file"
+        "title": "Disposez-vous d'attestations ou certificats fournisseurs ?",
+        "yes": "Oui — nous avons des déclarations de non-déforestation",
+        "no": "Non — nous n'en disposons pas"
       },
       "q7": {
-        "title": "Have you assessed legality of production under the country of origin's laws?",
-        "yes": "Yes — we've assessed labor, land use, and environmental permits",
-        "no": "No — not yet assessed"
+        "title": "Avez-vous évalué la légalité de la production selon les lois du pays d'origine ?",
+        "yes": "Oui — nous avons évalué le travail, l'usage des sols et les permis environnementaux",
+        "no": "Non — pas encore évalué"
       },
       "q8": {
-        "title": "Do you currently track shipments individually, or only at batch/aggregate level?",
+        "title": "Suivez-vous les envois individuellement ou seulement par lot/agrégat ?",
         "options": {
-          "individual": "Individual shipment-level tracking",
-          "batch": "Batch or aggregate level only"
+          "individual": "Suivi individuel par envoi",
+          "batch": "Par lot ou agrégat uniquement"
         }
       }
     },
     "result": {
-      "title": "Your Compliance Snapshot",
-      "regulation": "Assessed against Article 10(2), EU Regulation 2023/1115",
-      "deadline": "Applicable deadline: {{date}}",
+      "title": "Aperçu de votre conformité",
+      "regulation": "Évalué selon l'Article 10(2), Règlement UE 2023/1115",
+      "deadline": "Échéance applicable : {{date}}",
       "tier": {
-        "high": "High Risk",
-        "medium": "Medium Risk",
-        "low": "Low Risk",
-        "high_desc": "You have {{count}} critical gaps to address before your deadline",
-        "medium_desc": "You have {{count}} areas to address for full compliance",
-        "low_desc": "You're in good shape — {{count}} items to review"
+        "high": "Risque élevé",
+        "medium": "Risque moyen",
+        "low": "Risque faible",
+        "high_desc": "Vous avez {{count}} lacunes critiques à combler avant l'échéance",
+        "medium_desc": "Vous avez {{count}} points à traiter pour une conformité totale",
+        "low_desc": "Vous êtes en bonne voie — {{count}} éléments à vérifier"
       },
       "criteria": {
-        "traceability": "Traceability throughout the supply chain",
-        "geolocation": "Plot-level geolocation",
-        "dueDiligenceDocs": "Documented due-diligence procedures",
-        "supplierAttestations": "Supplier attestations and certifications",
-        "legalityAssessment": "Legality assessment",
-        "pass": "✓ Pass",
-        "fail": "✗ Action needed",
-        "subclause": "Required under {{citation}}"
+        "traceability": "Traçabilité dans toute la chaîne d'approvisionnement",
+        "geolocation": "Géolocalisation parcellaire",
+        "dueDiligenceDocs": "Procédures de due diligence documentées",
+        "supplierAttestations": "Attestations et certifications fournisseurs",
+        "legalityAssessment": "Évaluation de la légalité",
+        "pass": "✓ Conforme",
+        "fail": "✗ Action requise",
+        "subclause": "Requis selon {{citation}}"
       },
-      "actions": "Recommended next actions",
-      "retake": "Retake the test",
-      "support": "Questions about your result? Email us at support@antaios.app",
+      "actions": "Actions recommandées",
+      "retake": "Refaire le test",
+      "support": "Des questions ? Écrivez-nous à support@antaios.app",
       "supportLink": "mailto:support@antaios.app"
     },
     "cta": {
-      "high": "Start with Antaios — €500/month",
-      "medium": "See how Antaios solves this",
-      "low": "Stay informed"
+      "high": "Commencez avec Antaios — 500 €/mois",
+      "medium": "Découvrez comment Antaios résout cela",
+      "low": "Restez informé"
     }
   },
   "landing": {
@@ -343,9 +345,9 @@
     },
     "hero": {
       "badge": "Échéance — 30 déc. 2026",
-      "title": "Devenez conforme EUDR par vous-même avant l'échéance.",
-      "subtitle": "Antaios extrait les données de vos documents pour couvrir les 5 critères EUDR et générer votre DDS.",
-      "cta": "Diagnostic gratuit — 2 minutes",
+      "title": "Conformité EUDR sans le casse-tête des tableurs.",
+      "subtitle": "Importez vos documents. Antaios extrait les données, couvre les 5 critères de diligence et génère votre DDS en quelques minutes.",
+      "cta": "Vérifiez votre conformité — gratuit",
       "login": "Créer mon compte →"
     },
     "trust": {
@@ -355,7 +357,93 @@
       "q1": "\"Qui a envoyé quoi ? Quels envois n'ont pas de géolocalisation ?\"",
       "q2": "\"Que se passe-t-il quand l'auditeur demande nos registres de due diligence ?\"",
       "q3": "\"Sommes-nous vraiment conformes — ou simplement en espérant l'être ?\"",
-      "contrast": "Les outils enterprise facturent 12 000 €+ par an et mettent des mois à être déployés. Antaios fait ce dont vous avez vraiment besoin, à partir de 500 €/mois."
+      "contrast": "Les outils enterprise facturent 12 000 €+ par an et mettent des mois à être déployés. Antaios fait ce dont vous avez vraiment besoin, à partir de 500 €/mois.",
+      "header": "Les outils enterprise surfacturent. Antaios livre ce qu'il faut.",
+      "body": "Ce dont une PME a réellement besoin — pas ce qu'un compte enterprise facture. Opérationnel en un après-midi, pas en un trimestre.",
+      "title": "L'EUDR ne tolère pas une conformité approximative",
+      "subtitle": "Sans outil dédié, chaque envoi est une course contre la montre.",
+      "urgent": "Urgent",
+      "manual": {
+        "title": "DDS faite à la main",
+        "desc": "Des heures à assembler PDF, emails et tableurs pour un seul dossier."
+      },
+      "scattered": {
+        "title": "Sources éparpillées",
+        "desc": "Traçabilité, géolocalisation, légalité — chaque critère vit dans son propre silo."
+      },
+      "deadlines": {
+        "title": "Échéance dans 6 mois",
+        "desc": "30 déc. 2026 pour les grandes entreprises. 30 juin 2027 pour les PME.",
+        "large": "Grandes entreprises",
+        "small": "PME et micro-entreprises",
+        "countdown": "{{count}} mois restants — commencez à vous préparer dès maintenant"
+      },
+      "risk": {
+        "title": "Conformité aveugle",
+        "desc": "Sans audit structuré, impossible de savoir si vous êtes conforme jusqu'à la première inspection."
+      },
+      "solution": {
+        "problem_title": "Chaque Expédition est une Course Contre la Montre",
+        "problem_desc": "Documents éparpillés, sources disparates, échéance qui approche.",
+        "solution_title": "Un Dossier, Généré Automatiquement",
+        "solution_desc": "Antaios centralise, vérifie et génère votre DDS en un clic.",
+        "check_exporter": "Exportateur / Produit",
+        "check_parcel": "Parcelle / Géolocalisation",
+        "check_conformity": "Conformité / Légalité",
+        "check_rights": "Droits & Légalité",
+        "check_traceability": "Traçabilité",
+        "status_ok": "OK",
+        "status_in_progress": "En cours",
+        "status_pending": "En attente",
+        "source_pdf": "PDF fournisseur",
+        "source_pdf_detail": "Factures, BL, certificats",
+        "source_email": "Emails",
+        "source_email_detail": "Demandes et pièces jointes",
+        "source_parcel": "Parcelles",
+        "source_parcel_detail": "Coordonnées et GeoJSON",
+        "problem_badge": "Problème",
+        "solution_badge": "Solution",
+        "scattered_inputs": "Entrées dispersées",
+        "deadline": "Échéance : 30 déc. 2026",
+        "step_read": "Lit et structure",
+        "step_read_desc": "OCR, extraction et rapprochement des preuves.",
+        "step_verify": "Vérifie les risques",
+        "step_verify_desc": "Traçabilité, légalité et géolocalisation.",
+        "step_compliance": "Dossier de conformité",
+        "step_compliance_desc": "Prêt pour dépôt DDS",
+        "compliant_badge": "Conforme"
+      }
+    },
+    "workflow": {
+      "title": "Comment ça marche",
+      "subtitle": "Chaque expédition suit le même flux de travail simple.",
+      "stages": {
+        "upload": {
+          "label": "Importer",
+          "desc": "Soumettez vos documents — factures, manifestes, certificats"
+        },
+        "extract": {
+          "label": "Extraire & Vérifier",
+          "desc": "Antaios extrait et recoupe automatiquement les données"
+        },
+        "resolve": {
+          "label": "Résoudre les conflits",
+          "desc": "Corrigez les données contradictoires dans une interface unifiée"
+        },
+        "request": {
+          "label": "Demander au fournisseur",
+          "desc": "Infos manquantes ? Demandez via le portail fournisseur"
+        },
+        "screen": {
+          "label": "Analyser la déforestation",
+          "desc": "Scannez les zones de production pour détecter les changements de couvert forestier"
+        },
+        "submit": {
+          "label": "Soumettre la DDS à TRACES",
+          "desc": "Générez et déposez votre déclaration de diligence raisonnable"
+        }
+      },
+      "audit_trail": "Piste d'audit — chaque action enregistrée automatiquement"
     },
     "how": {
       "title": "Comment ça marche",
@@ -376,6 +464,30 @@
         "desc": "Tous vos registres de conformité — scores de risque, documents justificatifs et DDS déposées — sont stockés en toute sécurité pour la période de conservation réglementaire de 5 ans. Lorsqu'un auditeur demande des documents, vous pouvez récupérer et exporter le dossier complet en moins de 24 heures. La tranquillité d'esprit d'être toujours prêt pour une inspection."
       }
     },
+    "footer": {
+      "freeTool": "Outil gratuit",
+      "resources": "Ressources",
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation",
+      "description": "Conformité EUDR pour les importateurs. Plateforme de due diligence conforme au règlement européen 2023/1115.",
+      "product": "Produit",
+      "legal": "Légal",
+      "links": {
+        "features": "Fonctionnalités",
+        "pricing": "Tarifs",
+        "diagnostic": "Diagnostic gratuit",
+        "blog": "Blog",
+        "guide": "Guide EUDR",
+        "checklist": "Check-list",
+        "faq": "FAQ",
+        "notices": "Mentions légales",
+        "privacy": "Politique de confidentialité",
+        "termsOfSale": "CGV",
+        "dpa": "DPA"
+      },
+      "translationNotice": "Traitement des traductions via DeepL (sous-traitant)",
+      "contact": "Contact"
+    },
     "midCta": {
       "title": "Vous ne savez pas où vous en êtes ?",
       "desc": "Diagnostic gratuit de 2 minutes. 8 questions, sans email.",
@@ -388,7 +500,36 @@
       "annual": "5 000 €/an — soit 2 mois offerts",
       "compare1": "Consultants : 5 000–20 000 € par projet",
       "compare2": "SaaS Enterprise : 15 000 €+/an",
-      "caveat": "Si vous êtes un négociant qui ne fait que stocker des numéros de référence sans être importateur, un outil plus léger peut mieux vous convenir. Nous vous le dirons honnêtement."
+      "caveat": "Si vous êtes un négociant qui ne fait que stocker des numéros de référence sans être importateur, un outil plus léger peut mieux vous convenir. Nous vous le dirons honnêtement.",
+      "feature1": "Envois illimités",
+      "feature2": "Forfait annuel : ×10 mois",
+      "feature3": "Support par email et chat",
+      "compareTitle": "Comparé aux autres options",
+      "compareOption1": "Cabinet de conseil",
+      "comparePrice1": "5 000 € – 20 000 € / mission",
+      "compareOption2": "Plateforme SaaS Enterprise",
+      "comparePrice2": "15 000 €+ / an",
+      "compareOption3": "Antaios",
+      "comparePrice3": "6 000 € / an",
+      "sub": "Forfait mensuel unique. Sans frais cachés, sans engagement.",
+      "forLabel": "Pour importateurs et opérateurs de marché",
+      "cta": "Commencer",
+      "demo": "Réserver une démo",
+      "noCommitment": "Sans engagement. Annulez à tout moment.",
+      "includes": "Tout inclus",
+      "includesDesc": "Pas de modules optionnels, pas de surprises.",
+      "features": {
+        "unlimited": "Envois illimités",
+        "criteria": "Tous les 5 critères de l'Article 10(2)",
+        "export": "Export DDS pour TRACES",
+        "audit": "Piste d'audit de 5 ans",
+        "scan": "Scan automatisé de déforestation",
+        "supplier": "Portail fournisseur",
+        "import": "Import multi-format (PDF, Excel, images, GeoJSON)",
+        "report": "Rapport de conformité PDF",
+        "support": "Support par email",
+        "onboarding": "Intégration en un après-midi"
+      }
     },
     "faq": {
       "title": "Questions fréquentes",
@@ -407,7 +548,119 @@
       "q4": {
         "q": "Mes données sont-elles sécurisées ?",
         "a": "Oui. Nous utilisons le chiffrement au repos et en transit. Nous traitons les données via DeepL pour les traductions optionnelles — consultez notre politique de confidentialité."
+      },
+      "deposit": {
+        "q": "Dois-je quand même soumettre la DDS moi-même ?",
+        "a": "Oui, la soumission sur TRACES reste votre responsabilité. Antaios génère une DDS complète et conforme que vous pouvez soumettre en quelques clics."
+      },
+      "hosting": {
+        "q": "Mes données sont-elles hébergées en Europe ?",
+        "a": "Oui. Toutes vos données sont stockées sur des serveurs au sein de l'Union européenne, conformément au RGPD."
+      },
+      "retention": {
+        "q": "Que se passe-t-il après la période de conservation de 5 ans ?",
+        "a": "Le règlement exige 5 ans de conservation. Après cette période, vous pouvez exporter vos archives ou demander leur suppression."
+      },
+      "comparison": {
+        "q": "Quelle est la différence avec Coolset ou osapiens ?",
+        "a": "Antaios est conçu pour les PME : un tarif fixe de 500 €/mois, installation en un après-midi, sans engagement à long terme."
+      },
+      "erp": {
+        "q": "Puis-je importer des données depuis un ERP ?",
+        "a": "L'import manuel via CSV/Excel est disponible. L'intégration API avec les principaux ERP est en développement."
       }
+    },
+    "comparison": {
+      "headline": "Antaios face aux alternatives",
+      "sub": "Comparaison transparente. Pas de spin, pas de surprises.",
+      "note": "EUDRReady cible les revendeurs (obligation allégée). Antaios, Coolset et osapiens ciblent les opérateurs importateurs (due diligence complète).",
+      "col": {
+        "solution": "Solution",
+        "manual": "Manuel",
+        "eudrready": "EUDRReady",
+        "coolset": "Coolset",
+        "osapiens": "osapiens",
+        "antaios": "Antaios"
+      },
+      "row": {
+        "price": "Prix",
+        "setup": "Mise en route",
+        "coverage": "Conformité complète",
+        "access": "Accès",
+        "transparency": "Transparence tarifaire"
+      },
+      "cell": {
+        "price": {
+          "manual": "Gratuit (coût caché : temps)",
+          "eudrready": "Gratuit – 79 €/mois",
+          "coolset": "~6 000 – 12 000+ €/an",
+          "osapiens": "Sur devis",
+          "antaios": "500 €/mois"
+        },
+        "setup": {
+          "manual": "Immédiat",
+          "eudrready": "~20 min",
+          "coolset": "4 semaines",
+          "osapiens": "Plusieurs semaines",
+          "antaios": "Un après-midi"
+        },
+        "coverage": {
+          "manual": "Non",
+          "eudrready": "Hors périmètre",
+          "coolset": "Oui",
+          "osapiens": "Oui",
+          "antaios": "Oui"
+        },
+        "access": {
+          "manual": "N/A",
+          "eudrready": "Self-serve",
+          "coolset": "Sur rendez-vous",
+          "osapiens": "Sur rendez-vous",
+          "antaios": "Self-serve"
+        },
+        "transparency": {
+          "manual": "N/A",
+          "eudrready": "Publié",
+          "coolset": "Modulaire",
+          "osapiens": "Non publié",
+          "antaios": "Publié"
+        }
+      }
+    },
+    "freeTool": {
+      "badge": "Diagnostic gratuit — 2 minutes",
+      "headline": "La deadline EUDR approche. Savez-vous où vous en êtes ?",
+      "sub": "Répondez à 8 questions basées sur les 5 critères Article 10(2) et obtenez votre niveau de risque personnalisé, vos lacunes, et les actions prioritaires — en 2 minutes, sans inscription.",
+      "benefits": {
+        "legal": {
+          "title": "Conforme à la loi",
+          "desc": "Basé sur les 5 critères de due diligence de l'Article 10(2), Règlement UE 2023/1115."
+        },
+        "instant": {
+          "title": "Résultat instantané",
+          "desc": "Votre profil de risque et actions prioritaires calculés en quelques secondes."
+        },
+        "free": {
+          "title": "Aucun email requis",
+          "desc": "Pas d'inscription, pas de données stockées. Entièrement anonyme."
+        }
+      },
+      "mock": {
+        "badge": "Votre résultat",
+        "deadlineLabel": "Deadline applicable",
+        "deadline": "30 Déc 2026",
+        "tier": "Risque moyen",
+        "criteria": {
+          "traceability": "Traçabilité",
+          "geolocation": "Géolocalisation",
+          "dueDiligence": "Documentation due diligence",
+          "attestations": "Attestations fournisseur",
+          "legality": "Conformité légale pays d'origine"
+        },
+        "nextAction": "3 critères à traiter avant la deadline."
+      },
+      "cta": "Vérifier ma conformité — c'est gratuit",
+      "socialProof": "Testé sur 2 500+ entreprises"
     },
     "final": {
       "title": "Prêt avant l'échéance ?",
@@ -417,27 +670,197 @@
     }
   },
   "resources": {
-    "title": "EUDR Compliance Resources",
-    "subtitle": "Guides, checklists, and practical resources for importers navigating the EU Deforestation Regulation.",
-    "readMore": "Read more →",
-    "readTime": "{{minutes}} min read",
-    "back": "← Back to resources",
-    "cta": "Not sure where you stand? Take our free diagnostic →",
+    "title": "Ressources conformité EUDR",
+    "subtitle": "Guides, listes de contrôle et ressources pratiques pour les importateurs face au Règlement européen sur la déforestation.",
+    "readMore": "Lire la suite →",
+    "readTime": "{{minutes}} min de lecture",
+    "back": "← Retour aux ressources",
+    "cta": "Vous ne savez pas où vous en êtes ? Faites notre diagnostic gratuit →",
+    "article": {
+      "back": "← Retour aux ressources"
+    },
     "articles": {
       "checklist": {
-        "title": "EUDR Compliance Checklist: Your 5-Step Guide to Article 10(2)",
-        "desc": "A practical walk through the 5 due-diligence criteria. What each requires, what evidence you need, and common pitfalls to avoid.",
-        "category": "Compliance Guide"
+        "title": "Checklist conformité EUDR : Guide en 5 étapes pour l'Article 10(2)",
+        "desc": "Un parcours pratique des 5 critères de due diligence. Ce que chacun exige, les preuves nécessaires et les pièges courants à éviter.",
+        "category": "Guide conformité"
       },
       "traceability": {
-        "title": "Importer's Guide to Supply Chain Traceability Under EUDR",
-        "desc": "What 'traceability throughout the supply chain' actually means, how geolocation feeds into it, and practical steps to build traceability from scratch.",
-        "category": "Technical Guide"
+        "title": "Guide de l'importateur pour la traçabilité de la chaîne d'approvisionnement selon l'EUDR",
+        "desc": "Ce que signifie réellement la « traçabilité dans toute la chaîne d'approvisionnement », comment la géolocalisation s'y intègre et les étapes pratiques pour construire la traçabilité de zéro.",
+        "category": "Guide technique"
       },
       "overview": {
-        "title": "Is Your Business Ready for EUDR? A Practical Overview",
-        "desc": "A high-level overview of the EU Deforestation Regulation: who it affects, key deadlines, regulated commodities, and first steps to take.",
-        "category": "Overview"
+        "title": "Votre entreprise est-elle prête pour l'EUDR ? Un aperçu pratique",
+        "desc": "Un aperçu du Règlement européen sur la déforestation : qui est concerné, les échéances clés, les marchandises réglementées et les premières étapes.",
+        "category": "Aperçu"
+      }
+    },
+    "checklist": {
+      "category": "Guide conformité",
+      "readTime": "5 min de lecture",
+      "title": "Checklist conformité EUDR : Votre guide en 5 étapes pour l'Article 10(2)",
+      "intro": "L'article 10(2) du Règlement européen sur la déforestation (UE) 2023/1115 définit cinq critères que votre déclaration de due diligence doit couvrir. Les autorités de contrôle vérifieront chacun d'entre eux. Voici un tour d'horizon pratique de ce que chaque critère exige et comment vous préparer.",
+      "step1": {
+        "title": "1. Traçabilité (Article 10(2)(a))",
+        "body": "Vous devez être en mesure de démontrer que chaque produit de votre envoi peut être retracé jusqu'à sa parcelle d'origine. Cela implique de maintenir une chaîne de traçabilité documentée, de la ferme ou de la forêt jusqu'à votre entrepôt. Pour chaque lot, enregistrez le fournisseur, l'intermédiaire, le pays et la région de production, ainsi que les identifiants de parcelle.",
+        "evidence": "Ce qu'il vous faut :",
+        "ev1": "Contrats fournisseurs et bons de commande reliant les produits aux parcelles spécifiques",
+        "ev2": "Registres internes de suivi des lots (extraits ERP, tableurs ou votre plateforme de conformité)",
+        "ev3": "Certifications de chaîne de traçabilité le cas échéant (ex. FSC pour le bois, RSPO pour l'huile de palme)",
+        "pitfall": "Piège courant :",
+        "pitfallBody": "Se fier à une seule déclaration fournisseur sans la recouper avec les registres d'expédition réels. Si un auditeur demande à voir la chaîne pour un conteneur spécifique, vous avez besoin d'un niveau de détail par lot, pas simplement d'une déclaration générale."
+      },
+      "step2": {
+        "title": "2. Géolocalisation (Article 10(2)(b) + 9(1)(d))",
+        "body": "Pour chaque parcelle où une marchandise a été produite, vous devez enregistrer les coordonnées de géolocalisation. L'article 9(1)(d) précise que pour les parcelles de plus de 4 hectares, vous avez besoin de coordonnées polygonales (pas seulement un point unique). Pour les parcelles plus petites, un point latitude/longitude suffit. Ces coordonnées doivent être soumises avec votre déclaration de due diligence.",
+        "evidence": "Ce qu'il vous faut :",
+        "ev1": "Coordonnées GPS (point ou polygone) pour chaque parcelle de production",
+        "ev2": "Un système qui stocke et récupère les données de géolocalisation par envoi",
+        "ev3": "Preuve que les coordonnées ont été collectées au moment de la récolte ou de la production",
+        "tip": "Astuce pratique :",
+        "tipBody": "Si vous travaillez avec des petits exploitants, fournissez-leur des outils mobiles simples ou un accompagnement de terrain pour collecter les coordonnées. Une coordonnée manquante ou un polygone incorrect est l'une des raisons les plus courantes de rejet de DDS."
+      },
+      "step3": {
+        "title": "3. Conformité à la législation applicable (Article 10(2)(c))",
+        "body": "Vous devez vérifier que le produit a été fabriqué en conformité avec la législation applicable du pays de production. Cela couvre les droits d'utilisation des terres, les réglementations environnementales, le droit du travail, le droit fiscal et les règles anti-corruption. La charge de la preuve vous incombe, en tant qu'importateur — ce n'est pas au régulateur de prouver la non-conformité.",
+        "evidence": "Ce qu'il vous faut :",
+        "ev1": "Évaluations des risques par pays d'origine (en utilisant le référencement de la Commission européenne ou votre propre analyse)",
+        "ev2": "Attestations fournisseurs couvrant les domaines juridiques pertinents",
+        "ev3": "Rapports d'audit tiers lorsque disponibles"
+      },
+      "step4": {
+        "title": "4. Informations adéquates et vérifiables (Article 10(2)(d))",
+        "body": "Les informations que vous collectez doivent être adéquates, c'est-à-dire couvrir tous les critères pertinents, et vérifiables, c'est-à-dire qu'un tiers pourrait les confirmer. Les déclarations vagues ne suffisent pas. Vous avez besoin de données spécifiques avec une provenance claire — qui les a fournies, quand, et comment elles ont été vérifiées.",
+        "tip": "Stratégie :",
+        "tipBody": "Tenez un référentiel centralisé où chaque élément de preuve est étiqueté avec sa source, sa date de collecte et son statut de vérification. Ainsi, la préparation d'un audit devient une simple exportation de rapport, plutôt qu'une chasse aux emails."
+      },
+      "step5": {
+        "title": "5. Évaluation des risques et atténuation (Article 10(2)(e))",
+        "body": "Le règlement vous oblige à évaluer le risque de non-conformité pour chaque envoi et, lorsqu'un risque est identifié, à appliquer des mesures d'atténuation. Votre évaluation des risques doit tenir compte du pays d'origine, de la complexité de la chaîne d'approvisionnement et de tout signal d'alarme (comme des alertes récentes de déforestation ou des sanctions). Les mesures d'atténuation peuvent inclure des demandes de documents supplémentaires, des audits tiers ou le choix de fournisseurs alternatifs.",
+        "evidence": "Ce qu'il vous faut :",
+        "ev1": "Une méthodologie documentée d'évaluation des risques",
+        "ev2": "Registres des actions d'atténuation prises et de leurs résultats",
+        "ev3": "Une justification claire des déterminations de risque faible"
+      },
+      "final": {
+        "title": "Synthèse",
+        "body": "La conformité ne se résume pas à un document unique — c'est un système. Mettez en place des procédures pour chacun des cinq critères, assignez des responsabilités et testez votre processus avec un audit blanc. En tant qu'opérateur au sens de l'EUDR, vous êtes responsable de toute la chaîne, de la parcelle au port."
+      },
+      "cta": {
+        "title": "Vous ne savez pas où vous en êtes ?",
+        "desc": "Faites notre diagnostic gratuit de 3 minutes. 8 questions, sans email requis.",
+        "button": "Faire le diagnostic gratuit"
+      }
+    },
+    "overview": {
+      "category": "Aperçu",
+      "readTime": "4 min de lecture",
+      "title": "Votre entreprise est-elle prête pour l'EUDR ? Un aperçu pratique",
+      "intro": "Le Règlement européen sur la déforestation (UE) 2023/1115 — communément appelé EUDR — est le changement réglementaire le plus important pour les importateurs de matières premières à risque forestier depuis des décennies. Si votre entreprise importe du bétail, du cacao, du café, de l'huile de palme, du caoutchouc, du soja ou du bois dans l'UE, ce règlement vous concerne. Voici un aperçu pratique de ce que vous devez savoir.",
+      "what": {
+        "title": "Qu'est-ce que l'EUDR ?",
+        "body": "L'EUDR remplace le Règlement européen sur le bois (EUTR) et élargit considérablement son champ d'application. Le règlement exige que les opérateurs et les négociants qui placent des marchandises couvertes sur le marché de l'UE effectuent une diligence raisonnable démontrant que leurs produits sont exempts de déforestation et produits en conformité avec la législation applicable du pays d'origine. L'obligation principale est la déclaration de due diligence (DDS), qui doit être soumise à l'autorité compétente avant chaque entrée de marchandises dans l'UE."
+      },
+      "who": {
+        "title": "Qui est concerné ?",
+        "body": "Le règlement distingue les opérateurs (ceux qui placent un produit pertinent sur le marché de l'UE pour la première fois) et les négociants (ceux qui le mettent ensuite à disposition). Les deux ont des obligations, même si celles des négociants sont allégées. Si vous êtes un importateur de produits finis contenant des marchandises couvertes, ou un opérateur aval les utilisant dans la fabrication, vous êtes concerné. Le règlement s'applique également aux négociants qui ne sont pas des petites ou micro-entreprises."
+      },
+      "deadlines": {
+        "title": "Échéances clés",
+        "body": "La date d'entrée en vigueur initiale du 30 décembre 2024 a été reportée. Selon le calendrier révisé :",
+        "large": "Grandes et moyennes entreprises",
+        "largeDate": "30 décembre 2026",
+        "small": "Petites et micro-entreprises",
+        "smallDate": "30 juin 2027",
+        "note": "Ces échéances sont fermes. Même si vous faites partie de la seconde cohorte, il est vivement recommandé de commencer les préparatifs dès maintenant — la mise en place de systèmes de traçabilité et les relations fournisseurs prennent du temps."
+      },
+      "commodities": {
+        "title": "Les 7 marchandises réglementées",
+        "body": "L'EUDR s'applique aux marchandises suivantes et à leurs produits dérivés :",
+        "cattle": "Bovins",
+        "cattleDesc": "Animaux vivants, viande, cuirs, peaux et suif",
+        "cocoa": "Cacao",
+        "cocoaDesc": "Fèves, pâte, beurre, poudre et produits chocolatés",
+        "coffee": "Café",
+        "coffeeDesc": "Café vert, café torréfié et extraits",
+        "oilPalm": "Huile de palme",
+        "oilPalmDesc": "Huile de palme brute et raffinée, huile de palmiste et dérivés",
+        "rubber": "Caoutchouc",
+        "rubberDesc": "Caoutchouc naturel, latex et produits en caoutchouc",
+        "soya": "Soja",
+        "soyaDesc": "Graines de soja, tourteau, huile et lécithine",
+        "wood": "Bois",
+        "woodDesc": "Bois d'œuvre, pâte et papier, meubles et panneaux à base de bois"
+      },
+      "noncompliance": {
+        "title": "Que se passe-t-il en cas de non-conformité ?",
+        "body": "La non-conformité entraîne de graves conséquences. Les produits mis sur le marché sans déclaration de due diligence valide sont considérés comme illégaux. Les autorités compétentes de chaque État membre peuvent saisir les produits, imposer des amendes proportionnelles aux dommages environnementaux et interdire aux opérateurs de placer des produits sur le marché de l'UE en cas de violation répétée ou grave. Le règlement prévoit également la divulgation publique des opérateurs non conformes."
+      },
+      "firstSteps": {
+        "title": "Premières étapes",
+        "body": "Si vous débutez avec l'EUDR, voici par où commencer :",
+        "s1": "Identifier lesquelles des 7 marchandises votre entreprise manipule et si elles entrent dans le champ d'application du règlement",
+        "s2": "Cartographier vos chaînes d'approvisionnement — pour chaque marchandise, identifier le pays de production, les fournisseurs et les parcelles d'origine",
+        "s3": "Évaluer votre couverture de données actuelle : disposez-vous des coordonnées de géolocalisation pour vos parcelles de production ?",
+        "s4": "Commencer à collecter la documentation de due diligence pour vos prochains envois — n'attendez pas la date limite",
+        "s5": "Réaliser un diagnostic pour identifier les lacunes de votre conformité avant qu'elles ne deviennent des constats d'audit"
+      },
+      "cta": {
+        "title": "Vous ne savez pas où sont vos plus grandes lacunes ?",
+        "desc": "Obtenez une vision claire en moins de 3 minutes — sans email requis.",
+        "button": "Faire le diagnostic gratuit"
+      }
+    },
+    "traceability": {
+      "category": "Guide technique",
+      "readTime": "6 min de lecture",
+      "title": "Guide de l'importateur pour la traçabilité de la chaîne d'approvisionnement selon l'EUDR",
+      "intro": "La traçabilité n'est pas un luxe sous l'EUDR — c'est une obligation légale. L'article 10(2)(a) exige que les opérateurs conservent des « informations, y compris la quantité, les fournisseurs et la chaîne d'approvisionnement, sur les produits pertinents et les produits associés fournis à ou par l'opérateur. » En pratique, cela signifie que vous devez être capable de relier chaque envoi à la parcelle spécifique où ses matières premières ont été produites.",
+      "what": {
+        "title": "Ce que « traçabilité dans toute la chaîne d'approvisionnement » signifie réellement",
+        "body": "Le règlement attend des opérateurs qu'ils connaissent leur chaîne d'approvisionnement de bout en bout. Cela ne signifie pas que vous ayez besoin d'un système ERP unique couvrant de la ferme à l'entrepôt — mais vous devez disposer de registres documentés à chaque point de transfert. Chaque fois qu'une marchandise change de mains (de la ferme au négociant, du négociant à l'exportateur, de l'exportateur à l'importateur), vous devez enregistrer la transaction et maintenir le lien avec la parcelle de production.",
+        "body2": "Le principe clé est que les données de traçabilité doivent suivre le produit, et non exister dans des silos isolés. Si un auditeur inspecte un envoi de cacao arrivant à Rotterdam, vous devez être en mesure de produire une piste complète : quelle coopérative l'a fourni, de quel village proviennent les fèves et les coordonnées GPS des exploitations."
+      },
+      "batch": {
+        "title": "Suivi par lot ou par envoi",
+        "body": "Une question courante est de savoir si vous devez effectuer le suivi au niveau du lot ou de l'envoi. Le règlement ne prescrit pas une granularité spécifique, mais votre système doit être capable de démontrer la conformité pour chaque produit individuel mis sur le marché. En pratique :",
+        "batch": "Par lot :",
+        "batchBody": "Chaque lot de production se voit attribuer un identifiant unique lié à sa parcelle d'origine. C'est l'étalon-or — il permet un lien précis même lorsque plusieurs origines sont consolidées dans un seul envoi.",
+        "shipment": "Par envoi :",
+        "shipmentBody": "L'envoi dans son ensemble est tracé vers un ensemble défini de parcelles. Acceptable lorsque les envois proviennent systématiquement des mêmes fournisseurs vérifiés, mais plus risqué si les origines varient d'un envoi à l'autre.",
+        "recommendation": "Si vous partez de zéro, visez le suivi par lot. Cela nécessite plus de configuration initiale mais vous donne une position d'audit beaucoup plus solide."
+      },
+      "geolocation": {
+        "title": "Comment la géolocalisation alimente la traçabilité",
+        "body": "La géolocalisation (Article 9(1)(d)) est le fondement de la traçabilité selon l'EUDR. Sans coordonnées, vous ne pouvez pas identifier quelles parcelles ont contribué à un envoi, et vous ne pouvez pas effectuer la vérification de déforestation requise par l'Article 10(2)(e). Votre système de traçabilité doit stocker ces coordonnées dans un format structuré (GeoJSON ou équivalent) et les lier aux lots concernés.",
+        "body2": "Pour les parcelles de plus de 4 hectares, vous avez besoin de coordonnées polygonales (pas seulement un point unique). C'est important car un point de coordonnées dans une zone sans déforestation ne garantit pas que la parcelle entière soit exempte de déforestation. Les polygones sont vérifiés par imagerie satellitaire ; les points ne suffisent pas pour une vérification significative."
+      },
+      "suppliers": {
+        "title": "Travailler avec des fournisseurs tiers et des coopératives",
+        "body": "Si vous achetez auprès d'intermédiaires, de coopératives ou d'agrégateurs, vous faites face à un défi supplémentaire : ils peuvent ne pas avoir leurs propres systèmes de traçabilité. Dans de nombreuses chaînes d'approvisionnement, les petits exploitants vendent à des collecteurs locaux qui agrègent la production avant qu'elle n'atteigne un exportateur. Vous devez faire remonter les exigences de traçabilité en amont.",
+        "body2": "Les mesures pratiques incluent :",
+        "s1": "Ajouter des clauses de traçabilité dans les contrats fournisseurs exigeant des données au niveau de la parcelle",
+        "s2": "Fournir des modèles simples de collecte de données ou des outils mobiles aux coopératives",
+        "s3": "Effectuer des vérifications ponctuelles sur un échantillon des registres de vos fournisseurs",
+        "s4": "Utiliser un portail fournisseur pour collecter et valider les données avant expédition"
+      },
+      "custody": {
+        "title": "Documenter la chaîne de traçabilité",
+        "body": "Votre documentation de chaîne de traçabilité devrait inclure, au minimum :",
+        "c1": "Bons de commande et factures reliant chaque transaction aux lots de produits",
+        "c2": "Documents de transport (connaissements, lettres de transport aérien) liés aux identifiants de lot",
+        "c3": "Registres d'entrepôt montrant le stockage et la manutention entre les transferts de propriété",
+        "c4": "Un registre principal qui fait correspondre chaque envoi entrant à ses parcelles d'origine"
+      },
+      "building": {
+        "title": "Construire la traçabilité de zéro",
+        "body": "Si vous n'avez pas de système de traçabilité aujourd'hui, commencez par un pilote. Choisissez une marchandise dans un seul pays et construisez la chaîne complète pour un seul envoi. Documentez tout ce que vous apprenez : quelles données sont faciles à collecter, où sont les lacunes, quels fournisseurs résistent. Ensuite, déployez le processus à l'ensemble de votre portefeuille. Une approche progressive réduit les risques et vous donne le temps de former votre équipe et vos fournisseurs avant l'échéance."
+      },
+      "cta": {
+        "title": "Besoin d'aide pour construire votre système de traçabilité ?",
+        "desc": "Notre diagnostic gratuit parcourt votre configuration actuelle et identifie les lacunes — en moins de 3 minutes.",
+        "button": "Faire le diagnostic gratuit"
       }
     }
   },

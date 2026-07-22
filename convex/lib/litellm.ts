@@ -1,4 +1,5 @@
 import { LITELLM_BASE_URL, LITELLM_API_KEY } from "@cvx/env"
+import { logger } from "@cvx/lib/logger"
 
 export type ModelGroup = "vision-primary" | "text-primary"
 
@@ -55,6 +56,8 @@ export async function callLiteLLM(
 
   let lastError: Error | null = null
 
+  logger.info("LLM call started", { model, messageCount: messages.length })
+
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
       const response = await fetch(`${LITELLM_BASE_URL}/chat/completions`, {
@@ -73,7 +76,13 @@ export async function callLiteLLM(
       })
 
       if (response.ok) {
-        return response.json() as Promise<LiteLLMResponse>
+        const result = await response.json() as LiteLLMResponse
+        logger.info("LLM call completed", {
+          model,
+          usage: result.usage,
+          attempt,
+        })
+        return result
       }
 
       const retryAfter = response.headers.get("Retry-After")
@@ -90,6 +99,11 @@ export async function callLiteLLM(
       const text = await response.text()
       throw new Error(`LiteLLM error ${response.status}: ${text}`)
     } catch (err) {
+      logger.warn("LLM call attempt failed", {
+        model,
+        attempt,
+        error: err instanceof Error ? err.message : String(err),
+      })
       if (err instanceof TypeError && attempt < MAX_RETRIES) {
         lastError = err
         const backoff = getBackoffMs(attempt)
@@ -100,6 +114,10 @@ export async function callLiteLLM(
     }
   }
 
+  logger.error("LLM call failed after max retries", {
+    model,
+    lastError: lastError?.message,
+  })
   throw lastError ?? new Error("LiteLLM max retries exceeded")
 }
 

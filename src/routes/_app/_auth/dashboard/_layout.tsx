@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useJourneyTracking } from "@/hooks/use-journey-tracking";
 
 const EXEMPT_ROUTES = [
+  "/dashboard/export",
   "/dashboard/settings/billing",
   "/dashboard/checkout",
 ];

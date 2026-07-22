@@ -6,6 +6,8 @@ import { internal } from "@cvx/_generated/api"
 import { getOrgId } from "@cvx/auth"
 import { validateExtractedData } from "@cvx/lib/validators"
 import { recomputeCompleteness } from "@cvx/lib/completeness"
+import { logger } from "@cvx/lib/logger"
+import { checkRateLimit, DEFAULTS } from "@cvx/rateLimit"
 
 const claimString = (identity: UserIdentity, claim: string) => {
   const value = identity[claim as keyof typeof identity]
@@ -27,6 +29,7 @@ export const createShipment = mutation({
     if (!identity) throw new Error("Not authenticated")
 
     const clerkUserId = identity.subject
+    await checkRateLimit(ctx, `mutation:createShipment:${clerkUserId}`, DEFAULTS.mutation)
     const orgId = await getOrgId(ctx)
     if (!orgId) throw new Error("No organization found")
 
@@ -56,6 +59,8 @@ export const createShipment = mutation({
       status: "draft",
       completeness: "red",
     })
+
+    logger.info("Shipment created", { shipmentId, orgId, internalRef: args.internalRef })
 
     return shipmentId
   },
@@ -542,6 +547,12 @@ export const storeDdsResult = internalMutation({
   handler: async (ctx, args) => {
     const shipment = await ctx.db.get(args.shipmentId)
     if (!shipment) throw new Error("Shipment not found")
+
+    logger.info("DDS submitted", {
+      shipmentId: args.shipmentId,
+      tracesRef: args.tracesRef,
+      isSimulation: args.tracesRef.startsWith("SIM-"),
+    })
 
     await ctx.db.patch(args.shipmentId, {
       status: "submitted",

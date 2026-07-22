@@ -1,5 +1,6 @@
 import { QueryCtx, MutationCtx } from "./_generated/server";
 import { Doc, Id } from "./_generated/dataModel";
+import { logger } from "@cvx/lib/logger";
 
 export async function getUserId(
   ctx: QueryCtx | MutationCtx,
@@ -33,6 +34,12 @@ export async function ensureUser(
     name: identity.name ?? undefined,
     email: identity.email ?? undefined,
     image: identity.pictureUrl ?? undefined,
+  });
+
+  logger.info("User signed up", {
+    userId,
+    clerkUserId: identity.subject,
+    email: identity.email,
   });
 
   return (await ctx.db.get(userId)) as Doc<"users">;

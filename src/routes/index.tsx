@@ -3,7 +3,9 @@ import { Helmet } from "react-helmet-async";
 import { Nav } from "@/components/landing/nav";
 import { Hero } from "@/components/landing/hero";
 import { ProblemSolution } from "@/components/landing/problem-solution";
+import { WorkflowSection } from "@/components/landing/workflow-section";
 import { Comparison } from "@/components/landing/comparison";
+import { FreeToolConviction } from "@/components/landing/free-tool-conviction";
 import { Pricing } from "@/components/landing/pricing";
 import { Faq } from "@/components/landing/faq";
 import { FinalCta } from "@/components/landing/final-cta";
@@ -95,12 +97,39 @@ function LandingPage() {
             }
           })}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Antaios",
+            "url": "https://antaios.app",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://antaios.app/resources?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": "Antaios EUDR Compliance Demo",
+            "description": "See how Antaios extracts data from supplier documents, covers all 5 due-diligence criteria, and generates your DDS in minutes.",
+            "thumbnailUrl": "https://picsum.photos/seed/eudr-hero/1280/720",
+            "uploadDate": "2024-11-01",
+            "duration": "PT2M",
+            "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+          })}
+        </script>
       </Helmet>
       <Nav />
       <main className="flex-1">
         <Hero />
         <ProblemSolution />
+        <WorkflowSection />
         <Comparison />
+        <FreeToolConviction />
         <Pricing />
         <Faq />
         <FinalCta />

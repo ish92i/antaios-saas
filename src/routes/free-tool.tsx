@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
+import { Nav } from "@/components/landing/nav";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Progress } from "@/components/free-tool/progress";
 import { Question } from "@/components/free-tool/question";
@@ -148,13 +149,10 @@ function FreeToolPage() {
             })}
           </script>
         </Helmet>
-        <div className="mx-auto min-h-screen max-w-screen-lg px-6 py-8">
-          <div className="mb-8">
-            <Link to="/" className="flex items-center gap-2">
-              <Logo />
-            </Link>
-          </div>
-          <Result
+        <div className="mx-auto min-h-screen max-w-screen-lg px-6 pb-12">
+          <Nav />
+          <div className="mt-8">
+            <Result
             tier={state.result.tier}
             deadline={state.result.deadline}
             failingCriteriaCount={state.result.failingCriteriaCount}
@@ -164,6 +162,7 @@ function FreeToolPage() {
             onRestart={handleRestart}
           />
         </div>
+      </div>
       </>
     );
   }
@@ -204,20 +203,10 @@ function FreeToolPage() {
           })}
         </script>
       </Helmet>
-      <div className="mx-auto flex min-h-screen max-w-screen-lg flex-col px-6 py-8">
-        <div className="mb-8 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <Logo />
-          </Link>
-          <Link
-            to="/"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {t("freeTool.title", "EUDR Compliance Diagnostic")}
-          </Link>
-        </div>
+      <div className="mx-auto flex min-h-screen max-w-screen-lg flex-col px-6 pb-12">
+        <Nav />
 
-        <div className="mb-6">
+        <div className="mt-8 mb-6">
           <Progress current={state.currentQuestion} total={8} />
         </div>
 

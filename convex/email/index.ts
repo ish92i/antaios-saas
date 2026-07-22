@@ -1,6 +1,7 @@
 import { RESEND_API_KEY, RESEND_EMAIL } from "@cvx/env";
 import { ERRORS } from "~/errors";
 import { z } from "zod";
+import { logger } from "@cvx/lib/logger";
 
 const ResendSuccessSchema = z.object({
   id: z.string(),
@@ -56,10 +57,10 @@ export async function sendEmail(options: SendEmailOptions) {
   } else {
     const parsedErrorResult = ResendErrorSchema.safeParse(data);
     if (parsedErrorResult.success) {
-      console.error(parsedErrorResult.data);
+      logger.error("Resend API error", parsedErrorResult.data);
       throw new Error(ERRORS.EMAIL_NOT_SENT);
     } else {
-      console.error(data);
+      logger.error("Resend unknown error", { data });
       throw new Error(ERRORS.EMAIL_NOT_SENT);
     }
   }

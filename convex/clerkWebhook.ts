@@ -1,6 +1,7 @@
 import { httpAction } from "./_generated/server"
 import { internal } from "./_generated/api"
 import { CLERK_WEBHOOK_SECRET } from "./env"
+import { logger } from "@cvx/lib/logger"
 
 const WEBHOOK_EVENTS = new Set(["organization.deleted"])
 
@@ -37,7 +38,7 @@ async function verifySignature(
 export const handleClerkWebhook = httpAction(async (ctx, request) => {
     const secret = CLERK_WEBHOOK_SECRET
     if (!secret) {
-      console.error("CLERK_WEBHOOK_SECRET not set")
+      logger.error("CLERK_WEBHOOK_SECRET not set")
       return new Response(null, { status: 500 })
     }
 
@@ -68,6 +69,7 @@ export const handleClerkWebhook = httpAction(async (ctx, request) => {
     }
 
     if (payload.type === "organization.deleted") {
+      logger.info("Organization deleted via webhook", { clerkOrgId: payload.data.id })
       await ctx.runMutation(internal.clerkWebhookDelete.deleteOrgCascade, {
         clerkOrgId: payload.data.id,
       })

@@ -5,6 +5,8 @@ import type { MutationCtx } from "@cvx/_generated/server"
 import { api } from "@cvx/_generated/api"
 import { APP_URL, DODO_PAYMENTS_API_KEY, DODO_PAYMENTS_ENVIRONMENT, DIRECT_PLAN_ID } from "@cvx/env"
 import { checkout, customerPortal } from "./dodo"
+import { logger } from "@cvx/lib/logger"
+import { checkRateLimitAction, DEFAULTS } from "@cvx/rateLimit"
 
 const claimString = (identity: UserIdentity, claim: string) => {
   const value = identity[claim]
@@ -53,10 +55,16 @@ const upsertSubscription = async (
         email: args.email,
       })
     )
+    logger.info("Subscription updated", {
+      subscriptionId: existing._id,
+      dodoSubscriptionId: args.dodoSubscriptionId,
+      planName: args.planName,
+      status: args.status,
+    })
     return existing._id
   }
 
-  return await ctx.db.insert(
+  const subscriptionId = await ctx.db.insert(
     "subscriptions",
     clean({
       orgId: id,
@@ -67,6 +75,16 @@ const upsertSubscription = async (
       email: args.email,
     })
   )
+
+  logger.info("Subscription created", {
+    subscriptionId,
+    dodoSubscriptionId: args.dodoSubscriptionId,
+    planName: args.planName,
+    status: args.status,
+    orgId: id,
+  })
+
+  return subscriptionId
 }
 
 export const createCheckoutSession = action({
@@ -76,6 +94,8 @@ export const createCheckoutSession = action({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity()
     if (!identity) throw new Error("Unauthorized")
+    const userId = identity.subject
+    await checkRateLimitAction(ctx, `action:createCheckoutSession:${userId}`, DEFAULTS.action)
     const orgId = orgIdFromClaims(identity)
     if (args.orgId && !orgId) throw new Error("Org required")
     if (args.orgId && orgId !== args.orgId) throw new Error("Org mismatch")
@@ -212,6 +232,14 @@ export const updateSubscriptionStatusFromWebhook = internalMutation({
 
     if (existing) {
       await ctx.db.patch(existing._id, { status: args.status })
+      if (args.status === "canceled" || args.status === "expired") {
+        logger.info("Subscription status changed", {
+          subscriptionId: existing._id,
+          dodoSubscriptionId: args.dodoSubscriptionId,
+          status: args.status,
+          previousStatus: existing.status,
+        })
+      }
     }
   },
 })

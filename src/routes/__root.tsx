@@ -97,11 +97,11 @@ export const Route = createRootRouteWithContext<{
           <meta property="og:locale" content={OG_LOCALE_MAP[currentLang] || "en_US"} />
           <meta property="og:site_name" content={siteConfig.siteTitle} />
           <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={title} />
+          <meta name="twitter:description" content={siteConfig.siteDescription} />
+          <meta name="twitter:image" content={siteConfig.siteImage} />
           <link rel="canonical" href={canonicalUrl} />
           <link rel="alternate" href={siteConfig.siteUrl} hrefLang="x-default" />
-          {HREFLANG_LOCALES.map((locale) => (
-            <link key={locale} rel="alternate" href={canonicalUrl} hrefLang={locale} />
-          ))}
           <script type="application/ld+json">
             {JSON.stringify(orgSchema)}
           </script>

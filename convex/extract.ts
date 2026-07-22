@@ -9,6 +9,7 @@ import { callLiteLLM, parseLlmJson } from "@cvx/lib/litellm"
 import { validateExtractedData } from "@cvx/lib/validators"
 import { extractText, extractImages, getDocumentProxy } from "unpdf"
 import type { PDFDocumentProxy } from "unpdf/pdfjs"
+import { checkRateLimitAction } from "@cvx/rateLimit"
 
 export const EXTRACTION_SCHEMA = `{
   "operatorName": "string | null",
@@ -152,6 +153,7 @@ export const extractDocument = internalAction({
     documentId: v.id("shipmentDocuments"),
   },
   handler: async (ctx, args) => {
+    await checkRateLimitAction(ctx, `action:extractDocument:${args.documentId}`, { maxRequests: 20, windowMs: 60_000 })
     const doc = await ctx.runQuery(internal.documents.getDocumentById, {
       documentId: args.documentId,
     })

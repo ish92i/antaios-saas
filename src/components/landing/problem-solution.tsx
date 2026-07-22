@@ -2,22 +2,22 @@ import { useTranslation } from "react-i18next"
 import { AlertTriangle, ArrowRight, Check, FileCheck2, FileText, Mail, MapPin, ScanLine, ShieldCheck } from "lucide-react"
 import { FadeIn } from "./fade-in"
 
-const checklistRows = [
-  { label: "Exportateur / Produit", status: "check" as const },
-  { label: "Parcelle / Géolocalisation", status: "check" as const },
-  { label: "Conformité / Légalité", status: "check" as const },
-  { label: "Droits & Légalité", status: "current" as const },
-  { label: "Traçabilité", status: "pending" as const },
-]
-
-const sourceCards = [
-  { icon: FileText, label: "PDF fournisseur", detail: "Factures, BL, certificats" },
-  { icon: Mail, label: "Emails", detail: "Demandes et pièces jointes" },
-  { icon: MapPin, label: "Parcelles", detail: "Coordonnées et GeoJSON" },
-]
-
 export function ProblemSolution() {
   const { t } = useTranslation()
+
+  const checklistRows = [
+    { label: t("landing.problem.solution.check_exporter", "Exporter / Product"), status: "check" as const },
+    { label: t("landing.problem.solution.check_parcel", "Parcel / Geolocation"), status: "check" as const },
+    { label: t("landing.problem.solution.check_conformity", "Conformity / Legality"), status: "check" as const },
+    { label: t("landing.problem.solution.check_rights", "Rights & Legality"), status: "current" as const },
+    { label: t("landing.problem.solution.check_traceability", "Traceability"), status: "pending" as const },
+  ]
+
+  const sourceCards = [
+    { icon: FileText, label: t("landing.problem.solution.source_pdf", "Supplier PDF"), detail: t("landing.problem.solution.source_pdf_detail", "Invoices, BOL, certificates") },
+    { icon: Mail, label: t("landing.problem.solution.source_email", "Emails"), detail: t("landing.problem.solution.source_email_detail", "Requests and attachments") },
+    { icon: MapPin, label: t("landing.problem.solution.source_parcel", "Parcels"), detail: t("landing.problem.solution.source_parcel_detail", "Coordinates and GeoJSON") },
+  ]
 
   return (
     <section className="relative overflow-hidden px-6 py-24 md:py-32">
@@ -29,7 +29,7 @@ export function ProblemSolution() {
           <FadeIn>
             <div className="text-center md:text-left">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-red-200/60 bg-red-50/50 px-2.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-red-600">
-                Problème
+                {t("landing.problem.solution.problem_badge", "Problem")}
               </span>
               <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
                 {t("landing.problem.solution.problem_title", "Chaque expédition, une course contre la montre")}
@@ -42,7 +42,7 @@ export function ProblemSolution() {
           <FadeIn delay={0.1}>
             <div className="text-center md:text-right">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-green-200/60 bg-green-50/50 px-2.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-green-600">
-                Solution
+                {t("landing.problem.solution.solution_badge", "Solution")}
               </span>
               <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
                 {t("landing.problem.solution.solution_title", "Un dossier, généré automatiquement")}
@@ -61,7 +61,7 @@ export function ProblemSolution() {
               <div className="rounded-xl border border-red-200/60 bg-red-50/50 p-4 dark:border-red-900/35 dark:bg-red-950/15">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-red-600 dark:text-red-400">
-                    Entrées dispersées
+                    {t("landing.problem.solution.scattered_inputs", "Scattered inputs")}
                   </span>
                   <AlertTriangle className="h-4 w-4 text-red-500" />
                 </div>
@@ -82,7 +82,7 @@ export function ProblemSolution() {
                   })}
                 </div>
                 <div className="mt-4 rounded-lg border border-red-200/70 bg-white/70 px-3 py-2 font-mono text-[11px] font-semibold text-red-600 dark:border-red-900/40 dark:bg-background/30 dark:text-red-400">
-                  Échéance : 30 déc. 2026
+                  {t("landing.problem.solution.deadline", "Deadline: Dec 30, 2026")}
                 </div>
               </div>
 
@@ -100,8 +100,8 @@ export function ProblemSolution() {
                       <ScanLine className="h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-foreground">Lit et structure</p>
-                      <p className="text-xs text-muted-foreground">OCR, extraction et rapprochement des preuves.</p>
+                      <p className="text-sm font-semibold text-foreground">{t("landing.problem.solution.step_read", "Reads & structures")}</p>
+                      <p className="text-xs text-muted-foreground">{t("landing.problem.solution.step_read_desc", "OCR, extraction and evidence reconciliation.")}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 rounded-lg bg-primary/[0.06] p-3">
@@ -109,8 +109,8 @@ export function ProblemSolution() {
                       <ShieldCheck className="h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-foreground">Vérifie les risques</p>
-                      <p className="text-xs text-muted-foreground">Traçabilité, légalité et géolocalisation.</p>
+                      <p className="text-sm font-semibold text-foreground">{t("landing.problem.solution.step_verify", "Verifies risks")}</p>
+                      <p className="text-xs text-muted-foreground">{t("landing.problem.solution.step_verify_desc", "Traceability, legality and geolocation.")}</p>
                     </div>
                   </div>
                 </div>
@@ -127,12 +127,12 @@ export function ProblemSolution() {
                       <FileCheck2 className="h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-foreground">Dossier de conformité</p>
-                      <p className="text-xs text-muted-foreground">Prêt pour dépôt DDS</p>
+                      <p className="text-sm font-bold text-foreground">{t("landing.problem.solution.step_compliance", "Compliance file")}</p>
+                      <p className="text-xs text-muted-foreground">{t("landing.problem.solution.step_compliance_desc", "Ready for DDS filing")}</p>
                     </div>
                   </div>
                   <span className="rounded-full border border-green-300 bg-green-100 px-3 py-1 font-mono text-[10px] font-semibold text-green-700 dark:border-green-900/40 dark:bg-green-950/30 dark:text-green-400">
-                    CONFORME
+                    {t("landing.problem.solution.compliant_badge", "Compliant")}
                   </span>
                 </div>
 
@@ -159,7 +159,7 @@ export function ProblemSolution() {
                             ? "bg-primary/10 text-primary"
                             : "bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-400"
                       }`}>
-                        {row.status === "check" ? "OK" : row.status === "current" ? "EN COURS" : "EN ATTENTE"}
+                        {row.status === "check" ? t("landing.problem.solution.status_ok", "OK") : row.status === "current" ? t("landing.problem.solution.status_in_progress", "In progress") : t("landing.problem.solution.status_pending", "Pending")}
                       </span>
                     </div>
                   ))}

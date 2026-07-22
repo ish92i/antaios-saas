@@ -1,12 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, Clock, Tag } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { Nav } from "@/components/landing/nav";
 import { Footer } from "@/components/landing/footer";
-import { Route as EudrChecklistRoute } from "./resources.eudr-checklist";
-import { Route as EudrOverviewRoute } from "./resources.eudr-overview";
-import { Route as TraceabilityGuideRoute } from "./resources.traceability-guide";
+
 
 export const Route = createFileRoute("/resources")({
   component: ResourcesPage,
@@ -15,7 +13,7 @@ export const Route = createFileRoute("/resources")({
 
 const articles = [
   {
-    to: EudrChecklistRoute.fullPath,
+    to: "/resources/eudr-checklist",
     title: "resources.list.article1.title",
     titleEn: "EUDR Compliance Checklist: Your 5-Step Guide to Article 10(2)",
     description: "resources.list.article1.desc",
@@ -27,7 +25,7 @@ const articles = [
     readTimeEn: "5 min read",
   },
   {
-    to: TraceabilityGuideRoute.fullPath,
+    to: "/resources/traceability-guide",
     title: "resources.list.article2.title",
     titleEn: "Importer's Guide to Supply Chain Traceability Under EUDR",
     description: "resources.list.article2.desc",
@@ -39,7 +37,7 @@ const articles = [
     readTimeEn: "6 min read",
   },
   {
-    to: EudrOverviewRoute.fullPath,
+    to: "/resources/eudr-overview",
     title: "resources.list.article3.title",
     titleEn: "Is Your Business Ready for EUDR? A Practical Overview",
     description: "resources.list.article3.desc",
@@ -53,9 +51,14 @@ const articles = [
 ];
 
 
-
 function ResourcesPage() {
   const { t } = useTranslation();
+  const matches = useRouterState({ select: s => s.matches });
+  const isChildRoute = matches.some(m => m.routeId.startsWith("/resources/"));
+
+  if (isChildRoute) {
+    return <Outlet />;
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-background">

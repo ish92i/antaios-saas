@@ -1,6 +1,6 @@
 import { internalMutation } from "@cvx/_generated/server"
 import { v } from "convex/values"
-import { translateText } from "@cvx/lib/translate"
+import { translateText, TRANSLATION_CACHE_TTL_MS } from "@cvx/lib/translate"
 
 export const translateAndCache = internalMutation({
   args: {
@@ -24,6 +24,7 @@ export const translateAndCache = internalMutation({
       targetLang: args.targetLang,
       translatedText: translated,
       createdAt: Date.now(),
+      expiresAt: Date.now() + TRANSLATION_CACHE_TTL_MS,
     })
 
     return translated

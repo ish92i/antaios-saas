@@ -7,7 +7,7 @@ import { ExtractedDataGrid } from "./ExtractedDataGrid"
 import { DeforestationScanSection } from "./DeforestationScanSection"
 import { Button } from "@/components/ui/button"
 import { completenessTone } from "@/lib/shipment-ui"
-import { X, Paperclip, CircleDot, ArrowRight, CheckCircle2, FileText, Loader2 } from "lucide-react"
+import { X, Paperclip, CircleDot, ArrowRight, CheckCircle2, FileText, Loader2, Link2, Check } from "lucide-react"
 import { useState, useEffect, useCallback, forwardRef, useImperativeHandle, useRef } from "react"
 import type { Id } from "@cvx/_generated/dataModel"
 import { useTranslation } from "react-i18next"
@@ -22,6 +22,7 @@ export const ShipmentDetailPanel = forwardRef<
   const [isTracesOpen, setIsTracesOpen] = useState(false)
   const [scanTrigger, setScanTrigger] = useState(0)
   const [isDownloading, setIsDownloading] = useState(false)
+  const [supplierLinkCopied, setSupplierLinkCopied] = useState(false)
   const generateAuditTrail = useAction(api.auditTrailPdf.generateAuditTrailPdf)
 
   const handleDownloadAuditTrail = useCallback(async () => {
@@ -50,6 +51,16 @@ export const ShipmentDetailPanel = forwardRef<
       setIsDownloading(false)
     }
   }, [shipmentId, isDownloading, generateAuditTrail, i18n.language])
+
+  const handleCopySupplierLink = useCallback(() => {
+    const token = shipmentRef.current?.supplierToken
+    if (!token) return
+    const url = `${window.location.origin}/supplier/${token}`
+    navigator.clipboard.writeText(url).then(() => {
+      setSupplierLinkCopied(true)
+      setTimeout(() => setSupplierLinkCopied(false), 2000)
+    }).catch(() => {})
+  }, [])
 
   const triggerResolve = useCallback(() => {
     setIsConflictOpen(true)
@@ -216,12 +227,37 @@ export const ShipmentDetailPanel = forwardRef<
             </Button>
           )}
           {isSubmitted ? (
-            <span className="flex items-center gap-1.5 text-sm text-green-600">
-              <CheckCircle2 className="size-4" />
-              {t("status.submitted")}
-            </span>
+            <div className="flex flex-col items-end gap-1">
+              <span className="flex items-center gap-1.5 text-sm text-green-600">
+                <CheckCircle2 className="size-4" />
+                {t("status.submitted")}
+              </span>
+              {shipment.tracesRef && (
+                <span className="text-xs text-muted-foreground">
+                  Réf. TRACES : {shipment.tracesRef.startsWith("SIM-") ? (
+                    <span className="text-amber-600 font-medium" title="Soumission simulée — soumettez manuellement via TRACES Next">
+                      {shipment.tracesRef} ⚠
+                    </span>
+                  ) : (
+                    shipment.tracesRef
+                  )}
+                </span>
+              )}
+            </div>
           ) : (
             <>
+              {shipment.supplierToken && !shipment.supplierFormCompleted && (
+                <button
+                  onClick={handleCopySupplierLink}
+                  className="text-sm inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-border text-muted-foreground hover:bg-muted transition-colors"
+                >
+                  {supplierLinkCopied ? (
+                    <><Check className="size-3.5 text-green-600" /> {t("detail.link_copied")}</>
+                  ) : (
+                    <><Link2 className="size-3.5" /> {t("detail.copy_supplier_link")}</>
+                  )}
+                </button>
+              )}
               {pendingQuestionCount > 0 && (
                 <button
                   onClick={() => setIsConflictOpen(true)}

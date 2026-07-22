@@ -7,19 +7,23 @@
    npx convex env set CLERK_WEBHOOK_SECRET whsec_...
    ```
 
-2. Configure in Clerk Dashboard → Webhooks → Add Endpoint:
+2. Set the Clerk secret key (for user cleanup):
+   ```sh
+   npx convex env set CLERK_SECRET_KEY sk_live_...
+   ```
+
+3. Configure in Clerk Dashboard → Webhooks → Add Endpoint:
    - URL: `https://[PROJECT].convex.site/webhooks/clerk`
    - Events: `organization.deleted`
    - Use the signing secret from there in step 1
 
-3. Verify: delete a test org in Clerk, check Convex logs
+4. Verify: delete a test org in Clerk, check Convex logs
 
 ## Infrastructure
 
 - [ ] **Sentry** — Error monitoring (currently only console.error + PostHog events).
 - [ ] **Automated tests** — Zero. No unit, integration, or E2E tests anywhere in the repo.
 - [ ] **Security headers** — No CSP, HSTS, X-Frame-Options. Relies on Convex/Netlify defaults.
-- [ ] **Stripe cleanup** — `stripe` package in deps but entirely unused.
 - [ ] **File size validation (server-side)** — Only client-side 10MB check on uploads. No server-side enforcement.
 - [ ] **Admin dashboard** — Simple password-protected panel (password: `Abcdefg1234@@@@@`) to manage users, orgs, subscriptions, view data.
 

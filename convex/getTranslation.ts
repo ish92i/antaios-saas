@@ -19,6 +19,7 @@ export const getCachedTranslation = query({
           .eq("sourceLang", args.sourceLang)
           .eq("targetLang", args.targetLang),
       )
+      .filter((q) => q.gt(q.field("expiresAt"), Date.now()))
       .first()
 
     return cached?.translatedText ?? null

@@ -2,18 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
 import { useAuth } from "@clerk/clerk-react";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
+import { motion, AnimatePresence, useScroll } from "motion/react";
 import { Languages, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { Route as AuthLoginRoute } from "@/routes/_app/login/_layout.index";
-
-function handleScrollTo(id: string) {
-  return (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-}
 
 const NATIVE_LABELS: Record<string, string> = {
   en: "English",
@@ -41,7 +34,6 @@ export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [localeOpen, setLocaleOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
   const localeRef = useRef<HTMLDivElement>(null);
   const currentLang = i18n.language?.split("-")[0] ?? "en";
   const { scrollY } = useScroll();
@@ -63,22 +55,11 @@ export function Nav() {
     setLocaleOpen(false);
   };
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    setIsScrolled(latest > 50);
-    if (latest > previous && latest > 150) {
-      setIsHidden(true);
-      setMobileOpen(false);
-    } else {
-      setIsHidden(false);
-    }
-  });
-
   return (
     <motion.div
-      className="fixed left-0 right-0 top-0 z-50 mx-auto w-full px-4 pt-4"
+      className="sticky top-2 z-50 mx-auto w-full px-4 pt-2"
       initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: isHidden ? -20 : 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <motion.div
@@ -99,20 +80,13 @@ export function Nav() {
             <Logo />
           </Link>
 
-          <div className="hidden items-center gap-8 lg:flex">
+          <div className="hidden flex-1 items-center justify-center gap-8 lg:flex">
             <Link
               to="/free-tool"
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               {t("landing.nav.freeTool", "Free Diagnostic")}
             </Link>
-            <a
-              href="#pricing"
-              onClick={handleScrollTo("pricing")}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {t("landing.nav.pricing", "Pricing")}
-            </a>
             <Link
               to="/resources"
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -218,16 +192,6 @@ export function Nav() {
                 >
                   {t("landing.nav.freeTool", "Free Diagnostic")}
                 </Link>
-                <a
-                  href="#pricing"
-                  onClick={(e) => {
-                    handleScrollTo("pricing")(e);
-                    setMobileOpen(false);
-                  }}
-                  className="rounded-lg px-4 py-3 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                >
-                  {t("landing.nav.pricing", "Pricing")}
-                </a>
                 <Link
                   to="/resources"
                   onClick={() => setMobileOpen(false)}

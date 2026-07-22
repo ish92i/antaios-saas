@@ -3,7 +3,6 @@ import { useReducedMotion, motion } from "motion/react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "@/components/logo";
 import siteConfig from "~/site.config";
-import { IconBrandX, IconBrandLinkedin, IconBrandFacebook, IconBrandInstagram } from "@tabler/icons-react";
 
 function FadeIn({
   children,
@@ -34,7 +33,6 @@ function FadeIn({
 
 const productLinks = [
   { to: "/free-tool", key: "features", label: "Fonctionnalités" },
-  { to: "/pricing", key: "pricing", label: "Tarifs" },
   { to: "/free-tool", key: "diagnostic", label: "Diagnostic gratuit" },
 ];
 
@@ -54,13 +52,6 @@ const legalLinks = [
   },
   { to: "/legal/terms-of-sale", key: "termsOfSale", label: "CGV" },
   { to: "/legal/dpa", key: "dpa", label: "DPA" },
-];
-
-const socialLinks = [
-  { href: "#", icon: IconBrandX, label: "X" },
-  { href: "#", icon: IconBrandLinkedin, label: "LinkedIn" },
-  { href: "#", icon: IconBrandFacebook, label: "Facebook" },
-  { href: "#", icon: IconBrandInstagram, label: "Instagram" },
 ];
 
 export function Footer() {
@@ -84,21 +75,6 @@ export function Footer() {
                   "Conformité EUDR pour les importateurs. Plateforme de due diligence conforme au règlement européen 2023/1115.",
                 )}
               </p>
-              <div className="mt-4 flex items-center gap-3">
-                {socialLinks.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      className="text-muted-foreground transition-colors hover:text-foreground"
-                      aria-label={social.label}
-                    >
-                      <Icon className="h-5 w-5" />
-                    </a>
-                  );
-                })}
-              </div>
               <p className="mt-6 text-xs">
                 &copy; {new Date().getFullYear()} {siteConfig.siteTitle}
               </p>

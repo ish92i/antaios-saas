@@ -58,7 +58,7 @@ const faqs = [
   {
     key: "erp",
     q: "Puis-je importer des données depuis un ERP ?",
-    a: "L'import manuel par CSV/Excel est disponible. L'intégration API avec les principaux ERP est en développement.",
+    a: "L'import manuel par CSV/Excel est disponible. L'intégration API avec les principaux ERP est prévue.",
   },
 ]
 

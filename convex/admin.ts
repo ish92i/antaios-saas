@@ -1,7 +1,6 @@
 import { query } from "@cvx/_generated/server";
 import { v } from "convex/values";
-
-const ADMIN_SECRET_HASH = process.env.ADMIN_SECRET_HASH;
+import { ADMIN_SECRET_HASH } from "@cvx/env";
 
 async function verifyAdminSecret(adminSecret: string): Promise<boolean> {
   if (!ADMIN_SECRET_HASH) return false;
@@ -65,7 +64,6 @@ export const listUsers = query({
 
     let users = await ctx.db.query("users").collect();
     const subscriptions = await ctx.db.query("subscriptions").collect();
-    const orgs = await ctx.db.query("organizations").collect();
 
     if (args.search) {
       const q = args.search.toLowerCase();
@@ -102,8 +100,6 @@ export const getUserDetail = query({
 
     const subscriptions = await ctx.db.query("subscriptions").collect();
     const subscription = subscriptions.find((s) => s.email === user.email) ?? null;
-
-    const orgs = await ctx.db.query("organizations").collect();
 
     return {
       ...user,

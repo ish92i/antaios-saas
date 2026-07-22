@@ -25,9 +25,9 @@ function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
 }
 
 const stats = [
-  { value: 2500, suffix: "+", label: "DDS générées" },
-  { value: 47, suffix: "", label: "Pays couverts" },
-  { value: 15, suffix: " min", label: "Temps moyen par dossier" },
+  { value: 5, suffix: "", label: "Critères Article 10(2)" },
+  { value: 100, suffix: "%", label: "Conformité couverte" },
+  { value: 2, suffix: " min", label: "Diagnostic gratuit" },
 ];
 
 export function Stats() {

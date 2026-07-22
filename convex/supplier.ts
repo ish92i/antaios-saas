@@ -1,31 +1,8 @@
-import { mutation, query } from "@cvx/_generated/server"
+import { mutation } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
 import { validateExtractedData } from "@cvx/lib/validators"
 import { recomputeCompleteness } from "@cvx/lib/completeness"
-
-export const getSupplierForm = query({
-  args: {
-    token: v.string(),
-  },
-  handler: async (ctx, args) => {
-    const shipment = await ctx.db
-      .query("shipments")
-      .withIndex("supplierToken", (q) => q.eq("supplierToken", args.token))
-      .unique()
-
-    if (!shipment) throw new Error("Invalid token")
-    if (shipment.supplierFormCompleted) throw new Error("Form already completed")
-    if (shipment.lockedAt) throw new Error("Shipment is locked")
-
-    return {
-      shipmentRef: (shipment.extractedData as Record<string, unknown> | undefined)?.shipmentRef ?? null,
-      questions: shipment.pendingQuestions ?? [],
-      supplierEmail: shipment.supplierEmail,
-      supplierLanguage: shipment.supplierLanguage ?? null,
-    }
-  },
-})
 
 export const submitSupplierAnswers = mutation({
   args: {

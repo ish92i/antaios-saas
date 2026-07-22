@@ -6,6 +6,7 @@ import { internal } from "@cvx/_generated/api"
 import { translateText } from "@cvx/lib/translate"
 import { sendEmail } from "@cvx/email"
 import { renderSupplierEmail } from "@cvx/email/templates/supplier"
+import { checkRateLimitAction, DEFAULTS } from "@cvx/rateLimit"
 
 export const sendSupplierEmail = internalAction({
   args: {
@@ -13,6 +14,7 @@ export const sendSupplierEmail = internalAction({
     supplierLanguage: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    await checkRateLimitAction(ctx, `action:sendSupplierEmail:${args.shipmentId}`, DEFAULTS.email)
     const shipment = await ctx.runQuery(internal.shipments.getShipmentById, {
       shipmentId: args.shipmentId,
     })

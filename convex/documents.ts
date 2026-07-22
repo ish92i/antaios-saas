@@ -2,6 +2,8 @@ import { mutation, query, internalMutation, internalQuery } from "@cvx/_generate
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
 import { getOrgId } from "@cvx/auth"
+import { logger } from "@cvx/lib/logger"
+import { checkRateLimit, DEFAULTS } from "@cvx/rateLimit"
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024
 
@@ -13,6 +15,10 @@ export const addDocument = mutation({
     mimeType: v.string(),
   },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity()
+    const userId = identity?.subject ?? "anonymous"
+    await checkRateLimit(ctx, `mutation:addDocument:${userId}`, DEFAULTS.mutation)
+
     const orgId = await getOrgId(ctx)
     if (!orgId) throw new Error("No organization")
 
@@ -31,6 +37,13 @@ export const addDocument = mutation({
       mimeType: args.mimeType,
       extractionStatus: "pending",
       lastAttemptAt: Date.now(),
+    })
+
+    logger.info("Document uploaded", {
+      documentId: docId,
+      shipmentId: args.shipmentId,
+      fileName: args.fileName,
+      mimeType: args.mimeType,
     })
 
     await ctx.scheduler.runAfter(0, internal.extract.extractDocument, {

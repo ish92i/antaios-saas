@@ -4,7 +4,13 @@ import { action } from "@cvx/_generated/server"
 import { v } from "convex/values"
 import { internal } from "@cvx/_generated/api"
 import type { Id } from "@cvx/_generated/dataModel"
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib"
+import { execFile } from "node:child_process"
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
+import { tmpdir } from "node:os"
+import { join, resolve } from "node:path"
+import { promisify } from "node:util"
+
+const execFileAsync = promisify(execFile)
 
 const LABELS: Record<string, Record<string, string>> = {
   fr: {
@@ -45,10 +51,12 @@ const LABELS: Record<string, Record<string, string>> = {
     date: "Date",
     evaluated_by: "Évalué par",
     system: "Antaios — Risk Engine v1",
-    retention_notice: "Conservé conformément à l'art. 12 EUDR — 5 ans à compter de la soumission DDS",
+    retention_notice: "Conservé conformément à l'art. 12 EUDR — 5 ans à compter de la génération de l'évaluation",
     dds_reference: "Référence DDS",
     not_submitted: "Non soumis",
     flagged_criteria: "Critères ayant déclenché un risque non négligeable",
+    rationale: "Justification",
+    document_stamp: "Version / hash",
     none: "Aucun",
     parcel: "Parcelle géolocalisée",
     no_parcel: "Aucune parcelle",
@@ -92,10 +100,12 @@ const LABELS: Record<string, Record<string, string>> = {
     date: "Date",
     evaluated_by: "Evaluated by",
     system: "Antaios — Risk Engine v1",
-    retention_notice: "Retained per Art. 12 EUDR — 5 years from DDS submission",
+    retention_notice: "Retained per Art. 12 EUDR — 5 years from risk-assessment generation",
     dds_reference: "DDS reference",
     not_submitted: "Not submitted",
     flagged_criteria: "Criteria that drove a non-negligible result",
+    rationale: "Rationale",
+    document_stamp: "Version / hash",
     none: "None",
     parcel: "Geolocated parcel",
     no_parcel: "No parcel",
@@ -139,10 +149,12 @@ const LABELS: Record<string, Record<string, string>> = {
     date: "Datum",
     evaluated_by: "Bewertet von",
     system: "Antaios — Risk Engine v1",
-    retention_notice: "Aufbewahrt gemäß Art. 12 EUDR — 5 Jahre ab DDS-Übermittlung",
+    retention_notice: "Aufbewahrt gemäß Art. 12 EUDR — 5 Jahre ab Erstellung der Risikobewertung",
     dds_reference: "DDS-Referenz",
     not_submitted: "Nicht übermittelt",
     flagged_criteria: "Kriterien, die zu einem nicht geringen Risiko geführt haben",
+    rationale: "Begründung",
+    document_stamp: "Version / Hash",
     none: "Keine",
     parcel: "Geolokalisierte Parzelle",
     no_parcel: "Keine Parzelle",
@@ -186,10 +198,12 @@ const LABELS: Record<string, Record<string, string>> = {
     date: "Fecha",
     evaluated_by: "Evaluado por",
     system: "Antaios — Risk Engine v1",
-    retention_notice: "Conservado conforme al art. 12 EUDR — 5 años desde la presentación DDS",
+    retention_notice: "Conservado conforme al art. 12 EUDR — 5 años desde la generación de la evaluación de riesgos",
     dds_reference: "Referencia DDS",
     not_submitted: "No presentado",
     flagged_criteria: "Criterios que dieron lugar a un resultado no insignificante",
+    rationale: "Justificación",
+    document_stamp: "Versión / hash",
     none: "Ninguno",
     parcel: "Parcela geolocalizada",
     no_parcel: "Sin parcela",
@@ -233,10 +247,12 @@ const LABELS: Record<string, Record<string, string>> = {
     date: "Datum",
     evaluated_by: "Beoordeeld door",
     system: "Antaios — Risk Engine v1",
-    retention_notice: "Bewaard conform art. 12 EUDR — 5 jaar na DDS-indiening",
+    retention_notice: "Bewaard conform art. 12 EUDR — 5 jaar na generatie van de risicobeoordeling",
     dds_reference: "DDS-referentie",
     not_submitted: "Niet ingediend",
     flagged_criteria: "Criteria die hebben geleid tot een niet-verwaarloosbaar resultaat",
+    rationale: "Motivering",
+    document_stamp: "Versie / hash",
     none: "Geen",
     parcel: "Geogelokaliseerd perceel",
     no_parcel: "Geen perceel",
@@ -280,10 +296,12 @@ const LABELS: Record<string, Record<string, string>> = {
     date: "Data",
     evaluated_by: "Avaliado por",
     system: "Antaios — Risk Engine v1",
-    retention_notice: "Conservado nos termos do art. 12.º EUDR — 5 anos a contar da apresentação DDS",
+    retention_notice: "Conservado nos termos do art. 12.º EUDR — 5 anos a contar da geração da avaliação de risco",
     dds_reference: "Referência DDS",
     not_submitted: "Não apresentado",
     flagged_criteria: "Critérios que originaram um resultado não insignificante",
+    rationale: "Justificação",
+    document_stamp: "Versão / hash",
     none: "Nenhum",
     parcel: "Parcela geolocalizada",
     no_parcel: "Sem parcela",
@@ -327,10 +345,12 @@ const LABELS: Record<string, Record<string, string>> = {
     date: "Data",
     evaluated_by: "Valutato da",
     system: "Antaios — Risk Engine v1",
-    retention_notice: "Conservato ai sensi dell'art. 12 EUDR — 5 anni dalla presentazione DDS",
+    retention_notice: "Conservato ai sensi dell'art. 12 EUDR — 5 anni dalla generazione della valutazione del rischio",
     dds_reference: "Riferimento DDS",
     not_submitted: "Non presentato",
     flagged_criteria: "Criteri che hanno determinato un risultato non trascurabile",
+    rationale: "Motivazione",
+    document_stamp: "Versione / hash",
     none: "Nessuno",
     parcel: "Particella geolocalizzata",
     no_parcel: "Nessuna particella",
@@ -343,7 +363,7 @@ function t(key: string, locale: string): string {
 }
 
 function dateFmt(locale: string): Intl.DateTimeFormat {
-  return new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "fr-FR", {
+  return new Intl.DateTimeFormat(DATE_LOCALES[locale] ?? DATE_LOCALES.fr, {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -355,6 +375,292 @@ function sanitize(s: string): string {
 }
 
 const NUM_FMT = new Intl.NumberFormat("fr-FR")
+const SUPPORTED_TYPST_LOCALES = ["fr", "en", "de", "es", "nl", "pt", "it"] as const
+
+type TypstLocale = typeof SUPPORTED_TYPST_LOCALES[number]
+
+type RiskAssessmentForPdf = {
+  shipmentId: Id<"shipments">
+  generatedAt: number
+  countryRisk: { classification: "low" | "standard" | "high"; deforestationRate: string | null; source: string }
+  deforestationRisk: { result: "clear" | "flagged" | "unknown"; scanDate: number; source: string }
+  supplyChainComplexity: { intermediaryCount: number; mixingRisk: boolean }
+  documentationRisk: { complete: boolean; redFlags: string[] }
+  indigenousRights: { flagged: boolean; note: string | null }
+  verdict: "negligible" | "non_negligible"
+  flaggedCriteria: string[]
+  mitigationActions: { action: string; date: number }[] | null
+  criteria?: Array<{
+    id: string
+    article10Criterion: string
+    label: string
+    evaluation: string
+    source: string
+    rationale: string
+    mitigationTrigger: string
+    flagged: boolean
+  }>
+  verdictRationale?: string
+  retentionAnchor?: { date: number; source: "risk_assessment_generation" }
+  documentVersion?: string
+  documentHash?: string
+}
+
+type TypstAuditTrailData = {
+  locale: TypstLocale
+  logoPath: string
+  title: string
+  shipmentReference: string
+  generatedOn: string
+  labels: Record<string, string>
+  brand: Record<string, string>
+  shipment: {
+    company: string
+    eori: string
+    commodity: string
+    hsCode: string
+    countryOfProduction: string
+    supplier: string
+    quantity: string
+    plotReference: string
+    ddsReference: string
+  }
+  criteria: Array<{
+    id: string
+    article10Criterion: string
+    label: string
+    evaluation: string
+    source: string
+    rationale: string
+    mitigationTrigger: string
+    flagged: boolean
+  }>
+  verdict: "negligible" | "non_negligible" | "not_evaluated"
+  verdictLabel: string
+  verdictRationale: string
+  flaggedCriteria: Array<{ id: string; label: string; mitigationTrigger: string }>
+  mitigationActions: Array<{ action: string; date: string }>
+  retentionNotice: string
+  retentionAnchor: string
+  documentVersion: string
+  documentHash: string
+}
+
+const EXTRA_TYPST_LABELS: Record<TypstLocale, Record<string, string>> = {
+  fr: { article10: "Article 10(2)", mitigation_trigger: "Déclencheur de mitigation", page: "Page" },
+  en: { article10: "Article 10(2)", mitigation_trigger: "Mitigation trigger", page: "Page" },
+  de: { article10: "Artikel 10(2)", mitigation_trigger: "Auslöser für Abhilfemaßnahmen", page: "Seite" },
+  es: { article10: "Artículo 10(2)", mitigation_trigger: "Activador de mitigación", page: "Página" },
+  nl: { article10: "Artikel 10(2)", mitigation_trigger: "Trigger voor mitigerende maatregelen", page: "Pagina" },
+  pt: { article10: "Artigo 10(2)", mitigation_trigger: "Acionador de mitigação", page: "Página" },
+  it: { article10: "Articolo 10(2)", mitigation_trigger: "Attivatore di mitigazione", page: "Pagina" },
+}
+
+const DATE_LOCALES: Record<string, string> = {
+  fr: "fr-FR",
+  en: "en-GB",
+  de: "de-DE",
+  es: "es-ES",
+  nl: "nl-NL",
+  pt: "pt-PT",
+  it: "it-IT",
+}
+
+function normalizeTypstLocale(locale: string): TypstLocale {
+  return SUPPORTED_TYPST_LOCALES.includes(locale as TypstLocale) ? locale as TypstLocale : "fr"
+}
+
+function typstDateFmt(locale: string): Intl.DateTimeFormat {
+  return new Intl.DateTimeFormat(DATE_LOCALES[locale] ?? DATE_LOCALES.fr, {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  })
+}
+
+function typstTemplatePath(): string {
+  return process.env.AUDIT_TRAIL_TYPST_TEMPLATE_PATH
+    ? resolve(process.env.AUDIT_TRAIL_TYPST_TEMPLATE_PATH)
+    : resolve(process.cwd(), "convex/templates/audit-trail.typ")
+}
+
+function typstLogoPath(): string {
+  return process.env.AUDIT_TRAIL_LOGO_PATH
+    ? resolve(process.env.AUDIT_TRAIL_LOGO_PATH)
+    : resolve(process.cwd(), "convex/templates/audit-trail-logo.png")
+}
+
+function typstBrand(): Record<string, string> {
+  return {
+    ink: process.env.AUDIT_TRAIL_BRAND_INK ?? "#18201c",
+    muted: process.env.AUDIT_TRAIL_BRAND_MUTED ?? "#647067",
+    line: process.env.AUDIT_TRAIL_BRAND_LINE ?? "#dce4dc",
+    soft: process.env.AUDIT_TRAIL_BRAND_SOFT ?? "#f4f7f1",
+    accent: process.env.AUDIT_TRAIL_BRAND_ACCENT ?? "#2f6f4e",
+    danger: process.env.AUDIT_TRAIL_BRAND_DANGER ?? "#b42318",
+    fontMain: process.env.AUDIT_TRAIL_BRAND_FONT_MAIN ?? "Libertinus Sans",
+    fontMono: process.env.AUDIT_TRAIL_BRAND_FONT_MONO ?? "DejaVu Sans Mono",
+  }
+}
+
+function legacyCriteriaRows(
+  riskAssessment: RiskAssessmentForPdf,
+  locale: string,
+): TypstAuditTrailData["criteria"] {
+  return [
+    {
+      id: "country_risk",
+      article10Criterion: "10(2)(a)",
+      label: t("country_risk", locale),
+      evaluation: riskAssessment.countryRisk.classification,
+      source: riskAssessment.countryRisk.source || "Banque mondiale — AG.LND.FRST.ZS (2023)",
+      rationale: riskAssessment.countryRisk.classification === "high"
+        ? "Country/area risk is elevated and requires further verification."
+        : "Country/area risk does not independently indicate non-negligible risk.",
+      mitigationTrigger: "If country risk is elevated, obtain additional origin evidence before DDS.",
+      flagged: riskAssessment.countryRisk.classification === "high",
+    },
+    {
+      id: "deforestation_risk",
+      article10Criterion: "10(2)(b)",
+      label: t("deforestation_risk", locale),
+      evaluation: riskAssessment.deforestationRisk.result,
+      source: riskAssessment.deforestationRisk.source || "Scan satellitaire — Global Forest Watch",
+      rationale: riskAssessment.deforestationRisk.result === "clear"
+        ? "Geolocation scan returned no deforestation alert."
+        : "Deforestation risk is not cleared by the available scan data.",
+      mitigationTrigger: "If scan data is flagged or unavailable, obtain geolocation, production-date evidence, and independent verification.",
+      flagged: riskAssessment.deforestationRisk.result !== "clear",
+    },
+    {
+      id: "supply_chain_complexity",
+      article10Criterion: "10(2)(c)-(d)",
+      label: t("supply_chain_complexity", locale),
+      evaluation: riskAssessment.supplyChainComplexity.mixingRisk || riskAssessment.supplyChainComplexity.intermediaryCount > 2 ? "flagged" : "clear",
+      source: "Declared supply-chain data",
+      rationale: `${riskAssessment.supplyChainComplexity.intermediaryCount} intermediary(ies); mixing risk ${riskAssessment.supplyChainComplexity.mixingRisk ? "identified or not excluded" : "not identified"}.`,
+      mitigationTrigger: "If intermediaries are unknown/elevated or mixing is possible, collect full actor, lot, segregation, and traceability evidence.",
+      flagged: riskAssessment.supplyChainComplexity.mixingRisk || riskAssessment.supplyChainComplexity.intermediaryCount > 2,
+    },
+    {
+      id: "documentation_risk",
+      article10Criterion: "10(2)(e)",
+      label: t("documentation_risk", locale),
+      evaluation: riskAssessment.documentationRisk.complete ? "complete" : "incomplete",
+      source: "Antaios",
+      rationale: riskAssessment.documentationRisk.complete ? "Documents are complete." : riskAssessment.documentationRisk.redFlags.join("; "),
+      mitigationTrigger: "If documents are incomplete or irregular, collect corrected evidence and verify before placing on the market.",
+      flagged: !riskAssessment.documentationRisk.complete,
+    },
+    {
+      id: "plot_supplier_risk",
+      article10Criterion: "10(2)(f)",
+      label: t("indigenous_rights", locale),
+      evaluation: riskAssessment.indigenousRights.flagged ? "flagged" : "clear",
+      source: "Declared supplier / plot data",
+      rationale: riskAssessment.indigenousRights.note ?? "No land-rights alert declared.",
+      mitigationTrigger: "If land or social evidence is missing, obtain permits, FPIC/consultation evidence, social verification, or relevant certification.",
+      flagged: riskAssessment.indigenousRights.flagged,
+    },
+  ]
+}
+
+function buildTypstAuditTrailData(input: {
+  locale: string
+  ref: string
+  shipment: { _creationTime: number; tracesRef?: string; extractedData?: unknown }
+  org: { name?: string; eoriNumber?: string } | null
+  riskAssessment: RiskAssessmentForPdf | undefined
+}): TypstAuditTrailData {
+  const locale = normalizeTypstLocale(input.locale)
+  const extractedData = (input.shipment.extractedData ?? {}) as Record<string, unknown>
+  const fmtDate = typstDateFmt(locale).format(new Date(input.shipment._creationTime))
+  const fmtTs = (ts: number | undefined) => ts && ts > 0 ? typstDateFmt(locale).format(new Date(ts)) : "-"
+  const labels = { ...LABELS.fr, ...LABELS[locale], ...EXTRA_TYPST_LABELS[locale] }
+  const riskAssessment = input.riskAssessment
+  const criteria = riskAssessment
+    ? riskAssessment.criteria && riskAssessment.criteria.length > 0
+      ? riskAssessment.criteria
+      : legacyCriteriaRows(riskAssessment, locale)
+    : []
+  const flaggedCriteria = riskAssessment
+    ? criteria
+      .filter((criterion) => riskAssessment.flaggedCriteria.includes(criterion.id) || criterion.flagged)
+      .map((criterion) => ({
+        id: criterion.id,
+        label: criterion.label,
+        mitigationTrigger: criterion.mitigationTrigger,
+      }))
+    : []
+
+  return {
+    locale,
+    logoPath: typstLogoPath(),
+    title: t("title", locale),
+    shipmentReference: input.ref,
+    generatedOn: fmtDate,
+    labels,
+    brand: typstBrand(),
+    shipment: {
+      company: (extractedData.operatorName as string) ?? input.org?.name ?? "-",
+      eori: input.org?.eoriNumber ?? "-",
+      commodity: (extractedData.commodityName as string) ?? "-",
+      hsCode: (extractedData.hsCode as string) ?? "-",
+      countryOfProduction: (extractedData.countryOfProduction as string) ?? "-",
+      supplier: (extractedData.supplierName as string) ?? "-",
+      quantity: `${NUM_FMT.format((extractedData.quantity as number) ?? 0)} ${(extractedData.quantityUnit as string) ?? ""}`.trim(),
+      plotReference: (extractedData.plotReference as string) ?? (extractedData.geoJson ? t("parcel", locale) : t("no_parcel", locale)),
+      ddsReference: input.shipment.tracesRef ?? t("not_submitted", locale),
+    },
+    criteria: criteria.map((criterion) => ({
+      ...criterion,
+      evaluation: t(criterion.evaluation, locale),
+    })),
+    verdict: riskAssessment?.verdict ?? "not_evaluated",
+    verdictLabel: riskAssessment
+      ? riskAssessment.verdict === "negligible" ? t("negligible", locale) : t("non_negligible", locale)
+      : t("not_evaluated", locale),
+    verdictRationale: riskAssessment?.verdictRationale ?? t("risk_assessment_unavailable", locale),
+    flaggedCriteria,
+    mitigationActions: (riskAssessment?.mitigationActions ?? []).map((action) => ({
+      action: action.action,
+      date: fmtTs(action.date),
+    })),
+    retentionNotice: t("retention_notice", locale),
+    retentionAnchor: fmtTs(riskAssessment?.retentionAnchor?.date ?? riskAssessment?.generatedAt),
+    documentVersion: riskAssessment?.documentVersion ?? "-",
+    documentHash: riskAssessment?.documentHash ?? "-",
+  }
+}
+
+async function renderTypstAuditTrailPdf(data: TypstAuditTrailData): Promise<Uint8Array> {
+  const templatePath = typstTemplatePath()
+  const logoPath = typstLogoPath()
+  const typstBin = process.env.AUDIT_TRAIL_TYPST_BIN ?? "typst"
+  const tmpDir = await mkdtemp(join(tmpdir(), "antaios-audit-trail-"))
+
+  try {
+    const dataPath = join(tmpDir, "audit-trail.json")
+    const outputPath = join(tmpDir, "audit-trail.pdf")
+    await writeFile(dataPath, JSON.stringify({ ...data, logoPath }, null, 2), "utf8")
+    await execFileAsync(typstBin, [
+      "compile",
+      "--root", "/",
+      "--input", `data=${dataPath}`,
+      "--input", `logo=${logoPath}`,
+      templatePath,
+      outputPath,
+    ], { timeout: 30_000 })
+    return new Uint8Array(await readFile(outputPath))
+  } catch (error) {
+    if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
+      throw new Error("Typst CLI not found. Install the typst binary in the deployment image or set AUDIT_TRAIL_TYPST_BIN.")
+    }
+    throw error
+  } finally {
+    await rm(tmpDir, { recursive: true, force: true })
+  }
+}
 
 export const generateAuditTrailPdf = action({
   args: {
@@ -374,20 +680,7 @@ export const generateAuditTrailPdf = action({
     const today = new Date().toISOString().slice(0, 10).replace(/-/g, "")
     const filename = `audit-trail-${ref}-${today}.pdf`
 
-    const riskAssessment = shipment.riskAssessment as
-      | {
-          shipmentId: Id<"shipments">
-          generatedAt: number
-          countryRisk: { classification: "low" | "standard" | "high"; deforestationRate: string | null; source: string }
-          deforestationRisk: { result: "clear" | "flagged" | "unknown"; scanDate: number; source: string }
-          supplyChainComplexity: { intermediaryCount: number; mixingRisk: boolean }
-          documentationRisk: { complete: boolean; redFlags: string[] }
-          indigenousRights: { flagged: boolean; note: string | null }
-          verdict: "negligible" | "non_negligible"
-          flaggedCriteria: string[]
-          mitigationActions: { action: string; date: number }[] | null
-        }
-      | undefined
+    const riskAssessment = shipment.riskAssessment as RiskAssessmentForPdf | undefined
     const org = shipment.orgId
       ? await ctx.runQuery(internal.orgs.getOrgById, { orgId: shipment.orgId as Id<"organizations"> })
       : null
@@ -395,195 +688,15 @@ export const generateAuditTrailPdf = action({
     const fmtDate = dateFmt(locale).format(new Date(shipment._creationTime))
     const fmtTs = (ts: number) => dateFmt(locale).format(new Date(ts))
 
-    function evalLabel(key: string): string {
-      return t(key, locale)
-    }
-
-    const pdfDoc = await PDFDocument.create()
-    const page = pdfDoc.addPage([595.28, 841.89])
-
-    const font = await pdfDoc.embedStandardFont(StandardFonts.Helvetica)
-    const fontBold = await pdfDoc.embedStandardFont(StandardFonts.HelveticaBold)
-    const fontOblique = await pdfDoc.embedStandardFont(StandardFonts.HelveticaOblique)
-
-    const BLACK = rgb(0, 0, 0)
-    const DARK_GRAY = rgb(0.3, 0.3, 0.3)
-    const GRAY = rgb(0.5, 0.5, 0.5)
-    const LIGHT_GRAY = rgb(0.75, 0.75, 0.75)
-    const GREEN = rgb(0, 0.55, 0)
-    const RED = rgb(0.8, 0.1, 0.1)
-    const LINE_COLOR = rgb(0.82, 0.84, 0.86)
-
-    const ML = 40
-    const PAGE_W = 595.28
-    const CW = PAGE_W - 2 * ML
-    let y = 841.89 - 36
-
-    function drawTableCell(yPos: number, text: string, x: number, font_: typeof font, size: number, color: typeof BLACK) {
-      page.drawText(sanitize(text), { x, y: yPos, font: font_, size, color })
-    }
-
-    page.drawLine({ start: { x: ML, y: y - 2 }, end: { x: PAGE_W - ML, y: y - 2 }, thickness: 0.5, color: GRAY })
-    y -= 8
-
-    const titleText = t("title", locale)
-    const titleW = fontBold.widthOfTextAtSize(titleText, 18)
-    page.drawText(sanitize(titleText), {
-      x: (PAGE_W - titleW) / 2, y: y - 18,
-      font: fontBold, size: 18, color: BLACK,
-    })
-    y -= 24
-
-    const subtitleText = `${t("generated_on", locale)} : ${fmtDate}  |  ${t("shipment_ref", locale)} : ${ref}`
-    const subtitleW = font.widthOfTextAtSize(subtitleText, 8)
-    page.drawText(sanitize(subtitleText), {
-      x: (PAGE_W - subtitleW) / 2, y: y - 8,
-      font, size: 8, color: DARK_GRAY,
-    })
-    y -= 14
-
-    page.drawLine({ start: { x: ML, y }, end: { x: PAGE_W - ML, y }, thickness: 0.3, color: GRAY })
-    y -= 14
-
-    const RH = 20
-    y -= 4
-
-    const infoRows: { label: string; value: string }[] = [
-      { label: t("shipment_ref", locale), value: ref },
-      { label: t("company", locale), value: (extractedData.operatorName as string) ?? org?.name ?? "-" },
-      { label: t("eori", locale), value: org?.eoriNumber ?? "-" },
-      { label: t("commodity", locale), value: (extractedData.commodityName as string) ?? "-" },
-      { label: t("hs_code", locale), value: (extractedData.hsCode as string) ?? "-" },
-      { label: t("country_of_production", locale), value: (extractedData.countryOfProduction as string) ?? "-" },
-      { label: t("supplier", locale), value: (extractedData.supplierName as string) ?? "-" },
-      { label: t("quantity", locale), value: `${NUM_FMT.format((extractedData.quantity as number) ?? 0)} ${(extractedData.quantityUnit as string) ?? ""}` },
-      { label: t("plot_reference", locale), value: (extractedData.plotReference as string) ?? (extractedData.geoJson ? t("parcel", locale) : t("no_parcel", locale)) },
-      { label: t("dds_reference", locale), value: shipment.tracesRef ?? t("not_submitted", locale) },
-    ]
-
-    infoRows.forEach((row) => {
-      const labelW = fontBold.widthOfTextAtSize(row.label + " : ", 8)
-      drawTableCell(y - 5, row.label + " : ", ML + 6, fontBold, 8, DARK_GRAY)
-      drawTableCell(y - 5, row.value, ML + 6 + labelW, font, 8, BLACK)
-      y -= RH
-    })
-    y -= 16
-
-    page.drawLine({ start: { x: ML, y }, end: { x: PAGE_W - ML, y }, thickness: 0.3, color: GRAY })
-    y -= 16
-
-    if (riskAssessment) {
-      const countryRiskSource = riskAssessment.countryRisk.source || "Banque mondiale — AG.LND.FRST.ZS (2023)"
-      const deforestationSource = riskAssessment.deforestationRisk.source || "Scan satellitaire — Global Forest Watch"
-
-      page.drawText(sanitize(t("risk_assessment", locale)), {
-        x: ML, y: y - 6, font: fontBold, size: 10, color: DARK_GRAY,
-      })
-      y -= 22
-
-      const colWidths = [195, 120, CW - 315]
-      drawTableCell(y - 5, t("criterion", locale), ML + 6, fontBold, 8, DARK_GRAY)
-      drawTableCell(y - 5, t("evaluation", locale), ML + 6 + colWidths[0] + 4, fontBold, 8, DARK_GRAY)
-      drawTableCell(y - 5, t("source", locale), ML + 6 + colWidths[0] + colWidths[1] + 4, fontBold, 8, DARK_GRAY)
-      y -= 15
-      page.drawLine({ start: { x: ML, y }, end: { x: PAGE_W - ML, y }, thickness: 0.3, color: GRAY })
-      y -= 5
-
-      const raRows: [string, string, string][] = [
-        [t("country_risk", locale), evalLabel(riskAssessment.countryRisk.classification), countryRiskSource],
-        [t("deforestation_risk", locale), evalLabel(riskAssessment.deforestationRisk.result), deforestationSource],
-        [t("supply_chain_complexity", locale), t("not_evaluated", locale), t("not_evaluated", locale)],
-        [t("documentation_risk", locale), riskAssessment.documentationRisk.complete ? t("complete", locale) : t("incomplete", locale), "Antaios"],
-        [t("indigenous_rights", locale), t("not_evaluated", locale), t("not_evaluated", locale)],
-      ]
-
-      raRows.forEach(([criterion, evaluation, source], i) => {
-        drawTableCell(y - 5, criterion, ML + 6, font, 8, BLACK)
-        drawTableCell(y - 5, evaluation, ML + 6 + colWidths[0] + 4, font, 8, BLACK)
-        drawTableCell(y - 5, source, ML + 6 + colWidths[0] + colWidths[1] + 4, font, 8, GRAY)
-        y -= 15
-        if (i < raRows.length - 1) {
-          page.drawLine({ start: { x: ML, y }, end: { x: PAGE_W - ML, y }, thickness: 0.3, color: LINE_COLOR })
-        }
-        y -= 5
-      })
-
-      const verdictLabel = `${t("verdict", locale)} : `
-      const verdictValue = riskAssessment.verdict === "negligible" ? t("negligible", locale) : t("non_negligible", locale)
-      const verdictColor = riskAssessment.verdict === "negligible" ? GREEN : RED
-      drawTableCell(y - 5, verdictLabel, ML + 6, fontBold, 9, BLACK)
-      const vlW = fontBold.widthOfTextAtSize(verdictLabel, 9)
-      drawTableCell(y - 5, verdictValue, ML + 6 + vlW, font, 9, verdictColor)
-      y -= 22
-
-      if (riskAssessment.verdict === "non_negligible" && riskAssessment.flaggedCriteria.length > 0) {
-        page.drawLine({ start: { x: ML, y }, end: { x: PAGE_W - ML, y }, thickness: 0.3, color: GRAY })
-        y -= 12
-
-        page.drawText(sanitize(t("flagged_criteria", locale)), {
-          x: ML, y: y - 5, font: fontBold, size: 9, color: DARK_GRAY,
-        })
-        y -= 14
-
-        riskAssessment.flaggedCriteria.forEach((c) => {
-          page.drawText(sanitize(`•  ${t(c, locale)}`), { x: ML + 6, y: y - 4, font, size: 8, color: BLACK })
-          y -= 14
-        })
-        y -= 4
-
-        const mitigationActions = riskAssessment.mitigationActions
-        if (mitigationActions && mitigationActions.length > 0) {
-          page.drawLine({ start: { x: ML, y }, end: { x: PAGE_W - ML, y }, thickness: 0.3, color: GRAY })
-          y -= 12
-
-          page.drawText(sanitize(t("mitigation_actions", locale)), {
-            x: ML, y: y - 5, font: fontBold, size: 9, color: DARK_GRAY,
-          })
-          y -= 14
-
-          const mColW = [CW - 100, 100]
-          drawTableCell(y - 5, t("action", locale), ML + 6, fontBold, 8, DARK_GRAY)
-          drawTableCell(y - 5, t("date", locale), ML + mColW[0] + 10, fontBold, 8, DARK_GRAY)
-          y -= RH
-          page.drawLine({ start: { x: ML, y }, end: { x: PAGE_W - ML, y }, thickness: 0.3, color: GRAY })
-          y -= 4
-
-          mitigationActions.forEach((m, i) => {
-            drawTableCell(y - 5, m.action, ML + 6, font, 8, BLACK)
-            drawTableCell(y - 5, fmtTs(m.date), ML + mColW[0] + 10, font, 8, BLACK)
-            y -= RH
-            if (i < mitigationActions.length - 1) {
-              page.drawLine({ start: { x: ML, y }, end: { x: PAGE_W - ML, y }, thickness: 0.3, color: LINE_COLOR })
-              y -= 4
-            }
-          })
-          y -= 6
-        }
-      }
-
-      y -= 6
-    } else {
-      y -= 4
-      const fallbackW = fontOblique.widthOfTextAtSize(t("risk_assessment_unavailable", locale), 9)
-      page.drawText(sanitize(t("risk_assessment_unavailable", locale)), {
-        x: (PAGE_W - fallbackW) / 2, y: y - 9,
-        font: fontOblique, size: 9, color: LIGHT_GRAY,
-      })
-    }
-
-    const footerText = t("retention_notice", locale)
-    const footerW = fontOblique.widthOfTextAtSize(footerText, 7)
-    page.drawText(sanitize(footerText), {
-      x: (PAGE_W - footerW) / 2, y: 45,
-      font: fontOblique, size: 7, color: GRAY,
-    })
-
-    const pdfBytes = await pdfDoc.save()
-    const storageId = await ctx.storage.store(
-      new Blob([new Uint8Array(pdfBytes)], { type: "application/pdf" }),
-    )
-    const url = await ctx.storage.getUrl(storageId)
-    if (!url) throw new Error("Failed to generate storage URL")
+    const pdfBytes = await renderTypstAuditTrailPdf(buildTypstAuditTrailData({
+      locale,
+      ref,
+      shipment,
+      org,
+      riskAssessment,
+    }))
+    const base64 = Buffer.from(pdfBytes).toString("base64")
+    const url = `data:application/pdf;base64,${base64}`
     return { url, filename }
   },
 })

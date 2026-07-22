@@ -12,3 +12,5 @@ export const GFW_API_KEY = process.env.GFW_API_KEY;
 export const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
 export const TRACES_ENCRYPTION_KEY = process.env.TRACES_ENCRYPTION_KEY;
 export const CLERK_WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
+export const CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY;
+export const ADMIN_SECRET_HASH = process.env.ADMIN_SECRET_HASH;

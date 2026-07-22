@@ -50,7 +50,11 @@
     "close": "Schließen",
     "submit": "Absenden",
     "extracting_status": "Extraktion läuft, die Daten erscheinen, sobald die Dokumente verarbeitet wurden.",
-    "files_extracted": "{{count}} Datei(en) extrahiert"
+    "files_extracted": "{{count}} Datei(en) extrahiert",
+    "download_audit_trail": "Prüfpfad herunterladen",
+    "audit_trail_hint": "Einige Daten fehlen möglicherweise",
+    "copy_supplier_link": "Lieferantenlink kopieren",
+    "link_copied": "Link kopiert!"
   },
   "conflict": {
     "title": "Konflikte lösen",
@@ -341,19 +345,105 @@
     },
     "hero": {
       "badge": "Frist — 30. Dez. 2026",
-      "title": "EUDR-konform werden, bevor Ihre Frist abläuft — ohne 12.000 €/Jahresvertrag",
-      "subtitle": "Verstreute PDFs, Tabellen und Deadline-Stress? Antaios bewertet Ihre Lieferkette nach allen 5 Sorgfaltspflichtkriterien gemäß Artikel 10(2), EU-Verordnung 2023/1115.",
-      "cta": "Compliance kostenlos prüfen",
+      "title": "EUDR-Konformität ohne den Tabellenkram.",
+      "subtitle": "Laden Sie Ihre Dokumente hoch. Antaios extrahiert die Daten, deckt alle 5 Sorgfaltspflichtkriterien ab und erstellt Ihre DDS in Minuten.",
+      "cta": "Kostenlos testen",
       "login": "Sie wissen bereits, dass Sie das brauchen? Registrieren →"
     },
     "trust": {
       "text": "Entwickelt rund um die exakten 5 Sorgfaltspflichtkriterien nach Artikel 10(2), EU-Verordnung 2023/1115."
     },
     "problem": {
+      "header": "Unternehmenstools überteuert. Antaios liefert einfach.",
+      "body": "Was ein KMU wirklich braucht — nicht das, was ein Unternehmenskonto abrechnet. Betriebsbereit in einem Nachmittag, nicht in einem Quartal.",
+      "title": "EUDR toleriert keine planlose Compliance",
+      "subtitle": "Ohne spezielles Tool wird jede Sendung zum Wettlauf gegen die Zeit.",
+      "urgent": "Dringend",
+      "manual": {
+        "title": "DDS per Hand erstellt",
+        "desc": "Stundenlanges Zusammenstellen von PDFs, E-Mails und Tabellen für eine einzige Akte."
+      },
+      "scattered": {
+        "title": "Verstreute Quellen",
+        "desc": "Rückverfolgbarkeit, Geolokalisierung, Rechtmäßigkeit — jedes Kriterium lebt in seiner eigenen Sphäre."
+      },
+      "deadlines": {
+        "title": "Frist in 6 Monaten",
+        "desc": "30. Dezember 2026 für Großunternehmen. 30. Juni 2027 für KMU.",
+        "large": "Großunternehmen",
+        "small": "KMU & Kleinstunternehmen",
+        "countdown": "{{count}} Monate verbleibend — jetzt mit der Vorbereitung beginnen"
+      },
+      "risk": {
+        "title": "Blinde Compliance",
+        "desc": "Ohne strukturierte Prüfung wissen Sie nicht, ob Sie konform sind — bis zur ersten Inspektion."
+      },
+      "solution": {
+        "problem_title": "Jede Sendung ist ein Wettlauf gegen die Zeit",
+        "problem_desc": "Verstreute Dokumente, unterschiedliche Quellen, eine nahende Frist.",
+        "solution_title": "Eine Akte, automatisch erstellt",
+        "solution_desc": "Antaios bündelt, prüft und erstellt Ihre DDS mit einem Klick.",
+        "check_exporter": "Exporteur / Produkt",
+        "check_parcel": "Parzelle / Geolokalisierung",
+        "check_conformity": "Konformität / Legalität",
+        "check_rights": "Rechte & Legalität",
+        "check_traceability": "Rückverfolgbarkeit",
+        "status_ok": "OK",
+        "status_in_progress": "In Bearbeitung",
+        "status_pending": "Ausstehend",
+        "source_pdf": "Lieferanten-PDF",
+        "source_pdf_detail": "Rechnungen, Frachtbriefe, Zertifikate",
+        "source_email": "E-Mails",
+        "source_email_detail": "Anfragen und Anhänge",
+        "source_parcel": "Parzellen",
+        "source_parcel_detail": "Koordinaten und GeoJSON",
+        "problem_badge": "Problem",
+        "solution_badge": "Lösung",
+        "scattered_inputs": "Verstreute Eingaben",
+        "deadline": "Frist: 30. Dez. 2026",
+        "step_read": "Liest und strukturiert",
+        "step_read_desc": "OCR, Extraktion und Nachweisabgleich.",
+        "step_verify": "Überprüft Risiken",
+        "step_verify_desc": "Rückverfolgbarkeit, Legalität und Geolokalisierung.",
+        "step_compliance": "Compliance-Dossier",
+        "step_compliance_desc": "Bereit für DDS-Einreichung",
+        "compliant_badge": "Konform"
+      },
       "q1": "\"Wer hat welche Dokumente gesendet? Welche Sendungen benötigen noch eine Geolokalisierung?\"",
       "q2": "\"Was passiert, wenn der Prüfer unsere Sorgfaltspflichtunterlagen anfordert?\"",
       "q3": "\"Sind wir wirklich compliant — oder hoffen wir es nur?\"",
       "contrast": "Enterprise-Tools kosten 12.000 €+/Jahr und brauchen Monate für die Einrichtung. Antaios liefert, was Sie wirklich brauchen, ab 500 €/Monat."
+    },
+    "workflow": {
+      "title": "So funktioniert es",
+      "subtitle": "Jede Sendung folgt dem gleichen einfachen Workflow.",
+      "stages": {
+        "upload": {
+          "label": "Hochladen",
+          "desc": "Reichen Sie Ihre Dokumente ein — Rechnungen, Manifeste, Zertifikate"
+        },
+        "extract": {
+          "label": "Extrahieren & Prüfen",
+          "desc": "Antaios extrahiert und gleicht Daten automatisch ab"
+        },
+        "resolve": {
+          "label": "Konflikte lösen",
+          "desc": "Beheben Sie widersprüchliche Daten in einer einheitlichen Oberfläche"
+        },
+        "request": {
+          "label": "Vom Lieferanten anfordern",
+          "desc": "Fehlende Infos? Fordern Sie sie über das Lieferantenportal an"
+        },
+        "screen": {
+          "label": "Auf Entwaldung prüfen",
+          "desc": "Scannen Sie Produktionsflächen auf Waldveränderungen"
+        },
+        "submit": {
+          "label": "DDS an TRACES übermitteln",
+          "desc": "Erstellen und einreichen Sie Ihre Sorgfaltserklärung"
+        }
+      },
+      "audit_trail": "Prüfpfad — jede Aktion wird automatisch aufgezeichnet"
     },
     "how": {
       "title": "So funktioniert es",
@@ -374,19 +464,98 @@
         "desc": "Alle Ihre Compliance-Aufzeichnungen — Risikobewertungen, Belegdokumente und eingereichte DDS-Erklärungen — werden für die gesamte gesetzliche Aufbewahrungsfrist von 5 Jahren sicher gespeichert. Wenn ein Prüfer Unterlagen anfordert, können Sie die vollständigen Akten innerhalb von 24 Stunden abrufen und exportieren. Die Gewissheit, dass Sie jederzeit prüfungsbereit sind."
       }
     },
+    "features": {
+      "headline": "Die 5 EUDR-Compliance-Kriterien",
+      "subhead": "Automatisch verarbeitet von Antaios.",
+      "tracability": {
+        "title": "Rückverfolgbarkeit",
+        "desc": "Jede Charge vom Erzeuger bis zum Importeur zurückverfolgt."
+      },
+      "geolocation": {
+        "title": "Geolokalisierung",
+        "desc": "GPS-Koordinaten der Parzelle, Kartenansicht, GeoJSON-Export."
+      },
+      "legality": {
+        "title": "Rechtmäßigkeit",
+        "desc": "Betriebsgenehmigungen und Einhaltung lokaler Gesetze."
+      },
+      "deforestation": {
+        "title": "Entwaldung",
+        "desc": "Automatisierter Scan pro Parzelle mit Risikoanalyse."
+      },
+      "attestations": {
+        "title": "Erklärungen",
+        "desc": "Zertifikate und Lieferantenerklärungen an einem Ort."
+      },
+      "scoring": "Echtzeit-Risikobewertung",
+      "scoringSub": "Jedes Dokument wird automatisch analysiert.",
+      "process": {
+        "traced": "Rückverfolgbarkeitsdokumente geprüft",
+        "gps": "GPS-Koordinaten validiert",
+        "permits": "Betriebsgenehmigungen konform",
+        "deforestation_risk": "Kein Entwaldungsrisiko festgestellt",
+        "dds": "DDS bereit zur Erstellung",
+        "justNow": "soeben"
+      }
+    },
     "midCta": {
       "title": "Sie wissen nicht, wo Sie stehen?",
       "desc": "Machen Sie unsere kostenlose 3-Minuten-Diagnose. 8 Fragen, keine E-Mail erforderlich.",
       "cta": "Kostenlose Diagnose starten →"
     },
+    "deadline": {
+      "headline": "Fristen, die Sie betreffen",
+      "subhead": "Die EUDR gilt gestaffelt nach Unternehmensgröße.",
+      "large": {
+        "title": "Große und mittlere Unternehmen",
+        "date": "30. Dezember 2026",
+        "note": "Frist für Unternehmen mit über 250 Mitarbeitern oder 50 Mio. € Umsatz."
+      },
+      "small": {
+        "title": "Kleine und Kleinstunternehmen",
+        "date": "30. Juni 2027",
+        "note": "Frist für Unternehmen mit weniger als 250 Mitarbeitern und 50 Mio. € Umsatz."
+      },
+      "monthsRemaining": "{{count}} Monate verbleibend",
+      "cta": "Sie wissen nicht, ob Sie betroffen sind? Machen Sie die kostenlose Diagnose →"
+    },
     "pricing": {
       "title": "Einfache, transparente Preise",
       "price": "500 €/Monat",
       "flat": "Festpreis, keine Gebühren pro Sendung",
-      "annual": "5.000 €/Jahr — Break-even nach 10 Monaten",
+      "annual": "5.000 €/Jahr — 2 Monate gratis",
       "compare1": "Berater: 5.000–20.000 € pro Projekt",
       "compare2": "Enterprise-SaaS: 15.000 €+/Jahr",
-      "caveat": "Wenn Sie als nachgelagerter Händler nur Referenznummern verwalten und kein vollständiger Importeur sind, könnte ein schlankeres Tool besser geeignet sein. Wir sagen Ihnen ehrlich, ob das der Fall ist."
+      "caveat": "Wenn Sie als nachgelagerter Händler nur Referenznummern verwalten und kein vollständiger Importeur sind, könnte ein schlankeres Tool besser geeignet sein. Wir sagen Ihnen ehrlich, ob das der Fall ist.",
+      "sub": "Ein monatlicher Tarif. Keine versteckten Gebühren, keine Bindung.",
+      "forLabel": "Für Importeure und Marktteilnehmer",
+      "cta": "Loslegen",
+      "demo": "Demo buchen",
+      "noCommitment": "Keine Bindung. Jederzeit kündbar.",
+      "includes": "Alles inklusive",
+      "includesDesc": "Keine optionalen Module, keine Überraschungen.",
+      "features": {
+        "unlimited": "Unbegrenzte Sendungen",
+        "criteria": "Alle 5 Kriterien nach Artikel 10(2)",
+        "export": "DDS-Export für TRACES",
+        "audit": "5-jähriger Prüfpfad",
+        "scan": "Automatisierter Entwaldungsscan",
+        "supplier": "Lieferantenportal",
+        "import": "Multi-Format-Import (PDF, Excel, Bilder, GeoJSON)",
+        "report": "PDF-Compliance-Bericht",
+        "support": "E-Mail-Support",
+        "onboarding": "Einrichtung in einem Nachmittag"
+      },
+      "feature1": "Unbegrenzte Sendungen",
+      "feature2": "Jahresplan: ×10 Monate",
+      "feature3": "E-Mail- und Chat-Support",
+      "compareTitle": "Im Vergleich zu anderen Optionen",
+      "compareOption1": "Beratungsunternehmen",
+      "comparePrice1": "5.000 – 20.000 € / Mandat",
+      "compareOption2": "Enterprise-SaaS-Plattform",
+      "comparePrice2": "15.000+ € / Jahr",
+      "compareOption3": "Antaios",
+      "comparePrice3": "6.000 € / Jahr"
     },
     "faq": {
       "title": "Häufig gestellte Fragen",
@@ -405,11 +574,155 @@
       "q4": {
         "q": "Sind meine Daten sicher?",
         "a": "Ja. Wir verwenden Verschlüsselung im Ruhezustand und während der Übertragung. Für optionale Übersetzungen verarbeiten wir Daten über DeepL — Details finden Sie in unserer Datenschutzerklärung."
+      },
+      "deposit": {
+        "q": "Muss ich die DDS trotzdem selbst einreichen?",
+        "a": "Ja, die Einreichung bei TRACES bleibt Ihre Verantwortung. Antaios erstellt eine vollständige, konforme DDS, die Sie mit wenigen Klicks einreichen können."
+      },
+      "hosting": {
+        "q": "Werden meine Daten in Europa gehostet?",
+        "a": "Ja. Alle Ihre Daten werden auf Servern innerhalb der Europäischen Union gespeichert, konform mit der DSGVO."
+      },
+      "retention": {
+        "q": "Was passiert nach der 5-jährigen Aufbewahrungsfrist?",
+        "a": "Die Verordnung schreibt 5 Jahre Aufbewahrung vor. Danach können Sie Ihre Archive exportieren oder deren Löschung beantragen."
+      },
+      "comparison": {
+        "q": "Was ist der Unterschied zu Coolset oder osapiens?",
+        "a": "Antaios ist für KMU entwickelt: ein Festpreis von 500 €/Monat, Einrichtung in einem Nachmittag, ohne langfristige Bindung."
+      },
+      "erp": {
+        "q": "Kann ich Daten aus einem ERP importieren?",
+        "a": "Manueller Import per CSV/Excel ist verfügbar. Die API-Integration mit gängigen ERP-Systemen befindet sich in Entwicklung."
       }
     },
+    "comparison": {
+      "headline": "Antaios vs. die Alternativen",
+      "sub": "Transparenter Vergleich. Keine Beschönigung, keine Überraschungen.",
+      "note": "EUDRReady richtet sich an Wiederverkäufer (geringere Pflichten). Antaios, Coolset und osapiens richten sich an Importeure (volle Sorgfaltspflicht).",
+      "col": {
+        "solution": "Lösung",
+        "manual": "Manuell",
+        "eudrready": "EUDRReady",
+        "coolset": "Coolset",
+        "osapiens": "osapiens",
+        "antaios": "Antaios"
+      },
+      "row": {
+        "price": "Preis",
+        "setup": "Einrichtungszeit",
+        "coverage": "Vollständige Compliance",
+        "access": "Zugang",
+        "transparency": "Preistransparenz"
+      },
+      "cell": {
+        "price": {
+          "manual": "Kostenlos (versteckte Kosten: Zeit)",
+          "eudrready": "Kostenlos – 79 €/Monat",
+          "coolset": "~6.000 – 12.000+ €/Jahr",
+          "osapiens": "Auf Anfrage",
+          "antaios": "500 €/Monat"
+        },
+        "setup": {
+          "manual": "Sofort",
+          "eudrready": "~20 Min.",
+          "coolset": "4 Wochen",
+          "osapiens": "Mehrere Wochen",
+          "antaios": "Ein Nachmittag"
+        },
+        "coverage": {
+          "manual": "Nein",
+          "eudrready": "Nicht abgedeckt",
+          "coolset": "Ja",
+          "osapiens": "Ja",
+          "antaios": "Ja"
+        },
+        "access": {
+          "manual": "N/A",
+          "eudrready": "Selbstbedienung",
+          "coolset": "Nach Vereinbarung",
+          "osapiens": "Nach Vereinbarung",
+          "antaios": "Selbstbedienung"
+        },
+        "transparency": {
+          "manual": "N/A",
+          "eudrready": "Veröffentlicht",
+          "coolset": "Modular",
+          "osapiens": "Nicht veröffentlicht",
+          "antaios": "Veröffentlicht"
+        }
+      }
+    },
+    "freeTool": {
+      "badge": "Kostenlose Diagnose — 2 Minuten",
+      "headline": "Die EUDR-Frist rückt näher. Wissen Sie, wo Sie stehen?",
+      "sub": "Beantworten Sie 8 Fragen basierend auf den 5 Kriterien des Artikels 10(2) und erhalten Sie Ihr persönliches Risikoniveau, Ihre Lücken und die vorrangigen Maßnahmen — in 2 Minuten, ohne Anmeldung.",
+      "benefits": {
+        "legal": {
+          "title": "Rechtlich fundiert",
+          "desc": "Basiert auf den 5 Sorgfaltspflichtkriterien des Artikels 10(2), EU-Verordnung 2023/1115."
+        },
+        "instant": {
+          "title": "Sofortiges Ergebnis",
+          "desc": "Ihr Risikoprofil und vorrangige Maßnahmen in Sekunden berechnet."
+        },
+        "free": {
+          "title": "Keine E-Mail erforderlich",
+          "desc": "Keine Anmeldung, keine Datenspeicherung. Völlig anonym."
+        }
+      },
+      "mock": {
+        "badge": "Ihr Ergebnis",
+        "deadlineLabel": "Anwendbare Frist",
+        "deadline": "30. Dez. 2026",
+        "tier": "Mittleres Risiko",
+        "criteria": {
+          "traceability": "Rückverfolgbarkeit",
+          "geolocation": "Geolokalisierung",
+          "dueDiligence": "Sorgfaltspflicht-Dokumentation",
+          "attestations": "Lieferantenerklärungen",
+          "legality": "Rechtliche Konformität Ursprungsland"
+        },
+        "nextAction": "3 Kriterien, die vor der Frist zu behandeln sind."
+      },
+      "cta": "Meine Compliance prüfen — kostenlos",
+      "socialProof": "Getestet mit 2.500+ Unternehmen"
+    },
     "final": {
+      "title": "Bereit vor der Frist?",
+      "subtitle": "2 Minuten, keine E-Mail, keine Bindung.",
       "cta": "Compliance kostenlos prüfen",
       "login": "Bereit zu kaufen? Registrieren →"
+    },
+    "finalCta": {
+      "title": "Bereit vor der Frist?",
+      "subtitle": "2 Minuten, keine E-Mail, keine Bindung.",
+      "primaryCta": "Compliance prüfen — kostenlos",
+      "secondaryCta": "Oder Konto erstellen →"
+    },
+    "footer": {
+      "freeTool": "Kostenloses Tool",
+      "resources": "Ressourcen",
+      "privacy": "Datenschutz",
+      "terms": "Nutzungsbedingungen",
+      "description": "EUDR-Compliance für Importeure. Eine Sorgfaltspflichtplattform gemäß EU-Verordnung 2023/1115.",
+      "product": "Produkt",
+      "legal": "Rechtliches",
+      "links": {
+        "features": "Funktionen",
+        "pricing": "Preise",
+        "diagnostic": "Kostenlose Diagnose",
+        "blog": "Blog",
+        "guide": "EUDR-Leitfaden",
+        "checklist": "Checkliste",
+        "faq": "FAQ",
+        "notices": "Impressum",
+        "privacy": "Datenschutzerklärung",
+        "termsOfSale": "Verkaufsbedingungen",
+        "dpa": "DPA"
+      },
+      "translationNotice": "Übersetzungen verarbeitet durch DeepL (Auftragsverarbeiter)",
+      "contact": "Kontakt"
     }
   },
   "resources": {
@@ -434,6 +747,176 @@
         "title": "Ist Ihr Unternehmen bereit für die EUDR? Ein praktischer Überblick",
         "desc": "Ein Überblick über die EU-Entwaldungsverordnung: wen sie betrifft, wichtige Fristen, regulierte Rohstoffe und erste Schritte.",
         "category": "Überblick"
+      }
+    },
+    "article": {
+      "back": "← Zurück zu den Ressourcen"
+    },
+    "checklist": {
+      "category": "Compliance-Leitfaden",
+      "readTime": "5 Min. Lesezeit",
+      "title": "EUDR-Compliance-Checkliste: Ihr 5-Schritte-Leitfaden zu Artikel 10(2)",
+      "intro": "Artikel 10(2) der EU-Entwaldungsverordnung (EU) 2023/1115 definiert fünf Kriterien, die Ihre Sorgfaltspflicht-erklärung adressieren muss. Die Behörden werden jedes einzelne prüfen. Hier finden Sie eine praktische Übersicht der Anforderungen und wie Sie sich vorbereiten.",
+      "step1": {
+        "title": "1. Rückverfolgbarkeit (Artikel 10(2)(a))",
+        "body": "Sie müssen nachweisen können, dass jedes Produkt in Ihrer Sendung bis zu seinem Ursprungsgrundstück zurückverfolgt werden kann. Das bedeutet, Sie müssen eine dokumentierte Lieferkette vom landwirtschaftlichen Betrieb oder Wald bis zu Ihrem Lager vorhalten. Halten Sie für jede Charge den Lieferanten, den Zwischenhändler, das Erzeugerland, die Region und die Grundstückskennungen fest.",
+        "evidence": "Was Sie brauchen:",
+        "ev1": "Lieferantenverträge und Bestellungen, die Produkte mit bestimmten Grundstücken verknüpfen",
+        "ev2": "Interne Chargenverfolgungsaufzeichnungen (ERP-Auszüge, Tabellen oder Ihre Compliance-Plattform)",
+        "ev3": "Zertifikate zur Lieferkette, sofern anwendbar (z. B. FSC für Holz, RSPO für Palmöl)",
+        "pitfall": "Häufige Falle:",
+        "pitfallBody": "Sich auf eine einzige Lieferantenerklärung zu verlassen, ohne sie mit den tatsächlichen Sendungsaufzeichnungen abzugleichen. Wenn ein Prüfer die Kette für einen bestimmten Container sehen möchte, brauchen Sie Chargendetails, nicht nur eine pauschale Aussage."
+      },
+      "step2": {
+        "title": "2. Geolokalisierung (Artikel 10(2)(b) + 9(1)(d))",
+        "body": "Für jedes Grundstück, auf dem eine Ware produziert wurde, müssen Sie die geografischen Koordinaten erfassen. Artikel 9(1)(d) legt fest, dass Sie für Grundstücke über 4 Hektar Polygondaten (nicht nur einen einzelnen Punkt) benötigen. Für kleinere Flächen reicht ein Breiten-/Längengrad. Diese Koordinaten müssen zusammen mit Ihrer Sorgfaltspflicht-erklärung eingereicht werden.",
+        "evidence": "Was Sie brauchen:",
+        "ev1": "GPS-Koordinaten (Punkt oder Polygon) für jedes Produktionsgrundstück",
+        "ev2": "Ein System, das Geodaten pro Sendung speichert und abruft",
+        "ev3": "Nachweis, dass die Koordinaten zum Zeitpunkt der Ernte oder Produktion erfasst wurden",
+        "tip": "Praktischer Tipp:",
+        "tipBody": "Wenn Sie mit Kleinbauern zusammenarbeiten, stellen Sie ihnen einfache mobile Tools oder Feldbetreuer zur Koordinatenerfassung zur Verfügung. Ein fehlendes oder falsches Polygon ist einer der häufigsten Gründe für die Ablehnung einer DDS."
+      },
+      "step3": {
+        "title": "3. Einhaltung der Rechtsvorschriften (Artikel 10(2)(c))",
+        "body": "Sie müssen überprüfen, ob das Produkt unter Einhaltung der Rechtsvorschriften des Erzeugerlandes hergestellt wurde. Dies umfasst Landnutzungsrechte, Umweltauflagen, Arbeitsrecht, Steuerrecht und Anti-Korruptionsregeln. Die Beweislast liegt bei Ihnen als Importeur, nicht bei der Behörde.",
+        "evidence": "Was Sie brauchen:",
+        "ev1": "Risikobewertungen nach Ursprungsland (anhand des EU-Benchmarkings oder eigener Analysen)",
+        "ev2": "Lieferantenerklärungen zu den relevanten Rechtsbereichen",
+        "ev3": "Prüfberichte Dritter, sofern verfügbar"
+      },
+      "step4": {
+        "title": "4. Angemessene und überprüfbare Informationen (Artikel 10(2)(d))",
+        "body": "Die gesammelten Informationen müssen angemessen – also alle relevanten Kriterien abdeckend – und überprüfbar sein, sodass ein Dritter sie bestätigen könnte. Vage Aussagen reichen nicht. Sie benötigen spezifische Daten mit klarer Herkunft – wer sie wann bereitgestellt hat und wie sie verifiziert wurden.",
+        "tip": "Strategie:",
+        "tipBody": "Führen Sie ein zentrales Repository, in dem jeder Nachweis mit Quelle, Erfassungsdatum und Prüfstatus versehen ist. So wird die Audit-Vorbereitung zum Export eines Berichts, statt zum Durchwühlen von Postfächern."
+      },
+      "step5": {
+        "title": "5. Risikobewertung und Risikominderung (Artikel 10(2)(e))",
+        "body": "Die Verordnung verlangt, dass Sie das Risiko der Nichteinhaltung für jede Sendung bewerten und bei festgestelltem Risiko Maßnahmen zur Risikominderung ergreifen. Ihre Risikobewertung sollte das Ursprungsland, die Komplexität der Lieferkette und etwaige Warnsignale (wie aktuelle Entwarnungswarnungen oder Sanktionen) berücksichtigen. Maßnahmen können zusätzliche Dokumentationsanfragen, Prüfungen Dritter oder die Wahl alternativer Lieferanten umfassen.",
+        "evidence": "Was Sie brauchen:",
+        "ev1": "Eine dokumentierte Risikobewertungsmethodik",
+        "ev2": "Aufzeichnungen über ergriffene Maßnahmen und deren Ergebnisse",
+        "ev3": "Eine klare Begründung für Einstufungen als geringes Risiko"
+      },
+      "final": {
+        "title": "Alles zusammengebracht",
+        "body": "Compliance ist kein einzelnes Dokument – es ist ein System. Bauen Sie Workflows für jedes der fünf Kriterien auf, weisen Sie Verantwortlichkeiten zu und testen Sie Ihren Prozess mit einem Probeau­dit. Als Betreiber sind Sie nach der EUDR für die gesamte Kette verantwortlich – vom Grundstück bis zum Hafen."
+      },
+      "cta": {
+        "title": "Sie wissen nicht, wo Sie stehen?",
+        "desc": "Machen Sie unsere kostenlose 3-Minuten-Diagnose. 8 Fragen, keine E-Mail erforderlich.",
+        "button": "Kostenlose Diagnose starten"
+      }
+    },
+    "overview": {
+      "category": "Überblick",
+      "readTime": "4 Min. Lesezeit",
+      "title": "Ist Ihr Unternehmen bereit für die EUDR? Ein praktischer Überblick",
+      "intro": "Die EU-Entwaldungsverordnung (EU) 2023/1115 – kurz EUDR – ist die bedeutendste regulatorische Änderung für Importeure von entwaldungsgefährdeten Rohstoffen seit Jahrzehnten. Wenn Ihr Unternehmen Rinder, Kakao, Kaffee, Palmöl, Kautschuk, Soja oder Holz in die EU importiert, betrifft Sie diese Verordnung. Hier finden Sie einen praktischen Überblick über das, was Sie wissen müssen.",
+      "what": {
+        "title": "Was ist die EUDR?",
+        "body": "Die EUDR ersetzt die EU-Holzverordnung (EUTR) und erweitert ihren Anwendungsbereich erheblich. Die Verordnung verlangt von Betreibern und Händlern, die relevante Produkte auf dem EU-Markt in Verkehr bringen, eine Sorgfaltspflicht durchzuführen, die belegt, dass ihre Produkte entwaldungsfrei sind und unter Einhaltung der Rechtsvorschriften des Ursprungslandes hergestellt wurden. Kernpflicht ist die Sorgfaltspflicht-erklärung (DDS), die vor jedem Inverkehrbringen bei der zuständigen Behörde eingereicht werden muss."
+      },
+      "who": {
+        "title": "Wen betrifft es?",
+        "body": "Die Verordnung unterscheidet zwischen Betreibern (die ein relevantes Produkt erstmals auf dem EU-Markt in Verkehr bringen) und Händlern (die es anschließend verfügbar machen). Beide haben Pflichten, wobei die Pflichten der Händler geringer sind. Wenn Sie Importeur sind, Fertigwaren mit regulierten Rohstoffen einführen oder nachgelagerter Betreiber in der Produktion sind, fallen Sie in den Anwendungsbereich. Die Verordnung gilt auch für Händler, die keine Klein- oder Kleinstunternehmen sind."
+      },
+      "deadlines": {
+        "title": "Wichtige Fristen",
+        "body": "Das ursprüngliche Datum des 30. Dezember 2024 wurde verschoben. Nach dem überarbeiteten Zeitplan:",
+        "large": "Große und mittlere Unternehmen",
+        "largeDate": "30. Dezember 2026",
+        "small": "Kleine und Kleinstunternehmen",
+        "smallDate": "30. Juni 2027",
+        "note": "Diese Fristen sind fix. Auch wenn Sie zur späteren Gruppe gehören, wird dringend empfohlen, jetzt mit den Vorbereitungen zu beginnen – der Aufbau von Rückverfolgbarkeitssystemen und Lieferantenbeziehungen braucht Zeit."
+      },
+      "commodities": {
+        "title": "Die 7 regulierten Rohstoffe",
+        "body": "Die EUDR gilt für folgende Rohstoffe und ihre Folgeprodukte:",
+        "cattle": "Rinder",
+        "cattleDesc": "Lebende Tiere, Fleisch, Häute, Leder und Talg",
+        "cocoa": "Kakao",
+        "cocoaDesc": "Bohnen, Paste, Butter, Pulver und Schokoladenprodukte",
+        "coffee": "Kaffee",
+        "coffeeDesc": "Grüne Kaffeebohnen, gerösteter Kaffee und Extrakte",
+        "oilPalm": "Palmöl",
+        "oilPalmDesc": "Rohes und raffiniertes Palmöl, Palmkernöl und Derivate",
+        "rubber": "Kautschuk",
+        "rubberDesc": "Naturkautschuk, Latex und Kautschukerzeugnisse",
+        "soya": "Soja",
+        "soyaDesc": "Sojabohnen, Sojaschrot, Sojaöl und Lecithin",
+        "wood": "Holz",
+        "woodDesc": "Schnittholz, Zellstoff und Papier, Möbel und Holzwerkstoffplatten"
+      },
+      "noncompliance": {
+        "title": "Was passiert bei Nichteinhaltung?",
+        "body": "Nichteinhaltung hat schwerwiegende Folgen. Produkte, die ohne gültige Sorgfaltspflicht-erklärung in Verkehr gebracht werden, gelten als illegal. Die zuständigen Behörden der Mitgliedstaaten können Produkte beschlagnahmen, Geldstrafen proportional zum Umweltschaden verhängen und Betreiber bei wiederholten oder schwerwiegenden Verstößen vom EU-Markt ausschließen. Die Verordnung sieht auch die öffentliche Bekanntgabe von nicht konformen Betreibern vor."
+      },
+      "firstSteps": {
+        "title": "Erste Schritte",
+        "body": "Wenn Sie neu bei der EUDR sind, beginnen Sie hier:",
+        "s1": "Identifizieren Sie, welche der 7 Rohstoffe Ihr Unternehmen betrifft und ob diese unter die Produktanhänge der Verordnung fallen",
+        "s2": "Kartieren Sie Ihre Lieferketten – für jeden Rohstoff das Ursprungsland, die Lieferanten und die Ursprungsgrundstücke",
+        "s3": "Prüfen Sie Ihre aktuelle Datenlage: Haben Sie Geokoordinaten für Ihre Produktionsgrundstücke?",
+        "s4": "Beginnen Sie mit der Sammlung von Sorgfaltspflicht-Nachweisen für Ihre nächsten Sendungen – warten Sie nicht auf die Frist",
+        "s5": "Führen Sie eine Diagnose durch, um Lücken in Ihrer Compliance-Position zu identifizieren, bevor sie zum Audit-Thema werden"
+      },
+      "cta": {
+        "title": "Sie wissen nicht, wo Ihre größten Lücken sind?",
+        "desc": "Erhalten Sie in unter 3 Minuten ein klares Bild – keine E-Mail erforderlich.",
+        "button": "Kostenlose Diagnose starten"
+      }
+    },
+    "traceability": {
+      "category": "Technischer Leitfaden",
+      "readTime": "6 Min. Lesezeit",
+      "title": "Leitfaden für Importeure zur Lieferkettenrückverfolgbarkeit nach EUDR",
+      "intro": "Rückverfolgbarkeit ist unter der EUDR kein Nice-to-have, sondern eine gesetzliche Pflicht. Artikel 10(2)(a) verlangt von Betreibern, Informationen über Menge, Lieferanten und Lieferkette der relevanten Produkte zu führen. In der Praxis bedeutet das, Sie müssen jede Sendung bis zu dem konkreten Grundstück zurückverfolgen können, auf dem die Rohstoffe produziert wurden.",
+      "what": {
+        "title": "Was ‚Rückverfolgbarkeit in der gesamten Lieferkette‘ tatsächlich bedeutet",
+        "body": "Die Verordnung erwartet, dass Betreiber ihre Lieferkette durchgängig kennen. Das heißt nicht, dass Sie ein einziges ERP-System vom Bauernhof bis zum Lager brauchen – aber Sie müssen an jedem Übergabepunkt dokumentierte Aufzeichnungen vorhalten. Jedes Mal, wenn eine Ware den Besitzer wechselt (Farm zu Händler, Händler zu Exporteur, Exporteur zu Importeur), müssen Sie die Transaktion erfassen und die Verbindung zum Produktionsgrundstück erhalten.",
+        "body2": "Das Kernprinzip: Rückverfolgbarkeitsdaten müssen dem Produkt folgen, nicht in isolierten Silos existieren. Wenn ein Prüfer eine Kakaosendung in Rotterdam inspiziert, sollten Sie eine vollständige Kette vorlegen können: welche Genossenschaft geliefert hat, aus welchem Dorf die Bohnen stammen und die GPS-Koordinaten der Farmen."
+      },
+      "batch": {
+        "title": "Verfolgung auf Chargen- vs. Sendungsebene",
+        "body": "Eine häufige Frage ist, ob Sie auf Chargen- oder Sendungsebene verfolgen müssen. Die Verordnung schreibt keine bestimmte Granularität vor, aber Ihr System muss die Einhaltung für jedes einzelne Produkt nachweisen können. In der Praxis:",
+        "batch": "Chargenebene:",
+        "batchBody": "Jede Produktionscharge erhält eine eindeutige Kennung, die mit ihrem Ursprungsgrundstück verknüpft ist. Das ist der Goldstandard – es erlaubt eine präzise Zuordnung, auch wenn mehrere Ursprünge in einer Sendung zusammengefasst sind.",
+        "shipment": "Sendungsebene:",
+        "shipmentBody": "Die gesamte Sendung wird einer bestimmten Gruppe von Grundstücken zugeordnet. Akzeptabel, wenn Sendungen konsistent von denselben geprüften Lieferanten kommen, aber riskanter bei wechselnden Ursprüngen.",
+        "recommendation": "Wenn Sie bei null anfangen, zielen Sie auf Chargenverfolgung ab. Es erfordert mehr anfänglichen Aufwand, verschafft Ihnen aber eine deutlich stärkere Prüfposition."
+      },
+      "geolocation": {
+        "title": "Wie Geodaten in die Rückverfolgbarkeit einfließen",
+        "body": "Geolokalisierung (Artikel 9(1)(d)) ist das Fundament der Rückverfolgbarkeit nach EUDR. Ohne Koordinaten können Sie nicht bestimmen, welche Grundstücke zu einer Sendung beigetragen haben, und Sie können die erforderliche Entwaldungsprüfung nach Artikel 10(2)(e) nicht durchführen. Ihr Rückverfolgbarkeitssystem muss diese Koordinaten strukturiert speichern (GeoJSON oder äquivalent) und mit den relevanten Chargen verknüpfen.",
+        "body2": "Für Grundstücke über 4 Hektar benötigen Sie Polygondaten (nicht nur einen einzelnen Punkt). Das ist wichtig, denn ein Punktkoordinat in einem entwaldungsfreien Gebiet garantiert nicht, dass das gesamte Grundstück entwaldungsfrei ist. Polygone werden mit Satellitenbildern abgeglichen; Punkte reichen für eine aussagekräftige Überprüfung nicht aus."
+      },
+      "suppliers": {
+        "title": "Zusammenarbeit mit Lieferanten und Genossenschaften",
+        "body": "Wenn Sie von Zwischenhändlern, Genossenschaften oder Aggregatoren kaufen, stehen Sie vor einer zusätzlichen Herausforderung: Diese verfügen möglicherweise nicht über eigene Rückverfolgbarkeitssysteme. In vielen Lieferketten verkaufen Kleinbauern an lokale Sammler, die die Produkte bündeln, bevor sie einen Exporteur erreichen. Sie müssen die Rückverfolgbarkeitsanforderungen vorgelagert durchsetzen.",
+        "body2": "Praktische Schritte:",
+        "s1": "Rückverfolgbarkeitsklauseln in Lieferantenverträge aufnehmen, die Grundstücksdaten verlangen",
+        "s2": "Einfache Datenerfassungsvorlagen oder mobile Tools für Genossenschaften bereitstellen",
+        "s3": "Stichproben bei einem Teil Ihrer Lieferantenaufzeichnungen durchführen",
+        "s4": "Ein Lieferantenportal zur Datenerfassung und -validierung vor der Sendung nutzen"
+      },
+      "custody": {
+        "title": "Dokumentation der Lieferkette",
+        "body": "Ihre Lieferkettendokumentation sollte mindestens Folgendes umfassen:",
+        "c1": "Bestellungen und Rechnungen, die jede Transaktion mit Produktchargen verknüpfen",
+        "c2": "Transportdokumente (Konnossemente, Luftfrachtbriefe) mit Chargen-IDs",
+        "c3": "Lagereingangsbelege mit Nachweis der Lagerung zwischen Eigentumsübergängen",
+        "c4": "Ein Hauptregister, das jede eingehende Sendung ihren Ursprungsgrundstücken zuordnet"
+      },
+      "building": {
+        "title": "Rückverfolgbarkeit von Grund auf aufbauen",
+        "body": "Wenn Sie heute noch kein Rückverfolgbarkeitssystem haben, starten Sie mit einem Pilotprojekt. Wählen Sie einen Rohstoff aus einem Land und bilden Sie die vollständige Kette für eine einzige Sendung ab. Dokumentieren Sie alles, was Sie lernen: welche Daten leicht zu erfassen sind, wo die Lücken liegen, welche Lieferanten sich sträuben. Dann skalieren Sie den Prozess auf Ihr gesamtes Portfolio. Ein schrittweiser Ansatz reduziert das Risiko und gibt Ihnen Zeit, Ihr Team und Ihre Lieferanten vor der Frist zu schulen."
+      },
+      "cta": {
+        "title": "Hilfe beim Aufbau Ihres Rückverfolgbarkeitssystems?",
+        "desc": "Unsere kostenlose Diagnose analysiert Ihr aktuelles Setup und identifiziert die Lücken – in unter 3 Minuten.",
+        "button": "Kostenlose Diagnose starten"
       }
     }
   },

@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, useRouter, useLocation, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useRouter, useLocation } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { LayoutDashboard, Users, Building2, CreditCard, Package, LogOut, Shield } from "lucide-react";
@@ -90,7 +90,7 @@ function AdminLayout() {
             return (
               <Link
                 key={item.to}
-                to={item.to as any}
+                to={item.to as string}
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                   isActive

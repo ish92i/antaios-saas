@@ -4,6 +4,7 @@ import { convexQuery } from "@convex-dev/react-query";
 import { api } from "@cvx/_generated/api";
 import { getAdminSecret } from "@/routes/admin";
 import { Users, Building2, CreditCard, Package, Activity } from "lucide-react";
+import type { ComponentType } from "react";
 
 export const Route = createFileRoute("/admin/")({
   component: AdminDashboard,
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/admin/")({
   }),
 });
 
-function StatCard({ icon: Icon, label, value }: { icon: any; label: string; value: string | number }) {
+function StatCard({ icon: Icon, label, value }: { icon: ComponentType<{ className?: string }>; label: string; value: string | number }) {
   return (
     <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-5">
       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
@@ -27,7 +28,8 @@ function StatCard({ icon: Icon, label, value }: { icon: any; label: string; valu
 }
 
 function AdminDashboard() {
-  const secret = getAdminSecret()!;
+  const secret = getAdminSecret();
+  if (!secret) return null;
   const { data: stats, isLoading } = useQuery(
     convexQuery(api.admin.getStats, { adminSecret: secret }),
   );

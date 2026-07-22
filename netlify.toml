@@ -1,14 +1,36 @@
+# ─── Security Headers ───────────────────────────────────────────────────────
+# If you add a new external service to the frontend, update the CSP below.
+# Client-side origins currently in use (audit date: 2026-07-22):
+#   - Convex:       *.convex.cloud (API + WebSocket), *.convex.site (HTTP actions)
+#   - Clerk:        clerk.accounts.dev (auth UI/scripts), img.clerk.accounts.dev (avatars)
+#   - Sentry:       browser.sentry-cdn.com (SDK), *.sentry.io (ingest/replay)
+#   - PostHog:      app.posthog.com (analytics, runs in Partytown web worker)
+#   - YouTube:      www.youtube.com (hero video embed iframe)
+#   - picsum.photos (hero placeholder image)
+#   - blob:         used by Partytown workers and Clerk session replay blobs
+#
+# Server-side only (NOT in CSP — called from Convex actions, not the browser):
+#   - Dodo Payments: live.dodopayments.com / test.dodopayments.com
+#   - Resend:        api.resend.com
+#   - DeepL:         api-free.deepl.com
+#   - Global Forest Watch: data-api.globalforestwatch.org
+#   - LiteLLM:       LITELLM_BASE_URL (env var)
+#
+# NOTE: Dodo Payments checkout is a full-page redirect (window.location.href),
+#       not an XHR/fetch, so CSP connect-src does not apply. If the flow
+#       changes to use an iframe or fetch to Dodo, add them here.
+
 [[headers]]
   for = "/*"
   [headers.values]
     Content-Security-Policy = """
 default-src 'self';
-script-src 'self' https://clerk.accounts.dev https://app.posthog.com 'unsafe-inline';
+script-src 'self' https://clerk.accounts.dev https://app.posthog.com https://browser.sentry-cdn.com 'unsafe-inline';
 style-src 'self' https://clerk.accounts.dev 'unsafe-inline';
-connect-src 'self' https://*.convex.cloud https://*.convex.site https://clerk.accounts.dev https://app.posthog.com wss://*.convex.cloud;
-img-src 'self' https://img.clerk.accounts.dev data: blob:;
+connect-src 'self' https://*.convex.cloud https://*.convex.site https://clerk.accounts.dev https://app.posthog.com https://*.sentry.io wss://*.convex.cloud;
+img-src 'self' https://img.clerk.accounts.dev https://picsum.photos data: blob:;
 font-src 'self' data:;
-frame-src 'self' https://clerk.accounts.dev;
+frame-src 'self' https://clerk.accounts.dev https://www.youtube.com;
 media-src 'self' blob:;
 worker-src 'self' blob:;
 manifest-src 'self';

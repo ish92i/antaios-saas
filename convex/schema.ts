@@ -109,6 +109,23 @@ const schema = defineSchema({
         action: v.string(),
         date: v.number(),
       })), v.null()),
+      criteria: v.optional(v.array(v.object({
+        id: v.string(),
+        article10Criterion: v.string(),
+        label: v.string(),
+        evaluation: v.string(),
+        source: v.string(),
+        rationale: v.string(),
+        mitigationTrigger: v.string(),
+        flagged: v.boolean(),
+      }))),
+      verdictRationale: v.optional(v.string()),
+      retentionAnchor: v.optional(v.object({
+        date: v.number(),
+        source: v.literal("risk_assessment_generation"),
+      })),
+      documentVersion: v.optional(v.string()),
+      documentHash: v.optional(v.string()),
     })),
   })
     .index("orgId", ["orgId"])
@@ -171,8 +188,17 @@ const schema = defineSchema({
     targetLang: v.string(),
     translatedText: v.string(),
     createdAt: v.number(),
+    expiresAt: v.number(),
   })
-    .index("by_source_target", ["sourceText", "sourceLang", "targetLang"]),
+    .index("by_source_target", ["sourceText", "sourceLang", "targetLang"])
+    .index("by_expiresAt", ["expiresAt"]),
+  rateLimits: defineTable({
+    key: v.string(),
+    windowStart: v.number(),
+    count: v.number(),
+    userId: v.optional(v.string()),
+  })
+    .index("key", ["key"]),
 });
 
 export default schema;
