@@ -9,7 +9,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog"
-import { ChevronLeft, CheckCircle2, Copy, Loader2 } from "lucide-react"
+import { ChevronLeft, CheckCircle2, Loader2 } from "lucide-react"
 import type { Id } from "@cvx/_generated/dataModel"
 import { cn } from "@/lib/utils"
 import { ProgressStepper } from "./ProgressStepper"
@@ -58,7 +58,7 @@ export function ConflictResolutionDialog({
 
   useEffect(() => {
     if (open && shipment.pendingQuestions !== undefined && !hasCaptured.current) {
-      setQuestions(shipment.pendingQuestions)
+      setQuestions(shipment.pendingQuestions ?? [])
       hasCaptured.current = true
     }
   }, [open, shipment.pendingQuestions])
@@ -68,8 +68,6 @@ export function ConflictResolutionDialog({
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
-  const [supplierLinkCopied, setSupplierLinkCopied] = useState(false)
-
   const [flagMode, setFlagMode] = useState(false)
   const [supplierEmail, setSupplierEmail] = useState(shipment.supplierEmail ?? "")
   const [emailError, setEmailError] = useState<string | null>(null)
@@ -95,7 +93,6 @@ export function ConflictResolutionDialog({
     setError(null)
     setIsSubmitting(false)
     setIsFinished(false)
-    setSupplierLinkCopied(false)
     setFlagMode(false)
     setSupplierEmail(shipment.supplierEmail ?? "")
     setEmailError(null)
@@ -225,13 +222,6 @@ export function ConflictResolutionDialog({
       setError(err instanceof Error ? err.message : t("conflict.finalize_error"))
     } finally {
       setIsSubmitting(false)
-    }
-  }
-
-  const handleCopyLink = () => {
-    if (shipment.supplierToken) {
-      const url = `${window.location.origin}/supplier/${shipment.supplierToken}`
-      navigator.clipboard.writeText(url).then(() => setSupplierLinkCopied(true)).catch(() => {})
     }
   }
 

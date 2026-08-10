@@ -50,7 +50,7 @@ export function FreeToolConviction() {
 
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <FadeIn className="flex flex-col gap-8">
-            {benefits.map((b, i) => {
+            {benefits.map((b) => {
               const Icon = b.icon;
               return (
                 <div key={b.key} className="flex items-start gap-4">

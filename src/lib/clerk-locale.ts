@@ -1,6 +1,7 @@
 import { enUS, frFR, deDE, esES, nlNL, ptPT, itIT } from "@clerk/localizations"
+import type { LocalizationResource } from "@clerk/types"
 
-export const clerkLocaleMap: Record<string, typeof enUS> = {
+export const clerkLocaleMap: Record<string, LocalizationResource> = {
   en: enUS,
   fr: frFR,
   de: deDE,
@@ -10,12 +11,12 @@ export const clerkLocaleMap: Record<string, typeof enUS> = {
   it: itIT,
 }
 
-export function getClerkLocale(lang: string) {
+export function getClerkLocale(lang: string): LocalizationResource {
   const base = lang.split("-")[0]
   return clerkLocaleMap[base] ?? enUS
 }
 
-export function getInitialClerkLocale() {
+export function getInitialClerkLocale(): LocalizationResource {
   const stored = localStorage.getItem("antaios:locale")
   if (stored) return getClerkLocale(stored)
   const browser = navigator.language?.split("-")[0]

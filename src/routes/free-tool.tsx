@@ -1,9 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useReducer, useCallback, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/logo";
 import { Nav } from "@/components/landing/nav";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Progress } from "@/components/free-tool/progress";

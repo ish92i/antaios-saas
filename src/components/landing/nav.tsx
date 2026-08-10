@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
 import { useAuth } from "@clerk/clerk-react";
-import { motion, AnimatePresence, useScroll } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Languages, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
@@ -33,10 +33,8 @@ export function Nav() {
   const { isLoaded, isSignedIn } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [localeOpen, setLocaleOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const localeRef = useRef<HTMLDivElement>(null);
   const currentLang = i18n.language?.split("-")[0] ?? "en";
-  const { scrollY } = useScroll();
 
   useEffect(() => {
     if (!localeOpen) return;
@@ -64,15 +62,13 @@ export function Nav() {
     >
       <motion.div
         className="mx-auto max-w-7xl"
-        animate={{ scale: isScrolled ? 0.98 : 1 }}
+        animate={{ scale: 1 }}
         transition={{ duration: 0.2 }}
       >
         <motion.nav
           className="flex items-center justify-between rounded-full border border-border/60 bg-background/80 px-6 py-3 shadow-sm backdrop-blur-xl"
           animate={{
-            boxShadow: isScrolled
-              ? "0 4px 20px -5px rgba(0,0,0,0.08)"
-              : "0 0 0 0 rgba(0,0,0,0)",
+            boxShadow: "0 0 0 0 rgba(0,0,0,0)",
           }}
           transition={{ duration: 0.3 }}
         >

@@ -1,22 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { Helmet } from "react-helmet-async"
-import siteConfig from "~/site.config"
 import { Logo } from "@/components/logo"
 
 const pageTitle = "Terms of Service — Antaios"
-const pageDescription =
-  "Antaios Terms of Service governing access to and use of the EUDR compliance platform. Includes definitions, user obligations, and limitations of liability."
-const pageUrl = `${siteConfig.siteUrl}/legal/terms`
-
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.siteUrl },
-    { "@type": "ListItem", position: 2, name: "Legal", item: `${siteConfig.siteUrl}/legal/terms` },
-    { "@type": "ListItem", position: 3, name: "Terms of Service", item: pageUrl },
-  ],
-}
 
 export const Route = createFileRoute("/legal/terms")({
   component: TermsPage,

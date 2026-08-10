@@ -362,18 +362,6 @@ function t(key: string, locale: string): string {
   return LABELS[locale]?.[key] ?? LABELS["fr"]?.[key] ?? key
 }
 
-function dateFmt(locale: string): Intl.DateTimeFormat {
-  return new Intl.DateTimeFormat(DATE_LOCALES[locale] ?? DATE_LOCALES.fr, {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  })
-}
-
-function sanitize(s: string): string {
-  return s.replace(/\u202f/g, " ")
-}
-
 const NUM_FMT = new Intl.NumberFormat("fr-FR")
 const SUPPORTED_TYPST_LOCALES = ["fr", "en", "de", "es", "nl", "pt", "it"] as const
 
@@ -684,9 +672,6 @@ export const generateAuditTrailPdf = action({
     const org = shipment.orgId
       ? await ctx.runQuery(internal.orgs.getOrgById, { orgId: shipment.orgId as Id<"organizations"> })
       : null
-
-    const fmtDate = dateFmt(locale).format(new Date(shipment._creationTime))
-    const fmtTs = (ts: number) => dateFmt(locale).format(new Date(ts))
 
     const pdfBytes = await renderTypstAuditTrailPdf(buildTypstAuditTrailData({
       locale,

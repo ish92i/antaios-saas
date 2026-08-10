@@ -34,6 +34,7 @@ import type * as geoAnswer from "../geoAnswer.js";
 import type * as getTranslation from "../getTranslation.js";
 import type * as http from "../http.js";
 import type * as lib_completeness from "../lib/completeness.js";
+import type * as lib_countryRisk from "../lib/countryRisk.js";
 import type * as lib_gfw from "../lib/gfw.js";
 import type * as lib_litellm from "../lib/litellm.js";
 import type * as lib_logger from "../lib/logger.js";
@@ -52,6 +53,7 @@ import type * as supplier_email from "../supplier_email.js";
 import type * as traces_credentials from "../traces_credentials.js";
 import type * as traces_crypto from "../traces_crypto.js";
 import type * as translateValue from "../translateValue.js";
+import type * as translationCache from "../translationCache.js";
 
 import type {
   ApiFromModules,
@@ -86,6 +88,7 @@ declare const fullApi: ApiFromModules<{
   getTranslation: typeof getTranslation;
   http: typeof http;
   "lib/completeness": typeof lib_completeness;
+  "lib/countryRisk": typeof lib_countryRisk;
   "lib/gfw": typeof lib_gfw;
   "lib/litellm": typeof lib_litellm;
   "lib/logger": typeof lib_logger;
@@ -104,6 +107,7 @@ declare const fullApi: ApiFromModules<{
   traces_credentials: typeof traces_credentials;
   traces_crypto: typeof traces_crypto;
   translateValue: typeof translateValue;
+  translationCache: typeof translationCache;
 }>;
 
 /**

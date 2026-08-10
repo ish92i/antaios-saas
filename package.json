@@ -88,6 +88,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@clerk/types": "^4.101.20",
     "@eslint/js": "^9.8.0",
     "@sentry/vite-plugin": "^5.4.0",
     "@tanstack/router-devtools": "^1.45.11",
@@ -113,7 +114,8 @@
     "tailwindcss": "^4.3.1",
     "typescript": "^5.5.4",
     "typescript-eslint": "^7.17.0",
-    "vite": "^5.3.4"
+    "vite": "^5.3.4",
+    "wrangler": "^4.120.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

@@ -1,5 +1,3 @@
-import { ChevronRight } from "lucide-react"
-
 type GeoJsonGeometry = {
   type: string
   coordinates: unknown

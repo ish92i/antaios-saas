@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { cn } from "@/lib/utils";
 
 interface ProgressProps {
   current: number;

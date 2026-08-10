@@ -1,22 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { Helmet } from "react-helmet-async"
-import siteConfig from "~/site.config"
 import { Logo } from "@/components/logo"
 
 const pageTitle = "Privacy Policy — Antaios"
-const pageDescription =
-  "Antaios privacy policy: how we collect, process, and protect your personal data in compliance with GDPR and the French Data Protection Act."
-const pageUrl = `${siteConfig.siteUrl}/legal/privacy`
-
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.siteUrl },
-    { "@type": "ListItem", position: 2, name: "Legal", item: `${siteConfig.siteUrl}/legal/privacy` },
-    { "@type": "ListItem", position: 3, name: "Privacy Policy", item: pageUrl },
-  ],
-}
 
 export const Route = createFileRoute("/legal/privacy")({
   component: PrivacyPage,

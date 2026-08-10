@@ -1,0 +1,63 @@
+name: Deploy to Cloudflare
+
+on:
+  push:
+    branches: [main]
+
+# ─── How to add secrets ──────────────────────────────────────────────────────
+# Go to your GitHub repo → Settings → Secrets and variables → Actions
+# Click "New repository secret" for each one below.
+#
+# Required:
+#   CLOUDFLARE_API_TOKEN  — https://dash.cloudflare.com/profile/api-tokens
+#                           → Create Token → "Edit Cloudflare Workers" template
+#   VITE_CONVEX_URL       — your Convex production URL (e.g. https://name.convex.cloud)
+#                           → run `npx convex deploy` to get this
+#   VITE_CONVEX_SITE_URL  — your Convex site URL (e.g. https://name.convex.site)
+#                           → same deploy output as above
+#   VITE_CLERK_PUBLISHABLE_KEY — Clerk Dashboard → API Keys → Publishable key
+#                                (use pk_live_... for production)
+#
+# Optional (analytics/error tracking):
+#   VITE_POSTHOG_KEY      — PostHog Dashboard → Settings → Project → API keys
+#   VITE_POSTHOG_HOST     — https://eu.i.posthog.com (EU) or https://app.posthog.com (US)
+#   VITE_SENTRY_DSN       — Sentry Dashboard → Settings → Projects → Client Keys (DSN)
+#   SENTRY_AUTH_TOKEN     — Sentry Dashboard → Settings → Auth Tokens → Create token
+#   SENTRY_ORG            — Sentry organization slug (from URL: sentry.io/organizations/YOUR_ORG)
+#   SENTRY_PROJECT        — Sentry project slug (from URL: sentry.io/projects/YOUR_PROJECT)
+# ─────────────────────────────────────────────────────────────────────────────
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm run build
+        env:
+          VITE_CONVEX_URL: ${{ secrets.VITE_CONVEX_URL }}
+          VITE_CONVEX_SITE_URL: ${{ secrets.VITE_CONVEX_SITE_URL }}
+          VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.VITE_CLERK_PUBLISHABLE_KEY }}
+          VITE_POSTHOG_KEY: ${{ secrets.VITE_POSTHOG_KEY }}
+          VITE_POSTHOG_HOST: ${{ secrets.VITE_POSTHOG_HOST }}
+          VITE_SENTRY_DSN: ${{ secrets.VITE_SENTRY_DSN }}
+          VITE_SENTRY_ENVIRONMENT: production
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy
