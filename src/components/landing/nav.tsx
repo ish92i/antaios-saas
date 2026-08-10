@@ -125,18 +125,11 @@ export function Nav() {
                 </Button>
               </Link>
             ) : (
-              <>
-                <Link to={AuthLoginRoute.fullPath}>
-                  <Button variant="ghost" size="sm">
-                    {t("landing.nav.login", "Sign in")}
-                  </Button>
-                </Link>
-                <Link to="/free-tool">
-                  <Button variant="default" size="lg" className="rounded-full px-5">
-                    {t("landing.nav.getStarted", "Get Started")}
-                  </Button>
-                </Link>
-              </>
+              <Link to={AuthLoginRoute.fullPath}>
+                <Button variant="default" size="lg" className="rounded-full px-5">
+                  {t("landing.nav.signUp", "Sign Up")}
+                </Button>
+              </Link>
             )}
           </div>
 
@@ -225,21 +218,14 @@ export function Nav() {
                       </Button>
                     </Link>
                   ) : (
-                    <div className="flex flex-col gap-2">
-                      <Link
-                        to={AuthLoginRoute.fullPath}
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        <Button variant="ghost" size="sm" className="w-full rounded-full">
-                          {t("landing.nav.login", "Sign in")}
-                        </Button>
-                      </Link>
-                      <Link to="/free-tool" onClick={() => setMobileOpen(false)}>
-                        <Button variant="default" size="sm" className="w-full rounded-full">
-                          {t("landing.nav.getStarted", "Get Started")}
-                        </Button>
-                      </Link>
-                    </div>
+                    <Link
+                      to={AuthLoginRoute.fullPath}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      <Button variant="default" size="sm" className="w-full rounded-full">
+                        {t("landing.nav.signUp", "Sign Up")}
+                      </Button>
+                    </Link>
                   )}
                 </div>
               </div>
