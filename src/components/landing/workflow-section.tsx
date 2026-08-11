@@ -21,7 +21,7 @@ export function WorkflowSection() {
 
       <div className="relative mx-auto max-w-7xl">
         <FadeIn>
-          <div className="mx-auto mb-16 max-w-2xl text-center">
+          <div className="mx-auto mb-16 max-w-lg text-center">
             <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
               {t("landing.workflow.title", "How It Works")}
             </h2>
@@ -41,7 +41,7 @@ export function WorkflowSection() {
                 return (
                   <FadeIn key={stage.key} delay={i * 0.08}>
                     <div className="flex flex-col items-center text-center">
-                      <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full border-2 border-primary/20 bg-card shadow-sm">
+                      <div className="z-10 flex h-[52px] w-[52px] items-center justify-center rounded-full border-2 border-primary/20 bg-background shadow-sm">
                         <Icon className="h-5 w-5 text-primary" />
                       </div>
                       <p className="mt-3 text-sm font-semibold text-foreground">
@@ -66,7 +66,7 @@ export function WorkflowSection() {
                 return (
                   <FadeIn key={stage.key} delay={i * 0.08}>
                     <div className="flex pb-12">
-                      <div className="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-full border-2 border-primary/20 bg-card shadow-sm">
+                      <div className="z-10 flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-full border-2 border-primary/20 bg-background shadow-sm">
                         <Icon className="h-5 w-5 text-primary" />
                       </div>
                       <div className="ml-4 pt-3">
@@ -93,7 +93,7 @@ export function WorkflowSection() {
           </div>
 
           {/* Desktop audit trail - absolute below grid */}
-          <div className="absolute -bottom-6 left-0 right-0 hidden lg:block">
+          <div className="absolute -bottom-16 left-0 right-0 hidden lg:block">
             <div className="flex items-center gap-3 rounded-lg border-2 border-dashed border-primary/20 bg-card/50 px-5 py-3 shadow-sm backdrop-blur-sm">
               <Receipt className="h-4 w-4 shrink-0 text-primary/70" />
               <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
