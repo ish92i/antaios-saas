@@ -9,7 +9,8 @@
     "dev:frontend": "vite",
     "dev:backend": "convex dev",
     "predev": "convex dev --run init --until-success",
-    "build": "tsc -b && vite build",
+    "build": "bash scripts/build-and-prerender.sh",
+    "build:only": "tsc -b && vite build",
     "lint": "eslint . --ignore-pattern convex/_generated --report-unused-disable-directives --max-warnings 0",
     "typecheck": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json && tsc -p convex/tsconfig.json",
     "preview": "vite preview"
@@ -111,6 +112,7 @@
     "eslint-plugin-react-refresh": "^0.4.7",
     "postcss": "^8.4.40",
     "prettier": "3.3.3",
+    "puppeteer-core": "^25.7.0",
     "tailwindcss": "^4.3.1",
     "typescript": "^5.5.4",
     "typescript-eslint": "^7.17.0",
