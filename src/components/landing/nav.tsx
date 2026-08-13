@@ -127,7 +127,7 @@ export function Nav() {
             ) : (
               <Link to={AuthLoginRoute.fullPath}>
                 <Button variant="default" size="lg" className="rounded-full px-5">
-                  {t("landing.nav.signUp", "Sign Up")}
+                  {t("landing.nav.getStarted", "Sign Up")}
                 </Button>
               </Link>
             )}
@@ -223,7 +223,7 @@ export function Nav() {
                       onClick={() => setMobileOpen(false)}
                     >
                       <Button variant="default" size="sm" className="w-full rounded-full">
-                        {t("landing.nav.signUp", "Sign Up")}
+                        {t("landing.nav.getStarted", "Sign Up")}
                       </Button>
                     </Link>
                   )}

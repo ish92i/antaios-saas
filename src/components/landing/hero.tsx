@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
+
 import { Route as AuthLoginRoute } from "@/routes/_app/login/_layout.index";
 
 function FadeIn({
@@ -107,13 +107,18 @@ export function Hero() {
           </div>
 
           <FadeIn delay={0.25} y={24}>
-            <HeroVideoDialog
-              className="mx-auto max-w-5xl"
-              animationStyle="from-center"
-              videoSrc="https://www.youtube.com/embed/dQw4w9WgXcQ"
-              thumbnailSrc="https://picsum.photos/seed/eudr-hero/1280/720"
-              thumbnailAlt="Antaios EUDR Compliance Demo"
-            />
+            <div className="mx-auto max-w-5xl">
+              <video
+                src="/antaios-final-with-vo-v5.mp4"
+                poster="/images/hero-poster.jpg"
+                controls
+                playsInline
+                preload="metadata"
+                className="w-full rounded-md border shadow-lg"
+              >
+                <track kind="captions" />
+              </video>
+            </div>
           </FadeIn>
         </div>
       </div>

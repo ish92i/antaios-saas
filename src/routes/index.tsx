@@ -119,7 +119,7 @@ function LandingPage() {
             "thumbnailUrl": "https://picsum.photos/seed/eudr-hero/1280/720",
             "uploadDate": "2024-11-01",
             "duration": "PT2M",
-            "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            "embedUrl": "/antaios-final-with-vo-v5.mp4"
           })}
         </script>
       </Helmet>
