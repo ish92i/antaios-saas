@@ -6,7 +6,8 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const distDir = resolve(__dirname, "../dist");
 
-const CHROME_PATH = process.env.CHROME_PATH || "/home/fdp/.cache/ms-playwright/chromium-1228/chrome-linux64/chrome";
+// In CI, use system chromium; otherwise use playwright cache
+const CHROME_PATH = process.env.CHROME_PATH || "/usr/bin/chromium-browser";
 
 const ROUTES = [
   "/",
