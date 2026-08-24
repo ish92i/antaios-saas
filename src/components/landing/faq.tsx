@@ -36,29 +36,39 @@ function FadeIn({
 
 const faqs = [
   {
-    key: "deposit",
-    q: "Est-ce que je dois quand même déposer la DDS moi-même ?",
-    a: "Oui, le dépôt sur TRACES reste de votre responsabilité. Antaios génère la DDS complète et conforme que vous déposez en quelques clics.",
+    key: "supplier-portal",
+    q: "How does the supplier portal work?",
+    a: "Suppliers receive a secure link via email or WhatsApp. They open it on any device — no account, no login, no app installation. They can submit plot coordinates, upload documents, and respond to data requests directly. Works for cooperatives, brokers, and individual producers.",
   },
   {
-    key: "hosting",
-    q: "Mes données sont-elles hébergées en Europe ?",
-    a: "Oui, toutes vos données sont stockées sur des serveurs situés en Union européenne, conformément au RGPD.",
+    key: "broker",
+    q: "Can I use Antaios if my coffee comes through a broker?",
+    a: "Yes. Antaios is designed for real-world supply chains where lots are consolidated. Upload your broker documents, invoices, and export certificates. The system extracts what it can, identifies what's missing, and helps you request the missing origin data from your broker or the exporting cooperative.",
   },
   {
-    key: "retention",
-    q: "Que se passe-t-il après les 5 ans de rétention ?",
-    a: "La réglementation exige 5 ans de conservation. Après cette période, vous pouvez exporter vos archives ou nous demander leur suppression.",
+    key: "documents",
+    q: "What documents can I upload?",
+    a: "PDF invoices, bills of lading, export certificates, Excel spreadsheets, images of documents, and GeoJSON files. Antaios uses OCR and data extraction to pull structured information from unstructured documents, then cross-checks data across sources.",
   },
   {
-    key: "comparison",
-    q: "Quelle est la différence avec Coolset ou osapiens ?",
-    a: "Antaios est conçu pour les PME : prix forfaitaire à 500 €/mois, configuration en un après-midi, sans engagement de durée.",
+    key: "limits",
+    q: "Is there a limit on shipments or plots?",
+    a: "No. Antaios includes unlimited shipments, unlimited production plots, unlimited suppliers, and unlimited users. One flat fee covers everything — no per-shipment charges, no per-plot fees, no module add-ons.",
   },
   {
-    key: "erp",
-    q: "Puis-je importer des données depuis un ERP ?",
-    a: "L'import manuel par CSV/Excel est disponible. L'intégration API avec les principaux ERP est prévue.",
+    key: "vs-screening",
+    q: "How is Antaios different from plot screening tools?",
+    a: "Plot screening tools validate geometry and check deforestation. Antaios handles the full workflow: document ingestion, data extraction, supplier communication, evidence reconciliation, risk assessment, DDS generation, and compliance reporting. It's built for importers who need end-to-end compliance, not just plot validation.",
+  },
+  {
+    key: "no-compliance-hire",
+    q: "Do I need to hire a compliance person to use Antaios?",
+    a: "No. Antaios is designed for small teams without dedicated compliance staff. Onboarding takes an afternoon. The platform guides you through each step — from uploading documents to filing your DDS — and the supplier portal handles data collection so you don't have to chase information manually.",
+  },
+  {
+    key: "audit-trail",
+    q: "What about the 5-year audit trail?",
+    a: "Every action in Antaios is recorded automatically — document uploads, supplier requests, data changes, risk assessments, and DDS submissions. Records are retained for the full 5-year regulatory period. You can export your compliance file at any time or hand it directly to an auditor.",
   },
 ]
 

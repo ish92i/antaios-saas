@@ -8,56 +8,80 @@ interface CellData {
 }
 
 const competitors = [
-  { key: "manual", label: "Manuel", isAntaios: false },
+  { key: "plotvera", label: "plotvera", isAntaios: false },
+  { key: "traceplot", label: "TracePlot", isAntaios: false },
+  { key: "clearlane", label: "clearlane", isAntaios: false },
   { key: "eudrready", label: "EUDRReady", isAntaios: false },
-  { key: "coolset", label: "Coolset", isAntaios: false },
-  { key: "osapiens", label: "osapiens", isAntaios: false },
   { key: "antaios", label: "Antaios", isAntaios: true },
 ] as const
 
 const rows = [
-  { key: "price", label: "Prix" },
-  { key: "setup", label: "Mise en route" },
-  { key: "coverage", label: "Conformité complète" },
-  { key: "access", label: "Accès" },
-  { key: "transparency", label: "Transparence tarifaire" },
+  { key: "price", label: "Monthly cost" },
+  { key: "setup", label: "Time to get started" },
+  { key: "supplier_portal", label: "Supplier self-service portal" },
+  { key: "doc_ingestion", label: "Document upload & auto-extraction" },
+  { key: "plots", label: "Plot / farm limit" },
+  { key: "full_compliance", label: "Full operator due diligence" },
+  { key: "pdf_report", label: "PDF compliance report" },
+  { key: "access", label: "Self-serve vs sales call" },
 ] as const
 
 const cells: Record<string, Record<string, CellData>> = {
   price: {
-    manual: { value: "Gratuit (coût caché : temps)" },
-    eudrready: { value: "Gratuit – 79 €/mois" },
-    coolset: { value: "~6 000 – 12 000+ €/an" },
-    osapiens: { value: "Sur devis" },
-    antaios: { value: "500 €/mois", highlight: true },
+    plotvera: { value: "€99/mo (Pro)" },
+    traceplot: { value: "from €59/mo" },
+    clearlane: { value: "€149/mo" },
+    eudrready: { value: "Free – €79/mo" },
+    antaios: { value: "€500/mo", highlight: true },
   },
   setup: {
-    manual: { value: "Immédiat" },
-    eudrready: { value: "~20 min" },
-    coolset: { value: "4 semaines" },
-    osapiens: { value: "Plusieurs semaines" },
-    antaios: { value: "Un après-midi", highlight: true },
-  },
-  coverage: {
-    manual: { value: "Non" },
-    eudrready: { value: "Hors périmètre" },
-    coolset: { value: "Oui" },
-    osapiens: { value: "Oui" },
-    antaios: { value: "Oui", highlight: true },
-  },
-  access: {
-    manual: { value: "N/A" },
+    plotvera: { value: "Self-serve" },
+    traceplot: { value: "Self-serve" },
+    clearlane: { value: "Self-serve" },
     eudrready: { value: "Self-serve" },
-    coolset: { value: "Sur rendez-vous" },
-    osapiens: { value: "Sur rendez-vous" },
     antaios: { value: "Self-serve", highlight: true },
   },
-  transparency: {
-    manual: { value: "N/A" },
-    eudrready: { value: "Publié" },
-    coolset: { value: "Modulaire" },
-    osapiens: { value: "Non publié" },
-    antaios: { value: "Publié", highlight: true },
+  supplier_portal: {
+    plotvera: { value: "Yes" },
+    traceplot: { value: "Yes" },
+    clearlane: { value: "Yes" },
+    eudrready: { value: "No" },
+    antaios: { value: "Yes — no account needed", highlight: true },
+  },
+  doc_ingestion: {
+    plotvera: { value: "No" },
+    traceplot: { value: "Limited" },
+    clearlane: { value: "GeoJSON only" },
+    eudrready: { value: "No" },
+    antaios: { value: "PDF, Excel, images, GeoJSON", highlight: true },
+  },
+  plots: {
+    plotvera: { value: "500 (fair use)" },
+    traceplot: { value: "Included" },
+    clearlane: { value: "Included" },
+    eudrready: { value: "N/A" },
+    antaios: { value: "Unlimited", highlight: true },
+  },
+  full_compliance: {
+    plotvera: { value: "No — plot screening only" },
+    traceplot: { value: "Partial" },
+    clearlane: { value: "No — evidence only" },
+    eudrready: { value: "No — traders only" },
+    antaios: { value: "Yes — full operator DDS", highlight: true },
+  },
+  pdf_report: {
+    plotvera: { value: "No" },
+    traceplot: { value: "No" },
+    clearlane: { value: "No" },
+    eudrready: { value: "No" },
+    antaios: { value: "Yes", highlight: true },
+  },
+  access: {
+    plotvera: { value: "Self-serve" },
+    traceplot: { value: "Self-serve" },
+    clearlane: { value: "Self-serve" },
+    eudrready: { value: "Self-serve" },
+    antaios: { value: "Self-serve", highlight: true },
   },
 }
 
@@ -69,12 +93,12 @@ export function Comparison() {
       <div className="mx-auto max-w-6xl">
         <FadeIn className="mb-14 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {t("landing.comparison.headline", "Antaios face aux alternatives")}
+            {t("landing.comparison.headline", "Antaios vs the alternatives")}
           </h2>
           <p className="mt-3 text-lg text-muted-foreground">
             {t(
               "landing.comparison.sub",
-              "Comparaison transparente. Pas de spin, pas de surprises.",
+              "Transparent comparison. No spin, no surprises.",
             )}
           </p>
         </FadeIn>
@@ -143,7 +167,7 @@ export function Comparison() {
           <p className="text-sm text-muted-foreground">
             {t(
               "landing.comparison.note",
-              "EUDRReady cible les revendeurs (obligation allégée). Antaios, Coolset et osapiens ciblent les opérateurs importateurs (due diligence complète).",
+              "EUDRReady targets traders (lighter obligations). Plotvera and TracePlot focus on plot screening and supplier intake. Clearlane handles evidence. Antaios covers the full operator workflow — from document ingestion through supplier data collection to DDS filing.",
             )}
           </p>
         </FadeIn>

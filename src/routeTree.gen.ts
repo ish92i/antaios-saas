@@ -18,6 +18,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as SupplierTokenRouteImport } from './routes/supplier/$token'
 import { Route as ResourcesTraceabilityGuideRouteImport } from './routes/resources.traceability-guide'
+import { Route as ResourcesSupplierDataGuideRouteImport } from './routes/resources.supplier-data-guide'
 import { Route as ResourcesEudrVsEutrRouteImport } from './routes/resources.eudr-vs-eutr'
 import { Route as ResourcesEudrSmeGuideRouteImport } from './routes/resources.eudr-sme-guide'
 import { Route as ResourcesEudrPenaltiesRouteImport } from './routes/resources.eudr-penalties'
@@ -102,6 +103,12 @@ const ResourcesTraceabilityGuideRoute =
   ResourcesTraceabilityGuideRouteImport.update({
     id: '/traceability-guide',
     path: '/traceability-guide',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
+const ResourcesSupplierDataGuideRoute =
+  ResourcesSupplierDataGuideRouteImport.update({
+    id: '/supplier-data-guide',
+    path: '/supplier-data-guide',
     getParentRoute: () => ResourcesRoute,
   } as any)
 const ResourcesEudrVsEutrRoute = ResourcesEudrVsEutrRouteImport.update({
@@ -352,6 +359,7 @@ export interface FileRoutesByFullPath {
   '/resources/eudr-penalties': typeof ResourcesEudrPenaltiesRoute
   '/resources/eudr-sme-guide': typeof ResourcesEudrSmeGuideRoute
   '/resources/eudr-vs-eutr': typeof ResourcesEudrVsEutrRoute
+  '/resources/supplier-data-guide': typeof ResourcesSupplierDataGuideRoute
   '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/admin/': typeof AdminIndexRoute
@@ -400,6 +408,7 @@ export interface FileRoutesByTo {
   '/resources/eudr-penalties': typeof ResourcesEudrPenaltiesRoute
   '/resources/eudr-sme-guide': typeof ResourcesEudrSmeGuideRoute
   '/resources/eudr-vs-eutr': typeof ResourcesEudrVsEutrRoute
+  '/resources/supplier-data-guide': typeof ResourcesSupplierDataGuideRoute
   '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/admin': typeof AdminIndexRoute
@@ -450,6 +459,7 @@ export interface FileRoutesById {
   '/resources/eudr-penalties': typeof ResourcesEudrPenaltiesRoute
   '/resources/eudr-sme-guide': typeof ResourcesEudrSmeGuideRoute
   '/resources/eudr-vs-eutr': typeof ResourcesEudrVsEutrRoute
+  '/resources/supplier-data-guide': typeof ResourcesSupplierDataGuideRoute
   '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/admin/': typeof AdminIndexRoute
@@ -501,6 +511,7 @@ export interface FileRouteTypes {
     | '/resources/eudr-penalties'
     | '/resources/eudr-sme-guide'
     | '/resources/eudr-vs-eutr'
+    | '/resources/supplier-data-guide'
     | '/resources/traceability-guide'
     | '/supplier/$token'
     | '/admin/'
@@ -549,6 +560,7 @@ export interface FileRouteTypes {
     | '/resources/eudr-penalties'
     | '/resources/eudr-sme-guide'
     | '/resources/eudr-vs-eutr'
+    | '/resources/supplier-data-guide'
     | '/resources/traceability-guide'
     | '/supplier/$token'
     | '/admin'
@@ -598,6 +610,7 @@ export interface FileRouteTypes {
     | '/resources/eudr-penalties'
     | '/resources/eudr-sme-guide'
     | '/resources/eudr-vs-eutr'
+    | '/resources/supplier-data-guide'
     | '/resources/traceability-guide'
     | '/supplier/$token'
     | '/admin/'
@@ -692,6 +705,13 @@ declare module '@tanstack/react-router' {
       path: '/traceability-guide'
       fullPath: '/resources/traceability-guide'
       preLoaderRoute: typeof ResourcesTraceabilityGuideRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/supplier-data-guide': {
+      id: '/resources/supplier-data-guide'
+      path: '/supplier-data-guide'
+      fullPath: '/resources/supplier-data-guide'
+      preLoaderRoute: typeof ResourcesSupplierDataGuideRouteImport
       parentRoute: typeof ResourcesRoute
     }
     '/resources/eudr-vs-eutr': {
@@ -1106,6 +1126,7 @@ interface ResourcesRouteChildren {
   ResourcesEudrPenaltiesRoute: typeof ResourcesEudrPenaltiesRoute
   ResourcesEudrSmeGuideRoute: typeof ResourcesEudrSmeGuideRoute
   ResourcesEudrVsEutrRoute: typeof ResourcesEudrVsEutrRoute
+  ResourcesSupplierDataGuideRoute: typeof ResourcesSupplierDataGuideRoute
   ResourcesTraceabilityGuideRoute: typeof ResourcesTraceabilityGuideRoute
 }
 
@@ -1128,6 +1149,7 @@ const ResourcesRouteChildren: ResourcesRouteChildren = {
   ResourcesEudrPenaltiesRoute: ResourcesEudrPenaltiesRoute,
   ResourcesEudrSmeGuideRoute: ResourcesEudrSmeGuideRoute,
   ResourcesEudrVsEutrRoute: ResourcesEudrVsEutrRoute,
+  ResourcesSupplierDataGuideRoute: ResourcesSupplierDataGuideRoute,
   ResourcesTraceabilityGuideRoute: ResourcesTraceabilityGuideRoute,
 }
 

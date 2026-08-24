@@ -64,7 +64,7 @@ export function Hero() {
                 className="border-amber-500/30 bg-amber-50 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.15em] text-amber-700 dark:border-amber-500/20 dark:bg-amber-950/30 dark:text-amber-300"
               >
                 <span className="mr-1.5 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500" />
-                {t("landing.hero.badge", "Deadline — Dec 30, 2026")}
+                {t("landing.hero.badge", "Deadline — Dec 30, 2026 for large/medium · Jun 30, 2027 for SMEs")}
               </Badge>
             </FadeIn>
 
@@ -72,7 +72,7 @@ export function Hero() {
               <h1 className="mx-auto max-w-xl text-center text-4xl font-bold tracking-tighter text-foreground md:text-5xl lg:max-w-3xl lg:text-6xl leading-[1.05]">
                 {t(
                   "landing.hero.title",
-                  "EUDR Compliance Without the Spreadsheet Nightmare.",
+                  "Your Suppliers Don't Have EUDR Data Yet. Antaios Gets It for You.",
                 )}
               </h1>
             </FadeIn>
@@ -81,7 +81,7 @@ export function Hero() {
               <p className="mx-auto max-w-2xl text-center text-base leading-relaxed text-muted-foreground md:text-lg">
                 {t(
                   "landing.hero.subtitle",
-                  "Upload your documents. Antaios extracts the data, covers all 5 due-diligence criteria, and generates your DDS — in minutes.",
+                  "Upload existing docs — Antaios extracts data, identifies gaps, asks your suppliers for what's missing, and generates your DDS.",
                 )}
               </p>
             </FadeIn>
@@ -103,6 +103,18 @@ export function Hero() {
               >
                 {t("landing.hero.login", "Create your account →")}
               </Link>
+            </FadeIn>
+
+            <FadeIn delay={0.22} className="flex flex-wrap justify-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground">
+                {t("landing.hero.pill1", "Supplier portal — no account needed")}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground">
+                {t("landing.hero.pill2", "PDF, Excel, images, GeoJSON → auto-extracted")}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground">
+                {t("landing.hero.pill3", "Unlimited shipments, plots & suppliers")}
+              </span>
             </FadeIn>
           </div>
 

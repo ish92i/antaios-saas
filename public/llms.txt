@@ -1,29 +1,54 @@
-# Antaios — EUDR Compliance Platform
+# Antaios — EUDR Compliance for Importers
 
-Antaios is a B2B SaaS platform that helps importers comply with the EU Deforestation Regulation (EUDR) (EU Regulation 2023/1115). It automates the extraction of compliance data from import documents, manages due diligence statements (DDS), triggers deforestation scans, and submits DDS to the TRACES system.
+Antaios is a self-serve SaaS platform that helps EU importers comply with the EU Deforestation Regulation (EUDR, Regulation 2023/1115). Built for importers dealing with messy, incomplete supplier data — not consultants or enterprises with dedicated compliance teams.
 
-## Key Features
-- Automated document data extraction (PDF, CSV, Excel, GeoJSON, images)
-- Due Diligence Statement (DDS) management
+Pricing: €500/month or €5,000/year. Flat rate. No per-shipment or per-plot fees. See https://antaios.app/pricing
+
+## Who It's For
+
+Importers of green coffee, cocoa, palm oil, rubber, soy, wood, and cattle products into the EU who need to file Due Diligence Statements (DDS) but struggle with supplier data that arrives late, in wrong formats, or not at all.
+
+## Key Differentiators
+
+- **Supplier Portal** — Suppliers receive a simple link, submit geolocation and compliance data from their phone. No account or login required. This eliminates the back-and-forth that delays compliance.
+- **Document Ingestion with OCR** — Upload PDFs, Excel files, images, or GeoJSON. The system extracts data automatically and cross-checks it against other submitted information.
+- **Evidence Reconciliation** — Antaios identifies conflicts between documents (e.g., farm size in a certificate doesn't match geoJSON boundary) and flags them for resolution.
+- **Unlimited Everything** — Unlimited shipments, production plots, suppliers, users, and documents. No per-shipment or per-plot fees regardless of volume.
+- **PDF Compliance Report** — Audit-ready compliance report for each shipment, covering all five EUDR Article 10(2) criteria: traceability, geolocation, documentation, attestations, and legality.
+- **5-Year Audit Trail** — All compliance records retained for the full regulatory period.
+
+## Core Capabilities
+
+- Automated document data extraction with OCR
+- Due Diligence Statement (DDS) generation and TRACES submission
 - Global Forest Watch deforestation scanning
-- TRACES system submission
-- Risk assessment PDF generation
-- Supplier data management via supplier portal
+- Risk assessment (green/amber/red scoring per EUDR criterion)
+- Supplier portal for mobile-friendly data collection
 - Free compliance diagnostic (8 questions, no email required)
 
+## Use Cases
+
+- Importers with hundreds of smallholder suppliers who can't provide structured data
+- Companies receiving compliance documents as scanned PDFs, images, or Excel spreadsheets
+- Businesses needing to reconcile conflicting data across certificates, invoices, and farm records
+- Any EU operator needing to file DDS for regulated commodities
+
 ## Useful Links
+
 - Homepage: https://antaios.app
 - Free Diagnostic Tool: https://antaios.app/free-tool
 - Pricing: https://antaios.app/pricing
 - Resources: https://antaios.app/resources
 
 ## Country Compliance Guides
+
 - EUDR Indonesia — Palm Oil & Rubber: https://antaios.app/resources/country-indonesia
 - EUDR Brazil — Soy, Cattle & Wood: https://antaios.app/resources/country-brazil
 - EUDR Vietnam — Rubber & Coffee: https://antaios.app/resources/country-vietnam
 - EUDR Ghana & Côte d'Ivoire — Cocoa: https://antaios.app/resources/country-west-africa
 
 ## EUDR Compliance Guides
+
 - EUDR Compliance Checklist: https://antaios.app/resources/eudr-checklist
 - EUDR Overview: https://antaios.app/resources/eudr-overview
 - Traceability Guide: https://antaios.app/resources/traceability-guide
@@ -34,6 +59,7 @@ Antaios is a B2B SaaS platform that helps importers comply with the EU Deforesta
 - EUDR vs. EUTR: https://antaios.app/resources/eudr-vs-eutr
 
 ## Commodity-Specific Guides
+
 - Coffee EUDR Compliance: https://antaios.app/resources/commodity-coffee
 - Cocoa EUDR Compliance: https://antaios.app/resources/commodity-cocoa
 - Palm Oil EUDR Compliance: https://antaios.app/resources/commodity-palm-oil
@@ -43,16 +69,20 @@ Antaios is a B2B SaaS platform that helps importers comply with the EU Deforesta
 - Cattle EUDR Compliance: https://antaios.app/resources/commodity-cattle
 
 ## EUDR Deadlines
+
 - Large and medium enterprises: December 30, 2026
 - Small and micro enterprises: June 30, 2027
 
 ## Covered Commodities
-The EUDR covers seven commodities and their derivatives: cattle (beef and leather), cocoa, coffee, oil palm (palm oil), rubber, soya, and wood. Antaios provides compliance guidance for each.
+
+The EUDR covers seven commodities and their derivatives: cattle (beef and leather), cocoa, coffee, oil palm (palm oil), rubber, soya, and wood.
 
 ## About
-Antaios evaluates every shipment against all five EUDR criteria from Article 10(2): traceability, geolocation, documentation, attestations, and legality. Each criterion is scored green, amber, or red. Compliance records are retained for the full 5-year regulatory period.
+
+Antaios evaluates every shipment against all five EUDR criteria from Article 10(2): traceability, geolocation, documentation, attestations, and legality. Each criterion is scored green, amber, or red. Compliance records are retained for the full 5-year regulatory period. EU-hosted, GDPR compliant. Onboarding in an afternoon — no enterprise sales process.
 
 ## Legal
+
 - Privacy Policy: https://antaios.app/legal/privacy
 - Terms of Service: https://antaios.app/legal/terms
 - Terms of Sale: https://antaios.app/legal/terms-of-sale

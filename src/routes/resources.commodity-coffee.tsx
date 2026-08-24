@@ -197,6 +197,38 @@ function CommodityCoffeePage() {
             </p>
 
             <h2>
+              {t("resources.commodityCoffee.broker.title", "Broker-Consolidated Coffee: The Traceability Gap")}
+            </h2>
+            <p>
+              {t(
+                "resources.commodityCoffee.broker.body",
+                "Many specialty coffee importers buy through brokers who consolidate lots from multiple farms and cooperatives. Under EUDR, this creates a traceability gap. The broker's lot reference number is not enough — you need to trace back to the individual production plots. This means demanding that your broker provides the exporter or cooperative documents that link each lot to specific farms. If the broker cannot produce those documents, you need to seriously consider whether that supply chain is worth the compliance risk. A missing origin chain can invalidate your entire due-diligence statement.",
+              )}
+            </p>
+            <p>
+              {t(
+                "resources.commodityCoffee.broker.body2",
+                "Antaios can cross-reference broker documents with cooperative certificates and exporter records to reconstruct the origin chain. Our platform flags gaps automatically, so you know exactly where your documentation is incomplete before you file.",
+              )}
+            </p>
+
+            <h2>
+              {t("resources.commodityCoffee.gpsCoop.title", "Getting GPS Data from Cooperatives Without GIS Infrastructure")}
+            </h2>
+            <p>
+              {t(
+                "resources.commodityCoffee.gpsCoop.body",
+                "Most coffee cooperatives do not have GIS systems — but many have member registries. The simplest approach is to ask the cooperative to identify farm boundaries on a printed map or via a mobile app. Point coordinates (latitude and longitude) are sufficient for plots under four hectares, which covers the majority of smallholder coffee farms. Polygons are only required for plots over four hectares.",
+              )}
+            </p>
+            <p>
+              {t(
+                "resources.commodityCoffee.gpsCoop.body2",
+                "A supplier portal link lets cooperative managers submit data from their phone without creating accounts or learning new software. Start with one cooperative, run the process end-to-end, and then replicate across your supply chain. This incremental approach keeps costs low while building institutional knowledge.",
+              )}
+            </p>
+
+            <h2>
               {t("resources.commodityCoffee.section6.title", "Geolocation Challenges for Smallholder Coffee Farmers")}
             </h2>
             <p>
@@ -308,7 +340,7 @@ function CommodityCoffeePage() {
             <p>
               {t(
                 "resources.commodityCoffee.section9.body",
-                "Coffee supply chains are among the most complex in the regulated commodities. Antaios is built to handle this complexity. Our platform connects directly with cooperatives, aggregators, and technology providers to collect and verify geolocation data at scale. We automate risk assessments based on EU benchmarking data and maintain a centralised, auditable evidence repository for every shipment.",
+                "Coffee supply chains are among the most complex in the regulated commodities. Antaios is built to handle this complexity. Our platform connects directly with cooperatives, aggregators, and technology providers to collect and verify geolocation data at scale. We automate risk assessments based on EU benchmarking data and maintain a centralised, auditable evidence repository for every shipment. Our supplier portal lets cooperative managers submit GPS data from their phone without creating accounts. Document ingestion handles broker paperwork — PDFs, Excel files, and images are auto-extracted and indexed. Evidence reconciliation cross-references documents from different sources in the chain to flag gaps before filing.",
               )}
             </p>
             <p>

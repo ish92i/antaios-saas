@@ -6,26 +6,51 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /_generated/
 
-# Allow AI crawlers for citation
+# --- OpenAI ---
+# OAI-SearchBot: surfaces sites in ChatGPT search results
+# Without this, Antaios will NOT appear in ChatGPT search answers
+User-agent: OAI-SearchBot
+Allow: /
+
+# GPTBot: crawls content for training foundation models
+# Disallowing means content won't be used for training
 User-agent: GPTBot
 Allow: /
 
+# ChatGPT-User: user-initiated browsing in ChatGPT
+# triggered by user requests, robots.txt may not apply
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: PerplexityBot
+# --- Anthropic (Claude) ---
+# Claude-SearchBot: indexes content for Claude search results
+# Without this, reduced visibility in Claude search
+User-agent: Claude-SearchBot
 Allow: /
 
+# ClaudeBot: crawls content for model training and safety
 User-agent: ClaudeBot
 Allow: /
 
-User-agent: anthropic-ai
+# Claude-User: user-initiated browsing in Claude
+# Without this, Claude cannot retrieve content when users ask
+User-agent: Claude-User
 Allow: /
 
+# --- Google ---
+# Google-Extended: powers Gemini and AI Overviews in Google Search
 User-agent: Google-Extended
 Allow: /
 
-User-agent: OAI-SearchBot
+# --- Perplexity ---
+# PerplexityBot: indexes content for Perplexity AI search
+User-agent: PerplexityBot
+Allow: /
+
+# --- Microsoft ---
+# Bingbot: powers Microsoft Copilot and Bing search
+# Note: Bingbot also handles normal Bing search indexing
+User-agent: Bingbot
 Allow: /
 
 Sitemap: https://antaios.app/sitemap.xml

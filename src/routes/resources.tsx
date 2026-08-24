@@ -37,6 +37,18 @@ const articles = [
     readTimeEn: "6 min read",
   },
   {
+    to: "/resources/supplier-data-guide",
+    title: "resources.list.supplierData.title",
+    titleEn: "How to Get EUDR Data from Your Suppliers: A Practical Guide",
+    description: "resources.list.supplierData.desc",
+    descriptionEn:
+      "79% of importers don't have GPS coordinates for their production plots. This guide shows how to collect EUDR data from cooperatives, brokers, and smallholder suppliers — without building a GIS system.",
+    category: "resources.list.supplierData.category",
+    categoryEn: "Practical Guide",
+    readTime: "resources.list.supplierData.readTime",
+    readTimeEn: "7 min read",
+  },
+  {
     to: "/resources/eudr-overview",
     title: "resources.list.article3.title",
     titleEn: "Is Your Business Ready for EUDR? A Practical Overview",
