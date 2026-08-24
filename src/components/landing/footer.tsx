@@ -41,6 +41,10 @@ const resourceLinks = [
   { to: "/resources/eudr-overview", key: "guide", label: "Guide EUDR" },
   { to: "/resources/eudr-checklist", key: "checklist", label: "Check-list" },
   { to: "/resources/eudr-penalties", key: "penalties", label: "Penalties" },
+  { to: "/resources/eudr-geolocation", key: "geolocation", label: "Geolocation Guide" },
+  { to: "/resources/commodity-coffee", key: "coffee", label: "Coffee Compliance" },
+  { to: "/resources/commodity-palm-oil", key: "palmOil", label: "Palm Oil Compliance" },
+  { to: "/resources/eudr-sme-guide", key: "sme", label: "EUDR for SMEs" },
   { to: "/resources", key: "faq", label: "FAQ" },
 ];
 

@@ -17,6 +17,12 @@ Antaios is a B2B SaaS platform that helps importers comply with the EU Deforesta
 - Pricing: https://antaios.app/pricing
 - Resources: https://antaios.app/resources
 
+## Country Compliance Guides
+- EUDR Indonesia — Palm Oil & Rubber: https://antaios.app/resources/country-indonesia
+- EUDR Brazil — Soy, Cattle & Wood: https://antaios.app/resources/country-brazil
+- EUDR Vietnam — Rubber & Coffee: https://antaios.app/resources/country-vietnam
+- EUDR Ghana & Côte d'Ivoire — Cocoa: https://antaios.app/resources/country-west-africa
+
 ## EUDR Compliance Guides
 - EUDR Compliance Checklist: https://antaios.app/resources/eudr-checklist
 - EUDR Overview: https://antaios.app/resources/eudr-overview

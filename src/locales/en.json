@@ -733,6 +733,14 @@
     "readTime": "{{minutes}} min read",
     "back": "← Back to resources",
     "cta": "Not sure where you stand? Take our free diagnostic →",
+    "categories": {
+      "compliance": "Compliance Guide",
+      "guide": "Guide",
+      "technical": "Technical Guide",
+      "comparison": "Comparison",
+      "commodity": "Commodity Guide",
+      "country": "Country Guide"
+    },
     "articles": {
       "checklist": {
         "title": "EUDR Compliance Checklist: Your 5-Step Guide to Article 10(2)",
@@ -753,6 +761,81 @@
         "title": "EUDR Penalties: Fines and Enforcement Across the EU",
         "desc": "A comprehensive guide to EUDR penalties, fines, and enforcement. Learn about Article 24, fine calculation methodology, member state differences, and how to avoid non-compliance consequences.",
         "category": "Compliance Guide"
+      },
+      "smeGuide": {
+        "title": "EUDR for Small Businesses: What Importers Need to Know",
+        "desc": "Simplified obligations, extended deadlines, and step-by-step guidance for SME and micro enterprises.",
+        "category": "Guide"
+      },
+      "geolocation": {
+        "title": "EUDR Geolocation Requirements: Complete Guide to GPS & Polygon Data",
+        "desc": "Everything you need to know about collecting, formatting, and validating geolocation data for EUDR compliance.",
+        "category": "Technical Guide"
+      },
+      "ddsFiling": {
+        "title": "How to File a Due Diligence Statement (DDS) in TRACES NT",
+        "desc": "Step-by-step guide to submitting your DDS through the EU TRACES NT system.",
+        "category": "Technical Guide"
+      },
+      "eudrVsEutr": {
+        "title": "EUDR vs EUTR: What Changed and What It Means for Timber Importers",
+        "desc": "Side-by-side comparison of the old and new EU timber regulations and transition requirements.",
+        "category": "Comparison"
+      },
+      "commodityCoffee": {
+        "title": "EUDR Coffee Compliance: What Importers Need to Know",
+        "desc": "Country-specific requirements, traceability challenges, and compliance checklist for coffee imports.",
+        "category": "Commodity Guide"
+      },
+      "commodityCocoa": {
+        "title": "EUDR Cocoa Compliance: Requirements for Chocolate & Cocoa Importers",
+        "desc": "Navigate EUDR requirements for cocoa from West Africa and beyond.",
+        "category": "Commodity Guide"
+      },
+      "commodityPalmOil": {
+        "title": "EUDR Palm Oil Compliance: Deforestation-Free Requirements",
+        "desc": "Complete guide to palm oil compliance including RSPO, mill mapping, and smallholder challenges.",
+        "category": "Commodity Guide"
+      },
+      "commodityWood": {
+        "title": "EUDR Timber & Wood Compliance: A Complete Guide",
+        "desc": "FLEGT, chain of custody, and country-specific requirements for wood imports.",
+        "category": "Commodity Guide"
+      },
+      "commoditySoy": {
+        "title": "EUDR Soy Compliance: Requirements for EU Importers",
+        "desc": "Soy-specific compliance including crushing and multiprocessor challenges.",
+        "category": "Commodity Guide"
+      },
+      "commodityRubber": {
+        "title": "EUDR Rubber Compliance: What Importers Should Know",
+        "desc": "Natural rubber requirements for tire manufacturers and industrial importers.",
+        "category": "Commodity Guide"
+      },
+      "commodityCattle": {
+        "title": "EUDR Cattle & Leather Compliance Guide",
+        "desc": "Cattle and leather compliance including indirect procurement challenges.",
+        "category": "Commodity Guide"
+      },
+      "countryIndonesia": {
+        "title": "EUDR Indonesia: Palm Oil & Rubber Compliance Guide",
+        "desc": "Country-specific EUDR requirements for Indonesian palm oil and rubber imports.",
+        "category": "Country Guide"
+      },
+      "countryBrazil": {
+        "title": "EUDR Brazil: Soy, Cattle & Wood Compliance Guide",
+        "desc": "Country-specific EUDR requirements for Brazilian soy, cattle, and wood imports.",
+        "category": "Country Guide"
+      },
+      "countryVietnam": {
+        "title": "EUDR Vietnam: Rubber & Coffee Compliance Guide",
+        "desc": "Country-specific EUDR requirements for Vietnamese rubber and coffee imports.",
+        "category": "Country Guide"
+      },
+      "countryWestAfrica": {
+        "title": "EUDR Ghana & Côte d'Ivoire: Cocoa Compliance Guide",
+        "desc": "Country-specific EUDR requirements for West African cocoa imports.",
+        "category": "Country Guide"
       }
     },
     "article": {

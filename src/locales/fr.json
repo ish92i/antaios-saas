@@ -676,6 +676,14 @@
     "readTime": "{{minutes}} min de lecture",
     "back": "← Retour aux ressources",
     "cta": "Vous ne savez pas où vous en êtes ? Faites notre diagnostic gratuit →",
+    "categories": {
+      "compliance": "Guide de conformité",
+      "guide": "Guide",
+      "technical": "Guide technique",
+      "comparison": "Comparaison",
+      "commodity": "Guide par matière première",
+      "country": "Guide par pays"
+    },
     "article": {
       "back": "← Retour aux ressources"
     },
@@ -694,6 +702,86 @@
         "title": "Votre entreprise est-elle prête pour l'EUDR ? Un aperçu pratique",
         "desc": "Un aperçu du Règlement européen sur la déforestation : qui est concerné, les échéances clés, les marchandises réglementées et les premières étapes.",
         "category": "Aperçu"
+      },
+      "penalties": {
+        "title": "Sanctions EUDR : amendes et application dans l'UE",
+        "desc": "Guide complet des sanctions EUDR, amendes et application. Article 24, méthodologie de calcul des amendes et différences entre États membres.",
+        "category": "Guide de conformité"
+      },
+      "smeGuide": {
+        "title": "EUDR pour les PME : ce que les importateurs doivent savoir",
+        "desc": "Obligations simplifiées, échéances prolongées et guidance pas à pas pour les petites et micro-entreprises.",
+        "category": "Guide"
+      },
+      "geolocation": {
+        "title": "Exigences de géolocalisation EUDR : guide complet des données GPS et polygones",
+        "desc": "Tout ce que vous devez savoir sur la collecte, le formatage et la validation des données de géolocalisation pour la conformité EUDR.",
+        "category": "Guide technique"
+      },
+      "ddsFiling": {
+        "title": "Comment déposer une déclaration de diligence (DDS) dans TRACES NT",
+        "desc": "Guide étape par étape pour soumettre votre DDS via le système TRACES NT de l'UE.",
+        "category": "Guide technique"
+      },
+      "eudrVsEutr": {
+        "title": "EUDR vs EUTR : ce qui a changé et les conséquences pour les importateurs de bois",
+        "desc": "Comparaison côte à côte des anciens et nouveaux règlements européens sur le bois et les exigences de transition.",
+        "category": "Comparaison"
+      },
+      "commodityCoffee": {
+        "title": "Conformité café EUDR : ce que les importateurs doivent savoir",
+        "desc": "Exigences spécifiques par pays, défis de traçabilité et checklist de conformité pour les importations de café.",
+        "category": "Guide par matière première"
+      },
+      "commodityCocoa": {
+        "title": "Conformité cacao EUDR : exigences pour les importateurs de chocolat et cacao",
+        "desc": "Naviguez les exigences EUDR pour le cacao d'Afrique de l'Ouest et d'ailleurs.",
+        "category": "Guide par matière première"
+      },
+      "commodityPalmOil": {
+        "title": "Conformité huile de palme EUDR : exigences de non-déforestation",
+        "desc": "Guide complet de la conformité huile de palme incluant RSPO, cartographie des moulins et défis des petits exploitants.",
+        "category": "Guide par matière première"
+      },
+      "commodityWood": {
+        "title": "Conformité bois et bois d'œuvre EUDR : guide complet",
+        "desc": "FLEGT, chaîne de traçabilité et exigences spécifiques par pays pour les importations de bois.",
+        "category": "Guide par matière première"
+      },
+      "commoditySoy": {
+        "title": "Conformité soja EUDR : exigences pour les importateurs de l'UE",
+        "desc": "Conformité spécifique au soja incluant les défis du broyage et des multiplicateurs.",
+        "category": "Guide par matière première"
+      },
+      "commodityRubber": {
+        "title": "Conformité caoutchouc EUDR : ce que les importateurs doivent savoir",
+        "desc": "Exigences pour le caoutchouc naturel destiné aux manufacturiers de pneus et importateurs industriels.",
+        "category": "Guide par matière première"
+      },
+      "commodityCattle": {
+        "title": "Guide de conformité EUDR pour les bovins et le cuir",
+        "desc": "Conformité bovins et cuir incluant les défis de l'approvisionnement indirect.",
+        "category": "Guide par matière première"
+      },
+      "countryIndonesia": {
+        "title": "EUDR Indonésie : guide de conformité huile de palme et caoutchouc",
+        "desc": "Exigences EUDR spécifiques à l'Indonésie pour les importations d'huile de palme et de caoutchouc.",
+        "category": "Guide par pays"
+      },
+      "countryBrazil": {
+        "title": "EUDR Brésil : guide de conformité soja, bovins et bois",
+        "desc": "Exigences EUDR spécifiques au Brésil pour les importations de soja, bovins et bois.",
+        "category": "Guide par pays"
+      },
+      "countryVietnam": {
+        "title": "EUDR Viêt Nam : guide de conformité caoutchouc et café",
+        "desc": "Exigences EUDR spécifiques au Viêt Nam pour les importations de caoutchouc et de café.",
+        "category": "Guide par pays"
+      },
+      "countryWestAfrica": {
+        "title": "EUDR Ghana & Côte d'Ivoire : guide de conformité cacao",
+        "desc": "Exigences EUDR spécifiques à l'Afrique de l'Ouest pour les importations de cacao.",
+        "category": "Guide par pays"
       }
     },
     "checklist": {
