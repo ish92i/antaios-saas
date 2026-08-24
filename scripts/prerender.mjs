@@ -28,6 +28,10 @@ const ROUTES = [
   "/resources/commodity-soy",
   "/resources/commodity-rubber",
   "/resources/commodity-cattle",
+  "/resources/country-brazil",
+  "/resources/country-indonesia",
+  "/resources/country-vietnam",
+  "/resources/country-west-africa",
   "/pricing",
 ];
 

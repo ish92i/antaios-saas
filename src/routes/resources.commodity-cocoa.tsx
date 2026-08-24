@@ -177,7 +177,7 @@ function CommodityCocoaPage() {
               {t(
                 "resources.cocoa.traceability.body2",
                 "This creates a structural traceability gap. Unlike industrial-scale commodities, cocoa cannot be traced to a single large plantation. Importers must build systems that aggregate plot-level data across their entire supply chain while maintaining batch-level integrity.",
-              })}
+              )}
             </p>
             <p>
               <strong>{t("resources.cocoa.traceability.cooperatives", "Cooperative systems play a central role:")}</strong>{" "}

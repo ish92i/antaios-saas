@@ -18,8 +18,24 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as SupplierTokenRouteImport } from './routes/supplier/$token'
 import { Route as ResourcesTraceabilityGuideRouteImport } from './routes/resources.traceability-guide'
+import { Route as ResourcesEudrVsEutrRouteImport } from './routes/resources.eudr-vs-eutr'
+import { Route as ResourcesEudrSmeGuideRouteImport } from './routes/resources.eudr-sme-guide'
+import { Route as ResourcesEudrPenaltiesRouteImport } from './routes/resources.eudr-penalties'
 import { Route as ResourcesEudrOverviewRouteImport } from './routes/resources.eudr-overview'
+import { Route as ResourcesEudrGeolocationRouteImport } from './routes/resources.eudr-geolocation'
+import { Route as ResourcesEudrDdsFilingRouteImport } from './routes/resources.eudr-dds-filing'
 import { Route as ResourcesEudrChecklistRouteImport } from './routes/resources.eudr-checklist'
+import { Route as ResourcesCountryWestAfricaRouteImport } from './routes/resources.country-west-africa'
+import { Route as ResourcesCountryVietnamRouteImport } from './routes/resources.country-vietnam'
+import { Route as ResourcesCountryIndonesiaRouteImport } from './routes/resources.country-indonesia'
+import { Route as ResourcesCountryBrazilRouteImport } from './routes/resources.country-brazil'
+import { Route as ResourcesCommodityWoodRouteImport } from './routes/resources.commodity-wood'
+import { Route as ResourcesCommoditySoyRouteImport } from './routes/resources.commodity-soy'
+import { Route as ResourcesCommodityRubberRouteImport } from './routes/resources.commodity-rubber'
+import { Route as ResourcesCommodityPalmOilRouteImport } from './routes/resources.commodity-palm-oil'
+import { Route as ResourcesCommodityCoffeeRouteImport } from './routes/resources.commodity-coffee'
+import { Route as ResourcesCommodityCocoaRouteImport } from './routes/resources.commodity-cocoa'
+import { Route as ResourcesCommodityCattleRouteImport } from './routes/resources.commodity-cattle'
 import { Route as LegalTermsOfSaleRouteImport } from './routes/legal/terms-of-sale'
 import { Route as LegalTermsRouteImport } from './routes/legal/terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal/privacy'
@@ -88,9 +104,35 @@ const ResourcesTraceabilityGuideRoute =
     path: '/traceability-guide',
     getParentRoute: () => ResourcesRoute,
   } as any)
+const ResourcesEudrVsEutrRoute = ResourcesEudrVsEutrRouteImport.update({
+  id: '/eudr-vs-eutr',
+  path: '/eudr-vs-eutr',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const ResourcesEudrSmeGuideRoute = ResourcesEudrSmeGuideRouteImport.update({
+  id: '/eudr-sme-guide',
+  path: '/eudr-sme-guide',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const ResourcesEudrPenaltiesRoute = ResourcesEudrPenaltiesRouteImport.update({
+  id: '/eudr-penalties',
+  path: '/eudr-penalties',
+  getParentRoute: () => ResourcesRoute,
+} as any)
 const ResourcesEudrOverviewRoute = ResourcesEudrOverviewRouteImport.update({
   id: '/eudr-overview',
   path: '/eudr-overview',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const ResourcesEudrGeolocationRoute =
+  ResourcesEudrGeolocationRouteImport.update({
+    id: '/eudr-geolocation',
+    path: '/eudr-geolocation',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
+const ResourcesEudrDdsFilingRoute = ResourcesEudrDdsFilingRouteImport.update({
+  id: '/eudr-dds-filing',
+  path: '/eudr-dds-filing',
   getParentRoute: () => ResourcesRoute,
 } as any)
 const ResourcesEudrChecklistRoute = ResourcesEudrChecklistRouteImport.update({
@@ -98,6 +140,67 @@ const ResourcesEudrChecklistRoute = ResourcesEudrChecklistRouteImport.update({
   path: '/eudr-checklist',
   getParentRoute: () => ResourcesRoute,
 } as any)
+const ResourcesCountryWestAfricaRoute =
+  ResourcesCountryWestAfricaRouteImport.update({
+    id: '/country-west-africa',
+    path: '/country-west-africa',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
+const ResourcesCountryVietnamRoute = ResourcesCountryVietnamRouteImport.update({
+  id: '/country-vietnam',
+  path: '/country-vietnam',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const ResourcesCountryIndonesiaRoute =
+  ResourcesCountryIndonesiaRouteImport.update({
+    id: '/country-indonesia',
+    path: '/country-indonesia',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
+const ResourcesCountryBrazilRoute = ResourcesCountryBrazilRouteImport.update({
+  id: '/country-brazil',
+  path: '/country-brazil',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const ResourcesCommodityWoodRoute = ResourcesCommodityWoodRouteImport.update({
+  id: '/commodity-wood',
+  path: '/commodity-wood',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const ResourcesCommoditySoyRoute = ResourcesCommoditySoyRouteImport.update({
+  id: '/commodity-soy',
+  path: '/commodity-soy',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const ResourcesCommodityRubberRoute =
+  ResourcesCommodityRubberRouteImport.update({
+    id: '/commodity-rubber',
+    path: '/commodity-rubber',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
+const ResourcesCommodityPalmOilRoute =
+  ResourcesCommodityPalmOilRouteImport.update({
+    id: '/commodity-palm-oil',
+    path: '/commodity-palm-oil',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
+const ResourcesCommodityCoffeeRoute =
+  ResourcesCommodityCoffeeRouteImport.update({
+    id: '/commodity-coffee',
+    path: '/commodity-coffee',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
+const ResourcesCommodityCocoaRoute = ResourcesCommodityCocoaRouteImport.update({
+  id: '/commodity-cocoa',
+  path: '/commodity-cocoa',
+  getParentRoute: () => ResourcesRoute,
+} as any)
+const ResourcesCommodityCattleRoute =
+  ResourcesCommodityCattleRouteImport.update({
+    id: '/commodity-cattle',
+    path: '/commodity-cattle',
+    getParentRoute: () => ResourcesRoute,
+  } as any)
 const LegalTermsOfSaleRoute = LegalTermsOfSaleRouteImport.update({
   id: '/legal/terms-of-sale',
   path: '/legal/terms-of-sale',
@@ -231,8 +334,24 @@ export interface FileRoutesByFullPath {
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/legal/terms-of-sale': typeof LegalTermsOfSaleRoute
+  '/resources/commodity-cattle': typeof ResourcesCommodityCattleRoute
+  '/resources/commodity-cocoa': typeof ResourcesCommodityCocoaRoute
+  '/resources/commodity-coffee': typeof ResourcesCommodityCoffeeRoute
+  '/resources/commodity-palm-oil': typeof ResourcesCommodityPalmOilRoute
+  '/resources/commodity-rubber': typeof ResourcesCommodityRubberRoute
+  '/resources/commodity-soy': typeof ResourcesCommoditySoyRoute
+  '/resources/commodity-wood': typeof ResourcesCommodityWoodRoute
+  '/resources/country-brazil': typeof ResourcesCountryBrazilRoute
+  '/resources/country-indonesia': typeof ResourcesCountryIndonesiaRoute
+  '/resources/country-vietnam': typeof ResourcesCountryVietnamRoute
+  '/resources/country-west-africa': typeof ResourcesCountryWestAfricaRoute
   '/resources/eudr-checklist': typeof ResourcesEudrChecklistRoute
+  '/resources/eudr-dds-filing': typeof ResourcesEudrDdsFilingRoute
+  '/resources/eudr-geolocation': typeof ResourcesEudrGeolocationRoute
   '/resources/eudr-overview': typeof ResourcesEudrOverviewRoute
+  '/resources/eudr-penalties': typeof ResourcesEudrPenaltiesRoute
+  '/resources/eudr-sme-guide': typeof ResourcesEudrSmeGuideRoute
+  '/resources/eudr-vs-eutr': typeof ResourcesEudrVsEutrRoute
   '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/admin/': typeof AdminIndexRoute
@@ -263,8 +382,24 @@ export interface FileRoutesByTo {
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/legal/terms-of-sale': typeof LegalTermsOfSaleRoute
+  '/resources/commodity-cattle': typeof ResourcesCommodityCattleRoute
+  '/resources/commodity-cocoa': typeof ResourcesCommodityCocoaRoute
+  '/resources/commodity-coffee': typeof ResourcesCommodityCoffeeRoute
+  '/resources/commodity-palm-oil': typeof ResourcesCommodityPalmOilRoute
+  '/resources/commodity-rubber': typeof ResourcesCommodityRubberRoute
+  '/resources/commodity-soy': typeof ResourcesCommoditySoyRoute
+  '/resources/commodity-wood': typeof ResourcesCommodityWoodRoute
+  '/resources/country-brazil': typeof ResourcesCountryBrazilRoute
+  '/resources/country-indonesia': typeof ResourcesCountryIndonesiaRoute
+  '/resources/country-vietnam': typeof ResourcesCountryVietnamRoute
+  '/resources/country-west-africa': typeof ResourcesCountryWestAfricaRoute
   '/resources/eudr-checklist': typeof ResourcesEudrChecklistRoute
+  '/resources/eudr-dds-filing': typeof ResourcesEudrDdsFilingRoute
+  '/resources/eudr-geolocation': typeof ResourcesEudrGeolocationRoute
   '/resources/eudr-overview': typeof ResourcesEudrOverviewRoute
+  '/resources/eudr-penalties': typeof ResourcesEudrPenaltiesRoute
+  '/resources/eudr-sme-guide': typeof ResourcesEudrSmeGuideRoute
+  '/resources/eudr-vs-eutr': typeof ResourcesEudrVsEutrRoute
   '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/admin': typeof AdminIndexRoute
@@ -297,8 +432,24 @@ export interface FileRoutesById {
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/legal/terms-of-sale': typeof LegalTermsOfSaleRoute
+  '/resources/commodity-cattle': typeof ResourcesCommodityCattleRoute
+  '/resources/commodity-cocoa': typeof ResourcesCommodityCocoaRoute
+  '/resources/commodity-coffee': typeof ResourcesCommodityCoffeeRoute
+  '/resources/commodity-palm-oil': typeof ResourcesCommodityPalmOilRoute
+  '/resources/commodity-rubber': typeof ResourcesCommodityRubberRoute
+  '/resources/commodity-soy': typeof ResourcesCommoditySoyRoute
+  '/resources/commodity-wood': typeof ResourcesCommodityWoodRoute
+  '/resources/country-brazil': typeof ResourcesCountryBrazilRoute
+  '/resources/country-indonesia': typeof ResourcesCountryIndonesiaRoute
+  '/resources/country-vietnam': typeof ResourcesCountryVietnamRoute
+  '/resources/country-west-africa': typeof ResourcesCountryWestAfricaRoute
   '/resources/eudr-checklist': typeof ResourcesEudrChecklistRoute
+  '/resources/eudr-dds-filing': typeof ResourcesEudrDdsFilingRoute
+  '/resources/eudr-geolocation': typeof ResourcesEudrGeolocationRoute
   '/resources/eudr-overview': typeof ResourcesEudrOverviewRoute
+  '/resources/eudr-penalties': typeof ResourcesEudrPenaltiesRoute
+  '/resources/eudr-sme-guide': typeof ResourcesEudrSmeGuideRoute
+  '/resources/eudr-vs-eutr': typeof ResourcesEudrVsEutrRoute
   '/resources/traceability-guide': typeof ResourcesTraceabilityGuideRoute
   '/supplier/$token': typeof SupplierTokenRoute
   '/admin/': typeof AdminIndexRoute
@@ -332,8 +483,24 @@ export interface FileRouteTypes {
     | '/legal/privacy'
     | '/legal/terms'
     | '/legal/terms-of-sale'
+    | '/resources/commodity-cattle'
+    | '/resources/commodity-cocoa'
+    | '/resources/commodity-coffee'
+    | '/resources/commodity-palm-oil'
+    | '/resources/commodity-rubber'
+    | '/resources/commodity-soy'
+    | '/resources/commodity-wood'
+    | '/resources/country-brazil'
+    | '/resources/country-indonesia'
+    | '/resources/country-vietnam'
+    | '/resources/country-west-africa'
     | '/resources/eudr-checklist'
+    | '/resources/eudr-dds-filing'
+    | '/resources/eudr-geolocation'
     | '/resources/eudr-overview'
+    | '/resources/eudr-penalties'
+    | '/resources/eudr-sme-guide'
+    | '/resources/eudr-vs-eutr'
     | '/resources/traceability-guide'
     | '/supplier/$token'
     | '/admin/'
@@ -364,8 +531,24 @@ export interface FileRouteTypes {
     | '/legal/privacy'
     | '/legal/terms'
     | '/legal/terms-of-sale'
+    | '/resources/commodity-cattle'
+    | '/resources/commodity-cocoa'
+    | '/resources/commodity-coffee'
+    | '/resources/commodity-palm-oil'
+    | '/resources/commodity-rubber'
+    | '/resources/commodity-soy'
+    | '/resources/commodity-wood'
+    | '/resources/country-brazil'
+    | '/resources/country-indonesia'
+    | '/resources/country-vietnam'
+    | '/resources/country-west-africa'
     | '/resources/eudr-checklist'
+    | '/resources/eudr-dds-filing'
+    | '/resources/eudr-geolocation'
     | '/resources/eudr-overview'
+    | '/resources/eudr-penalties'
+    | '/resources/eudr-sme-guide'
+    | '/resources/eudr-vs-eutr'
     | '/resources/traceability-guide'
     | '/supplier/$token'
     | '/admin'
@@ -397,8 +580,24 @@ export interface FileRouteTypes {
     | '/legal/privacy'
     | '/legal/terms'
     | '/legal/terms-of-sale'
+    | '/resources/commodity-cattle'
+    | '/resources/commodity-cocoa'
+    | '/resources/commodity-coffee'
+    | '/resources/commodity-palm-oil'
+    | '/resources/commodity-rubber'
+    | '/resources/commodity-soy'
+    | '/resources/commodity-wood'
+    | '/resources/country-brazil'
+    | '/resources/country-indonesia'
+    | '/resources/country-vietnam'
+    | '/resources/country-west-africa'
     | '/resources/eudr-checklist'
+    | '/resources/eudr-dds-filing'
+    | '/resources/eudr-geolocation'
     | '/resources/eudr-overview'
+    | '/resources/eudr-penalties'
+    | '/resources/eudr-sme-guide'
+    | '/resources/eudr-vs-eutr'
     | '/resources/traceability-guide'
     | '/supplier/$token'
     | '/admin/'
@@ -495,6 +694,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesTraceabilityGuideRouteImport
       parentRoute: typeof ResourcesRoute
     }
+    '/resources/eudr-vs-eutr': {
+      id: '/resources/eudr-vs-eutr'
+      path: '/eudr-vs-eutr'
+      fullPath: '/resources/eudr-vs-eutr'
+      preLoaderRoute: typeof ResourcesEudrVsEutrRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/eudr-sme-guide': {
+      id: '/resources/eudr-sme-guide'
+      path: '/eudr-sme-guide'
+      fullPath: '/resources/eudr-sme-guide'
+      preLoaderRoute: typeof ResourcesEudrSmeGuideRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/eudr-penalties': {
+      id: '/resources/eudr-penalties'
+      path: '/eudr-penalties'
+      fullPath: '/resources/eudr-penalties'
+      preLoaderRoute: typeof ResourcesEudrPenaltiesRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
     '/resources/eudr-overview': {
       id: '/resources/eudr-overview'
       path: '/eudr-overview'
@@ -502,11 +722,102 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesEudrOverviewRouteImport
       parentRoute: typeof ResourcesRoute
     }
+    '/resources/eudr-geolocation': {
+      id: '/resources/eudr-geolocation'
+      path: '/eudr-geolocation'
+      fullPath: '/resources/eudr-geolocation'
+      preLoaderRoute: typeof ResourcesEudrGeolocationRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/eudr-dds-filing': {
+      id: '/resources/eudr-dds-filing'
+      path: '/eudr-dds-filing'
+      fullPath: '/resources/eudr-dds-filing'
+      preLoaderRoute: typeof ResourcesEudrDdsFilingRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
     '/resources/eudr-checklist': {
       id: '/resources/eudr-checklist'
       path: '/eudr-checklist'
       fullPath: '/resources/eudr-checklist'
       preLoaderRoute: typeof ResourcesEudrChecklistRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/country-west-africa': {
+      id: '/resources/country-west-africa'
+      path: '/country-west-africa'
+      fullPath: '/resources/country-west-africa'
+      preLoaderRoute: typeof ResourcesCountryWestAfricaRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/country-vietnam': {
+      id: '/resources/country-vietnam'
+      path: '/country-vietnam'
+      fullPath: '/resources/country-vietnam'
+      preLoaderRoute: typeof ResourcesCountryVietnamRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/country-indonesia': {
+      id: '/resources/country-indonesia'
+      path: '/country-indonesia'
+      fullPath: '/resources/country-indonesia'
+      preLoaderRoute: typeof ResourcesCountryIndonesiaRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/country-brazil': {
+      id: '/resources/country-brazil'
+      path: '/country-brazil'
+      fullPath: '/resources/country-brazil'
+      preLoaderRoute: typeof ResourcesCountryBrazilRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/commodity-wood': {
+      id: '/resources/commodity-wood'
+      path: '/commodity-wood'
+      fullPath: '/resources/commodity-wood'
+      preLoaderRoute: typeof ResourcesCommodityWoodRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/commodity-soy': {
+      id: '/resources/commodity-soy'
+      path: '/commodity-soy'
+      fullPath: '/resources/commodity-soy'
+      preLoaderRoute: typeof ResourcesCommoditySoyRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/commodity-rubber': {
+      id: '/resources/commodity-rubber'
+      path: '/commodity-rubber'
+      fullPath: '/resources/commodity-rubber'
+      preLoaderRoute: typeof ResourcesCommodityRubberRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/commodity-palm-oil': {
+      id: '/resources/commodity-palm-oil'
+      path: '/commodity-palm-oil'
+      fullPath: '/resources/commodity-palm-oil'
+      preLoaderRoute: typeof ResourcesCommodityPalmOilRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/commodity-coffee': {
+      id: '/resources/commodity-coffee'
+      path: '/commodity-coffee'
+      fullPath: '/resources/commodity-coffee'
+      preLoaderRoute: typeof ResourcesCommodityCoffeeRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/commodity-cocoa': {
+      id: '/resources/commodity-cocoa'
+      path: '/commodity-cocoa'
+      fullPath: '/resources/commodity-cocoa'
+      preLoaderRoute: typeof ResourcesCommodityCocoaRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
+    '/resources/commodity-cattle': {
+      id: '/resources/commodity-cattle'
+      path: '/commodity-cattle'
+      fullPath: '/resources/commodity-cattle'
+      preLoaderRoute: typeof ResourcesCommodityCattleRouteImport
       parentRoute: typeof ResourcesRoute
     }
     '/legal/terms-of-sale': {
@@ -777,14 +1088,46 @@ const AdminRouteChildren: AdminRouteChildren = {
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface ResourcesRouteChildren {
+  ResourcesCommodityCattleRoute: typeof ResourcesCommodityCattleRoute
+  ResourcesCommodityCocoaRoute: typeof ResourcesCommodityCocoaRoute
+  ResourcesCommodityCoffeeRoute: typeof ResourcesCommodityCoffeeRoute
+  ResourcesCommodityPalmOilRoute: typeof ResourcesCommodityPalmOilRoute
+  ResourcesCommodityRubberRoute: typeof ResourcesCommodityRubberRoute
+  ResourcesCommoditySoyRoute: typeof ResourcesCommoditySoyRoute
+  ResourcesCommodityWoodRoute: typeof ResourcesCommodityWoodRoute
+  ResourcesCountryBrazilRoute: typeof ResourcesCountryBrazilRoute
+  ResourcesCountryIndonesiaRoute: typeof ResourcesCountryIndonesiaRoute
+  ResourcesCountryVietnamRoute: typeof ResourcesCountryVietnamRoute
+  ResourcesCountryWestAfricaRoute: typeof ResourcesCountryWestAfricaRoute
   ResourcesEudrChecklistRoute: typeof ResourcesEudrChecklistRoute
+  ResourcesEudrDdsFilingRoute: typeof ResourcesEudrDdsFilingRoute
+  ResourcesEudrGeolocationRoute: typeof ResourcesEudrGeolocationRoute
   ResourcesEudrOverviewRoute: typeof ResourcesEudrOverviewRoute
+  ResourcesEudrPenaltiesRoute: typeof ResourcesEudrPenaltiesRoute
+  ResourcesEudrSmeGuideRoute: typeof ResourcesEudrSmeGuideRoute
+  ResourcesEudrVsEutrRoute: typeof ResourcesEudrVsEutrRoute
   ResourcesTraceabilityGuideRoute: typeof ResourcesTraceabilityGuideRoute
 }
 
 const ResourcesRouteChildren: ResourcesRouteChildren = {
+  ResourcesCommodityCattleRoute: ResourcesCommodityCattleRoute,
+  ResourcesCommodityCocoaRoute: ResourcesCommodityCocoaRoute,
+  ResourcesCommodityCoffeeRoute: ResourcesCommodityCoffeeRoute,
+  ResourcesCommodityPalmOilRoute: ResourcesCommodityPalmOilRoute,
+  ResourcesCommodityRubberRoute: ResourcesCommodityRubberRoute,
+  ResourcesCommoditySoyRoute: ResourcesCommoditySoyRoute,
+  ResourcesCommodityWoodRoute: ResourcesCommodityWoodRoute,
+  ResourcesCountryBrazilRoute: ResourcesCountryBrazilRoute,
+  ResourcesCountryIndonesiaRoute: ResourcesCountryIndonesiaRoute,
+  ResourcesCountryVietnamRoute: ResourcesCountryVietnamRoute,
+  ResourcesCountryWestAfricaRoute: ResourcesCountryWestAfricaRoute,
   ResourcesEudrChecklistRoute: ResourcesEudrChecklistRoute,
+  ResourcesEudrDdsFilingRoute: ResourcesEudrDdsFilingRoute,
+  ResourcesEudrGeolocationRoute: ResourcesEudrGeolocationRoute,
   ResourcesEudrOverviewRoute: ResourcesEudrOverviewRoute,
+  ResourcesEudrPenaltiesRoute: ResourcesEudrPenaltiesRoute,
+  ResourcesEudrSmeGuideRoute: ResourcesEudrSmeGuideRoute,
+  ResourcesEudrVsEutrRoute: ResourcesEudrVsEutrRoute,
   ResourcesTraceabilityGuideRoute: ResourcesTraceabilityGuideRoute,
 }
 
