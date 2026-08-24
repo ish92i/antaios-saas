@@ -40,6 +40,7 @@ const resourceLinks = [
   { to: "/resources", key: "blog", label: "Blog" },
   { to: "/resources/eudr-overview", key: "guide", label: "Guide EUDR" },
   { to: "/resources/eudr-checklist", key: "checklist", label: "Check-list" },
+  { to: "/resources/eudr-penalties", key: "penalties", label: "Penalties" },
   { to: "/resources", key: "faq", label: "FAQ" },
 ];
 

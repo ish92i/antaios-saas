@@ -273,6 +273,30 @@ function EudrChecklistPage() {
             </p>
           </div>
 
+          <div className="mt-12 border-t border-border pt-8">
+            <h2 className="text-xl font-bold text-foreground">Related Resources</h2>
+            <ul className="mt-4 space-y-2 list-disc list-inside text-muted-foreground">
+              <li>
+                <Link to="/resources/eudr-dds-filing" className="text-primary hover:underline">
+                  How to File a DDS in TRACES NT
+                </Link>
+                {" — "}Step-by-step guide to submitting your due diligence statement.
+              </li>
+              <li>
+                <Link to="/resources/eudr-geolocation" className="text-primary hover:underline">
+                  EUDR Geolocation Requirements
+                </Link>
+                {" — "}GPS and polygon data requirements explained.
+              </li>
+              <li>
+                <Link to="/resources/eudr-penalties" className="text-primary hover:underline">
+                  EUDR Penalties
+                </Link>
+                {" — "}What happens if you don't comply.
+              </li>
+            </ul>
+          </div>
+
           <div className="mt-12 rounded-xl border border-border bg-card p-8 text-center">
             <h2 className="text-2xl font-bold text-foreground">
               {t(

@@ -81,6 +81,13 @@ export const Route = createRootRouteWithContext<{
       name: siteConfig.siteTitle,
       url: siteConfig.siteUrl,
       description: siteConfig.siteDescription,
+      logo: `${siteConfig.siteUrl}${siteConfig.siteImage}`,
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: siteConfig.email,
+        contactType: "customer service",
+      },
+      sameAs: [],
     };
 
     return (

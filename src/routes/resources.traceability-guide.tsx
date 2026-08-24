@@ -233,6 +233,36 @@ function TraceabilityGuidePage() {
             </p>
           </div>
 
+          <div className="mt-12 border-t border-border pt-8">
+            <h2 className="text-xl font-bold text-foreground">Related Resources</h2>
+            <ul className="mt-4 space-y-2 list-disc list-inside text-muted-foreground">
+              <li>
+                <Link to="/resources/eudr-geolocation" className="text-primary hover:underline">
+                  EUDR Geolocation Requirements
+                </Link>
+                {" — "}How to collect and format GPS data.
+              </li>
+              <li>
+                <Link to="/resources/eudr-dds-filing" className="text-primary hover:underline">
+                  How to File a DDS in TRACES NT
+                </Link>
+                {" — "}Step-by-step DDS submission guide.
+              </li>
+              <li>
+                <Link to="/resources/commodity-coffee" className="text-primary hover:underline">
+                  Coffee Compliance
+                </Link>
+                {" — "}Traceability requirements for coffee importers.
+              </li>
+              <li>
+                <Link to="/resources/commodity-palm-oil" className="text-primary hover:underline">
+                  Palm Oil Compliance
+                </Link>
+                {" — "}Mill-to-plantation traceability for palm oil.
+              </li>
+            </ul>
+          </div>
+
           <div className="mt-12 rounded-xl border border-border bg-card p-8 text-center">
             <h2 className="text-2xl font-bold text-foreground">
               {t(

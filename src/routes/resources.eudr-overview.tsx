@@ -200,6 +200,36 @@ function EudrOverviewPage() {
             </ul>
           </div>
 
+          <div className="mt-12 border-t border-border pt-8">
+            <h2 className="text-xl font-bold text-foreground">Related Resources</h2>
+            <ul className="mt-4 space-y-2 list-disc list-inside text-muted-foreground">
+              <li>
+                <Link to="/resources/eudr-checklist" className="text-primary hover:underline">
+                  EUDR Compliance Checklist
+                </Link>
+                {" — "}Your 5-step guide to Article 10(2) compliance.
+              </li>
+              <li>
+                <Link to="/resources/eudr-penalties" className="text-primary hover:underline">
+                  EUDR Penalties
+                </Link>
+                {" — "}Understand fines and enforcement across the EU.
+              </li>
+              <li>
+                <Link to="/resources/eudr-sme-guide" className="text-primary hover:underline">
+                  EUDR for Small Businesses
+                </Link>
+                {" — "}Simplified obligations and extended deadlines for SMEs.
+              </li>
+              <li>
+                <Link to="/resources/eudr-geolocation" className="text-primary hover:underline">
+                  EUDR Geolocation Requirements
+                </Link>
+                {" — "}GPS and polygon data requirements explained.
+              </li>
+            </ul>
+          </div>
+
           <div className="mt-12 rounded-xl border border-border bg-card p-8 text-center">
             <h2 className="text-2xl font-bold text-foreground">
               {t(

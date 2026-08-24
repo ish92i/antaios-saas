@@ -1,96 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://antaios.app/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://antaios.app/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://antaios.app/" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://antaios.app/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://antaios.app/" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://antaios.app/" />
-    <xhtml:link rel="alternate" hreflang="nl" href="https://antaios.app/" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://antaios.app/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://antaios.app/" />
   </url>
   <url>
     <loc>https://antaios.app/free-tool</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://antaios.app/free-tool" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://antaios.app/free-tool" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://antaios.app/free-tool" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://antaios.app/free-tool" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://antaios.app/free-tool" />
-    <xhtml:link rel="alternate" hreflang="nl" href="https://antaios.app/free-tool" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://antaios.app/free-tool" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://antaios.app/free-tool" />
   </url>
   <url>
     <loc>https://antaios.app/resources</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://antaios.app/resources" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://antaios.app/resources" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://antaios.app/resources" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://antaios.app/resources" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://antaios.app/resources" />
-    <xhtml:link rel="alternate" hreflang="nl" href="https://antaios.app/resources" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://antaios.app/resources" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://antaios.app/resources" />
   </url>
   <url>
     <loc>https://antaios.app/resources/eudr-checklist</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://antaios.app/resources/eudr-checklist" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://antaios.app/resources/eudr-checklist" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://antaios.app/resources/eudr-checklist" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://antaios.app/resources/eudr-checklist" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://antaios.app/resources/eudr-checklist" />
-    <xhtml:link rel="alternate" hreflang="nl" href="https://antaios.app/resources/eudr-checklist" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://antaios.app/resources/eudr-checklist" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://antaios.app/resources/eudr-checklist" />
   </url>
   <url>
     <loc>https://antaios.app/resources/eudr-overview</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://antaios.app/resources/eudr-overview" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://antaios.app/resources/eudr-overview" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://antaios.app/resources/eudr-overview" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://antaios.app/resources/eudr-overview" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://antaios.app/resources/eudr-overview" />
-    <xhtml:link rel="alternate" hreflang="nl" href="https://antaios.app/resources/eudr-overview" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://antaios.app/resources/eudr-overview" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://antaios.app/resources/eudr-overview" />
   </url>
   <url>
     <loc>https://antaios.app/resources/traceability-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://antaios.app/resources/traceability-guide" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://antaios.app/resources/traceability-guide" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://antaios.app/resources/traceability-guide" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://antaios.app/resources/traceability-guide" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://antaios.app/resources/traceability-guide" />
-    <xhtml:link rel="alternate" hreflang="nl" href="https://antaios.app/resources/traceability-guide" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://antaios.app/resources/traceability-guide" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://antaios.app/resources/traceability-guide" />
   </url>
   <url>
     <loc>https://antaios.app/pricing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://antaios.app/pricing" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://antaios.app/pricing" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://antaios.app/pricing" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://antaios.app/pricing" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://antaios.app/pricing" />
-    <xhtml:link rel="alternate" hreflang="nl" href="https://antaios.app/pricing" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://antaios.app/pricing" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://antaios.app/pricing" />
   </url>
   <url>
     <loc>https://antaios.app/legal/privacy</loc>
@@ -116,5 +59,85 @@
     <loc>https://antaios.app/legal/dpa</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/eudr-penalties</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/eudr-sme-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/eudr-geolocation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/eudr-dds-filing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/eudr-vs-eutr</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/commodity-coffee</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/commodity-cocoa</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/commodity-palm-oil</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/commodity-wood</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/commodity-soy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/commodity-rubber</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/commodity-cattle</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/country-indonesia</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/country-brazil</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/country-vietnam</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://antaios.app/resources/country-west-africa</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

@@ -116,10 +116,10 @@ function LandingPage() {
             "@type": "VideoObject",
             "name": "Antaios EUDR Compliance Demo",
             "description": "See how Antaios extracts data from supplier documents, covers all 5 due-diligence criteria, and generates your DDS in minutes.",
-            "thumbnailUrl": "https://picsum.photos/seed/eudr-hero/1280/720",
+            "thumbnailUrl": "https://antaios.app/images/og-image.png",
             "uploadDate": "2024-11-01",
             "duration": "PT2M",
-            "embedUrl": "/antaios-final-with-vo-v5.mp4"
+            "embedUrl": "https://antaios.app/antaios-final-with-vo-v5.mp4"
           })}
         </script>
       </Helmet>

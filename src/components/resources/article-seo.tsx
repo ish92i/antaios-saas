@@ -8,9 +8,10 @@ interface ArticleSeoProps {
   datePublished: string;
   dateModified?: string;
   category?: string;
+  faqItems?: Array<{ question: string; answer: string }>;
 }
 
-export function ArticleSeo({ title, description, path, datePublished, dateModified, category }: ArticleSeoProps) {
+export function ArticleSeo({ title, description, path, datePublished, dateModified, category, faqItems }: ArticleSeoProps) {
   const url = `${siteConfig.siteUrl}${path}`;
   const fullTitle = `${title} — Antaios Resources`;
 
@@ -50,6 +51,21 @@ export function ArticleSeo({ title, description, path, datePublished, dateModifi
     ],
   };
 
+  const faqSchema = faqItems
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqItems.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      }
+    : null;
+
   return (
     <Helmet>
       <title>{fullTitle}</title>
@@ -62,9 +78,11 @@ export function ArticleSeo({ title, description, path, datePublished, dateModifi
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={`${siteConfig.siteUrl}${siteConfig.siteImage}`} />
       <link rel="canonical" href={url} />
       <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+      {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
     </Helmet>
   );
 }

@@ -513,6 +513,7 @@
         "blog": "Blog",
         "guide": "EUDR Guide",
         "checklist": "Checklist",
+        "penalties": "Penalties",
         "faq": "FAQ",
         "notices": "Legal Notices",
         "privacy": "Privacy Policy",
@@ -747,6 +748,11 @@
         "title": "Is Your Business Ready for EUDR? A Practical Overview",
         "desc": "A high-level overview of the EU Deforestation Regulation: who it affects, key deadlines, regulated commodities, and first steps to take.",
         "category": "Overview"
+      },
+      "penalties": {
+        "title": "EUDR Penalties: Fines and Enforcement Across the EU",
+        "desc": "A comprehensive guide to EUDR penalties, fines, and enforcement. Learn about Article 24, fine calculation methodology, member state differences, and how to avoid non-compliance consequences.",
+        "category": "Compliance Guide"
       }
     },
     "article": {
@@ -916,6 +922,101 @@
       "cta": {
         "title": "Need help building your traceability system?",
         "desc": "Our free diagnostic walks through your current setup and identifies the gaps — in under 3 minutes.",
+        "button": "Take the free diagnostic"
+      }
+    },
+    "penalties": {
+      "category": "Compliance Guide",
+      "readTime": "7 min read",
+      "title": "EUDR Penalties: Fines and Enforcement Across the EU",
+      "intro": "The EU Deforestation Regulation (EU) 2023/1115 does not just set compliance standards — it enforces them with significant penalties. Article 24 requires member states to impose penalties that are \"effective, proportionate, and dissuasive.\" Understanding the penalty framework is essential for any operator or trader placing covered commodities on the EU market. Non-compliance is not a theoretical risk — it carries real financial and operational consequences.",
+      "framework": {
+        "title": "1. The Penalty Framework: Article 24",
+        "body": "Article 24 of EUDR establishes the legal basis for penalties but deliberately leaves the specifics to individual member states. The regulation mandates that penalties must be effective, proportionate, and dissuasive — meaning they should be severe enough to discourage violations, scaled to the gravity of the offence, and designed to prevent future non-compliance. Member states must adopt these penalty frameworks by the time the regulation becomes applicable: December 30, 2026 for large and medium enterprises, and June 30, 2027 for small and micro enterprises.",
+        "body2": "The regulation also requires that penalties apply to any operator or trader who places a product on the EU market without a valid due-diligence statement, or whose statement does not meet the requirements of Article 10(2). This includes situations where due-diligence evidence is incomplete, inaccurate, or not properly retained for the mandatory five-year period."
+      },
+      "calculation": {
+        "title": "2. Fine Calculation Methodology",
+        "body": "While member states set their own penalty levels, EUDR Article 24(3) provides clear guidelines for how fines should be calculated. Fines must be proportionate and take into account:",
+        "env": "The gravity and duration of the infringement, including the degree of environmental damage caused or risked",
+        "turnover": "The turnover of the undertaking concerned — larger companies face proportionally larger fines",
+        "benefit": "Any financial benefit gained or potentially gained from the infringement",
+        "mitigation": "Mitigating factors such as voluntary disclosure, cooperation with authorities, and prompt remedial measures",
+        "body2": "This means that fines are not flat-rate. A large timber importer with €50 million in annual revenue who knowingly places non-compliant products on the market will face a fundamentally different penalty than a small coffee trader who fails to complete one due-diligence statement. The regulation intends for penalties to hurt enough to change behaviour."
+      },
+      "memberStates": {
+        "title": "3. Member State Implementation Differences",
+        "body": "Each EU member state is responsible for transposing Article 24 into national law. This means the specific penalty amounts, enforcement procedures, and competent authorities will vary across the bloc. Some member states may adopt stricter penalty regimes than others, particularly those with large import volumes or strong environmental enforcement traditions. As of late 2024, most member states have not yet published their final penalty frameworks, but the direction is clear: penalties will be meaningful.",
+        "body2": "For operators trading across multiple member states, this creates a patchwork of potential liabilities. A product that enters through one member state but is sold in another may be subject to enforcement action in either jurisdiction. Operators should not assume that a lenient enforcement approach in one country will protect them elsewhere."
+      },
+      "types": {
+        "title": "4. Types of Penalties",
+        "body": "EUDR penalties go beyond financial fines. Article 24 specifies several categories of consequences that member states must provide for:",
+        "fines": {
+          "title": "Administrative Fines",
+          "body": "The most direct penalty. Fines are calculated based on the value of the products involved or a percentage of the operator's annual turnover in the relevant member state. Under Article 24(3), fines must be at least twice the value of the products gained through the infringement, where that value can be determined."
+        },
+        "confiscation": {
+          "title": "Product Confiscation and Destruction",
+          "body": "Competent authorities can seize non-compliant products. If the products cannot be remedied or re-exported, they may be destroyed at the operator's expense. This is particularly significant for perishable commodities like cocoa, coffee, and rubber, where destruction represents a total financial loss."
+        },
+        "exclusion": {
+          "title": "Market Exclusion",
+          "body": "For serious or repeated violations, member states may temporarily or permanently exclude operators from placing relevant products on the EU market. This is the most severe administrative penalty and can effectively end an importer's business in covered commodities."
+        },
+        "criminal": {
+          "title": "Criminal Penalties",
+          "body": "Article 24(7) specifically requires member states to provide for criminal penalties for \"serious infringements.\" While the regulation does not define exactly what constitutes a serious infringement, intentional non-compliance — such as knowingly submitting false due-diligence statements or deliberately evading traceability requirements — is likely to trigger criminal proceedings in many member states."
+        }
+      },
+      "who": {
+        "title": "5. Who Gets Penalized?",
+        "body": "EUDR applies penalties to both operators and traders, though their obligations differ:",
+        "operators": {
+          "label": "Operators:",
+          "body": "Those who first place a relevant product on the EU market carry the primary due-diligence obligations. They bear the heaviest penalty exposure, as they are responsible for the complete due-diligence statement, traceability, and risk assessment."
+        },
+        "traders": {
+          "label": "Traders:",
+          "body": "Those who subsequently make products available on the EU market have lighter obligations — they must retain and provide information but are not required to produce a full due-diligence statement. However, traders still face penalties for failing to meet their obligations, and penalties increase significantly for non-small/micro enterprise traders."
+        },
+        "downstream": {
+          "label": "Downstream operators:",
+          "body": "Companies that use covered commodities as inputs in manufacturing (e.g., chocolate producers using cocoa, furniture makers using wood) are also in scope. If they place a derived product on the EU market, they must ensure due-diligence obligations are met for the relevant commodities."
+        }
+      },
+      "size": {
+        "title": "6. How Penalties Differ by Company Size",
+        "body": "EUDR distinguishes between company sizes for both deadlines and, indirectly, for penalties. Small and micro enterprises — defined as those with fewer than 250 employees and annual turnover not exceeding €50 million — have until June 30, 2027 to comply, compared to December 30, 2026 for larger enterprises.",
+        "body2": "However, once both cohorts are within the compliance period, the penalty framework applies equally. The fine calculation methodology means that turnover-based fines will naturally be lower for smaller companies, but the proportionate principle still applies. A small trader whose non-compliance causes significant environmental damage could still face penalties that threaten its viability."
+      },
+      "timeline": {
+        "title": "7. Enforcement Timeline and Competent Authorities",
+        "body": "Each member state must designate one or more competent authorities responsible for monitoring and enforcing EUDR. These authorities will conduct audits, investigate complaints, and impose penalties. The regulation requires member states to ensure that competent authorities have sufficient resources and powers to carry out their functions effectively.",
+        "body2": "Enforcement will begin as soon as the regulation becomes applicable. There will be no grace period for non-compliance. Authorities are expected to start with advisory and corrective actions but will have full enforcement powers from day one. Early enforcement actions will set precedents that shape the entire compliance landscape."
+      },
+      "avoid": {
+        "title": "8. How to Avoid Penalties",
+        "body": "The best defence against EUDR penalties is a robust compliance system. Here are the key steps:",
+        "s1": "Complete a thorough due-diligence assessment covering all five Article 10(2) criteria — traceability, geolocation, applicable legislation, verifiable information, and risk assessment",
+        "s2": "Maintain complete, accurate, and retrievable records for the mandatory five-year retention period",
+        "s3": "Establish supplier agreements that include traceability and compliance clauses",
+        "s4": "Implement a system for tracking geolocation data at plot level, including polygon coordinates for plots above 4 hectares",
+        "s5": "Conduct periodic internal audits to verify your due-diligence process is working as intended",
+        "body2": "If you are unsure where your compliance gaps are, a diagnostic assessment can help you identify weaknesses before an auditor does."
+      },
+      "takeaways": {
+        "title": "9. Key Takeaways",
+        "t1": "EUDR penalties must be effective, proportionate, and dissuasive — member states are required to take enforcement seriously",
+        "t2": "Fines are calculated based on turnover, environmental damage, and the value of non-compliant products — they are not flat-rate",
+        "t3": "Penalties include fines, product confiscation, market exclusion, and criminal charges for serious violations",
+        "t4": "Both operators and traders are subject to penalties, with operators facing the heaviest consequences",
+        "t5": "Enforcement begins from day one — there is no grace period for non-compliance",
+        "t6": "The best protection is a complete, documented due-diligence system covering all five Article 10(2) criteria"
+      },
+      "cta": {
+        "title": "Not sure where you stand?",
+        "desc": "Take our free 3-minute diagnostic. 8 questions, no email required.",
         "button": "Take the free diagnostic"
       }
     }

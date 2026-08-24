@@ -134,8 +134,11 @@ function FreeToolPage() {
     return (
       <>
         <Helmet>
+          <title>EUDR Compliance Diagnostic — Antaios</title>
           <meta name="description" content="Free EUDR compliance diagnostic for importers. 8 questions covering Article 10(2) due-diligence criteria. Assess your readiness against the EU Deforestation Regulation in 2 minutes — no email required." />
+          <meta property="og:title" content="EUDR Compliance Diagnostic — Antaios" />
           <meta property="og:description" content="Free EUDR compliance diagnostic for importers. 8 questions covering Article 10(2) due-diligence criteria. Assess your readiness against the EU Deforestation Regulation in 2 minutes — no email required." />
+          <meta property="og:type" content="website" />
           <meta property="og:url" content="https://antaios.app/free-tool" />
           <script type="application/ld+json">
             {JSON.stringify({
@@ -188,8 +191,11 @@ function FreeToolPage() {
   return (
     <>
       <Helmet>
+        <title>EUDR Compliance Diagnostic — Antaios</title>
         <meta name="description" content="Free EUDR compliance diagnostic for importers. 8 questions covering Article 10(2) due-diligence criteria. Assess your readiness against the EU Deforestation Regulation in 2 minutes — no email required." />
+        <meta property="og:title" content="EUDR Compliance Diagnostic — Antaios" />
         <meta property="og:description" content="Free EUDR compliance diagnostic for importers. 8 questions covering Article 10(2) due-diligence criteria. Assess your readiness against the EU Deforestation Regulation in 2 minutes — no email required." />
+        <meta property="og:type" content="website" />
         <meta property="og:url" content="https://antaios.app/free-tool" />
         <script type="application/ld+json">
           {JSON.stringify({

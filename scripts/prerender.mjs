@@ -16,6 +16,18 @@ const ROUTES = [
   "/resources/eudr-overview",
   "/resources/eudr-checklist",
   "/resources/traceability-guide",
+  "/resources/eudr-penalties",
+  "/resources/eudr-sme-guide",
+  "/resources/eudr-geolocation",
+  "/resources/eudr-dds-filing",
+  "/resources/eudr-vs-eutr",
+  "/resources/commodity-coffee",
+  "/resources/commodity-cocoa",
+  "/resources/commodity-palm-oil",
+  "/resources/commodity-wood",
+  "/resources/commodity-soy",
+  "/resources/commodity-rubber",
+  "/resources/commodity-cattle",
   "/pricing",
 ];
 
