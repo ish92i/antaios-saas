@@ -359,14 +359,14 @@ function EudrDdsFilingPage() {
               )}
             </p>
             <p>
-              {strong(t("resources.dds.simplified.full.label", "Full due diligence"))}:{" "}
+              <strong>{t("resources.dds.simplified.full.label", "Full due diligence")}</strong>:{" "}
               {t(
                 "resources.dds.simplified.full.body",
                 "Required for standard-risk and high-risk countries. You must satisfy all five Article 10(2) criteria — traceability, geolocation, applicable legislation, verifiable information, and risk assessment — and attach comprehensive supporting evidence.",
               )}
             </p>
             <p>
-              {strong(t("resources.dds.simplified.simple.label", "Simplified due diligence"))}:{" "}
+              <strong>{t("resources.dds.simplified.simple.label", "Simplified due diligence")}</strong>:{" "}
               {t(
                 "resources.dds.simplified.simple.body",
                 "Available for low-risk countries. You still need traceability and geolocation data, but the remaining criteria are reduced. You must demonstrate that the country classification is current and that the commodity originates from the declared low-risk territory.",
