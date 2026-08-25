@@ -1,6 +1,10 @@
+import { Suspense, lazy } from "react";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { Logo } from "@/components/logo";
-import { Globe } from "@/components/ui/globe";
+
+const Globe = lazy(() =>
+  import("@/components/ui/globe").then((m) => ({ default: m.Globe }))
+);
 
 const HOME_PATH = "/";
 
@@ -68,7 +72,9 @@ function LoginLayout() {
         </Link>
 
         <div className="relative aspect-square w-full max-w-[650px]">
-          <Globe config={getConfig()} />
+          <Suspense>
+            <Globe config={getConfig()} />
+          </Suspense>
         </div>
       </div>
       <div className="flex h-full w-full flex-col border-l border-primary/5 bg-card lg:w-[50%]">

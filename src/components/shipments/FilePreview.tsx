@@ -50,6 +50,7 @@ export function FilePreview({
       <img
         src={objectUrl}
         alt={file.name}
+        loading="lazy"
         className="max-h-[60vh] w-full rounded-lg object-contain"
       />
     )

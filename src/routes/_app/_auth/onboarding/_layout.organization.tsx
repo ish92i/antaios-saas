@@ -1,8 +1,12 @@
+import { Suspense, lazy } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Loader2, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { PhoneInput } from "@/components/ui/phone-input";
 import { Button } from "@/components/ui/button";
+
+const PhoneInput = lazy(() =>
+  import("@/components/ui/phone-input").then((m) => ({ default: m.PhoneInput }))
+);
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -211,12 +215,14 @@ export default function OnboardingOrganization() {
                   <label htmlFor="phone" className="text-sm font-medium text-primary/80">
                     Phone <span className="text-muted-foreground font-normal">(optional)</span>
                   </label>
-                  <PhoneInput
-                    international
-                    value={field.state.value || undefined}
-                    onChange={(value) => field.handleChange(value || "")}
-                    placeholder="+33 1 23 45 67 89"
-                  />
+                  <Suspense>
+                    <PhoneInput
+                      international
+                      value={field.state.value || undefined}
+                      onChange={(value) => field.handleChange(value || "")}
+                      placeholder="+33 1 23 45 67 89"
+                    />
+                  </Suspense>
                 </div>
               )}
             />
