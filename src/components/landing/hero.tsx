@@ -1,7 +1,8 @@
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
-import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -38,6 +39,13 @@ function FadeIn({
 
 export function Hero() {
   const { t } = useTranslation();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlay = () => {
+    setIsPlaying(true);
+    setTimeout(() => videoRef.current?.play(), 50);
+  };
 
   return (
     <section className="relative min-h-[100dvh] overflow-hidden px-6 pb-20 pt-12 md:pb-32 md:pt-16">
@@ -120,16 +128,48 @@ export function Hero() {
 
           <FadeIn delay={0.25} y={24}>
             <div className="mx-auto max-w-5xl">
-              <video
-                src="/antaios-final-with-vo-v5.mp4"
-                poster="/images/hero-poster.jpg"
-                controls
-                playsInline
-                preload="metadata"
-                className="w-full rounded-md border shadow-lg"
-              >
-                <track kind="captions" />
-              </video>
+              <div className="relative overflow-hidden rounded-xl border shadow-2xl">
+                <AnimatePresence>
+                  {!isPlaying && (
+                    <motion.button
+                      type="button"
+                      aria-label="Play video"
+                      initial={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      onClick={handlePlay}
+                      className="group absolute inset-0 z-10 cursor-pointer border-0 bg-transparent p-0"
+                    >
+                      <img
+                        src="/images/hero-poster.jpg"
+                        alt="Antaios demo video"
+                        width={1920}
+                        height={1080}
+                        className="aspect-video w-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="flex size-20 items-center justify-center rounded-full border border-white/20 bg-black/40 backdrop-blur-sm transition-all duration-200 group-hover:scale-110 group-hover:bg-black/50 sm:size-24">
+                          <div className="flex size-14 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform duration-200 group-hover:scale-105 sm:size-16">
+                            <Play className="ml-1 size-6 text-black sm:size-7" />
+                          </div>
+                        </div>
+                      </div>
+                    </motion.button>
+                  )}
+                </AnimatePresence>
+                <video
+                  ref={videoRef}
+                  src="/antaios-final-with-vo-v5.mp4"
+                  poster="/images/hero-poster.jpg"
+                  controls={isPlaying}
+                  playsInline
+                  preload="metadata"
+                  className="aspect-video w-full object-cover"
+                >
+                  <track kind="captions" />
+                </video>
+              </div>
             </div>
           </FadeIn>
         </div>
