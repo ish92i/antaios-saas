@@ -128,7 +128,17 @@ export function Hero() {
 
           <FadeIn delay={0.25} y={24}>
             <div className="mx-auto max-w-5xl">
-              <div className="relative overflow-hidden rounded-xl border shadow-2xl">
+              <div className="group relative overflow-hidden rounded-xl border shadow-2xl">
+                <video
+                  ref={videoRef}
+                  src="/antaios-final-with-vo-v5.mp4"
+                  controls={isPlaying}
+                  playsInline
+                  preload="metadata"
+                  className="aspect-video w-full object-cover"
+                >
+                  <track kind="captions" />
+                </video>
                 <AnimatePresence>
                   {!isPlaying && (
                     <motion.button
@@ -138,15 +148,8 @@ export function Hero() {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
                       onClick={handlePlay}
-                      className="group absolute inset-0 z-10 cursor-pointer border-0 bg-transparent p-0"
+                      className="absolute inset-0 z-10 cursor-pointer border-0 bg-transparent p-0"
                     >
-                      <img
-                        src="/images/hero-poster.jpg"
-                        alt="Antaios demo video"
-                        width={1920}
-                        height={1080}
-                        className="aspect-video w-full object-cover"
-                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="flex size-20 items-center justify-center rounded-full border border-white/20 bg-black/40 backdrop-blur-sm transition-all duration-200 group-hover:scale-110 group-hover:bg-black/50 sm:size-24">
@@ -158,17 +161,6 @@ export function Hero() {
                     </motion.button>
                   )}
                 </AnimatePresence>
-                <video
-                  ref={videoRef}
-                  src="/antaios-final-with-vo-v5.mp4"
-                  poster="/images/hero-poster.jpg"
-                  controls={isPlaying}
-                  playsInline
-                  preload="metadata"
-                  className="aspect-video w-full object-cover"
-                >
-                  <track kind="captions" />
-                </video>
               </div>
             </div>
           </FadeIn>
