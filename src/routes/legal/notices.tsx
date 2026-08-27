@@ -66,7 +66,7 @@ function NoticesPage() {
               <strong>RCS (SIRET):</strong> — <em>see TODO</em><br />
               <strong>VAT number (TVA intracom.):</strong> — <em>see TODO</em><br />
               <strong>Registered office:</strong> 90 Rue Henry Litolff, 92270 Bois-Colombes, France<br />
-              <strong>Email:</strong> <a href="mailto:support@antaios.app" className="text-primary underline hover:no-underline">support@antaios.app</a>
+              <strong>Email:</strong> <a href="mailto:hello@mail.antaios.app" className="text-primary underline hover:no-underline">hello@mail.antaios.app</a>
             </p>
           </Section>
 

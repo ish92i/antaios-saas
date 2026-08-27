@@ -9,6 +9,6 @@ export default {
   siteImage: "https://antaios.app/images/og-image.png",
   favicon: "/favicon.ico",
   twitterHandle: "antaios_app",
-  email: "support@antaios.app",
+  email: "hello@mail.antaios.app",
   address: "",
 };

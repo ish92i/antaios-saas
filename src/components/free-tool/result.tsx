@@ -183,7 +183,7 @@ export function Result({
         </Link>
 
         <p className="text-xs text-muted-foreground">
-          {t("freeTool.result.support", "Questions about your result? Email us at support@antaios.app")}
+          {t("freeTool.result.support", "Questions about your result? Email us at hello@mail.antaios.app")}
         </p>
 
         <button

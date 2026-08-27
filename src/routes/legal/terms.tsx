@@ -74,7 +74,7 @@ function TermsPage() {
             <p>
               Users are responsible for maintaining the confidentiality of their login credentials. Any use
               of an account after authentication is deemed to have been made by the User. In the event of
-              loss, theft, or unauthorized use, the User must immediately notify us at support@antaios.app.
+              loss, theft, or unauthorized use, the User must immediately notify us at hello@mail.antaios.app.
             </p>
 
             <h3 className="mt-4 font-semibold text-foreground">3.3 Supplier Portal</h3>
@@ -234,7 +234,7 @@ function TermsPage() {
             </p>
             <p className="mt-1">
               <strong>Antaios</strong><br />
-              Email: support@antaios.app
+              Email: hello@mail.antaios.app
             </p>
           </Section>
         </div>

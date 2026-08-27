@@ -382,7 +382,7 @@ function DPAPage() {
             <p className="mt-1">
               <strong>Antaios</strong><br />
               Data Protection: <a href="mailto:privacy@antaios.app" className="text-primary underline hover:no-underline">privacy@antaios.app</a><br />
-              Support: <a href="mailto:support@antaios.app" className="text-primary underline hover:no-underline">support@antaios.app</a>
+              Support: <a href="mailto:hello@mail.antaios.app" className="text-primary underline hover:no-underline">hello@mail.antaios.app</a>
             </p>
           </Section>
 

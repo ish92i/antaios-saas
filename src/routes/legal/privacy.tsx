@@ -39,7 +39,7 @@ function PrivacyPage() {
             </p>
             <p>
               For any questions regarding this Privacy Policy or our data processing practices, please contact
-              us at: <strong>support@antaios.app</strong>.
+              us at: <strong>hello@mail.antaios.app</strong>.
             </p>
           </Section>
 
@@ -253,7 +253,7 @@ function PrivacyPage() {
             <p className="mt-1">
               <strong>Antaios</strong><br />
               Email: <a href="mailto:privacy@antaios.app" className="text-primary underline hover:no-underline">privacy@antaios.app</a><br />
-              Support: <a href="mailto:support@antaios.app" className="text-primary underline hover:no-underline">support@antaios.app</a>
+              Support: <a href="mailto:hello@mail.antaios.app" className="text-primary underline hover:no-underline">hello@mail.antaios.app</a>
             </p>
           </Section>
         </div>

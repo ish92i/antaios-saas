@@ -248,7 +248,7 @@ function TermsOfSalePage() {
             <p>
               For Clients qualifying as consumers (micro-enterprises under Article L.441-1 of the French
               Commercial Code may also benefit), prior to any court proceedings, the parties agree to attempt
-              an amicable resolution by contacting support@antaios.app.
+              an amicable resolution by contacting hello@mail.antaios.app.
             </p>
           </Section>
 
@@ -258,7 +258,7 @@ function TermsOfSalePage() {
             </p>
             <p className="mt-1">
               <strong>Antaios</strong><br />
-              Email: <a href="mailto:support@antaios.app" className="text-primary underline hover:no-underline">support@antaios.app</a>
+              Email: <a href="mailto:hello@mail.antaios.app" className="text-primary underline hover:no-underline">hello@mail.antaios.app</a>
             </p>
           </Section>
         </div>

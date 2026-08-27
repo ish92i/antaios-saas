@@ -325,8 +325,8 @@
       },
       "actions": "Recommended next actions",
       "retake": "Retake the test",
-      "support": "Questions about your result? Email us at support@antaios.app",
-      "supportLink": "mailto:support@antaios.app"
+      "support": "Questions about your result? Email us at hello@mail.antaios.app",
+      "supportLink": "mailto:hello@mail.antaios.app"
     },
     "cta": {
       "high": "Start with Antaios — €500/month",
